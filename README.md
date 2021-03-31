@@ -1,29 +1,11 @@
-# README #
+Projeto Integrador LEI 2020-2021 2DI-G03
+===========================================
+# 1. Team members #
+  * 1190424 - Beatriz Seixas
+  * 1190682 - Jessica Alves
+  * 1190967 - Pedro Santos
+  * 1191460 - Tiago Costa
 
-This README would normally document whatever steps are necessary to get your application up and running.
+# 2. Sprints #
+  * [Sprint A](doc/sprintA/)
 
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
