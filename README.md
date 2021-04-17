@@ -8,7 +8,3 @@ Projeto Integrador LEI 2020-2021 2DI-G03
 
 # 2. Sprints #
   * [Sprint A](doc/sprintA/)
-
-
-### Modelo de domínio:
-![MD](doc/md.svg)
