@@ -1,17 +1,12 @@
 Projeto Integrador LEI 2020-2021 2DI-G03
 ===========================================
-
-# 1. Modelo de domínio:#
-
-![MD](engenharia/md/md.svg)
-
-# 2. Personna #
+# 1. Personna #
     * Gestor de Serviços de Helpdesk
     * Responsável de Recursos Humanos
     * Utilizador
     * Administrador
 
-# 3. Casos de Uso #
+# 2. Casos de Uso #
 
 ## 2.1. Área de Gestão de Serviços e de Recursos Humanos ##
 
