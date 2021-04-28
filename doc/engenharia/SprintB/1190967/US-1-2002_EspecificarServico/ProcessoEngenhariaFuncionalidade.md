@@ -1,23 +1,70 @@
-# US-1-2002 - Especificar Servico
+# [US-1-2002] Especificar Servico
 =======================================
 
 
 # 1. Requisitos
 
-*Nesta secção a equipa deve indicar a funcionalidade desenvolvida bem como descrever a sua interpretação sobre a mesma e sua correlação e/ou dependência de/com outros requisitos.*
+*Nesta secção a equipa deve indicar a funcionalidade desenvolvida bem como descrever a 
+sua interpretação sobre a mesma e sua correlação e/ou dependência de/com outros requisitos.*
 
-*Exemplo*
-
-**Demo1** Como {Ator} pretendo...
+**[US-1-2002]** Como Gestor de Serviços de Helpdesk, eu pretendo proceder à especificação de 
+um novo serviço, devendo o sistema permitir que a mesma fique incompleta e seja, posteriomente, retomada.
 
 - Demo1.1. Blá Blá Blá ...
 
 - Demo1.2. Blá Blá Blá ...
 
-A interpretação feita deste requisito foi no sentido de ...
+A interpretação feita deste requisito foi no sentido do gestor de serviços especificar um serviço, 
+juntamente com todas as suas informações necessárias como por exemplo: código, descrição, catálogo 
+onde será disponibilizado, formulários, requer feedback.
 
-### SSD
-![US-1-2002_SSD](US-1-2002_SSD.svg)
+### Formato Breve
+
+O ator envia um pedido para especificar um serviço. O sistema solicita a introdução de dados (código,
+descrição, requer feedback). O ator introduz os dados. O sistema mostra a lista de catálogos e solicita
+a escolha de um catálogo. O ator escolhe o catálogo onde será disponibilizado o serviço. O sistema solicita
+a introdução de dados do formulário (código, nome, tipo). O ator introduz os dados. O sistema solicita a 
+introdução de dados (tipo de dados, regex, descrição, script, label, nome). O ator introduz os dados.
+O sistema pergunta se deseja adicionar mais atributos ao formulário em questão. O ator responde se pretende
+ou não adicionar mais atributos. O sistema pergunta se deseja adicionar mais formulários ao serviço em questão.
+O ator responde se pretende ou não adicionar mais formulários. O sistema valida, apresenta os dados do serviço 
+e solicita uma confirmação. O ator confirma. O sistema regista o serviço e informa do sucesso da operação.
+
+![US-1-2002_SSD](US-1-2002_SSD_SSD.svg)
+
+### Formato Completo
+
+#### Ator principal
+
+* Gestor de Serviços de Helpdesk
+
+#### Partes interessadas e seus interesses
+
+* **Gestor de Serviços de Helpdesk:** pretende especificar um serviço.
+
+#### Pré-condições
+
+* Existir pelo menos um catálogo no sistema.
+
+#### Pós-condições
+
+* A informação da especificação do serviço é registada no sistema.
+
+#### Requisitos especiais
+
+\-
+
+#### Lista de Variações de Tecnologias e Dados
+
+\-
+
+#### Frequência de Ocorrência
+
+\-
+
+#### Questões em aberto
+
+* O ator pode a qualquer momento pausar a especificação?
 
 # 2. Análise
 
@@ -25,9 +72,9 @@ A interpretação feita deste requisito foi no sentido de ...
 
 *Recomenda-se que organize este conteúdo por subsecções.*
 
-### Part of the Domain Model Relevant for the UC
+### Parte do Modelo de Domínio Relevante para esta User Story
 
-![US-1-2002_DM](US-1-2002_DM.svg)
+![US-1-2002_MD](US-1-2002_MD.svg)
 
 # 3. Design
 
