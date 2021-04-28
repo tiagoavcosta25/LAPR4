@@ -1,0 +1,28 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Responsável de Recursos Humanos" as RRH
+
+participant ":Sistema" as SIST
+
+activate RRH
+
+RRH-> SIST : Envia um pedido para especificar um colaborador
+activate SIST
+SIST --> RRH: Solicita toda a informação necessária para a especificação de um colaborador\n(i.e. nome curto e completo, número mecanográfico, função, morada,\n contacto, data de nascimento)
+deactivate SIST
+
+RRH-> SIST : Preenche com toda a informação solicitada
+activate SIST
+SIST --> RRH: Apresenta a informação e solicita confirmação
+deactivate SIST
+
+RRH-> SIST : Confirma
+activate SIST
+SIST --> RRH: Valida e informa do sucesso da operação
+deactivate SIST
+
+deactivate RRH
+
+@enduml
