@@ -3,7 +3,7 @@ Projeto Integrador LEI 2020-2021 2DI-G03
 
 # 1. Modelo de domínio:#
 
-![MD](engenharia/md/md.svg)
+![MD](engenharia/SprintB/md/md.svg)
 
 # 2. Personna #
     * Gestor de Serviços de Helpdesk

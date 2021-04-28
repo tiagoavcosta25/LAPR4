@@ -1,0 +1,23 @@
+# LAPR4-53_EspecificarServico
+
+## 1. Requirements Engineering
+
+### SSD
+![LAPR4-53_SSD](LAPR4-53_SSD.svg)
+
+## 2. OO Analysis
+
+### Part of the Domain Model Relevant for the UC
+
+![LAPR4-53_DM](LAPR4-53_DM.svg)
+
+## 3. Design - Use Case Realization
+
+###	Sequence Diagram
+
+![LAPR4-53_SD.svg](LAPR4-53_SD.svg)
+
+
+###	Class Diagram
+
+![LAPR4-53_CD.svg](LAPR4-53_CD.svg)
