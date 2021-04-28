@@ -7,7 +7,7 @@
 
 | Sprint | Funcionalidade     |
 |--------|--------------------|
-| **B**  | [LAPR4-53](53_EspecificarServico) |
+| **B**  | [US-1-2002](US-1-2002_EspecificarServico) |
 | **B**  | [USDemo2](USDemo2) |
 | **C**  | [USDemo3](USDemo3) |
 | **C**  | [USDemo3](USDemo4) |
