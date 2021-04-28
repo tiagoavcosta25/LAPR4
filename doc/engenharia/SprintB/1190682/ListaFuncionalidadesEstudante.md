@@ -7,7 +7,7 @@
 
 | Sprint | Funcionalidade     |
 |--------|--------------------|
-| **B**  | [LAPR4-55](55_EspecificarColaborador) |
+| **B**  | [LAPR4-55](US55_EspecificarColaborador) |
 | **B**  | [USDemo2](USDemo2) |
 | **C**  | [USDemo3](USDemo3) |
 | **C**  | [USDemo3](USDemo4) |
