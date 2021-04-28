@@ -1,0 +1,62 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Colaborador" as CL
+participant ":System" as SYST
+
+activate CL
+
+CL -> SYST : envia um pedido para especificar um servico
+activate SYST
+SYST -> CL : solicita a introdução de dados (código, descrição, requer feedback)
+deactivate SYST
+
+CL -> SYST : introduz os dados
+activate SYST
+
+SYST -> CL : mostra a lista de catálogos e solicita a escolha de um catálogo
+deactivate SYST
+
+CL -> SYST : escolhe o catálogo onde será disponibilizado o serviço
+activate SYST
+
+loop até não serem precisos mais formulários
+SYST -> CL : solicita a introdução de dados do formulário (código, nome, tipo)
+deactivate SYST
+
+CL -> SYST : introduz os dados
+activate SYST
+
+loop até não serem precisos mais atributos
+SYST -> CL : solicita a introdução de dados (tipo de dados, regex, descrição, script, label, nome)
+deactivate SYST
+
+CL -> SYST : introduz os dados
+activate SYST
+
+SYST -> CL : pergunta se deseja adicionar mais atributos ao formulário em questão
+deactivate SYST
+
+CL -> SYST : responde se pretende ou não adicionar mais atributos
+activate SYST
+end
+
+SYST -> CL : pergunta se deseja adicionar mais formulários ao serviço em questão
+deactivate SYST
+
+CL -> SYST : responde se pretende ou não adicionar mais formulários
+activate SYST
+end
+
+SYST -> CL : valida, apresenta os dados do servico e solicita uma confirmação
+deactivate SYST
+
+CL -> SYST : confirma
+activate SYST
+SYST -> CL : regista o servico e informa do sucesso da operação
+deactivate SYST
+
+deactivate CL
+
+@enduml
