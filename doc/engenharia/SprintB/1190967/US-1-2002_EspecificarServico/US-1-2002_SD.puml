@@ -254,7 +254,7 @@ deactivate FBD
 CTRL -> FBD : createFormulario()
 activate FBD
 
-FBD -> F** : create(nome, label, descricao, regex, script, tipoDados, atributoList)
+FBD -> F** : create(nome, tipo, atributoList)
 activate F
 
 F --> FBD : formulario
