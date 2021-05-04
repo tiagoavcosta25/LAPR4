@@ -1,0 +1,202 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Gestor de Serviços de Help Desk" as GSH
+
+participant "<<presentation>>\nEspecificarServicoUI" as UI
+participant "<<application>>\nEspecificarServicoController" as CTRL
+participant "<<builder>>\nServicoBuilder" as BD
+participant "<<repository>>\nCatalogoRepository" as CR
+participant "PotApplication" as _APP
+participant "app\n:PotApplication" as APP
+participant "session\n:UserSession" as SESSION
+participant "plat\n:Platform" as PLAT
+participant "clientReg\n:ClientRegistration" as CR
+participant "pharmacyReg\n:PharmacyRegistration" as PHR
+participant "prodReg\n:ProductRegistration" as PR
+participant "orderReg\n:OrderRegistration" as OR
+participant "order\n:Order" as O
+participant "address\n:Address" as AD
+
+activate GSH
+
+GSH -> UI : envia um pedido para especificar um servico
+activate UI
+UI -> CTRL** : create()
+UI -> GSH : solicita a introdução de dados (descricaoBreve, descricaoCompleta)
+deactivate UI
+
+GSH -> UI : introduz os dados
+activate UI
+
+UI -> CTRL : addServico(descricaoBreve, descricaoCompleta)
+activate CTRL
+
+CTRL -> BD** : create
+CTRL -> BD : withDescricaoBreve(descricaoBreve)
+activate BD
+deactivate BD
+CTRL -> BD : withDescricaoCompleta(descricaoCompleta)
+activate BD
+deactivate BD
+deactivate CTRL
+
+UI -> GSH : pergunta se o serviço requer feedback
+deactivate UI
+
+GSH -> UI : seleciona se pretende ou não feedback neste serviço
+activate UI
+
+alt caso o serviço requeira feedback
+
+UI -> GSH : solicita a duração máxima permitida para o feedback
+deactivate UI
+
+GSH -> UI : introduz a duração máxima
+activate UI
+
+UI -> CTRL : enableFeedback(duracao)
+activate CTRL
+
+CTRL -> BD : withFeedback(true)
+activate BD
+deactivate BD
+
+CTRL -> BD : withFeedbackDuracao(duracao)
+activate BD
+deactivate BD
+deactivate CTRL
+
+end
+
+UI -> CTRL : getCatalogos()
+activate CTRL
+
+CTRL -> CR : getCatalogos()
+deactivate CTRL
+
+UI -> GSH : mostra a lista de catálogos e solicita a escolha de um catálogo
+deactivate UI
+
+GSH -> UI : escolhe o catálogo onde será disponibilizado o serviço
+activate UI
+
+
+
+
+
+
+
+
+
+
+
+
+
+UI -> CTRL : addServico(descrição)
+activate CTRL
+CTRL -> _APP: app = getInstance()
+activate _APP
+deactivate _APP
+
+CTRL -> APP: plat = getPlaform()
+activate APP
+deactivate APP
+
+CTRL -> APP: session = getCurrentSession()
+activate APP
+deactivate APP
+
+CTRL -> SESSION: email = getUserEmail()
+activate SESSION
+deactivate SESSION
+CTRL -> PLAT : clienteReg = getClientReg()
+activate PLAT
+deactivate PLAT
+CTRL -> CR : client = getUserByEmail(email)
+activate CR
+ref over CR
+SD_CONNECTIONS
+end ref
+deactivate CR
+CTRL -> PLAT : pharmacyReg = getPharmacyReg()
+activate PLAT
+deactivate PLAT
+CTRL -> PHR : lstPharmacies = getPharmacies()
+activate PHR
+ref over PHR
+SD_CONNECTIONS
+end ref
+deactivate PHR
+deactivate CTRL
+
+UI -> GSH : shows the list of the pharmacies
+deactivate UI
+
+GSH -> UI : chooses which products and which quantities to order
+activate UI
+UI -> CTRL : lstProducts = getAvailableProducts(pharmacy)
+activate CTRL
+CTRL -> PLAT : prodReg = getProductReg()
+activate PLAT
+deactivate PLAT
+CTRL -> PR : lstProducts = getAvailableProducts()
+activate PR
+ref over PR
+SD_CONNECTIONS
+end ref
+deactivate PR
+deactivate CTRL
+loop until there is no more products to add
+UI -> GSH : shows the list of the available products
+deactivate UI
+
+GSH -> UI : chooses which product and which quantity to order
+activate UI
+UI -> CTRL : addProductToOrder(product, quantity)
+activate CTRL
+deactivate CTRL
+UI -> GSH : asks if the user is done adding more products
+deactivate UI
+end
+
+GSH -> UI : confirms that there is not more products
+activate UI
+UI -> CTRL : newOrder(address, amount, additionalFee, dateOrder, description, mapProducts)
+activate CTRL
+CTRL -> PLAT : ordReg = getOrderReg()
+activate PLAT
+deactivate PLAT
+CTRL -> OR : order = addOrder(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+activate OR
+OR -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+activate O
+O -> AD** : create(streetName,doorNumber,locality,country,longitude,longitude)
+O -> C** : addCredits(addtionalCredits)
+deactivate O
+OR -> OR : validateOrder(order)
+ref over OR
+SD_CONNECTIONS
+end ref
+deactivate OR
+deactivate CTRL
+UI -> GSH : validates, presents the order and asks for a confirmation
+deactivate UI
+
+GSH -> UI : confirms
+activate UI
+UI -> CTRL : registerOrder()
+activate CTRL
+CTRL -> OR : registerOrder(order)
+activate OR
+ref over OR
+SD_CONNECTIONS
+end ref
+deactivate OR
+deactivate CTRL
+UI -> GSH : registers the order and informs of the success of the operation
+deactivate UI
+deactivate GSH
+
+@enduml
