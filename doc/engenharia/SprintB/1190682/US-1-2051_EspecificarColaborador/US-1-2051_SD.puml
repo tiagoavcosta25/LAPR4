@@ -85,7 +85,7 @@ deactivate CTRL
 RRH-> UI : Seleciona a função pretendida
 activate UI
 
-UI-> CTRL : addFuncao()
+UI-> CTRL : addFuncao(funcao)
 activate CTRL
 CTRL-> CB : setFuncao(funcao)
 activate CB
@@ -125,7 +125,7 @@ CTRL-> CR : save(colab)
 activate CR
 deactivate CR
 
-CTRL-> UI : colab()
+CTRL-> UI : colab
 deactivate CTRL
 
 UI --> RRH: Informa do sucesso da operação
