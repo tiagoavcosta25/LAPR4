@@ -10,12 +10,17 @@ activate RRH
 
 RRH-> SIST : Envia um pedido para especificar um colaborador
 activate SIST
-SIST --> RRH: Solicita toda a informação necessária para a especificação de um colaborador\n(i.e. nome curto e completo, número mecanográfico, função, morada,\n contacto, data de nascimento)
+SIST --> RRH: Solicita toda a informação necessária para a especificação de um colaborador\n(i.e. nome curto e completo, número mecanográfico, morada,\n contacto, data de nascimento)
 deactivate SIST
 
 RRH-> SIST : Preenche com toda a informação solicitada
 activate SIST
-SIST --> RRH: Apresenta a informação e solicita confirmação
+SIST --> RRH: Apresenta a lista de funções
+deactivate SIST
+
+RRH-> SIST : Seleciona a função pretendida
+activate SIST
+SIST --> RRH: Apresenta toda a informação e solicita confirmação
 deactivate SIST
 
 RRH-> SIST : Confirma

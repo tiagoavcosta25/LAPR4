@@ -1,0 +1,88 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "UI" #DDDDDD {
+class EspecificarColaboradorUI{
+
+}
+}
+
+
+package "Controller" #DDDDDD {
+class EspecificarColaboradorController{
++create()
++addColab(nomeCurto, nomeCompleto, numMecan,\nmorada, contacto, dataNascimento)
++getFuncaoList()
++addFuncao(funcao)
++saveColab()
+}
+}
+
+
+package "Model" #DDDDDD {
+class Colaborador{
+-String nomeCurto
+-String nomeCompleto
+-Integer numMecan
+-String morada
+-Integer contacto
+-Date dataNascimento
+}
+
+package Builder #DDDDDD {
+class ColaboradorBuilder{
++create()
++setNomeCompleto(nomeCompleto)
++setNumMecan(numMecan)
++setMorada(morada)
++setContacto(contacto)
++setDataNascimento(dataNascimento)
++setFuncao(funcao)
++createColab()
+}
+
+}
+
+package Factory #DDDDDD {
+class RepositoryFactory{
++colabs()
+}
+
+}
+
+package Persistence #DDDDDD {
+class PersistenceContex{
++repositories()
+}
+
+class AppSettings{
++instance()
++getRepositoryFactory()
+}
+
+}
+
+
+package "Repository" #DDDDDD {
+class ColaboradorRepository{
++create()
++save(colab)
+}
+
+class FuncaoRepository{
++create()
++all()
+}
+
+}
+
+
+EspecificarColaboradorUI ..> EspecificarColaboradorController
+EspecificarColaboradorController ..> ColaboradorBuilder
+ColaboradorBuilder "1" --> "*" Colaborador : creates
+ColaboradorBuilder "1" -> "1" ColaboradorRepository : has
+ColaboradorBuilder "1" -> "1" FuncaoRepository : uses
+PersistenceContex ..> RepositoryFactory
+PersistenceContex -> AppSettings : implements
+@enduml
