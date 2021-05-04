@@ -20,8 +20,10 @@ onde será disponibilizado, formulários, requer feedback.
 
 ### Formato Breve
 
-O ator envia um pedido para especificar um serviço. O sistema solicita a introdução de dados (código,
-descrição, requer feedback). O ator introduz os dados. O sistema mostra a lista de catálogos e solicita
+O ator envia um pedido para especificar um serviço. O sistema solicita a introdução de dados (descrição breve
+ e completa). O ator introduz os dados. O sistema pergunta se o serviço requer feedback. O ator seleciona se
+  pretende ou não feedback neste serviço. O sistema solicita a duração máxima permitida para o feedback.
+  O ator introduz a duração máxima. O sistema mostra a lista de catálogos e solicita
 a escolha de um catálogo. O ator escolhe o catálogo onde será disponibilizado o serviço. O sistema solicita
 a introdução de dados do formulário (código, nome, tipo). O ator introduz os dados. O sistema solicita a 
 introdução de dados (tipo de dados, regex, descrição, script, label, nome). O ator introduz os dados.
@@ -30,7 +32,7 @@ ou não adicionar mais atributos. O sistema pergunta se deseja adicionar mais fo
 O ator responde se pretende ou não adicionar mais formulários. O sistema valida, apresenta os dados do serviço 
 e solicita uma confirmação. O ator confirma. O sistema regista o serviço e informa do sucesso da operação.
 
-![US-1-2002_SSD](US-1-2002_SSD_SSD.svg)
+![US-1-2002_SSD](US-1-2002_SSD.svg)
 
 ### Formato Completo
 

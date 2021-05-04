@@ -2,61 +2,75 @@
 autonumber
 hide footbox
 
-actor "Colaborador" as CL
+actor "Gestor de Serviços de Help Desk" as GSH
 participant ":System" as SYST
 
-activate CL
+activate GSH
 
-CL -> SYST : envia um pedido para especificar um servico
+GSH -> SYST : envia um pedido para especificar um servico
 activate SYST
-SYST -> CL : solicita a introdução de dados (código, descrição, requer feedback)
+SYST -> GSH : solicita a introdução de dados (descrição breve e completa)
 deactivate SYST
 
-CL -> SYST : introduz os dados
+GSH -> SYST : introduz os dados
 activate SYST
-
-SYST -> CL : mostra a lista de catálogos e solicita a escolha de um catálogo
+SYST -> GSH : pergunta se o serviço requer feedback
 deactivate SYST
 
-CL -> SYST : escolhe o catálogo onde será disponibilizado o serviço
+GSH -> SYST : seleciona se pretende ou não feedback neste serviço
+activate SYST
+
+alt caso o serviço requeira feedback
+
+SYST -> GSH : solicita a duração máxima permitida para o feedback
+deactivate SYST
+
+GSH -> SYST : introduz a duração máxima
+activate SYST
+end
+
+SYST -> GSH : mostra a lista de catálogos e solicita a escolha de um catálogo
+deactivate SYST
+
+GSH -> SYST : escolhe o catálogo onde será disponibilizado o serviço
 activate SYST
 
 loop até não serem precisos mais formulários
-SYST -> CL : solicita a introdução de dados do formulário (código, nome, tipo)
+SYST -> GSH : solicita a introdução de dados do formulário (código, nome, tipo)
 deactivate SYST
 
-CL -> SYST : introduz os dados
+GSH -> SYST : introduz os dados
 activate SYST
 
 loop até não serem precisos mais atributos
-SYST -> CL : solicita a introdução de dados (tipo de dados, regex, descrição, script, label, nome)
+SYST -> GSH : solicita a introdução de dados (tipo de dados, regex, descrição, script, label, nome)
 deactivate SYST
 
-CL -> SYST : introduz os dados
+GSH -> SYST : introduz os dados
 activate SYST
 
-SYST -> CL : pergunta se deseja adicionar mais atributos ao formulário em questão
+SYST -> GSH : pergunta se deseja adicionar mais atributos ao formulário em questão
 deactivate SYST
 
-CL -> SYST : responde se pretende ou não adicionar mais atributos
-activate SYST
-end
-
-SYST -> CL : pergunta se deseja adicionar mais formulários ao serviço em questão
-deactivate SYST
-
-CL -> SYST : responde se pretende ou não adicionar mais formulários
+GSH -> SYST : responde se pretende ou não adicionar mais atributos
 activate SYST
 end
 
-SYST -> CL : valida, apresenta os dados do servico e solicita uma confirmação
+SYST -> GSH : pergunta se deseja adicionar mais formulários ao serviço em questão
 deactivate SYST
 
-CL -> SYST : confirma
+GSH -> SYST : responde se pretende ou não adicionar mais formulários
 activate SYST
-SYST -> CL : regista o servico e informa do sucesso da operação
+end
+
+SYST -> GSH : valida, apresenta os dados do servico e solicita uma confirmação
 deactivate SYST
 
-deactivate CL
+GSH -> SYST : confirma
+activate SYST
+SYST -> GSH : regista o servico e informa do sucesso da operação
+deactivate SYST
+
+deactivate GSH
 
 @enduml
