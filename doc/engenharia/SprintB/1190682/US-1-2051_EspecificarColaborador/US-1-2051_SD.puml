@@ -1,0 +1,135 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Responsável de Recursos Humanos" as RRH
+
+participant "<<presentation>>\nEspecificarColaboradorUI" as UI
+participant "<<aplication>>\nEspecificarColaboradorController" as CTRL
+participant "<<builder>>\nColaboradorBuilder" as CB
+participant "<<domain>>\ncolab:Colaborador" as COLAB
+participant "<<persistence>>\nPersistenceContex" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+database "<<repository>>\nFuncaoRepository" as FR
+database "<<repository>>\nColaboradorRepository" as CR
+
+participant "<<domain>>\nNomeCurto" as NCURTO
+participant "<<domain>>\nNomeCompleto" as NCOMP
+participant "<<domain>>\nNumeroMecanografico" as NM
+participant "<<domain>>\nFuncao" as F
+participant "<<domain>>\nMorada" as M
+participant "<<domain>>\nContacto" as C
+participant "<<domain>>\nDataNascimento" as DN
+
+activate RRH
+
+RRH-> UI : Envia um pedido para especificar um colaborador
+activate UI
+
+UI-> CTRL** : create()
+
+UI --> RRH: Solicita toda a informação necessária para a especificação\n de um colaborador(i.e. nome curto e completo, \nnúmero mecanográfico, morada, contacto, data de nascimento)
+
+deactivate UI
+RRH-> UI : Preenche com toda a informação solicitada
+activate UI
+UI-> CTRL : addColab(nomeCurto, nomeCompleto, numMecan,\nmorada, contacto, dataNascimento)
+activate CTRL
+
+CTRL-> CB** : create()
+CTRL-> CB : setNomeCurto(nomeCurto)
+activate CB
+CTRL-> CB : setNomeCompleto(nomeCompleto)
+CTRL-> CB : setNumMecan(numMecan)
+CTRL-> CB : setMorada(morada)
+CTRL-> CB : setContacto(contacto)
+CTRL-> CB : setDataNascimento(dataNascimento)
+deactivate CB
+deactivate CTRL
+
+UI-> CTRL : getFuncaoList()
+activate CTRL
+CTRL-> PC: repositories()
+activate PC
+PC-> AS : instance()
+activate AS
+deactivate AS
+PC -> AS : getRepositoryFactory()
+activate AS
+
+AS -> RF** : create
+AS --> PC : factory
+PC --> CTRL : factory
+deactivate AS
+deactivate PC
+
+CTRL-> RF : funcoes()
+activate RF
+RF-> FR** : create()
+RF--> CTRL : funcaoRepository
+deactivate RF
+
+CTRL -> FR : all()
+activate FR
+FR --> CTRL : list
+CTRL --> UI : list
+deactivate FR
+
+
+UI --> RRH: Apresenta a lista de funções
+deactivate UI
+deactivate CTRL
+
+
+RRH-> UI : Seleciona a função pretendida
+activate UI
+
+UI-> CTRL : addFuncao()
+activate CTRL
+CTRL-> CB : setFuncao(funcao)
+activate CB
+deactivate CB
+deactivate CTRL
+
+UI --> RRH: Apresenta a informação e solicita confirmação
+deactivate UI
+
+deactivate UI
+RRH-> UI : Confirma
+activate UI
+
+UI-> CTRL : saveColab()
+activate CTRL
+
+CTRL-> CB : createColab()
+activate CB
+CB-> COLAB** : create(nomeCurto,nomeCompleto,numMecan,\nmorada,contacto,dataNascimento,funcao)
+deactivate CB
+deactivate CTRL
+
+CTRL-> PC: repositories()
+activate CTRL
+activate PC
+PC-> RF** : create()
+PC--> CTRL : factory
+deactivate PC
+
+CTRL-> RF : colabs()
+activate RF
+RF-> CR** : create()
+RF--> CTRL : colabRepository
+deactivate RF
+
+CTRL-> CR : save(colab)
+activate CR
+deactivate CR
+
+CTRL-> UI : colab()
+deactivate CTRL
+
+UI --> RRH: Informa do sucesso da operação
+deactivate UI
+deactivate RRH
+
+@enduml
