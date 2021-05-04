@@ -16,8 +16,21 @@ participant "<<builder>>\nAtributoBuilder" as ABD
 participant "<<domain>>\nAtributo" as A
 participant "<<domain>>\nFormulario" as F
 database "<<repository>>\nFormularioRepository" as FR
-database "<<repository>>\nServicoRepository" as SR
 participant "<<domain>>\nServico" as S
+database "<<repository>>\nServicoRepository" as SR
+participant "<<domain>>\nDescricaoBreve" as DB
+participant "<<domain>>\nDescricaoCompleta" as DC
+participant "<<domain>>\nKeyword" as KW
+participant "<<domain>>\nFeedback" as FB
+participant "<<domain>>\nFeedbackDuracao" as FD
+participant "<<domain>>\nFormularioNome" as FM
+participant "<<domain>>\nFormularioTipo" as FT
+participant "<<domain>>\nAtributoNome" as AN
+participant "<<domain>>\nAtributoLabel" as AL
+participant "<<domain>>\nAtributoDescricao" as AD
+participant "<<domain>>\nAtributoRegex" as AR
+participant "<<domain>>\nAtributoScript" as ASC
+participant "<<domain>>\nAtributoTipoDados" as ATD
 
 
 activate GSH
@@ -44,10 +57,10 @@ deactivate SBD
 deactivate CTRL
 
 loop até não serem precisas mais keywords
-UI -> GSH : solicita a keyword
+UI -> GSH : solicita uma keyword
 deactivate UI
 
-GSH -> UI : introduz a keyword
+GSH -> UI : introduz uma keyword
 activate UI
 
 UI -> CTRL : addKeyword(keyword)
@@ -175,7 +188,7 @@ UI -> CTRL : addAtributo(nome, label, descricao, regex, script)
 activate CTRL
 
 CTRL -> ABD** : create
-CTRL -> ABD : setNome(tipo)
+CTRL -> ABD : setNome(nome)
 activate ABD
 deactivate ABD
 
@@ -221,10 +234,6 @@ deactivate A
 ABD --> CTRL : atributo
 deactivate ABD
 
-CTRL -> FBD : setAtributo(atributo)
-activate FBD
-deactivate FBD
-
 CTRL --> UI : atributo
 deactivate CTRL
 
@@ -237,6 +246,10 @@ end
 
 UI -> CTRL : saveFormulario()
 activate CTRL
+
+CTRL -> FBD : setAtributoList(atributoList)
+activate FBD
+deactivate FBD
 
 CTRL -> FBD : createFormulario()
 activate FBD
@@ -273,7 +286,7 @@ CTRL -> RF : formularios()
 activate RF
 
 RF -> FR** : create
-RF --> CTRL : catalogoRepository
+RF --> CTRL : formularioRepository
 deactivate RF
 
 CTRL -> FR : save(formulario)
@@ -333,7 +346,7 @@ CTRL -> RF : servicos()
 activate RF
 
 RF -> SR** : create
-RF --> CTRL : catalogoRepository
+RF --> CTRL : servicoRepository
 deactivate RF
 
 CTRL -> SR : save(servico)

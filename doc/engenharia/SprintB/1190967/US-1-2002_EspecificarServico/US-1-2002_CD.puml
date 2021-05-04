@@ -2,146 +2,214 @@
 skinparam classAttributeIconSize 0
 
 package "UI" #DDDDDD {
-class MakeAnOrderUI{
+class EspecificarServicoUI{
 
 }
 }
 
 
-package "Controller" #DDDDDD {
-class MakeAnOrderController{
-+newOrder(amount, totalWeight, additionalFee, orderDate, description, status, latitude,
-longitude, streetName, doorNumber, postalCode, locality, country, products)
-+registerOrder()
-+getAvailableProducts(pharmacyId)
-+getPharmacies()
-+addProductToOrder(product, quantity)
-}
-
-class ApplicationPOT
-{
-  +static getInstance()
-  +getPlatform()
-}
-
-class UserSession
-{
-  +getCurrentSession()
+package "Application" #DDDDDD {
+class EspecificarServicoController{
++create()
++addServico(descricaoBreve, descricaoCompleta)
++addKeyword(keyword)
++addKeywordListToService()
++enableFeedback(duracao)
++getCatalogos()
++addFormulario(nome, tipo)
++addAtributo(nome, label, descricao, regex, script)
++addAtributoTipo(tipoDados)
++saveFormulario()
++saveServico()
 }
 }
 
 
-package "Model" #DDDDDD {
-class Platform {
-  -String designation
-  +getClientReg()
-  +getProductReg()
-  +getOrderReg()
-}
-package "Registration" #DDDDDD {
-
-  class OrderRegistration{
-       +addPharmacy(address, amount, additionalFee, dateOrder, description, mapProducts, client)
-       +registerOrder(order)
-  }
-
-  class PharmacyRegistration{
-          +getPharmacies()
-  }
-
-  class ProductRegistration{
-          +getAvailableProducts(pharmacyId)
-  }
-  class ClientRegistration{
-        +getClientByEmail(email)
-  }
- }
+package "Domain" #DDDDDD {
+class Servico{
++create(descricaoBreve, descricaoCompleta, feedback, duracao, keywordList, formularioList)
 }
 
-package "Model" #DDDDDD {
-abstract class User{
--   String name
--   String email
--   String password
--   Integer nif
+class Formulario{
++create(nome, label, descricao, regex, script, tipoDados, atributoList)
 }
 
-class Client{
--int IBAN;
--long creditCardNumber
--Address address
--int validityDate
--int CCV
-+addCredits(addtionalCredits)
+class Atributo{
++create(nome, label, descricao, regex, script, tipoDados)
 }
 
-class Address{
--   String streetName
--   String doorNumber
--   String postalCode
--   String locality
--   String country
--   float longitude
--   float latitude
-+create(streetName,doorNumber,locality,country,longitude,longitude)
+class DescricaoBreve{
++createDescricaoBreve(descricaoBreve)
+-validate(descricaoBreve)
 }
 
-class Order{
--   int id
--   float amount
--   float totalWeight
--   float additionalFee
--   Date orderDate
--   String description
--   String status
-+create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
+class DescricaoCompleta{
++createDescricaoCompleta(descricaoCompleta)
+-validate(descricaoCompleta)
 }
 
-class Product{
--   int id
--   String name
--   String description
--   float unitaryPrice
--   float unitaryWeight
+class Keyword{
++createKeyword(keyword)
+-validate(keyword)
 }
 
-class Pharmacy{
--   int id
--   String name
+class Feedback{
++createFeedback(feedback)
+-validate(feedback)
 }
 
-class PharmacyManager{
+class FeedbackDuracao{
++createFeedbackDuracao(feedbackDuracao)
+-validate(feedbackDuracao)
+}
+
+class FormularioNome{
++createFormularioNome(formularioNome)
+-validate(formularioNome)
+}
+
+class FormularioTipo{
++createFormularioTipo(formularioTipo)
+-validate(formularioTipo)
+}
+
+class AtributoNome{
++createAtributoNome(atributoNome)
+-validate(atributoNome)
+}
+
+class AtributoLabel{
++createAtributoLabel(atributoLabel)
+-validate(atributoLabel)
+}
+
+class AtributoDescricao{
++createAtributoDescricao(atributoDescricao)
+-validate(atributoDescricao)
+}
+
+class AtributoRegex{
++createAtributoRegex(atributoRegex)
+-validate(atributoRegex)
+}
+
+class AtributoScript{
++createAtributoScript(atributoScript)
+-validate(atributoScript)
+}
+
+class AtributoTipoDados{
++createAtributoTipoDados(atributoTipoDados)
+-validate(atributoTipoDados)
+}
+
+package Builder #DDDDDD {
+class ServicoBuilder{
++create()
++setDescricaoBreve(descricaoBreve)
++setDescricaoCompleta(descricaoCompleta)
++setKeywordList(keywordList)
++setFeedback(feedback)
++setFeedbackDuracao(duracao)
++setFormularioList(formularioList)
++createServico()
+}
+
+class FormularioBuilder{
++create()
++setNome(nome)
++setLabel(label)
++setDescricao(descricao)
++setRegex(regex)
++setScript(script)
++setTipoDados(tipoDados)
++createAtributo()
+}
+
+class AtributoBuilder{
++create()
++setNomeCompleto(nomeCompleto)
++createColab()
+}
+
+}
+
+}
+
+package Persistence #DDDDDD {
+class PersistenceContext{
++repositories()
+}
+
+class AppSettings{
++instance()
++getRepositoryFactory()
+}
+
+package Factory #DDDDDD {
+class RepositoryFactory{
++create()
++servicos()
++catalogos()
++formularios()
+}
+}
+
+package "Repository" #DDDDDD {
+class ServicoRepository{
++create()
++save(servico)
+}
+
+class CatalogoRepository{
++create()
++all()
+}
+
+class FormularioRepository{
++create()
++save(formulario)
 }
 
 }
 
 
-package "Data" #DDDDDD {
-class DataHandler{
-    +openConnection()
-    +closeAll()
-}
-}
 
-class PharmacyRegistration extends DataHandler
+EspecificarServicoUI ..> EspecificarServicoController
+EspecificarServicoController ..> ServicoBuilder
+EspecificarServicoController ..> FormularioBuilder
+EspecificarServicoController ..> AtributoBuilder
+EspecificarServicoController ..> PersistenceContext
 
-class PharmacyManager extends User
+AppSettings -> RepositoryFactory : cria
+PersistenceContext -> AppSettings : implementa
 
-MakeAnOrderUI ..> MakeAnOrderController
-MakeAnOrderController ..> Platform
-MakeAnOrderController ..> ApplicationPOT
-MakeAnOrderController ..> UserSession
-Platform "1" --> "1" ClientRegistration : has
-ClientRegistration "1" --> "*" Client : manages
-ProductRegistration "1" --> "*" Product : manages
-OrderRegistration "1" --> "*" Order : manages
-PharmacyRegistration "1" --> "*" Pharmacy : manages
+RepositoryFactory "1" -> "1" ServicoRepository : possui
+RepositoryFactory "1" -> "1" CatalogoRepository : possui
+RepositoryFactory "1" -> "1" ServicoRepository : possui
 
-Order "1" -- "*" Product : has >
-Order "1" -- "1" Pharmacy : has >
-Client "1" -- "1" Order : makes >
-Client "1" -- "1" Address : has >
-Order "1" -- "1" Address : has >
-Pharmacy "1" -- "1" PharmacyManager : has >
+ServicoRepository "1" -> "*" Servico : guarda
+ServicoBuilder "1" -> "*" Servico : cria
+FormularioRepository "1" -> "*" Formulario : guarda
+FormularioBuilder "1" -> "*" Formulario : cria
+
+Servico "1" -> "1" DescricaoBreve : possui
+Servico "1" -> "1" DescricaoCompleta : possui
+Servico "1" -> "*" Keyword : possui
+Servico "1" -> "0..1" Feedback : possui
+Servico "1" -> "0..1" FeedbackDuracao : tem
+Servico "1" -> "*" Formulario : tem
+
+Formulario "1" -> "1" FormularioNome : possui
+Formulario "1" -> "1" FormularioTipo : tem
+Formulario "1" -> "1..*" Atributo : possui
+
+Atributo "1" -> "1" AtributoNome : possui
+Atributo "1" -> "1" AtributoLabel : possui
+Atributo "1" -> "1" AtributoDescricao : possui
+Atributo "1" -> "1" AtributoRegex : possui
+Atributo "1" -> "1" AtributoScript : possui
+Atributo "1" -> "1" AtributoTipoDados : possui
+
 
 @enduml

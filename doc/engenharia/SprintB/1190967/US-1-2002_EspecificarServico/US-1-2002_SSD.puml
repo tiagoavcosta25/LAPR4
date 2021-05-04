@@ -14,6 +14,22 @@ deactivate SYST
 
 GSH -> SYST : introduz os dados
 activate SYST
+
+loop até não serem precisas mais keywords
+
+SYST -> GSH : solicita uma keyword
+deactivate SYST
+
+GSH -> SYST : introduz uma keyword
+activate SYST
+
+SYST -> GSH : questiona se pretende adicionar mais keywords
+deactivate SYST
+
+GSH -> SYST : responde se pretende ou não adicionar mais keywords
+activate SYST
+end
+
 SYST -> GSH : pergunta se o serviço requer feedback
 deactivate SYST
 
