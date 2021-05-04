@@ -36,10 +36,16 @@ GSH -> SYST : escolhe o catálogo onde será disponibilizado o serviço
 activate SYST
 
 loop até não serem precisos mais formulários
-SYST -> GSH : solicita a introdução de dados do formulário (código, nome, tipo)
+SYST -> GSH : solicita a introdução do nome do formulário
 deactivate SYST
 
 GSH -> SYST : introduz os dados
+activate SYST
+
+SYST -> GSH : apresenta os tipos de formulário disponiveis
+deactivate SYST
+
+GSH -> SYST : seleciona o tipo de formulário
 activate SYST
 
 loop até não serem precisos mais atributos

@@ -6,18 +6,14 @@ actor "Gestor de Serviços de Help Desk" as GSH
 
 participant "<<presentation>>\nEspecificarServicoUI" as UI
 participant "<<application>>\nEspecificarServicoController" as CTRL
-participant "<<builder>>\nServicoBuilder" as BD
-participant "<<repository>>\nCatalogoRepository" as CR
-participant "PotApplication" as _APP
-participant "app\n:PotApplication" as APP
-participant "session\n:UserSession" as SESSION
-participant "plat\n:Platform" as PLAT
-participant "clientReg\n:ClientRegistration" as CR
-participant "pharmacyReg\n:PharmacyRegistration" as PHR
-participant "prodReg\n:ProductRegistration" as PR
-participant "orderReg\n:OrderRegistration" as OR
-participant "order\n:Order" as O
-participant "address\n:Address" as AD
+participant "<<builder>>\nServicoBuilder" as SBD
+participant "<<persistence>>\nPersistanceContext" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+database "<<repository>>\nCatalogoRepository" as CR
+participant "<<builder>>\nFormularioBuilder" as FBD
+database "<<repository>>\nFormularioRepository" as FR
+
 
 activate GSH
 
@@ -33,13 +29,13 @@ activate UI
 UI -> CTRL : addServico(descricaoBreve, descricaoCompleta)
 activate CTRL
 
-CTRL -> BD** : create
-CTRL -> BD : withDescricaoBreve(descricaoBreve)
-activate BD
-deactivate BD
-CTRL -> BD : withDescricaoCompleta(descricaoCompleta)
-activate BD
-deactivate BD
+CTRL -> SBD** : create
+CTRL -> SBD : setDescricaoBreve(descricaoBreve)
+activate SBD
+deactivate SBD
+CTRL -> SBD : setDescricaoCompleta(descricaoCompleta)
+activate SBD
+deactivate SBD
 deactivate CTRL
 
 UI -> GSH : pergunta se o serviço requer feedback
@@ -59,13 +55,13 @@ activate UI
 UI -> CTRL : enableFeedback(duracao)
 activate CTRL
 
-CTRL -> BD : withFeedback(true)
-activate BD
-deactivate BD
+CTRL -> SBD : setFeedback(true)
+activate SBD
+deactivate SBD
 
-CTRL -> BD : withFeedbackDuracao(duracao)
-activate BD
-deactivate BD
+CTRL -> SBD : setFeedbackDuracao(duracao)
+activate SBD
+deactivate SBD
 deactivate CTRL
 
 end
@@ -73,7 +69,36 @@ end
 UI -> CTRL : getCatalogos()
 activate CTRL
 
-CTRL -> CR : getCatalogos()
+CTRL -> PC : repositories()
+activate PC
+
+PC -> AS : instance()
+activate AS
+deactivate AS
+
+PC -> AS : getRepositoryFactory()
+activate AS
+
+AS -> RF** : create
+AS --> PC : factory
+deactivate AS
+
+PC --> CTRL : factory
+deactivate PC
+
+CTRL -> RF : catalogos()
+activate RF
+
+RF -> CR** : create
+RF --> CTRL : catalogoRepository
+deactivate RF
+
+CTRL -> CR : all()
+activate CR
+CR --> CTRL : list
+deactivate CR
+
+CTRL --> UI : list
 deactivate CTRL
 
 UI -> GSH : mostra a lista de catálogos e solicita a escolha de um catálogo
@@ -82,120 +107,94 @@ deactivate UI
 GSH -> UI : escolhe o catálogo onde será disponibilizado o serviço
 activate UI
 
-
-
-
-
-
-
-
-
-
-
-
-
-UI -> CTRL : addServico(descrição)
-activate CTRL
-CTRL -> _APP: app = getInstance()
-activate _APP
-deactivate _APP
-
-CTRL -> APP: plat = getPlaform()
-activate APP
-deactivate APP
-
-CTRL -> APP: session = getCurrentSession()
-activate APP
-deactivate APP
-
-CTRL -> SESSION: email = getUserEmail()
-activate SESSION
-deactivate SESSION
-CTRL -> PLAT : clienteReg = getClientReg()
-activate PLAT
-deactivate PLAT
-CTRL -> CR : client = getUserByEmail(email)
-activate CR
-ref over CR
-SD_CONNECTIONS
-end ref
-deactivate CR
-CTRL -> PLAT : pharmacyReg = getPharmacyReg()
-activate PLAT
-deactivate PLAT
-CTRL -> PHR : lstPharmacies = getPharmacies()
-activate PHR
-ref over PHR
-SD_CONNECTIONS
-end ref
-deactivate PHR
-deactivate CTRL
-
-UI -> GSH : shows the list of the pharmacies
+loop até não serem precisos mais formulários
+UI -> GSH : solicita a introdução do nome do formulário
 deactivate UI
 
-GSH -> UI : chooses which products and which quantities to order
+GSH -> UI : introduz os dados
 activate UI
-UI -> CTRL : lstProducts = getAvailableProducts(pharmacy)
+
+UI -> CTRL : addFormulario()
 activate CTRL
-CTRL -> PLAT : prodReg = getProductReg()
-activate PLAT
-deactivate PLAT
-CTRL -> PR : lstProducts = getAvailableProducts()
-activate PR
-ref over PR
-SD_CONNECTIONS
-end ref
-deactivate PR
+
+CTRL -> FBD** : create
+CTRL -> SBD : setDescricaoBreve(descricaoBreve)
+activate SBD
+deactivate SBD
+CTRL -> SBD : setDescricaoCompleta(descricaoCompleta)
+activate SBD
+deactivate SBD
 deactivate CTRL
-loop until there is no more products to add
-UI -> GSH : shows the list of the available products
+
+UI -> GSH : apresenta os tipos de formulário disponiveis
 deactivate UI
 
-GSH -> UI : chooses which product and which quantity to order
+GSH -> UI : seleciona o tipo de formulário
 activate UI
-UI -> CTRL : addProductToOrder(product, quantity)
-activate CTRL
-deactivate CTRL
-UI -> GSH : asks if the user is done adding more products
+
+loop até não serem precisos mais atributos
+UI -> GSH : solicita a introdução de dados (tipo de dados, regex, descrição, script, label, nome)
 deactivate UI
+
+GSH -> UI : introduz os dados
+activate UI
+
+UI -> GSH : pergunta se deseja adicionar mais atributos ao formulário em questão
+deactivate UI
+
+GSH -> UI : responde se pretende ou não adicionar mais atributos
+activate UI
 end
 
-GSH -> UI : confirms that there is not more products
-activate UI
-UI -> CTRL : newOrder(address, amount, additionalFee, dateOrder, description, mapProducts)
-activate CTRL
-CTRL -> PLAT : ordReg = getOrderReg()
-activate PLAT
-deactivate PLAT
-CTRL -> OR : order = addOrder(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
-activate OR
-OR -> O** : create(amount, additionalFee, dateOrder, description, mapProducts, client, streetName,doorNumber,locality,country,longitude,longitude)
-activate O
-O -> AD** : create(streetName,doorNumber,locality,country,longitude,longitude)
-O -> C** : addCredits(addtionalCredits)
-deactivate O
-OR -> OR : validateOrder(order)
-ref over OR
-SD_CONNECTIONS
-end ref
-deactivate OR
-deactivate CTRL
-UI -> GSH : validates, presents the order and asks for a confirmation
+UI -> GSH : pergunta se deseja adicionar mais formulários ao serviço em questão
 deactivate UI
 
-GSH -> UI : confirms
+GSH -> UI : responde se pretende ou não adicionar mais formulários
 activate UI
-UI -> CTRL : registerOrder()
+end
+
+UI -> CTRL : saveFormulario()
 activate CTRL
-CTRL -> OR : registerOrder(order)
-activate OR
-ref over OR
-SD_CONNECTIONS
-end ref
-deactivate OR
+
+CTRL -> PC : repositories()
+activate PC
+
+PC -> AS : instance()
+activate AS
+deactivate AS
+
+PC -> AS : getRepositoryFactory()
+activate AS
+
+AS -> RF** : create
+AS --> PC : factory
+deactivate AS
+
+PC --> CTRL : factory
+deactivate PC
+
+CTRL -> RF : formularios()
+activate RF
+
+RF -> FR** : create
+RF --> CTRL : catalogoRepository
+deactivate RF
+
+CTRL -> CR : all()
+activate CR
+CR --> CTRL : list
+deactivate CR
+
+CTRL --> UI : list
 deactivate CTRL
-UI -> GSH : registers the order and informs of the success of the operation
+
+UI -> GSH : valida, apresenta os dados do servico e solicita uma confirmação
+deactivate UI
+
+GSH -> UI : confirma
+activate UI
+UI -> GSH : regista o servico e informa do sucesso da operação
+deactivate UI
 deactivate UI
 deactivate GSH
 
