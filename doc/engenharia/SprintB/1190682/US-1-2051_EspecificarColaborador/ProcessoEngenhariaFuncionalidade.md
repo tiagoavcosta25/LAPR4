@@ -12,8 +12,48 @@
 
 A interpretação feita deste requisito foi no sentido de ...
 
-### SSD
+
+### Formato Breve
+
+Envia um pedido para especificar um colaborador. Solicita toda a informação necessária para a especificação de um colaborador\n(i.e. nome curto e completo, número mecanográfico, função, morada,\n contacto, data de nascimento).
+Preenche com toda a informação solicitada. Apresenta a informação e solicita confirmação. Confirma.
+Valida e informa do sucesso da operação.
+ 
 ![US55_SSD](US55_SSD.svg)
+
+### Formato Completo
+
+#### Ator principal
+
+* Responsável de Recursos Humanos
+
+#### Partes interessadas e seus interesses
+
+* **Responsável de Recursos Humanos:** pretende especificar um colaborador.
+
+#### Pré-condições
+
+\-
+
+#### Pós-condições
+
+* A informação da especificação do colaborador é registada no sistema.
+
+#### Requisitos especiais
+
+\-
+
+#### Lista de Variações de Tecnologias e Dados
+
+\-
+
+#### Frequência de Ocorrência
+
+\-
+
+#### Questões em aberto
+
+* O ator pode a qualquer momento pausar a especificação?
 
 # 2. Análise
 
@@ -21,7 +61,7 @@ A interpretação feita deste requisito foi no sentido de ...
 
 *Recomenda-se que organize este conteúdo por subsecções.*
 
-### Part of the Domain Model Relevant for the UC
+### Parte do Modelo de Domínio Relevante para esta User Story
 
 ![US55_MD](US55_MD.svg)
 
