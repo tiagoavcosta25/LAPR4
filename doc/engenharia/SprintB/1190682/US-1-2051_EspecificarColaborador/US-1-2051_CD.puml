@@ -9,25 +9,55 @@ class EspecificarColaboradorUI{
 }
 
 
-package "Controller" #DDDDDD {
+package "Application" #DDDDDD {
 class EspecificarColaboradorController{
 +create()
-+addColab(nomeCurto, nomeCompleto, numMecan,\nmorada, contacto, dataNascimento)
++addColaborador(nomeCurto, nomeCompleto, numMecan,\nmorada, contacto, dataNascimento)
 +getFuncaoList()
 +addFuncao(funcao)
-+saveColab()
++saveColaborador()
 }
 }
 
 
-package "Model" #DDDDDD {
+package "Domain" #DDDDDD {
 class Colaborador{
--String nomeCurto
--String nomeCompleto
--Integer numMecan
--String morada
--Integer contacto
--Date dataNascimento
++create(nomeCurto, nomeCompleto, numMecan,\nmorada, contacto, dataNascimento,funcao)
+}
+
+class NomeCurto {
++createNomeCurto(nomeCurto)
+-validate(nomeCurto)
+}
+
+class NomeCompleto {
++createNomeCompleto(nomeCompleto)
+-validate(nomeCompleto)
+}
+
+class NumeroMecanografico {
++createNumeroMecanografico(numeroMecanografico)
+-validate(numeroMecanografico)
+}
+
+class Morada {
++createMorada(morada)
+-validate(morada)
+}
+
+class Contacto {
++createContacto(contacto)
+-validate(contacto)
+}
+
+class DataNascimento {
++createDataNascimento(dataNascimento)
+-validate(dataNascimento)
+}
+
+class Funcao {
++createFuncao(funcao)
+-validate(funcao)
 }
 
 package Builder #DDDDDD {
@@ -41,18 +71,11 @@ class ColaboradorBuilder{
 +setFuncao(funcao)
 +createColab()
 }
-
 }
-
-package Factory #DDDDDD {
-class RepositoryFactory{
-+colabs()
-}
-
 }
 
 package Persistence #DDDDDD {
-class PersistenceContex{
+class PersistenceContext{
 +repositories()
 }
 
@@ -61,18 +84,23 @@ class AppSettings{
 +getRepositoryFactory()
 }
 
+package Factory #DDDDDD {
+class RepositoryFactory{
++colaboradores()
++funcoes()
 }
-
+}
 
 package "Repository" #DDDDDD {
 class ColaboradorRepository{
 +create()
-+save(colab)
++save(colaborador)
 }
 
 class FuncaoRepository{
 +create()
-+all()
++save(funcao)
+}
 }
 
 }
@@ -80,9 +108,23 @@ class FuncaoRepository{
 
 EspecificarColaboradorUI ..> EspecificarColaboradorController
 EspecificarColaboradorController ..> ColaboradorBuilder
-ColaboradorBuilder "1" --> "*" Colaborador : creates
-ColaboradorBuilder "1" -> "1" ColaboradorRepository : has
-ColaboradorBuilder "1" -> "1" FuncaoRepository : uses
-PersistenceContex ..> RepositoryFactory
-PersistenceContex -> AppSettings : implements
+EspecificarColaboradorController ..> PersistenceContext
+
+AppSettings -> RepositoryFactory : cria
+PersistenceContext -> AppSettings : implementa
+
+RepositoryFactory "1" -> "1" ColaboradorRepository : possui
+RepositoryFactory "1" -> "1" FuncaoRepository : possui
+
+ColaboradorRepository "1" -> "*" Colaborador : guarda
+ColaboradorBuilder "1" -> "*" Colaborador : cria
+
+Colaborador "1" -> "1" NomeCurto : tem
+Colaborador "1" -> "1" NomeCompleto : tem
+Colaborador "1" -> "1" NumeroMecanografico : é identificado por
+Colaborador "1" -> "1" Funcao : tem
+Colaborador "1" -> "1" Morada : tem
+Colaborador "1" -> "1" Contacto : possui
+Colaborador "1" -> "1" DataNascimento : tem
+
 @enduml
