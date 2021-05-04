@@ -70,11 +70,11 @@ RF-> FR** : create()
 RF--> CTRL : funcaoRepository
 deactivate RF
 
-CTRL -> FR : all()
+CTRL -> FR : save(funcao)
 activate FR
-FR --> CTRL : list
-CTRL --> UI : list
+FR --> CTRL : funcao
 deactivate FR
+CTRL --> UI : funcao
 
 
 UI --> RRH: Apresenta a lista de funções
@@ -99,33 +99,36 @@ deactivate UI
 RRH-> UI : Confirma
 activate UI
 
-UI-> CTRL : saveColab()
+UI-> CTRL : saveColaborador()
 activate CTRL
 
-CTRL-> CB : createColab()
+CTRL-> CB : createColaborador()
 activate CB
 CB-> COLAB** : create(nomeCurto,nomeCompleto,numMecan,\nmorada,contacto,dataNascimento,funcao)
+
+activate COLAB
+COLAB --> CB : colaborador
+deactivate COLAB
+CB --> CTRL : colaborador
 deactivate CB
-deactivate CTRL
 
 CTRL-> PC: repositories()
-activate CTRL
 activate PC
 PC-> RF** : create()
 PC--> CTRL : factory
 deactivate PC
 
-CTRL-> RF : colabs()
+CTRL-> RF : colaboradores()
 activate RF
 RF-> CR** : create()
-RF--> CTRL : colabRepository
+RF--> CTRL : colaboradorRepository
 deactivate RF
 
-CTRL-> CR : save(colab)
+CTRL-> CR : save(colaborador)
 activate CR
+CR --> CTRL : colaborador
 deactivate CR
-
-CTRL-> UI : colab
+CTRL --> UI : colaborador
 deactivate CTRL
 
 UI --> RRH: Informa do sucesso da operação
