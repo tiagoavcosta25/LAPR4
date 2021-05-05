@@ -5,10 +5,7 @@
  */
 package eapli.base.colaboradormanagement.domain;
 
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.OneToOne;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
@@ -47,12 +44,16 @@ public class Collaborator implements AggregateRoot<Collaborator> {
     @OneToOne()
     private CollaboratorMechanographicNumber m_oMechanographicNumber;
 
+    @OneToMany()
+    private Role m_oRole;
 
 
     public Collaborator(final CollaboratorID oID, final CollaboratorPhoneNumber oPhoneNumber, final CollaboratorBirthDate oBirthDate,
                         final CollaboratorAddress oAddress, final CollaboratorCompleteName oCompleteName,
-                        final CollaboratorShortName oShortName, final CollaboratorMechanographicNumber oMechanographicNumber) {
-        if (oID == null || oPhoneNumber == null || oBirthDate == null || oAddress == null || oCompleteName == null || oShortName == null || oMechanographicNumber == null){
+                        final CollaboratorShortName oShortName, final CollaboratorMechanographicNumber oMechanographicNumber,
+                        Role oRole) {
+        if (oID == null || oPhoneNumber == null || oBirthDate == null || oAddress == null || oCompleteName == null
+                || oShortName == null || oMechanographicNumber == null || oRole == null){
             throw new IllegalArgumentException();
         }
         this.m_oID = oID;
@@ -62,6 +63,7 @@ public class Collaborator implements AggregateRoot<Collaborator> {
         this.m_oCompleteName = oCompleteName;
         this.m_oShortName = oShortName;
         this.m_oMechanographicNumber = oMechanographicNumber;
+        this.m_oRole = oRole;
     }
 
     protected Collaborator() {

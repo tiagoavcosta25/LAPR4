@@ -64,6 +64,6 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
         return new Collaborator(this.m_oID, this.m_oPhoneNumber, this.m_oBirthDate ,this.m_oAddress,
-                this.m_oCompleteName, this.m_oShortName, this.m_oMechanographicNumber);
+                this.m_oCompleteName, this.m_oShortName, this.m_oMechanographicNumber, this.m_oRole);
     }
 }

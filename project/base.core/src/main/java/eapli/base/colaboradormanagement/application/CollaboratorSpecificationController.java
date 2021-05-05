@@ -31,6 +31,7 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -58,6 +59,7 @@ public class CollaboratorSpecificationController {
     }
 
     public List<Role> getRoleList() {
+        m_lstRoles = Arrays.asList(Role.values());
         return m_lstRoles;
     }
 
