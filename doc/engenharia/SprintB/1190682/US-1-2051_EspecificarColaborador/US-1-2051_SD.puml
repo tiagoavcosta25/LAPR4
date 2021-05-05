@@ -7,13 +7,13 @@ actor "Human Resource Representative" as HRR
 participant "<<presentation>>\nCollaboratorSpecificationUI" as UI
 participant "<<aplication>>\nCollaboratorSpecificationController" as CTRL
 participant "<<builder>>\nCollaboratorBuilder" as CB
+participant "<<domain>>\nrole:Role" as ROLE
 participant "<<domain>>\ncolab:Collaborator" as COLAB
+database "<<repository>>\nCollaboratorRepository" as CR
+
 participant "<<persistence>>\nPersistenceContex" as PC
 participant "<<persistence>>\nAppSettings" as AS
 participant "<<factory>>\nRepositoryFactory" as RF
-database "<<repository>>\nRoleRepository" as RR
-database "<<repository>>\nCollaboratorRepository" as CR
-
 participant "<<domain>>\nShortName" as SN
 participant "<<domain>>\nCompleteName" as CN
 participant "<<domain>>\nMechanographicNumber" as MN
@@ -40,47 +40,38 @@ activate CTRL
 CTRL-> CB** : create()
 CTRL-> CB : withShortName(shortName)
 activate CB
+deactivate CB
 CTRL-> CB : withCompleteName(completeName)
+activate CB
+deactivate CB
 CTRL-> CB : withMechanographicNumber(mechanographicNumber)
+activate CB
+deactivate CB
 CTRL-> CB : withAddress(address)
+activate CB
+deactivate CB
 CTRL-> CB : withPhoneNumber(phoneNumber)
+activate CB
+deactivate CB
 CTRL-> CB : withBirthDate(birthDate)
+activate CB
+deactivate CB
 deactivate CB
 deactivate CTRL
 
 UI-> CTRL : getRoleList()
 activate CTRL
-CTRL-> PC: repositories()
-activate PC
-PC-> AS : instance()
-activate AS
-deactivate AS
-PC -> AS : getRepositoryFactory()
-activate AS
 
-AS -> RF** : create
-AS --> PC : factory
-PC --> CTRL : factory
-deactivate AS
-deactivate PC
+CTRL-> ROLE : values()
+activate ROLE
 
-CTRL-> RF : roles()
-activate RF
-RF-> RR** : create()
-RF--> CTRL : roleRepository
-deactivate RF
-
-CTRL -> RR : save(role)
-activate RR
-RR --> CTRL : role
-deactivate RR
-CTRL --> UI : role
-
+ROLE--> CTRL : rolesList
+deactivate ROLE
+CTRL--> UI : rolesList
+deactivate CTRL
 
 UI --> HRR: Shows roles' list
 deactivate UI
-deactivate CTRL
-
 
 HRR-> UI : Select the intended role
 activate UI
@@ -102,7 +93,7 @@ activate UI
 UI-> CTRL : saveColaborator()
 activate CTRL
 
-CTRL-> CB : createCollaborator()
+CTRL-> CB : build()
 activate CB
 CB-> COLAB** : create(shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate,role)
 
@@ -112,17 +103,9 @@ deactivate COLAB
 CB --> CTRL : collaborator
 deactivate CB
 
-CTRL-> PC: repositories()
-activate PC
-PC-> RF** : create()
-PC--> CTRL : factory
-deactivate PC
-
-CTRL-> RF : collaborators()
-activate RF
-RF-> CR** : create()
-RF--> CTRL : collaboratorRepository
-deactivate RF
+ref over CTRL
+US-1-2051_SD_Repo
+end ref
 
 CTRL-> CR : save(collaborator)
 activate CR
