@@ -7,7 +7,7 @@ participant "System" as SYST
 
 activate HSM
 
-HSM -> SYST : iniciates the request to add/update a field in a service draft
+HSM -> SYST : initiates the request to add/update a field in a service draft
 activate SYST
 
 SYST -> HSM : asks if the user pretends to use an existing draft

@@ -7,27 +7,27 @@ actor "Gestor de Serviços de Help Desk" as HSM
 participant "<<presentation>>\nServiceDraftSpecificationUI" as UI
 participant "<<application>>\nServiceDraftSpecificationController" as CTRL
 database "<<repository>>\nServiceDraftRepository" as SR
-participant "<<builder>>\nFormuBuilder" as FBD
+participant "<<builder>>\nFormBuilder" as FBD
+participant "<<domain>>\nFormType" as FT
 participant "<<builder>>\nAttributeBuilder" as ABD
 participant "<<domain>>\nAttribute" as A
 participant "<<domain>>\nForm" as F
 database "<<repository>>\nFormRepository" as FR
 participant "<<domain>>\nServiceDraft" as S
-participant "<<persistence>>\nPersistanceContext" as PC
+participant "<<persistence>>\nPersistenceContext" as PC
 participant "<<persistence>>\nAppSettings" as AS
 participant "<<factory>>\nRepositoryFactory" as RF
-participant "<<domain>>\nFormularioNome" as FM
-participant "<<domain>>\nFormularioTipo" as FT
-participant "<<domain>>\nAtributoNome" as AN
-participant "<<domain>>\nAtributoLabel" as AL
-participant "<<domain>>\nAtributoDescricao" as AD
-participant "<<domain>>\nAtributoRegex" as AR
-participant "<<domain>>\nAtributoScript" as ASC
-participant "<<domain>>\nAtributoTipoDados" as ATD
+participant "<<domain>>\nFormName" as FM
+participant "<<domain>>\nAttributeName" as AN
+participant "<<domain>>\nAttributeLabel" as AL
+participant "<<domain>>\nAttributeDescription" as AD
+participant "<<domain>>\nAttributeRegex" as AR
+participant "<<domain>>\nAttributeScript" as ASC
+participant "<<domain>>\nDataType" as TD
 
 activate HSM
 
-HSM -> UI : iniciates the request to add/update a field in a service draft
+HSM -> UI : initiates the request to add/update a field in a service draft
 activate UI
 
 UI -> CTRL** : create
@@ -104,6 +104,18 @@ deactivate UI
 HSM -> UI : inserts the data
 activate UI
 
+UI -> CTRL : showFormTypes()
+activate CTRL
+
+CTRL -> FT : values()
+activate FT
+
+FT --> CTRL : formTypes
+deactivate FT
+
+CTRL --> UI : formTypes
+deactivate CTRL
+
 UI -> HSM : presents the available data types
 deactivate UI
 
@@ -134,11 +146,11 @@ CTRL -> ABD : withScript(scriptPath)
 activate ABD
 deactivate ABD
 
-CTRL -> ABD : withTipoDados(tipoDados)
+CTRL -> ABD : withDataType(dataType)
 activate ABD
 deactivate ABD
 
-CTRL -> ABD : createAtributo()
+CTRL -> ABD : build()
 activate ABD
 
 ABD -> A** : create(name, label, description, regex, scriptPath, dataType)
@@ -167,7 +179,7 @@ CTRL -> FBD : withAttributeList(attributeList)
 activate FBD
 deactivate FBD
 
-CTRL -> FBD : createForm()
+CTRL -> FBD : build()
 activate FBD
 
 FBD -> F** : create(name, formType, attributeList)
@@ -179,12 +191,12 @@ deactivate F
 FBD --> CTRL : form
 deactivate FBD
 
-CTRL -> FR : save(formulario)
+CTRL -> FR : save(form)
 activate FR
-FR --> CTRL : formulario
+FR --> CTRL : form
 deactivate FR
 
-CTRL --> UI : formulario
+CTRL --> UI : form
 deactivate CTRL
 
 UI -> HSM : asks if there is more forms to add to the current draft
@@ -202,12 +214,14 @@ activate S
 
 S --> CTRL : serviceDraft
 deactivate S
+
+CTRL --> UI : serviceDraft
 deactivate CTRL
 
-UI -> HSM : valida, apresenta os dados do servico e solicita uma confirmação
+UI -> HSM : validates, presents the current \ninformation in the draft and asks for confirmation
 deactivate UI
 
-HSM -> UI : confirma
+HSM -> UI : confirms
 activate UI
 
 UI -> CTRL : saveServiceDraft()
@@ -221,8 +235,7 @@ deactivate SR
 CTRL --> UI : serviceDraft
 deactivate CTRL
 
-UI -> HSM : regista o servico e informa do sucesso da operação
-deactivate UI
+UI -> HSM : registers the draft in the persistence\n and informs of the success of the operation
 deactivate UI
 deactivate HSM
 
