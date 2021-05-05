@@ -57,6 +57,10 @@ public class Servico implements AggregateRoot<Servico> {
     @OneToOne()
     private ServicoDescricaoCompleta m_oDescricaoCompleta;
 
+    @OneToOne()
+    @NotFound(action=NotFoundAction.IGNORE)
+    private Feedback m_oFeedback;
+
     @OneToMany()
     private List<Keyword> m_lstKeywords;
 
@@ -64,13 +68,14 @@ public class Servico implements AggregateRoot<Servico> {
     private List<Formulario> m_lstFormularios;
 
     public Servico(final ServicoID oID, final ServicoDescricaoBreve oDescricaoBreve, final ServicoDescricaoCompleta oDescricaoCompleta,
-                   final List<Keyword> lstKeywords, final List<Formulario> lstFormularios) {
-        if (oID == null || oDescricaoBreve == null || oDescricaoCompleta == null || lstKeywords.isEmpty() || lstFormularios.isEmpty()) {
+                   final Feedback oFeedback, final List<Keyword> lstKeywords, final List<Formulario> lstFormularios) {
+        if (oID == null || oDescricaoBreve == null || oDescricaoCompleta == null || oFeedback == null || lstKeywords.isEmpty() || lstFormularios.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oID = oID;
         this.m_oDescricaoBreve = oDescricaoBreve;
         this.m_oDescricaoCompleta = oDescricaoCompleta;
+        this.m_oFeedback = oFeedback;
         this.m_lstKeywords = lstKeywords;
         this.m_lstFormularios = lstFormularios;
     }
@@ -81,6 +86,12 @@ public class Servico implements AggregateRoot<Servico> {
 
     public ServicoDescricaoBreve descricaoBreve() {
         return this.m_oDescricaoBreve;
+    }
+    public ServicoDescricaoCompleta descricaoCompleta() {
+        return this.m_oDescricaoCompleta;
+    }
+    public Feedback feedback() {
+        return this.m_oFeedback;
     }
     public List<Keyword> keywords() {
         return this.m_lstKeywords;
