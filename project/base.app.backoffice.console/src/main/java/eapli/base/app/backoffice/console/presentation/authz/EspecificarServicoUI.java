@@ -166,7 +166,7 @@ public class EspecificarServicoUI extends AbstractUI {
         final Menu tipoDadosMenu = new Menu();
         int counter = 0;
         tipoDadosMenu.addItem(MenuItem.of(counter++, "No Tipo Form", Actions.SUCCESS));
-        for (final TipoDados tipoDados : TipoForm.values()) {
+        for (final TipoDados tipoDados : TipoDados.values()) {
             tipoDadosMenu.addItem(MenuItem.of(counter++, tipoDados.toString(), () -> lstTipoDados.add(tipoDados)));
         }
         return tipoDadosMenu;

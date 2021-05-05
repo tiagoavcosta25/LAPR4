@@ -99,11 +99,7 @@ activate UI
 UI -> CTRL : enableFeedback(duracao)
 activate CTRL
 
-CTRL -> SBD : setFeedback(true)
-activate SBD
-deactivate SBD
-
-CTRL -> SBD : setFeedbackDuracao(duracao)
+CTRL -> SBD : setFeedback(duracao)
 activate SBD
 deactivate SBD
 deactivate CTRL
