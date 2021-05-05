@@ -2,32 +2,32 @@
 autonumber
 hide footbox
 
-actor "Responsável de Recursos Humanos" as RRH
+actor "Human Resource Representative" as HRR
 
-participant ":Sistema" as SIST
+participant ":Systema" as SYST
 
-activate RRH
+activate HRR
 
-RRH-> SIST : Envia um pedido para especificar um colaborador
-activate SIST
-SIST --> RRH: Solicita toda a informação necessária para a especificação de um colaborador\n(i.e. nome curto e completo, número mecanográfico, morada,\n contacto, data de nascimento)
-deactivate SIST
+HRR-> SYST : Iniciates the request to specify a collaborator
+activate SYST
+SYST --> HRR: Request all information needed (i.e. short and complete name,\nmechanographic number, address, phone number, birth date)
+deactivate SYST
 
-RRH-> SIST : Preenche com toda a informação solicitada
-activate SIST
-SIST --> RRH: Apresenta a lista de funções
-deactivate SIST
+HRR-> SYST : Inserts the requested information
+activate SYST
+SYST --> HRR: Shows roles' list
+deactivate SYST
 
-RRH-> SIST : Seleciona a função pretendida
-activate SIST
-SIST --> RRH: Apresenta toda a informação e solicita confirmação
-deactivate SIST
+HRR-> SYST : Select the intended role
+activate SYST
+SYST --> HRR: Validates, presents the information and asks for confirmation
+deactivate SYST
 
-RRH-> SIST : Confirma
-activate SIST
-SIST --> RRH: Valida e informa do sucesso da operação
-deactivate SIST
+HRR-> SYST : Confirms
+activate SYST
+SYST --> HRR: Informs of the success of the operation
+deactivate SYST
 
-deactivate RRH
+deactivate HRR
 
 @enduml

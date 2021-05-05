@@ -15,28 +15,28 @@ import javax.persistence.Embeddable;
  * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 @Embeddable
-public class ColaboradorID implements ValueObject, Comparable<ColaboradorID> {
+public class CollaboratorID implements ValueObject, Comparable<CollaboratorID> {
 
     private static final long serialVersionUID = 1L;
 
     private String m_strID;
 
-    public ColaboradorID(final String strID) {
+    public CollaboratorID(final String strID) {
         if (StringPredicates.isNullOrEmpty(strID)) {
             throw new IllegalArgumentException(
-                    "ID do Colaborador não deverá ser null nem vazio.");
+                    "Collaborator's ID can't be null nor empty.");
         }
         // TODO validate invariants, i.e., mecanographic number regular
         // expression
         this.m_strID = strID;
     }
 
-    protected ColaboradorID() {
+    protected CollaboratorID() {
         // for ORM
     }
 
-    public static ColaboradorID valueOf(final String strID) {
-        return new ColaboradorID(strID);
+    public static CollaboratorID valueOf(final String strID) {
+        return new CollaboratorID(strID);
     }
 
     @Override
@@ -44,11 +44,11 @@ public class ColaboradorID implements ValueObject, Comparable<ColaboradorID> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ColaboradorID)) {
+        if (!(o instanceof CollaboratorID)) {
             return false;
         }
 
-        final ColaboradorID that = (ColaboradorID) o;
+        final CollaboratorID that = (CollaboratorID) o;
         return this.m_strID.equals(that.m_strID);
     }
 
@@ -63,7 +63,7 @@ public class ColaboradorID implements ValueObject, Comparable<ColaboradorID> {
     }
 
     @Override
-    public int compareTo(final ColaboradorID arg0) {
+    public int compareTo(final CollaboratorID arg0) {
         return m_strID.compareTo(arg0.m_strID);
     }
 }
