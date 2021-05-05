@@ -83,4 +83,14 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 		return new JpaServiceDraftRepository(Application.settings().getPersistenceUnitName());
 	}
 
+	@Override
+	public JpaCollaboratorRepository colaborators(final TransactionalContext autoTx) {
+		return new JpaCollaboratorRepository(autoTx);
+	}
+
+	@Override
+	public JpaCollaboratorRepository colaborators() {
+		return new JpaCollaboratorRepository(Application.settings().getPersistenceUnitName());
+	}
+
 }

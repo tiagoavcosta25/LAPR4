@@ -17,25 +17,14 @@ public interface CollaboratorRepository
         extends DomainRepository<CollaboratorID, Collaborator> {
 
     /**
-     * returns the client user (utente) whose username is given
+     * returns the collaborator with the given ID
      *
-     * @param name
-     *            the username to search for
+     * @param oID
      * @return
      */
-    Optional<ClientUser> findByUsername(Username name);
-
-    /**
-     * returns the client user (utente) with the given mecanographic number
-     *
-     * @param number
-     * @return
-     */
-    default Optional<ClientUser> findByMecanographicNumber(MecanographicNumber number) {
-        return ofIdentity(number);
+    default Optional<Collaborator> findByID(CollaboratorID oID) {
+        return ofIdentity(oID);
     }
 
-    public Iterable<ClientUser> findAllActive();
-
-    void save(Collaborator oCollaborator);
+    public Iterable<Collaborator> findAllActive();
 }

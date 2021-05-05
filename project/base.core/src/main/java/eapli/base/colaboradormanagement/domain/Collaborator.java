@@ -15,7 +15,7 @@ import eapli.framework.domain.model.DomainEntities;
  * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 @Embeddable
-public class Collaborator implements AggregateRoot<Collaborator> {
+public class Collaborator implements AggregateRoot<CollaboratorID> {
 
     @Version
     private Long version;
