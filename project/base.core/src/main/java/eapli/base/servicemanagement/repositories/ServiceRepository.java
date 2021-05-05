@@ -24,6 +24,4 @@ public interface ServiceRepository
     }
 
     public Iterable<Service> findAllActive();
-
-    Service save(Service oService);
 }

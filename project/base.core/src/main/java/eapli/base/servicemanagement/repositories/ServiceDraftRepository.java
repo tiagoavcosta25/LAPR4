@@ -24,6 +24,4 @@ public interface ServiceDraftRepository
     }
 
     public Iterable<ServiceDraft> findAllActive();
-
-    ServiceDraft save(ServiceDraft oServiceDraft);
 }
