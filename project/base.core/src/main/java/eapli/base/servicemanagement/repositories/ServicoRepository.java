@@ -18,25 +18,16 @@ public interface ServicoRepository
         extends DomainRepository<ServicoID, Servico> {
 
     /**
-     * returns the client user (utente) whose username is given
-     *
-     * @param name
-     *            the username to search for
-     * @return
-     */
-    Optional<ClientUser> findByUsername(Username name);
-
-    /**
      * returns the client user (utente) with the given mecanographic number
      *
      * @param number
      * @return
      */
-    default Optional<ClientUser> findByMecanographicNumber(MecanographicNumber number) {
-        return ofIdentity(number);
+    default Optional<Servico> findByID(ServicoID oID) {
+        return ofIdentity(oID);
     }
 
-    public Iterable<ClientUser> findAllActive();
+    public Iterable<Servico> findAllActive();
 
     void save(Servico oServico);
 }

@@ -19,25 +19,16 @@ public interface FormularioRepository
         extends DomainRepository<FormularioID, Formulario> {
 
     /**
-     * returns the client user (utente) whose username is given
+     * returns the form with the given id
      *
-     * @param name
-     *            the username to search for
+     * @param oID
      * @return
      */
-    Optional<ClientUser> findByUsername(Username name);
-
-    /**
-     * returns the client user (utente) with the given mecanographic number
-     *
-     * @param number
-     * @return
-     */
-    default Optional<ClientUser> findByMecanographicNumber(MecanographicNumber number) {
-        return ofIdentity(number);
+    default Optional<Formulario> findByID(FormularioID oID) {
+        return ofIdentity(oID);
     }
 
-    public Iterable<ClientUser> findAllActive();
+    public Iterable<Formulario> findAllActive();
 
     void save(Formulario oFormulario);
 }
