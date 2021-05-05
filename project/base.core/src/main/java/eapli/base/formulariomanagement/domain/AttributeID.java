@@ -15,13 +15,13 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AtributoID implements ValueObject, Comparable<AtributoID> {
+public class AttributeID implements ValueObject, Comparable<AttributeID> {
 
     private static final long serialVersionUID = 1L;
 
     private String m_strID;
 
-    public AtributoID(final String strID) {
+    public AttributeID(final String strID) {
         if (StringPredicates.isNullOrEmpty(strID)) {
             throw new IllegalArgumentException(
                     "Attribute ID should neither be null nor empty");
@@ -31,12 +31,12 @@ public class AtributoID implements ValueObject, Comparable<AtributoID> {
         this.m_strID = strID;
     }
 
-    protected AtributoID() {
+    protected AttributeID() {
         // for ORM
     }
 
-    public static AtributoID valueOf(final String strID) {
-        return new AtributoID(strID);
+    public static AttributeID valueOf(final String strID) {
+        return new AttributeID(strID);
     }
 
     @Override
@@ -44,11 +44,11 @@ public class AtributoID implements ValueObject, Comparable<AtributoID> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AtributoID)) {
+        if (!(o instanceof AttributeID)) {
             return false;
         }
 
-        final AtributoID that = (AtributoID) o;
+        final AttributeID that = (AttributeID) o;
         return this.m_strID.equals(that.m_strID);
     }
 
@@ -63,7 +63,7 @@ public class AtributoID implements ValueObject, Comparable<AtributoID> {
     }
 
     @Override
-    public int compareTo(final AtributoID arg0) {
+    public int compareTo(final AttributeID arg0) {
         return m_strID.compareTo(arg0.m_strID);
     }
 }

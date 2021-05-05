@@ -37,13 +37,13 @@ import javax.persistence.Version;
  */
 
 @Entity
-public class Atributo implements AggregateRoot<Formulario> {
+public class Attribute implements AggregateRoot<Formulario> {
 
     @Version
     private Long version;
 
     @EmbeddedId
-    private AtributoID m_oID;
+    private AttributeID m_oID;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -66,8 +66,8 @@ public class Atributo implements AggregateRoot<Formulario> {
     @OneToOne()
     private TipoDados m_oTipoDados;
 
-    public Atributo(final AtributoID oID, final AttributeName oNome, final AttributeLabel oLabel, final AttributeDescription oDescricao,
-                    final AttributeRegex oRegex, final AttributeScript oScript, final TipoDados oTipoDados) {
+    public Attribute(final AttributeID oID, final AttributeName oNome, final AttributeLabel oLabel, final AttributeDescription oDescricao,
+                     final AttributeRegex oRegex, final AttributeScript oScript, final TipoDados oTipoDados) {
         if (oID == null || oNome == null || oLabel == null || oDescricao == null || oRegex == null || oScript == null || oTipoDados == null) {
             throw new IllegalArgumentException();
         }
@@ -80,7 +80,7 @@ public class Atributo implements AggregateRoot<Formulario> {
         this.m_oTipoDados = oTipoDados;
     }
 
-    protected Atributo() {
+    protected Attribute() {
         // for ORM only
     }
 
@@ -119,12 +119,12 @@ public class Atributo implements AggregateRoot<Formulario> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public AtributoID id() {
+    public AttributeID id() {
         return identity();
     }
 
     @Override
-    public AtributoID identity() {
+    public AttributeID identity() {
         return this.m_oID;
     }
 }
