@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Jorge Santos ajs@isep.ipp.pt
+ * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 @Embeddable
 public class ColaboradorDataNascimento implements ValueObject, Comparable<ColaboradorDataNascimento> {
@@ -24,7 +24,7 @@ public class ColaboradorDataNascimento implements ValueObject, Comparable<Colabo
     public ColaboradorDataNascimento(final String strDataNascimento) {
         if (StringPredicates.isNullOrEmpty(strDataNascimento)) {
             throw new IllegalArgumentException(
-                    "Mecanographic Number should neither be null nor empty");
+                    "Data de nascimento não deverá ser null nem vazio.");
         }
         // expression
         this.m_strDataNascimento = strDataNascimento;

@@ -6,6 +6,7 @@ package eapli.base.infrastructure.persistence;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
+import eapli.base.colaboradormanagement.repositories.ColaboradorRepository;
 import eapli.base.formulariomanagement.repositories.FormularioRepository;
 import eapli.base.servicemanagement.repositories.ServicoRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -93,5 +94,19 @@ public interface RepositoryFactory {
 	 * @return
 	 */
 	FormularioRepository formularios();
+
+	/**
+	 *
+	 * @param autoTx the transactional context to enrol
+	 * @return
+	 */
+	ColaboradorRepository colaboradores(TransactionalContext autoTx);
+
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	ColaboradorRepository colaboradores();
 
 }

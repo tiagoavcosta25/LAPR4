@@ -63,13 +63,13 @@ class Funcao {
 package Builder #DDDDDD {
 class ColaboradorBuilder{
 +create()
-+setNomeCompleto(nomeCompleto)
-+setNumMecan(numMecan)
-+setMorada(morada)
-+setContacto(contacto)
-+setDataNascimento(dataNascimento)
-+setFuncao(funcao)
-+createColab()
++withNomeCompleto(nomeCompleto)
++withNumMecan(numMecan)
++withMorada(morada)
++withContacto(contacto)
++withDataNascimento(dataNascimento)
++withFuncao(funcao)
++createColaborador()
 }
 }
 }

@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Jorge Santos ajs@isep.ipp.pt
+ * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 @Embeddable
 public class ColaboradorNumeroMecanografico implements ValueObject, Comparable<ColaboradorNumeroMecanografico> {
@@ -24,7 +24,7 @@ public class ColaboradorNumeroMecanografico implements ValueObject, Comparable<C
     public ColaboradorNumeroMecanografico(final String strNumeroMecanografico) {
         if (StringPredicates.isNullOrEmpty(strNumeroMecanografico)) {
             throw new IllegalArgumentException(
-                    "Mecanographic Number should neither be null nor empty");
+                    "Número mecanográfico não deverá ser null nem vazio.");
         }
         // expression
         this.m_strNumeroMecanografico = strNumeroMecanografico;

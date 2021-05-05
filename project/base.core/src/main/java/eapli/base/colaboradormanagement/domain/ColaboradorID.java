@@ -15,27 +15,28 @@ import javax.persistence.Embeddable;
  * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 @Embeddable
-public class ColaboradorMorada implements ValueObject, Comparable<ColaboradorMorada> {
+public class ColaboradorID implements ValueObject, Comparable<ColaboradorID> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strMorada;
+    private String m_strID;
 
-    public ColaboradorMorada(final String strMorada) {
-        if (StringPredicates.isNullOrEmpty(strMorada)) {
+    public ColaboradorID(final String strID) {
+        if (StringPredicates.isNullOrEmpty(strID)) {
             throw new IllegalArgumentException(
-                    "Morada não deverá ser null nem vazio.");
+                    "ID do Colaborador não deverá ser null nem vazio.");
         }
+        // TODO validate invariants, i.e., mecanographic number regular
         // expression
-        this.m_strMorada = strMorada;
+        this.m_strID = strID;
     }
 
-    protected ColaboradorMorada() {
+    protected ColaboradorID() {
         // for ORM
     }
 
-    public static ColaboradorMorada valueOf(final String strMorada) {
-        return new ColaboradorMorada(strMorada);
+    public static ColaboradorID valueOf(final String strID) {
+        return new ColaboradorID(strID);
     }
 
     @Override
@@ -43,26 +44,26 @@ public class ColaboradorMorada implements ValueObject, Comparable<ColaboradorMor
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ColaboradorMorada)) {
+        if (!(o instanceof ColaboradorID)) {
             return false;
         }
 
-        final ColaboradorMorada that = (ColaboradorMorada) o;
-        return this.m_strMorada.equals(that.m_strMorada);
+        final ColaboradorID that = (ColaboradorID) o;
+        return this.m_strID.equals(that.m_strID);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strMorada.hashCode();
+        return this.m_strID.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strMorada;
+        return this.m_strID;
     }
 
     @Override
-    public int compareTo(final ColaboradorMorada arg0) {
-        return m_strMorada.compareTo(arg0.m_strMorada);
+    public int compareTo(final ColaboradorID arg0) {
+        return m_strID.compareTo(arg0.m_strID);
     }
 }
