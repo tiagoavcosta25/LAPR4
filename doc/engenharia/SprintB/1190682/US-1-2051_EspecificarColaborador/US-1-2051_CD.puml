@@ -3,36 +3,36 @@ skinparam classAttributeIconSize 0
 
 
 package "UI" #DDDDDD {
-class EspecificarColaboradorUI{
+class CollaboratorSpecificationUI{
 
 }
 }
 
 
 package "Application" #DDDDDD {
-class EspecificarColaboradorController{
+class CollaboratorSpecificationController{
 +create()
-+addColaborador(nomeCurto, nomeCompleto, numMecan,\nmorada, contacto, dataNascimento)
-+getFuncaoList()
-+addFuncao(funcao)
-+saveColaborador()
++addCollaborator(shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate)
++getRoleList()
++addRole(role)
++saveCollaborator()
 }
 }
 
 
 package "Domain" #DDDDDD {
-class Colaborador{
-+create(nomeCurto, nomeCompleto, numMecan,\nmorada, contacto, dataNascimento,funcao)
+class Collaborator{
++create(shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate,Role)
 }
 
-class NomeCurto {
-+createNomeCurto(nomeCurto)
--validate(nomeCurto)
+class ShortName {
++createShortName(shortName)
+-validate(shortName)
 }
 
-class NomeCompleto {
-+createNomeCompleto(nomeCompleto)
--validate(nomeCompleto)
+class CompleteName {
++createCompleteName(completeName)
+-validate(completeName)
 }
 
 class NumeroMecanografico {
@@ -40,36 +40,37 @@ class NumeroMecanografico {
 -validate(numeroMecanografico)
 }
 
-class Morada {
-+createMorada(morada)
--validate(morada)
+class Address {
++createAddress(address)
+-validate(address)
 }
 
-class Contacto {
-+createContacto(contacto)
--validate(contacto)
+class PhoneNumber {
++createPhoneNumber(phoneNumber)
+-validate(phoneNumber)
 }
 
-class DataNascimento {
-+createDataNascimento(dataNascimento)
--validate(dataNascimento)
+class BirthDate {
++createBirthDate(birthDate)
+-validate(birthDate)
 }
 
-class Funcao {
-+createFuncao(funcao)
--validate(funcao)
+class Role {
++createRole(Role)
+-validate(Role)
 }
 
 package Builder #DDDDDD {
-class ColaboradorBuilder{
+class CollaboratorBuilder{
 +create()
-+withNomeCompleto(nomeCompleto)
-+withNumMecan(numMecan)
-+withMorada(morada)
-+withContacto(contacto)
-+withDataNascimento(dataNascimento)
-+withFuncao(funcao)
-+createColaborador()
++withShortName(shortName)
++withCompleteName(completeName)
++withMechanographicNumber(mechanographicNumber)
++withAddress(address)
++withPhoneNumber(phoneNumber)
++withBirthDate(birthDate)
++withRole(Role)
++createCollaborator()
 }
 }
 }
@@ -86,45 +87,45 @@ class AppSettings{
 
 package Factory #DDDDDD {
 class RepositoryFactory{
-+colaboradores()
-+funcoes()
++collaborators()
++roles()
 }
 }
 
 package "Repository" #DDDDDD {
-class ColaboradorRepository{
+class CollaboratorRepository{
 +create()
-+save(colaborador)
++save(collaborator)
 }
 
-class FuncaoRepository{
+class RoleRepository{
 +create()
-+save(funcao)
++save(role)
 }
 }
 
 }
 
 
-EspecificarColaboradorUI ..> EspecificarColaboradorController
-EspecificarColaboradorController ..> ColaboradorBuilder
-EspecificarColaboradorController ..> PersistenceContext
+CollaboratorSpecificationUI ..> CollaboratorSpecificationController
+CollaboratorSpecificationController ..> CollaboratorBuilder
+CollaboratorSpecificationController ..> PersistenceContext
 
-AppSettings -> RepositoryFactory : cria
-PersistenceContext -> AppSettings : implementa
+AppSettings -> RepositoryFactory : creates
+PersistenceContext -> AppSettings : implements
 
-RepositoryFactory "1" -> "1" ColaboradorRepository : possui
-RepositoryFactory "1" -> "1" FuncaoRepository : possui
+RepositoryFactory "1" -> "1" CollaboratorRepository : has
+RepositoryFactory "1" -> "1" RoleRepository : has
 
-ColaboradorRepository "1" -> "*" Colaborador : guarda
-ColaboradorBuilder "1" -> "*" Colaborador : cria
+CollaboratorRepository "1" -> "*" Collaborator : saves
+CollaboratorBuilder "1" -> "*" Collaborator : creates
 
-Colaborador "1" -> "1" NomeCurto : tem
-Colaborador "1" -> "1" NomeCompleto : tem
-Colaborador "1" -> "1" NumeroMecanografico : é identificado por
-Colaborador "1" -> "1" Funcao : tem
-Colaborador "1" -> "1" Morada : tem
-Colaborador "1" -> "1" Contacto : possui
-Colaborador "1" -> "1" DataNascimento : tem
+Collaborator "1" -> "1" ShortName : has
+Collaborator "1" -> "1" CompleteName : has
+Collaborator "1" -> "1" NumeroMecanografico : is identified by
+Collaborator "1" -> "1" Role : has
+Collaborator "1" -> "1" Address : has
+Collaborator "1" -> "1" PhoneNumber : has
+Collaborator "1" -> "1" BirthDate : has
 
 @enduml
