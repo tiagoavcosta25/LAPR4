@@ -18,11 +18,11 @@ participant "<<domain>>\nFormulario" as F
 database "<<repository>>\nFormularioRepository" as FR
 participant "<<domain>>\nServico" as S
 database "<<repository>>\nServicoRepository" as SR
+participant "<<domain>>\nTitulo" as T
 participant "<<domain>>\nDescricaoBreve" as DB
 participant "<<domain>>\nDescricaoCompleta" as DC
 participant "<<domain>>\nKeyword" as KW
 participant "<<domain>>\nFeedback" as FB
-participant "<<domain>>\nFeedbackDuracao" as FD
 participant "<<domain>>\nFormularioNome" as FM
 participant "<<domain>>\nFormularioTipo" as FT
 participant "<<domain>>\nAtributoNome" as AN
