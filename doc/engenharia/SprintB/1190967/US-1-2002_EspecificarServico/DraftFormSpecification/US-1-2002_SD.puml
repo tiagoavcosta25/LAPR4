@@ -7,8 +7,9 @@ actor "Gestor de Serviços de Help Desk" as HSM
 participant "<<presentation>>\nServiceDraftSpecificationUI" as UI
 participant "<<application>>\nServiceDraftSpecificationController" as CTRL
 database "<<repository>>\nServiceDraftRepository" as SR
-participant "<<builder>>\nFormBuilder" as FBD
 participant "<<domain>>\nFormType" as FT
+participant "<<builder>>\nFormBuilder" as FBD
+participant "<<domain>>\nDataType" as DT
 participant "<<builder>>\nAttributeBuilder" as ABD
 participant "<<domain>>\nAttribute" as A
 participant "<<domain>>\nForm" as F
@@ -23,7 +24,6 @@ participant "<<domain>>\nAttributeLabel" as AL
 participant "<<domain>>\nAttributeDescription" as AD
 participant "<<domain>>\nAttributeRegex" as AR
 participant "<<domain>>\nAttributeScript" as ASC
-participant "<<domain>>\nDataType" as TD
 
 activate HSM
 
@@ -78,6 +78,18 @@ deactivate UI
 HSM -> UI : inserts the form's name
 activate UI
 
+UI -> CTRL : showFormTypes()
+activate CTRL
+
+CTRL -> FT : values()
+activate FT
+
+FT --> CTRL : formTypes
+deactivate FT
+
+CTRL --> UI : formTypes
+deactivate CTRL
+
 UI -> HSM : presents the available form types
 deactivate UI
 
@@ -104,16 +116,16 @@ deactivate UI
 HSM -> UI : inserts the data
 activate UI
 
-UI -> CTRL : showFormTypes()
+UI -> CTRL : showDataTypes()
 activate CTRL
 
-CTRL -> FT : values()
-activate FT
+CTRL -> DT : values()
+activate DT
 
-FT --> CTRL : formTypes
-deactivate FT
+DT --> CTRL : dataTypes
+deactivate DT
 
-CTRL --> UI : formTypes
+CTRL --> UI : dataTypes
 deactivate CTRL
 
 UI -> HSM : presents the available data types

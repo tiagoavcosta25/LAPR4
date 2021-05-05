@@ -74,6 +74,7 @@ class AttributeScript{
 
 class DataType{
 +createDataType(dataType)
++values()
 -validate(dataType)
 }
 
