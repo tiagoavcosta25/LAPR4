@@ -34,33 +34,41 @@ import javax.persistence.*;
  */
 
 @Entity
-public class Attribute implements AggregateRoot<Form> {
+public class Attribute implements AggregateRoot<AttributeID> {
 
     @Version
     private Long version;
 
+    @Id
     @GeneratedValue
+    @Column(name = "attributeID")
     private AttributeID m_oID;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
-    @OneToOne()
+    @Embedded
+    @Column(name = "name")
     private AttributeName m_oName;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "label")
     private AttributeLabel m_oLabel;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "description")
     private AttributeDescription m_oDescription;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "regex")
     private AttributeRegex m_oRegex;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "scriptPath")
     private AttributeScript m_oScript;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "dataType")
     private DataType m_oDataType;
 
     public Attribute(final AttributeID oID, final AttributeName oName, final AttributeLabel oLabel, final AttributeDescription oDescription,

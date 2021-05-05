@@ -5,6 +5,9 @@
  */
 package eapli.base.formulariomanagement.domain;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public enum FormType {
     SERVICE, MANUAL_TASK;
 }

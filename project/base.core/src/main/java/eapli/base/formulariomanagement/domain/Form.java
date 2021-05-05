@@ -40,19 +40,22 @@ public class Form implements AggregateRoot<FormID> {
     @Version
     private Long version;
 
+    @Id
     @GeneratedValue
+    @Column(name = "formID")
     private FormID m_oID;
 
-    /**
-     * cascade = CascadeType.NONE as the systemUser is part of another aggregate
-     */
-    @OneToOne()
+    @Embedded
+    @Column(name = "name")
     private FormName m_oName;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "type")
     private FormType m_oFormType;
 
     @OneToMany()
+    @Column(name = "attribute")
+    @JoinColumn(name="attributeID")
     private List<Attribute> m_lstAttributes;
 
     public Form(final FormID oID, final FormName oName, final FormType oFormType, final List<Attribute> lstAttributes) {

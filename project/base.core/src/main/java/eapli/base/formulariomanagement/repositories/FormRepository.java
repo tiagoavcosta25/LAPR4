@@ -24,6 +24,4 @@ public interface FormRepository
     }
 
     public Iterable<Form> findAllActive();
-
-    Form save(Form oForm);
 }
