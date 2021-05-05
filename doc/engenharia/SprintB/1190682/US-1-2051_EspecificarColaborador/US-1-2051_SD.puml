@@ -34,17 +34,17 @@ UI --> RRH: Solicita toda a informação necessária para a especificação\n de
 deactivate UI
 RRH-> UI : Preenche com toda a informação solicitada
 activate UI
-UI-> CTRL : addColab(nomeCurto, nomeCompleto, numMecan,\nmorada, contacto, dataNascimento)
+UI-> CTRL : addColaborador(nomeCurto, nomeCompleto, numMecan,\nmorada, contacto, dataNascimento)
 activate CTRL
 
 CTRL-> CB** : create()
-CTRL-> CB : setNomeCurto(nomeCurto)
+CTRL-> CB : withNomeCurto(nomeCurto)
 activate CB
-CTRL-> CB : setNomeCompleto(nomeCompleto)
-CTRL-> CB : setNumMecan(numMecan)
-CTRL-> CB : setMorada(morada)
-CTRL-> CB : setContacto(contacto)
-CTRL-> CB : setDataNascimento(dataNascimento)
+CTRL-> CB : withNomeCompleto(nomeCompleto)
+CTRL-> CB : withNumMecan(numMecan)
+CTRL-> CB : withMorada(morada)
+CTRL-> CB : withContacto(contacto)
+CTRL-> CB : withDataNascimento(dataNascimento)
 deactivate CB
 deactivate CTRL
 
@@ -87,7 +87,7 @@ activate UI
 
 UI-> CTRL : addFuncao(funcao)
 activate CTRL
-CTRL-> CB : setFuncao(funcao)
+CTRL-> CB : withFuncao(funcao)
 activate CB
 deactivate CB
 deactivate CTRL
