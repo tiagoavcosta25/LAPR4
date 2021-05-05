@@ -46,9 +46,9 @@ public class EspecificarServicoController {
     private final FormularioRepository formularioRepo = PersistenceContext.repositories().formularios();
     private ServicoBuilder servicoBuilder = new ServicoBuilder();
     private FormularioBuilder formularioBuilder = new FormularioBuilder();
-    private AtributoBuilder atributoBuilder = new AtributoBuilder();
+    private AttributeBuilder attributeBuilder = new AttributeBuilder();
     private List<Keyword> m_lstKeywords = new ArrayList<>();
-    private List<Atributo> m_lstAtributos = new ArrayList<>();
+    private List<Attribute> m_lstAttributes = new ArrayList<>();
     private List<Formulario> m_lstFormularios = new ArrayList<>();
 
     public void addServico(ServicoDescricaoBreve oDescricaoBreve, ServicoDescricaoCompleta oDescricaoCompleta) {
@@ -81,22 +81,22 @@ public class EspecificarServicoController {
 
     public void addAtributo(AttributeName oNome, AttributeLabel oLabel, AttributeDescription oDescricao,
                             AttributeRegex oRegex, AttributeScript oScript) {
-        this.atributoBuilder = this.atributoBuilder.withNome(oNome);
-        this.atributoBuilder = this.atributoBuilder.withLabel(oLabel);
-        this.atributoBuilder = this.atributoBuilder.withDescricao(oDescricao);
-        this.atributoBuilder = this.atributoBuilder.withRegex(oRegex);
-        this.atributoBuilder = this.atributoBuilder.withScript(oScript);
+        this.attributeBuilder = this.attributeBuilder.withNome(oNome);
+        this.attributeBuilder = this.attributeBuilder.withLabel(oLabel);
+        this.attributeBuilder = this.attributeBuilder.withDescricao(oDescricao);
+        this.attributeBuilder = this.attributeBuilder.withRegex(oRegex);
+        this.attributeBuilder = this.attributeBuilder.withScript(oScript);
     }
 
-    public Atributo addTipoDados(TipoDados oTipoDados) {
-        this.atributoBuilder = this.atributoBuilder.withTipoDados(oTipoDados);
-        Atributo oAtributo = this.atributoBuilder.build();
-        this.m_lstAtributos.add(oAtributo);
-        return oAtributo;
+    public Attribute addTipoDados(TipoDados oTipoDados) {
+        this.attributeBuilder = this.attributeBuilder.withTipoDados(oTipoDados);
+        Attribute oAttribute = this.attributeBuilder.build();
+        this.m_lstAttributes.add(oAttribute);
+        return oAttribute;
     }
 
     public Formulario saveFormulario() {
-        this.formularioBuilder = this.formularioBuilder.withAtributoList(this.m_lstAtributos);
+        this.formularioBuilder = this.formularioBuilder.withAtributoList(this.m_lstAttributes);
         Formulario oFormulario = this.formularioBuilder.build();
         this.m_lstFormularios.add(oFormulario);
         this.formularioRepo.save(oFormulario); //TODO: Implementar metodo save

@@ -23,7 +23,6 @@
  */
 package eapli.base.formulariomanagement.domain;
 
-import eapli.base.servicemanagement.domain.Keyword;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
@@ -57,15 +56,15 @@ public class Formulario implements AggregateRoot<Formulario> {
     private TipoForm m_oTipoForm;
 
     @OneToMany()
-    private List<Atributo>  m_lstAtributos;
+    private List<Attribute> m_lstAttributes;
 
-    public Formulario(final FormularioID oID, final FormularioNome oNome, final TipoForm oTipoForm, final List<Atributo> lstAtributos) {
-        if (oID == null || oNome == null || oTipoForm == null || lstAtributos.isEmpty()) {
+    public Formulario(final FormularioID oID, final FormularioNome oNome, final TipoForm oTipoForm, final List<Attribute> lstAttributes) {
+        if (oID == null || oNome == null || oTipoForm == null || lstAttributes.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oID = oID;
         this.m_oNome = oNome;
-        this.m_lstAtributos = lstAtributos;
+        this.m_lstAttributes = lstAttributes;
         this.m_oTipoForm = oTipoForm;
     }
 
@@ -76,8 +75,8 @@ public class Formulario implements AggregateRoot<Formulario> {
     public FormularioNome name() {
         return this.m_oNome;
     }
-    public List<Atributo> atributos() {
-        return this.m_lstAtributos;
+    public List<Attribute> atributos() {
+        return this.m_lstAttributes;
     }
     public TipoForm tipo() {
         return this.m_oTipoForm;
