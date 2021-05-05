@@ -23,7 +23,7 @@ public interface ServiceDraftRepository
         return ofIdentity(lngID);
     }
 
-    public Iterable<Service> findAllActive();
+    public Iterable<ServiceDraft> findAllActive();
 
     ServiceDraft save(ServiceDraft oServiceDraft);
 }

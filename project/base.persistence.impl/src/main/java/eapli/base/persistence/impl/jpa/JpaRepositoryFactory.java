@@ -53,5 +53,34 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 				Application.settings().getExtendedPersistenceProperties());
 	}
 
+	@Override
+	public JpaFormRepository forms(final TransactionalContext autoTx) {
+		return new JpaFormRepository(autoTx);
+	}
+
+	@Override
+	public JpaFormRepository forms() {
+		return new JpaFormRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public JpaServiceRepository services(final TransactionalContext autoTx) {
+		return new JpaServiceRepository(autoTx);
+	}
+
+	@Override
+	public JpaServiceRepository services() {
+		return new JpaServiceRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public JpaServiceDraftRepository serviceDrafts(final TransactionalContext autoTx) {
+		return new JpaServiceDraftRepository(autoTx);
+	}
+
+	@Override
+	public JpaServiceDraftRepository serviceDrafts() {
+		return new JpaServiceDraftRepository(Application.settings().getPersistenceUnitName());
+	}
 
 }
