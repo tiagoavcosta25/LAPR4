@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.base.formulariomanagement.domain;
+package eapli.base.servicemanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
@@ -15,27 +15,27 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AtributoNome implements ValueObject, Comparable<AtributoNome> {
+public class Feedback implements ValueObject, Comparable<Feedback> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strNome;
+    private Double m_dblDuracao;
 
-    public AtributoNome(final String strNome) {
-        if (StringPredicates.isNullOrEmpty(strNome)) {
+    public Feedback(final Double dblDuracao) {
+        if (dblDuracao == null) {
             throw new IllegalArgumentException(
-                    "Attribute Name should neither be null nor empty");
+                    "Feedback should neither be null nor empty");
         }
         // expression
-        this.m_strNome = strNome;
+        this.m_dblDuracao = dblDuracao;
     }
 
-    protected AtributoNome() {
+    protected Feedback() {
         // for ORM
     }
 
-    public static AtributoNome valueOf(final String strNome) {
-        return new AtributoNome(strNome);
+    public static Feedback valueOf(final Double dblDuracao) {
+        return new Feedback(dblDuracao);
     }
 
     @Override
@@ -43,26 +43,26 @@ public class AtributoNome implements ValueObject, Comparable<AtributoNome> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AtributoNome)) {
+        if (!(o instanceof Feedback)) {
             return false;
         }
 
-        final AtributoNome that = (AtributoNome) o;
-        return this.m_strNome.equals(that.m_strNome);
+        final Feedback that = (Feedback) o;
+        return this.m_dblDuracao.equals(that.m_dblDuracao);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strNome.hashCode();
+        return this.m_dblDuracao.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strNome;
+        return this.m_dblDuracao;
     }
 
     @Override
-    public int compareTo(final AtributoNome arg0) {
-        return m_strNome.compareTo(arg0.m_strNome);
+    public int compareTo(final Feedback arg0) {
+        return m_dblDuracao.compareTo(arg0.m_dblDuracao);
     }
 }

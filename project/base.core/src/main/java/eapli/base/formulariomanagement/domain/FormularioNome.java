@@ -15,27 +15,27 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AtributoNome implements ValueObject, Comparable<AtributoNome> {
+public class FormularioNome implements ValueObject, Comparable<FormularioNome> {
 
     private static final long serialVersionUID = 1L;
 
     private String m_strNome;
 
-    public AtributoNome(final String strNome) {
+    public FormularioNome(final String strNome) {
         if (StringPredicates.isNullOrEmpty(strNome)) {
             throw new IllegalArgumentException(
-                    "Attribute Name should neither be null nor empty");
+                    "Form Name should neither be null nor empty");
         }
         // expression
         this.m_strNome = strNome;
     }
 
-    protected AtributoNome() {
+    protected FormularioNome() {
         // for ORM
     }
 
-    public static AtributoNome valueOf(final String strNome) {
-        return new AtributoNome(strNome);
+    public static FormularioNome valueOf(final String strNome) {
+        return new FormularioNome(strNome);
     }
 
     @Override
@@ -43,11 +43,11 @@ public class AtributoNome implements ValueObject, Comparable<AtributoNome> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AtributoNome)) {
+        if (!(o instanceof FormularioNome)) {
             return false;
         }
 
-        final AtributoNome that = (AtributoNome) o;
+        final FormularioNome that = (FormularioNome) o;
         return this.m_strNome.equals(that.m_strNome);
     }
 
@@ -62,7 +62,7 @@ public class AtributoNome implements ValueObject, Comparable<AtributoNome> {
     }
 
     @Override
-    public int compareTo(final AtributoNome arg0) {
+    public int compareTo(final FormularioNome arg0) {
         return m_strNome.compareTo(arg0.m_strNome);
     }
 }

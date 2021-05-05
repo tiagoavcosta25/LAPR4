@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Jorge Santos ajs@isep.ipp.pt
+ * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
 public class AtributoRegex implements ValueObject, Comparable<AtributoRegex> {

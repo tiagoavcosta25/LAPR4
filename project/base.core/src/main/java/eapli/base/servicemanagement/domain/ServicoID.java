@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.base.formulariomanagement.domain;
+package eapli.base.servicemanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
@@ -15,27 +15,28 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AtributoNome implements ValueObject, Comparable<AtributoNome> {
+public class ServicoID implements ValueObject, Comparable<ServicoID> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strNome;
+    private String m_strID;
 
-    public AtributoNome(final String strNome) {
-        if (StringPredicates.isNullOrEmpty(strNome)) {
+    public ServicoID(final String strID) {
+        if (StringPredicates.isNullOrEmpty(strID)) {
             throw new IllegalArgumentException(
-                    "Attribute Name should neither be null nor empty");
+                    "Service ID should neither be null nor empty");
         }
+        // TODO validate invariants, i.e., mecanographic number regular
         // expression
-        this.m_strNome = strNome;
+        this.m_strID = strID;
     }
 
-    protected AtributoNome() {
+    protected ServicoID() {
         // for ORM
     }
 
-    public static AtributoNome valueOf(final String strNome) {
-        return new AtributoNome(strNome);
+    public static ServicoID valueOf(final String strID) {
+        return new ServicoID(strID);
     }
 
     @Override
@@ -43,26 +44,26 @@ public class AtributoNome implements ValueObject, Comparable<AtributoNome> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AtributoNome)) {
+        if (!(o instanceof ServicoID)) {
             return false;
         }
 
-        final AtributoNome that = (AtributoNome) o;
-        return this.m_strNome.equals(that.m_strNome);
+        final ServicoID that = (ServicoID) o;
+        return this.m_strID.equals(that.m_strID);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strNome.hashCode();
+        return this.m_strID.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strNome;
+        return this.m_strID;
     }
 
     @Override
-    public int compareTo(final AtributoNome arg0) {
-        return m_strNome.compareTo(arg0.m_strNome);
+    public int compareTo(final ServicoID arg0) {
+        return m_strID.compareTo(arg0.m_strID);
     }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.base.formulariomanagement.domain;
+package eapli.base.servicemanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
@@ -15,27 +15,27 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AtributoNome implements ValueObject, Comparable<AtributoNome> {
+public class Keyword implements ValueObject, Comparable<Keyword> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strNome;
+    private String m_strKeyword;
 
-    public AtributoNome(final String strNome) {
-        if (StringPredicates.isNullOrEmpty(strNome)) {
+    public Keyword(final String strKeyword) {
+        if (StringPredicates.isNullOrEmpty(strKeyword)) {
             throw new IllegalArgumentException(
-                    "Attribute Name should neither be null nor empty");
+                    "Keyword should neither be null nor empty");
         }
         // expression
-        this.m_strNome = strNome;
+        this.m_strKeyword = strKeyword;
     }
 
-    protected AtributoNome() {
+    protected Keyword() {
         // for ORM
     }
 
-    public static AtributoNome valueOf(final String strNome) {
-        return new AtributoNome(strNome);
+    public static Keyword valueOf(final String strKeyword) {
+        return new Keyword(strKeyword);
     }
 
     @Override
@@ -43,26 +43,26 @@ public class AtributoNome implements ValueObject, Comparable<AtributoNome> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AtributoNome)) {
+        if (!(o instanceof Keyword)) {
             return false;
         }
 
-        final AtributoNome that = (AtributoNome) o;
-        return this.m_strNome.equals(that.m_strNome);
+        final Keyword that = (Keyword) o;
+        return this.m_strKeyword.equals(that.m_strKeyword);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strNome.hashCode();
+        return this.m_strKeyword.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strNome;
+        return this.m_strKeyword;
     }
 
     @Override
-    public int compareTo(final AtributoNome arg0) {
-        return m_strNome.compareTo(arg0.m_strNome);
+    public int compareTo(final Keyword arg0) {
+        return m_strKeyword.compareTo(arg0.m_strKeyword);
     }
 }

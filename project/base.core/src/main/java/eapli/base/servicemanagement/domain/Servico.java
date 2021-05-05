@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.formulariomanagement.domain;
+package eapli.base.servicemanagement.domain;
 
-import eapli.base.servicemanagement.domain.Keyword;
+import eapli.base.formulariomanagement.domain.*;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
@@ -31,6 +31,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,48 +40,53 @@ import java.util.List;
  */
 
 @Entity
-public class Formulario implements AggregateRoot<Formulario> {
+public class Servico implements AggregateRoot<Servico> {
 
     @Version
     private Long version;
 
     @EmbeddedId
-    private FormularioID m_oID;
+    private ServicoID m_oID;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
     @OneToOne()
-    private FormularioNome m_oNome;
+    private ServicoDescricaoBreve m_oDescricaoBreve;
 
     @OneToOne()
-    private TipoForm m_oTipoForm;
+    private ServicoDescricaoCompleta m_oDescricaoCompleta;
 
     @OneToMany()
-    private List<Atributo>  m_lstAtributos;
+    private List<Keyword> m_lstKeywords;
 
-    public Formulario(final FormularioID oID, final FormularioNome oNome, final TipoForm oTipoForm, final List<Atributo> lstAtributos) {
-        if (oID == null || oNome == null || oTipoForm == null || lstAtributos.isEmpty()) {
+    @OneToMany()
+    private List<Formulario> m_lstFormularios;
+
+    public Servico(final ServicoID oID, final ServicoDescricaoBreve oDescricaoBreve, final ServicoDescricaoCompleta oDescricaoCompleta,
+                   final List<Keyword> lstKeywords, final List<Formulario> lstFormularios) {
+        if (oID == null || oDescricaoBreve == null || oDescricaoCompleta == null || lstKeywords.isEmpty() || lstFormularios.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oID = oID;
-        this.m_oNome = oNome;
-        this.m_lstAtributos = lstAtributos;
-        this.m_oTipoForm = oTipoForm;
+        this.m_oDescricaoBreve = oDescricaoBreve;
+        this.m_oDescricaoCompleta = oDescricaoCompleta;
+        this.m_lstKeywords = lstKeywords;
+        this.m_lstFormularios = lstFormularios;
     }
 
-    protected Formulario() {
+    protected Servico() {
         // for ORM only
     }
 
-    public FormularioNome name() {
-        return this.m_oNome;
+    public ServicoDescricaoBreve descricaoBreve() {
+        return this.m_oDescricaoBreve;
     }
-    public List<Atributo> atributos() {
-        return this.m_lstAtributos;
+    public List<Keyword> keywords() {
+        return this.m_lstKeywords;
     }
-    public TipoForm tipo() {
-        return this.m_oTipoForm;
+    public List<Formulario> formularios() {
+        return this.m_lstFormularios;
     }
 
     @Override
@@ -98,12 +104,12 @@ public class Formulario implements AggregateRoot<Formulario> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public FormularioID id() {
+    public ServicoID id() {
         return identity();
     }
 
     @Override
-    public FormularioID identity() {
+    public ServicoID identity() {
         return this.m_oID;
     }
 }

@@ -33,6 +33,11 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
+/**
+ *
+ * @author Pedro Santos 1190967@isep.ipp.pt
+ */
+
 @Entity
 public class Atributo implements AggregateRoot<Formulario> {
 
@@ -96,7 +101,8 @@ public class Atributo implements AggregateRoot<Formulario> {
     public AtributoScript script() {
         return this.m_oScript;
     }
-    public TipoDados user() {
+
+    public TipoDados tipoDados() {
         return this.m_oTipoDados;
     }
 
