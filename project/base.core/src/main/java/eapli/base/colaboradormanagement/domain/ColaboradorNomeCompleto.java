@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author Jorge Santos ajs@isep.ipp.pt
+ * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 @Embeddable
 public class ColaboradorNomeCompleto implements ValueObject, Comparable<ColaboradorNomeCompleto> {
@@ -24,7 +24,7 @@ public class ColaboradorNomeCompleto implements ValueObject, Comparable<Colabora
     public ColaboradorNomeCompleto(final String strNomeCompleto) {
         if (StringPredicates.isNullOrEmpty(strNomeCompleto)) {
             throw new IllegalArgumentException(
-                    "Mecanographic Number should neither be null nor empty");
+                    "Nome completo não deverá ser null nem vazio.");
         }
         // expression
         this.m_strNomeCompleto = strNomeCompleto;
