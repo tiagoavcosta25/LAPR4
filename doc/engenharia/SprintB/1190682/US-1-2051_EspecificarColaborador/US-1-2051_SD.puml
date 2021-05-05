@@ -2,53 +2,53 @@
 autonumber
 hide footbox
 
-actor "Responsável de Recursos Humanos" as RRH
+actor "Human Resource Representative" as HRR
 
-participant "<<presentation>>\nEspecificarColaboradorUI" as UI
-participant "<<aplication>>\nEspecificarColaboradorController" as CTRL
-participant "<<builder>>\nColaboradorBuilder" as CB
-participant "<<domain>>\ncolab:Colaborador" as COLAB
+participant "<<presentation>>\nCollaboratorSpecificationUI" as UI
+participant "<<aplication>>\nCollaboratorSpecificationController" as CTRL
+participant "<<builder>>\nCollaboratorBuilder" as CB
+participant "<<domain>>\ncolab:Collaborator" as COLAB
 participant "<<persistence>>\nPersistenceContex" as PC
 participant "<<persistence>>\nAppSettings" as AS
 participant "<<factory>>\nRepositoryFactory" as RF
-database "<<repository>>\nFuncaoRepository" as FR
-database "<<repository>>\nColaboradorRepository" as CR
+database "<<repository>>\nRoleRepository" as RR
+database "<<repository>>\nCollaboratorRepository" as CR
 
-participant "<<domain>>\nNomeCurto" as NCURTO
-participant "<<domain>>\nNomeCompleto" as NCOMP
-participant "<<domain>>\nNumeroMecanografico" as NM
-participant "<<domain>>\nFuncao" as F
-participant "<<domain>>\nMorada" as M
-participant "<<domain>>\nContacto" as C
-participant "<<domain>>\nDataNascimento" as DN
+participant "<<domain>>\nShortName" as SN
+participant "<<domain>>\nCompleteName" as CN
+participant "<<domain>>\nMechanographicNumber" as MN
+participant "<<domain>>\nRole" as R
+participant "<<domain>>\nAddress" as A
+participant "<<domain>>\nPhoneNumber" as PN
+participant "<<domain>>\nBirthDate" as BD
 
-activate RRH
+activate HRR
 
-RRH-> UI : Envia um pedido para especificar um colaborador
+HRR-> UI : Iniciates the request to specify a collaborator
 activate UI
 
 UI-> CTRL** : create()
 
-UI --> RRH: Solicita toda a informação necessária para a especificação\n de um colaborador(i.e. nome curto e completo, \nnúmero mecanográfico, morada, contacto, data de nascimento)
+UI --> HRR: Request all information needed (i.e. short and complete name,\nmechanographic number, address, phone number, birth date)
 
 deactivate UI
-RRH-> UI : Preenche com toda a informação solicitada
+HRR-> UI : Inserts the requested information
 activate UI
-UI-> CTRL : addColaborador(nomeCurto, nomeCompleto, numMecan,\nmorada, contacto, dataNascimento)
+UI-> CTRL : addColaborador(shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate)
 activate CTRL
 
 CTRL-> CB** : create()
-CTRL-> CB : withNomeCurto(nomeCurto)
+CTRL-> CB : withShortName(shortName)
 activate CB
-CTRL-> CB : withNomeCompleto(nomeCompleto)
-CTRL-> CB : withNumMecan(numMecan)
-CTRL-> CB : withMorada(morada)
-CTRL-> CB : withContacto(contacto)
-CTRL-> CB : withDataNascimento(dataNascimento)
+CTRL-> CB : withCompleteName(completeName)
+CTRL-> CB : withMechanographicNumber(mechanographicNumber)
+CTRL-> CB : withAddress(address)
+CTRL-> CB : withPhoneNumber(phoneNumber)
+CTRL-> CB : withBirthDate(birthDate)
 deactivate CB
 deactivate CTRL
 
-UI-> CTRL : getFuncaoList()
+UI-> CTRL : getRoleList()
 activate CTRL
 CTRL-> PC: repositories()
 activate PC
@@ -64,52 +64,52 @@ PC --> CTRL : factory
 deactivate AS
 deactivate PC
 
-CTRL-> RF : funcoes()
+CTRL-> RF : roles()
 activate RF
-RF-> FR** : create()
-RF--> CTRL : funcaoRepository
+RF-> RR** : create()
+RF--> CTRL : roleRepository
 deactivate RF
 
-CTRL -> FR : save(funcao)
-activate FR
-FR --> CTRL : funcao
-deactivate FR
-CTRL --> UI : funcao
+CTRL -> RR : save(role)
+activate RR
+RR --> CTRL : role
+deactivate RR
+CTRL --> UI : role
 
 
-UI --> RRH: Apresenta a lista de funções
+UI --> HRR: Shows roles' list
 deactivate UI
 deactivate CTRL
 
 
-RRH-> UI : Seleciona a função pretendida
+HRR-> UI : Select the intended role
 activate UI
 
-UI-> CTRL : addFuncao(funcao)
+UI-> CTRL : addRole(role)
 activate CTRL
-CTRL-> CB : withFuncao(funcao)
+CTRL-> CB : withRole(role)
 activate CB
 deactivate CB
 deactivate CTRL
 
-UI --> RRH: Apresenta a informação e solicita confirmação
+UI --> HRR: Validates, presents the information and asks for confirmation
 deactivate UI
 
 deactivate UI
-RRH-> UI : Confirma
+HRR-> UI : Confirms
 activate UI
 
-UI-> CTRL : saveColaborador()
+UI-> CTRL : saveColaborator()
 activate CTRL
 
-CTRL-> CB : createColaborador()
+CTRL-> CB : createCollaborator()
 activate CB
-CB-> COLAB** : create(nomeCurto,nomeCompleto,numMecan,\nmorada,contacto,dataNascimento,funcao)
+CB-> COLAB** : create(shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate,role)
 
 activate COLAB
-COLAB --> CB : colaborador
+COLAB --> CB : collaborator
 deactivate COLAB
-CB --> CTRL : colaborador
+CB --> CTRL : collaborator
 deactivate CB
 
 CTRL-> PC: repositories()
@@ -118,21 +118,21 @@ PC-> RF** : create()
 PC--> CTRL : factory
 deactivate PC
 
-CTRL-> RF : colaboradores()
+CTRL-> RF : collaborators()
 activate RF
 RF-> CR** : create()
-RF--> CTRL : colaboradorRepository
+RF--> CTRL : collaboratorRepository
 deactivate RF
 
-CTRL-> CR : save(colaborador)
+CTRL-> CR : save(collaborator)
 activate CR
-CR --> CTRL : colaborador
+CR --> CTRL : collaborator
 deactivate CR
-CTRL --> UI : colaborador
+CTRL --> UI : collaborator
 deactivate CTRL
 
-UI --> RRH: Informa do sucesso da operação
+UI --> HRR: Informs of the success of the operation
 deactivate UI
-deactivate RRH
+deactivate HRR
 
 @enduml
