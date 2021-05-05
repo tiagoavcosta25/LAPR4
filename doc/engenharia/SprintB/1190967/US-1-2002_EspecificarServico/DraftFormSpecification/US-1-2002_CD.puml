@@ -1,0 +1,170 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Presentation" #DDDDDD {
+class ServiceDraftSpecificationUI{
+
+}
+}
+
+
+package "Application" #DDDDDD {
+class ServiceDraftSpecificationController{
++create()
++getServiceDraftById(id)
++newDraft()
++addForm(name, formType)
++addAttribute(name, label, description, regex, scriptPath, dataType)
++saveForm()
++addForm()
++saveServiceDraft()
+}
+}
+
+
+package "Domain" #DDDDDD {
+class ServiceDraft{
++create()
++setFormList(formList)
+}
+
+class Form{
++create(name, formType, attributeList)
+}
+
+class Attribute{
++create(name, label, description, regex, scriptPath, dataType
+}
+
+class FormName{
++createFormName(formName)
+-validate(formName)
+}
+
+class FormType{
++createFormType(formType)
++values()
+-validate(formType)
+}
+
+class AttributeName{
++createAttributeName(attributeName)
+-validate(attributeName)
+}
+
+class AttributeLabel{
++createAtributoLabel(attributeLabel)
+-validate(attributeLabel)
+}
+
+class AttributeDescription{
++createAttributeDescription(attributeDescription)
+-validate(attributeDescription)
+}
+
+class AttributeRegex{
++createAttributeRegex(attributeRegex)
+-validate(attributeRegex)
+}
+
+class AttributeScript{
++createAttributeScript(attributeScript)
+-validate(attributeScript)
+}
+
+class DataType{
++createDataType(dataType)
+-validate(dataType)
+}
+
+package Builder #DDDDDD {
+
+class FormBuilder{
++create()
++withName(name)
++withFormType(formType)
++withAttributeList(attributeList)
++build()
+}
+
+class AttributeBuilder{
++create()
++withName(name)
++withLabel(label)
++withDescription(description)
++withRegex(regex)
++withScript(scriptPath
++withDataType(dataType)
++build()
+}
+
+}
+
+}
+
+package Persistence #DDDDDD {
+class PersistenceContext{
++repositories()
+}
+
+class AppSettings{
++instance()
++getRepositoryFactory()
+}
+
+package Factory #DDDDDD {
+class RepositoryFactory{
++create()
++servicos()
++catalogos()
++formularios()
+}
+}
+
+package "Repository" #DDDDDD {
+
+class ServiceDraftRepository{
++create()
++save(serviceDraft)
+}
+
+class FormRepository{
++create()
++save(form)
+}
+
+}
+
+
+
+ServiceDraftSpecificationUI ..> ServiceDraftSpecificationController
+ServiceDraftSpecificationController ..> FormBuilder
+ServiceDraftSpecificationController ..> AttributeBuilder
+ServiceDraftSpecificationController ..> PersistenceContext
+
+AppSettings -> RepositoryFactory : creates
+PersistenceContext -> AppSettings : implements
+
+RepositoryFactory "1" -> "1" ServiceDraftRepository : has
+RepositoryFactory "1" -> "1" FormRepository : has
+
+ServiceDraftRepository "1" -> "*" ServiceDraft : saves
+FormRepository "1" -> "*" Form : saves
+FormBuilder "1" -> "*" Form : builds
+AttributeBuilder "1" -> "*" Attribute : builds
+
+ServiceDraft "1" -> "*" Form : has
+
+Form "1" -> "1" FormName : has
+Form "1" -> "1" FormType : has
+Form "1" -> "1..*" Attribute : has
+
+Attribute "1" -> "1" AttributeName : has
+Attribute "1" -> "1" AttributeLabel : has
+Attribute "1" -> "1" AttributeDescription : has
+Attribute "1" -> "1" AttributeRegex : has
+Attribute "1" -> "1" AttributeScript : has
+Attribute "1" -> "1" DataType : has
+
+
+@enduml
