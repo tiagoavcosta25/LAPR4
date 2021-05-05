@@ -19,23 +19,23 @@ public class AttributeName implements ValueObject, Comparable<AttributeName> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strNome;
+    private String m_strName;
 
-    public AttributeName(final String strNome) {
-        if (StringPredicates.isNullOrEmpty(strNome)) {
+    public AttributeName(final String strName) {
+        if (StringPredicates.isNullOrEmpty(strName)) {
             throw new IllegalArgumentException(
                     "Attribute Name should neither be null nor empty");
         }
         // expression
-        this.m_strNome = strNome;
+        this.m_strName = strName;
     }
 
     protected AttributeName() {
         // for ORM
     }
 
-    public static AttributeName valueOf(final String strNome) {
-        return new AttributeName(strNome);
+    public static AttributeName valueOf(final String strName) {
+        return new AttributeName(strName);
     }
 
     @Override
@@ -48,21 +48,21 @@ public class AttributeName implements ValueObject, Comparable<AttributeName> {
         }
 
         final AttributeName that = (AttributeName) o;
-        return this.m_strNome.equals(that.m_strNome);
+        return this.m_strName.equals(that.m_strName);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strNome.hashCode();
+        return this.m_strName.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strNome;
+        return this.m_strName;
     }
 
     @Override
     public int compareTo(final AttributeName arg0) {
-        return m_strNome.compareTo(arg0.m_strNome);
+        return m_strName.compareTo(arg0.m_strName);
     }
 }

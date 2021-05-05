@@ -21,12 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.formulariomanagement.domain;
+package eapli.base.servicemanagement.domain;
 
+import eapli.base.formulariomanagement.domain.*;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Version;
+import java.util.List;
 
 /**
  *
@@ -34,71 +39,64 @@ import javax.persistence.*;
  */
 
 @Entity
-public class Attribute implements AggregateRoot<Form> {
+public class Servico implements AggregateRoot<Servico> {
 
     @Version
     private Long version;
 
-    @GeneratedValue
-    private AttributeID m_oID;
+    @EmbeddedId
+    private ServicoID m_oID;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
     @OneToOne()
-    private AttributeName m_oName;
+    private ServicoDescricaoBreve m_oDescricaoBreve;
 
     @OneToOne()
-    private AttributeLabel m_oLabel;
+    private ServicoDescricaoCompleta m_oDescricaoCompleta;
 
     @OneToOne()
-    private AttributeDescription m_oDescription;
+    @NotFound(action=NotFoundAction.IGNORE)
+    private Feedback m_oFeedback;
 
-    @OneToOne()
-    private AttributeRegex m_oRegex;
+    @OneToMany()
+    private List<Keyword> m_lstKeywords;
 
-    @OneToOne()
-    private AttributeScript m_oScript;
+    @OneToMany()
+    private List<Form> m_lstForms;
 
-    @OneToOne()
-    private DataType m_oDataType;
-
-    public Attribute(final AttributeID oID, final AttributeName oName, final AttributeLabel oLabel, final AttributeDescription oDescription,
-                     final AttributeRegex oRegex, final AttributeScript oScript, final DataType oDataType) {
-        if (oID == null || oName == null || oLabel == null || oDescription == null || oRegex == null || oScript == null || oDataType == null) {
+    public Servico(final ServicoID oID, final ServicoDescricaoBreve oDescricaoBreve, final ServicoDescricaoCompleta oDescricaoCompleta,
+                   final Feedback oFeedback, final List<Keyword> lstKeywords, final List<Form> lstForms) {
+        if (oID == null || oDescricaoBreve == null || oDescricaoCompleta == null || oFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oID = oID;
-        this.m_oName = oName;
-        this.m_oLabel = oLabel;
-        this.m_oDescription = oDescription;
-        this.m_oRegex = oRegex;
-        this.m_oScript = oScript;
-        this.m_oDataType = oDataType;
+        this.m_oDescricaoBreve = oDescricaoBreve;
+        this.m_oDescricaoCompleta = oDescricaoCompleta;
+        this.m_oFeedback = oFeedback;
+        this.m_lstKeywords = lstKeywords;
+        this.m_lstForms = lstForms;
     }
 
-    protected Attribute() {
+    protected Servico() {
         // for ORM only
     }
 
-    public AttributeName name() {
-        return this.m_oName;
+    public ServicoDescricaoBreve descricaoBreve() {
+        return this.m_oDescricaoBreve;
     }
-    public AttributeLabel label() {
-        return this.m_oLabel;
+    public ServicoDescricaoCompleta descricaoCompleta() {
+        return this.m_oDescricaoCompleta;
     }
-    public AttributeDescription Description() {
-        return this.m_oDescription;
+    public Feedback feedback() {
+        return this.m_oFeedback;
     }
-
-    public AttributeRegex regex() {
-        return this.m_oRegex;
+    public List<Keyword> keywords() {
+        return this.m_lstKeywords;
     }
-    public AttributeScript script() {
-        return this.m_oScript;
-    }
-    public DataType dataType() {
-        return this.m_oDataType;
+    public List<Form> formularios() {
+        return this.m_lstForms;
     }
 
     @Override
@@ -116,12 +114,12 @@ public class Attribute implements AggregateRoot<Form> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public AttributeID id() {
+    public ServicoID id() {
         return identity();
     }
 
     @Override
-    public AttributeID identity() {
+    public ServicoID identity() {
         return this.m_oID;
     }
 }

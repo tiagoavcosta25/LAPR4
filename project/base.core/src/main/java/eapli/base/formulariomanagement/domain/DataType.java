@@ -5,6 +5,6 @@
  */
 package eapli.base.formulariomanagement.domain;
 
-public enum TipoForm {
-    SERVICE, MANUAL_TASK;
+public enum DataType {
+    INTEGER, STRING, BOOL, DATA, FILE, ENUM;
 }

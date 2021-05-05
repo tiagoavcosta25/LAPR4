@@ -19,23 +19,23 @@ public class AttributeScript implements ValueObject, Comparable<AttributeScript>
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strScript;
+    private String m_strScriptPath;
 
-    public AttributeScript(final String strScript) {
-        if (StringPredicates.isNullOrEmpty(strScript)) {
+    public AttributeScript(final String strScriptPath) {
+        if (StringPredicates.isNullOrEmpty(strScriptPath)) {
             throw new IllegalArgumentException(
                     "Attribute Script should neither be null nor empty");
         }
         // expression
-        this.m_strScript = strScript;
+        this.m_strScriptPath = strScriptPath;
     }
 
     protected AttributeScript() {
         // for ORM
     }
 
-    public static AttributeScript valueOf(final String strNome) {
-        return new AttributeScript(strNome);
+    public static AttributeScript valueOf(final String strScriptPath) {
+        return new AttributeScript(strScriptPath);
     }
 
     @Override
@@ -48,21 +48,21 @@ public class AttributeScript implements ValueObject, Comparable<AttributeScript>
         }
 
         final AttributeScript that = (AttributeScript) o;
-        return this.m_strScript.equals(that.m_strScript);
+        return this.m_strScriptPath.equals(that.m_strScriptPath);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strScript.hashCode();
+        return this.m_strScriptPath.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strScript;
+        return this.m_strScriptPath;
     }
 
     @Override
     public int compareTo(final AttributeScript arg0) {
-        return m_strScript.compareTo(arg0.m_strScript);
+        return m_strScriptPath.compareTo(arg0.m_strScriptPath);
     }
 }

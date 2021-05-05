@@ -45,11 +45,11 @@ public class EspecificarServicoController {
     private final ServicoRepository servicoRepo = PersistenceContext.repositories().servicos();
     private final FormularioRepository formularioRepo = PersistenceContext.repositories().formularios();
     private ServicoBuilder servicoBuilder = new ServicoBuilder();
-    private FormularioBuilder formularioBuilder = new FormularioBuilder();
+    private FormBuilder formBuilder = new FormBuilder();
     private AttributeBuilder attributeBuilder = new AttributeBuilder();
     private List<Keyword> m_lstKeywords = new ArrayList<>();
     private List<Attribute> m_lstAttributes = new ArrayList<>();
-    private List<Formulario> m_lstFormularios = new ArrayList<>();
+    private List<Form> m_lstForms = new ArrayList<>();
 
     public void addServico(ServicoDescricaoBreve oDescricaoBreve, ServicoDescricaoCompleta oDescricaoCompleta) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
@@ -74,9 +74,9 @@ public class EspecificarServicoController {
         return null; // TODO: Falta adicionar catalogos
     }
 
-    public void addFormulario(FormularioNome oNome, TipoForm oTipo) {
-        this.formularioBuilder = this.formularioBuilder.withNome(oNome);
-        this.formularioBuilder = this.formularioBuilder.withTipo(oTipo);
+    public void addFormulario(FormNome oNome, FormType oTipo) {
+        this.formBuilder = this.formBuilder.withNome(oNome);
+        this.formBuilder = this.formBuilder.withTipo(oTipo);
     }
 
     public void addAtributo(AttributeName oNome, AttributeLabel oLabel, AttributeDescription oDescricao,
@@ -88,23 +88,23 @@ public class EspecificarServicoController {
         this.attributeBuilder = this.attributeBuilder.withScript(oScript);
     }
 
-    public Attribute addTipoDados(TipoDados oTipoDados) {
-        this.attributeBuilder = this.attributeBuilder.withTipoDados(oTipoDados);
+    public Attribute addTipoDados(DataType oDataType) {
+        this.attributeBuilder = this.attributeBuilder.withTipoDados(oDataType);
         Attribute oAttribute = this.attributeBuilder.build();
         this.m_lstAttributes.add(oAttribute);
         return oAttribute;
     }
 
-    public Formulario saveFormulario() {
-        this.formularioBuilder = this.formularioBuilder.withAtributoList(this.m_lstAttributes);
-        Formulario oFormulario = this.formularioBuilder.build();
-        this.m_lstFormularios.add(oFormulario);
-        this.formularioRepo.save(oFormulario); //TODO: Implementar metodo save
-        return oFormulario;
+    public Form saveFormulario() {
+        this.formBuilder = this.formBuilder.withAtributoList(this.m_lstAttributes);
+        Form oForm = this.formBuilder.build();
+        this.m_lstForms.add(oForm);
+        this.formularioRepo.save(oForm); //TODO: Implementar metodo save
+        return oForm;
     }
 
     public Servico saveServico() {
-        this.servicoBuilder = this.servicoBuilder.withFormularioList(this.m_lstFormularios);
+        this.servicoBuilder = this.servicoBuilder.withFormularioList(this.m_lstForms);
         Servico oServico = this.servicoBuilder.build();
         this.servicoRepo.save(oServico); //TODO: Implementar metodo save
         return oServico;

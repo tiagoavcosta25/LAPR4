@@ -24,14 +24,11 @@
 package eapli.base.app.backoffice.console.presentation.authz;
 
 import eapli.base.formulariomanagement.domain.*;
-import eapli.base.servicemanagement.application.EspecificarServicoController;
+import eapli.base.servicemanagement.application.ServiceDraftSpecificationController;
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
-import eapli.framework.domain.repositories.ConcurrencyException;
-import eapli.framework.domain.repositories.IntegrityViolationException;
-import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
@@ -46,7 +43,7 @@ import java.util.Set;
  */
 public class EspecificarServicoUI extends AbstractUI {
 
-    private final EspecificarServicoController theController = new EspecificarServicoController();
+    private final ServiceDraftSpecificationController theController = new ServiceDraftSpecificationController();
 
     @Override
     protected boolean doShow() {
@@ -54,8 +51,8 @@ public class EspecificarServicoUI extends AbstractUI {
             final String strDescricaoBreve = Console.readLine("Brief Description");
             final String strDescricaoCompleta = Console.readLine("Complete Description");
 
-            final ServicoDescricaoBreve oDescricaoBreve = new ServicoDescricaoBreve(strDescricaoBreve);
-            final ServicoDescricaoCompleta oDescricaoCompleta = new ServicoDescricaoCompleta(strDescricaoCompleta);
+            final ServiceBriefDescription oDescricaoBreve = new ServiceBriefDescription(strDescricaoBreve);
+            final ServiceCompleteDescription oDescricaoCompleta = new ServiceCompleteDescription(strDescricaoCompleta);
 
             this.theController.addServico(oDescricaoBreve, oDescricaoCompleta);
 
@@ -87,8 +84,8 @@ public class EspecificarServicoUI extends AbstractUI {
             strOp = Console.readLine("Confirm the creation of the Service (Y/N)");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
-                Servico oServico = this.theController.saveServico();
-                System.out.printf("Created the following Service:\n\n%s\n", oServico.toString());
+                Service oService = this.theController.saveServico();
+                System.out.printf("Created the following Service:\n\n%s\n", oService.toString());
             } else{
                 System.out.println("Operation Cancelled.");
             }
@@ -126,10 +123,10 @@ public class EspecificarServicoUI extends AbstractUI {
 
     private boolean insertForm() {
         final String strFormName = Console.readLine("Form Name");
-        FormularioNome oFormName = new FormularioNome(strFormName);
-        final Set<TipoForm> lstTipoForm = new HashSet<>();
-        final TipoForm oTipoForm = showTipoForm(lstTipoForm);
-        this.theController.addFormulario(oFormName, oTipoForm);
+        FormName oFormName = new FormName(strFormName);
+        final Set<FormType> lstFormType = new HashSet<>();
+        final FormType oFormType = showTipoForm(lstFormType);
+        this.theController.addFormulario(oFormName, oFormType);
         boolean blFlag;
         do {
             blFlag = insertAttribute();
@@ -138,18 +135,18 @@ public class EspecificarServicoUI extends AbstractUI {
         return strOp.compareToIgnoreCase("Y") == 0;
     }
 
-    private boolean showTipoForm(final Set<TipoForm> lstTipoForm) {
-        final Menu tipoFormMenu = buildTipoFormMenu(lstTipoForm);
+    private boolean showTipoForm(final Set<FormType> lstFormType) {
+        final Menu tipoFormMenu = buildTipoFormMenu(lstFormType);
         final MenuRenderer renderer = new VerticalMenuRenderer(tipoFormMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buildTipoFormMenu(final Set<TipoForm> lstTipoForm) {
+    private Menu buildTipoFormMenu(final Set<FormType> lstFormType) {
         final Menu tipoFormMenu = new Menu();
         int counter = 0;
         tipoFormMenu.addItem(MenuItem.of(counter++, "No Tipo Form", Actions.SUCCESS));
-        for (final TipoForm tipoForm : TipoForm.values()) {
-            tipoFormMenu.addItem(MenuItem.of(counter++, tipoForm.toString(), () -> lstTipoForm.add(tipoForm)));
+        for (final FormType formType : FormType.values()) {
+            tipoFormMenu.addItem(MenuItem.of(counter++, formType.toString(), () -> lstFormType.add(formType)));
         }
         return tipoFormMenu;
     }
@@ -168,26 +165,26 @@ public class EspecificarServicoUI extends AbstractUI {
 
         this.theController.addAtributo(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, strAttributeScript);
 
-        final Set<TipoDados> lstTipoDados = new HashSet<>();
-        final TipoDados oTipoDados = showTipoDados(lstTipoDados);
+        final Set<DataType> lstTipoDados = new HashSet<>();
+        final DataType oDataType = showTipoDados(lstTipoDados);
 
-        this.theController.addAtributoTipo(oTipoDados);
+        this.theController.addAtributoTipo(oDataType);
 
         return Console.readLine("Do you want to add another attribute to this service?");
     }
 
-    private boolean showTipoDados(final Set<TipoDados> lstTipoDados) {
+    private boolean showTipoDados(final Set<DataType> lstTipoDados) {
         final Menu tipoDadosMenu = buildTipoDadosMenu(lstTipoDados);
         final MenuRenderer renderer = new VerticalMenuRenderer(tipoDadosMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buildTipoDadosMenu(final Set<TipoDados> lstTipoDados) {
+    private Menu buildTipoDadosMenu(final Set<DataType> lstTipoDados) {
         final Menu tipoDadosMenu = new Menu();
         int counter = 0;
         tipoDadosMenu.addItem(MenuItem.of(counter++, "No Tipo Form", Actions.SUCCESS));
-        for (final TipoDados tipoDados : TipoDados.values()) {
-            tipoDadosMenu.addItem(MenuItem.of(counter++, tipoDados.toString(), () -> lstTipoDados.add(tipoDados)));
+        for (final DataType dataType : DataType.values()) {
+            tipoDadosMenu.addItem(MenuItem.of(counter++, dataType.toString(), () -> lstTipoDados.add(dataType)));
         }
         return tipoDadosMenu;
     }

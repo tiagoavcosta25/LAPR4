@@ -16,7 +16,7 @@ public class ServicoBuilder implements DomainFactory<Servico> {
     private ServicoDescricaoCompleta m_oDescricaoCompleta;
     private Feedback m_oFeedback;
     private List<Keyword> m_lstKeywords;
-    private List<Formulario> m_lstFormularios;
+    private List<Form> m_lstForms;
 
     public ServicoBuilder withID(ServicoID oID) {
         this.m_oID = oID;
@@ -43,8 +43,8 @@ public class ServicoBuilder implements DomainFactory<Servico> {
         return this;
     }
 
-    public ServicoBuilder withFormularioList(List<Formulario> lstFormularios) {
-        this.m_lstFormularios = lstFormularios;
+    public ServicoBuilder withFormularioList(List<Form> lstForms) {
+        this.m_lstForms = lstForms;
         return this;
     }
 
@@ -52,6 +52,6 @@ public class ServicoBuilder implements DomainFactory<Servico> {
     public Servico build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new Servico(this.m_oID, this.m_oDescricaoBreve, this.m_oDescricaoCompleta ,this.m_oFeedback, this.m_lstKeywords, this.m_lstFormularios);
+        return new Servico(this.m_oID, this.m_oDescricaoBreve, this.m_oDescricaoCompleta ,this.m_oFeedback, this.m_lstKeywords, this.m_lstForms);
     }
 }

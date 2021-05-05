@@ -26,10 +26,7 @@ package eapli.base.formulariomanagement.domain;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -38,48 +35,48 @@ import java.util.List;
  */
 
 @Entity
-public class Formulario implements AggregateRoot<Formulario> {
+public class Form implements AggregateRoot<FormID> {
 
     @Version
     private Long version;
 
-    @EmbeddedId
-    private FormularioID m_oID;
+    @GeneratedValue
+    private FormID m_oID;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
     @OneToOne()
-    private FormularioNome m_oNome;
+    private FormName m_oName;
 
     @OneToOne()
-    private TipoForm m_oTipoForm;
+    private FormType m_oFormType;
 
     @OneToMany()
     private List<Attribute> m_lstAttributes;
 
-    public Formulario(final FormularioID oID, final FormularioNome oNome, final TipoForm oTipoForm, final List<Attribute> lstAttributes) {
-        if (oID == null || oNome == null || oTipoForm == null || lstAttributes.isEmpty()) {
+    public Form(final FormID oID, final FormName oName, final FormType oFormType, final List<Attribute> lstAttributes) {
+        if (oID == null || oName == null || oFormType == null || lstAttributes.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oID = oID;
-        this.m_oNome = oNome;
+        this.m_oName = oName;
         this.m_lstAttributes = lstAttributes;
-        this.m_oTipoForm = oTipoForm;
+        this.m_oFormType = oFormType;
     }
 
-    protected Formulario() {
+    protected Form() {
         // for ORM only
     }
 
-    public FormularioNome name() {
-        return this.m_oNome;
+    public FormName name() {
+        return this.m_oName;
     }
-    public List<Attribute> atributos() {
+    public List<Attribute> attributes() {
         return this.m_lstAttributes;
     }
-    public TipoForm tipo() {
-        return this.m_oTipoForm;
+    public FormType type() {
+        return this.m_oFormType;
     }
 
     @Override
@@ -97,12 +94,12 @@ public class Formulario implements AggregateRoot<Formulario> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public FormularioID id() {
+    public FormID id() {
         return identity();
     }
 
     @Override
-    public FormularioID identity() {
+    public FormID identity() {
         return this.m_oID;
     }
 }

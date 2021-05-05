@@ -8,20 +8,20 @@ import eapli.framework.domain.model.DomainFactory;
 public class AttributeBuilder implements DomainFactory<Attribute> {
 
     private AttributeID m_oID;
-    private AttributeName m_oNome;
+    private AttributeName m_oName;
     private AttributeLabel m_oLabel;
-    private AttributeDescription m_oDescricao;
+    private AttributeDescription m_oDescription;
     private AttributeRegex m_oRegex;
     private AttributeScript m_oScript;
-    private TipoDados m_oTipoDados;
+    private DataType m_oDataType;
 
     public AttributeBuilder withID(AttributeID oID) {
         this.m_oID = oID;
         return this;
     }
 
-    public AttributeBuilder withNome(AttributeName oNome) {
-        this.m_oNome = oNome;
+    public AttributeBuilder withName(AttributeName oName) {
+        this.m_oName = oName;
         return this;
     }
 
@@ -30,8 +30,8 @@ public class AttributeBuilder implements DomainFactory<Attribute> {
         return this;
     }
 
-    public AttributeBuilder withDescricao(AttributeDescription oDescricao) {
-        this.m_oDescricao = oDescricao;
+    public AttributeBuilder withDescription(AttributeDescription oDescription) {
+        this.m_oDescription = oDescription;
         return this;
     }
 
@@ -45,8 +45,8 @@ public class AttributeBuilder implements DomainFactory<Attribute> {
         return this;
     }
 
-    public AttributeBuilder withTipoDados(TipoDados oTipoDados) {
-        this.m_oTipoDados = oTipoDados;
+    public AttributeBuilder withTipoDados(DataType oDataType) {
+        this.m_oDataType = oDataType;
         return this;
     }
 
@@ -54,6 +54,6 @@ public class AttributeBuilder implements DomainFactory<Attribute> {
     public Attribute build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new Attribute(this.m_oID, this.m_oNome, this.m_oLabel ,this.m_oDescricao, this.m_oRegex, this.m_oScript, this.m_oTipoDados);
+        return new Attribute(this.m_oID, this.m_oName, this.m_oLabel ,this.m_oDescription, this.m_oRegex, this.m_oScript, this.m_oDataType);
     }
 }

@@ -31,7 +31,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,11 +64,11 @@ public class Servico implements AggregateRoot<Servico> {
     private List<Keyword> m_lstKeywords;
 
     @OneToMany()
-    private List<Formulario> m_lstFormularios;
+    private List<Form> m_lstForms;
 
     public Servico(final ServicoID oID, final ServicoDescricaoBreve oDescricaoBreve, final ServicoDescricaoCompleta oDescricaoCompleta,
-                   final Feedback oFeedback, final List<Keyword> lstKeywords, final List<Formulario> lstFormularios) {
-        if (oID == null || oDescricaoBreve == null || oDescricaoCompleta == null || oFeedback == null || lstKeywords.isEmpty() || lstFormularios.isEmpty()) {
+                   final Feedback oFeedback, final List<Keyword> lstKeywords, final List<Form> lstForms) {
+        if (oID == null || oDescricaoBreve == null || oDescricaoCompleta == null || oFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oID = oID;
@@ -77,7 +76,7 @@ public class Servico implements AggregateRoot<Servico> {
         this.m_oDescricaoCompleta = oDescricaoCompleta;
         this.m_oFeedback = oFeedback;
         this.m_lstKeywords = lstKeywords;
-        this.m_lstFormularios = lstFormularios;
+        this.m_lstForms = lstForms;
     }
 
     protected Servico() {
@@ -96,8 +95,8 @@ public class Servico implements AggregateRoot<Servico> {
     public List<Keyword> keywords() {
         return this.m_lstKeywords;
     }
-    public List<Formulario> formularios() {
-        return this.m_lstFormularios;
+    public List<Form> formularios() {
+        return this.m_lstForms;
     }
 
     @Override

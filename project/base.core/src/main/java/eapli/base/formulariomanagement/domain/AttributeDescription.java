@@ -19,23 +19,23 @@ public class AttributeDescription implements ValueObject, Comparable<AttributeDe
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strDescricao;
+    private String m_strDescription;
 
-    public AttributeDescription(final String strDescricao) {
-        if (StringPredicates.isNullOrEmpty(strDescricao)) {
+    public AttributeDescription(final String strDescription) {
+        if (StringPredicates.isNullOrEmpty(strDescription)) {
             throw new IllegalArgumentException(
                     "Attribute Description should neither be null nor empty");
         }
         // expression
-        this.m_strDescricao = strDescricao;
+        this.m_strDescription = strDescription;
     }
 
     protected AttributeDescription() {
         // for ORM
     }
 
-    public static AttributeDescription valueOf(final String strDescricao) {
-        return new AttributeDescription(strDescricao);
+    public static AttributeDescription valueOf(final String strDescription) {
+        return new AttributeDescription(strDescription);
     }
 
     @Override
@@ -48,21 +48,21 @@ public class AttributeDescription implements ValueObject, Comparable<AttributeDe
         }
 
         final AttributeDescription that = (AttributeDescription) o;
-        return this.m_strDescricao.equals(that.m_strDescricao);
+        return this.m_strDescription.equals(that.m_strDescription);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strDescricao.hashCode();
+        return this.m_strDescription.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strDescricao;
+        return this.m_strDescription;
     }
 
     @Override
     public int compareTo(final AttributeDescription arg0) {
-        return m_strDescricao.compareTo(arg0.m_strDescricao);
+        return m_strDescription.compareTo(arg0.m_strDescription);
     }
 }

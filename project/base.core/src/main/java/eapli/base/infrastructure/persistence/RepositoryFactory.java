@@ -7,8 +7,9 @@ import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.colaboradormanagement.repositories.CollaboratorRepository;
-import eapli.base.formulariomanagement.repositories.FormularioRepository;
-import eapli.base.servicemanagement.repositories.ServicoRepository;
+import eapli.base.formulariomanagement.repositories.FormRepository;
+import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
+import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
@@ -72,28 +73,42 @@ public interface RepositoryFactory {
 	 * @param autoTx the transactional context to enrol
 	 * @return
 	 */
-	ServicoRepository servicos(TransactionalContext autoTx);
+	ServiceRepository services(TransactionalContext autoTx);
 
 	/**
 	 * repository will be created in auto transaction mode
 	 *
 	 * @return
 	 */
-	ServicoRepository servicos();
+	ServiceRepository services();
 
 	/**
 	 *
 	 * @param autoTx the transactional context to enrol
 	 * @return
 	 */
-	FormularioRepository formularios(TransactionalContext autoTx);
+	ServiceDraftRepository serviceDrafts(TransactionalContext autoTx);
 
 	/**
 	 * repository will be created in auto transaction mode
 	 *
 	 * @return
 	 */
-	FormularioRepository formularios();
+	ServiceDraftRepository serviceDrafts();
+
+	/**
+	 *
+	 * @param autoTx the transactional context to enrol
+	 * @return
+	 */
+	FormRepository forms(TransactionalContext autoTx);
+
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	FormRepository forms();
 
 	/**
 	 *
@@ -109,4 +124,17 @@ public interface RepositoryFactory {
 	 */
 	CollaboratorRepository collaborators();
 
+	/**
+	 *
+	 * @param autoTx the transactional context to enrol
+	 * @return
+	 */
+	CatalogueRepository catalogues(TransactionalContext autoTx);
+
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	CatalogueRepository catalogues();
 }

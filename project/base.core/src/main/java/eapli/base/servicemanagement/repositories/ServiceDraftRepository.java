@@ -1,12 +1,8 @@
 package eapli.base.servicemanagement.repositories;
 
-import eapli.base.clientusermanagement.domain.ClientUser;
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
-import eapli.base.formulariomanagement.domain.Formulario;
 import eapli.base.servicemanagement.domain.Servico;
 import eapli.base.servicemanagement.domain.ServicoID;
 import eapli.framework.domain.repositories.DomainRepository;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 
 import java.util.Optional;
 
@@ -14,7 +10,7 @@ import java.util.Optional;
  *
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
-public interface ServicoRepository
+public interface ServiceRepository
         extends DomainRepository<ServicoID, Servico> {
 
     /**

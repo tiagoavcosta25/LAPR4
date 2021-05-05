@@ -15,28 +15,27 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class FormularioID implements ValueObject, Comparable<FormularioID> {
+public class FormName implements ValueObject, Comparable<FormName> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strID;
+    private String m_strName;
 
-    public FormularioID(final String strID) {
-        if (StringPredicates.isNullOrEmpty(strID)) {
+    public FormName(final String strName) {
+        if (StringPredicates.isNullOrEmpty(strName)) {
             throw new IllegalArgumentException(
-                    "Form ID should neither be null nor empty");
+                    "Form Name should neither be null nor empty");
         }
-        // TODO validate invariants, i.e., mecanographic number regular
         // expression
-        this.m_strID = strID;
+        this.m_strName = strName;
     }
 
-    protected FormularioID() {
+    protected FormName() {
         // for ORM
     }
 
-    public static FormularioID valueOf(final String strID) {
-        return new FormularioID(strID);
+    public static FormName valueOf(final String strName) {
+        return new FormName(strName);
     }
 
     @Override
@@ -44,26 +43,26 @@ public class FormularioID implements ValueObject, Comparable<FormularioID> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof FormularioID)) {
+        if (!(o instanceof FormName)) {
             return false;
         }
 
-        final FormularioID that = (FormularioID) o;
-        return this.m_strID.equals(that.m_strID);
+        final FormName that = (FormName) o;
+        return this.m_strName.equals(that.m_strName);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strID.hashCode();
+        return this.m_strName.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strID;
+        return this.m_strName;
     }
 
     @Override
-    public int compareTo(final FormularioID arg0) {
-        return m_strID.compareTo(arg0.m_strID);
+    public int compareTo(final FormName arg0) {
+        return m_strName.compareTo(arg0.m_strName);
     }
 }
