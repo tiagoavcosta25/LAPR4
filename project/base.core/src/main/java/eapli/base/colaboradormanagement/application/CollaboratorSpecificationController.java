@@ -25,6 +25,7 @@ package eapli.base.colaboradormanagement.application;
 
 import eapli.base.colaboradormanagement.domain.*;
 import eapli.base.colaboradormanagement.repositories.CollaboratorRepository;
+import eapli.base.formulariomanagement.domain.Attribute;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -45,7 +46,7 @@ public class CollaboratorSpecificationController {
     private CollaboratorBuilder collaboratorBuilder = new CollaboratorBuilder();
     private List<Role> m_lstRoles = new ArrayList<>();
 
-    public void addCollaborator(CollaboratorShortName oShortName, CollaboratorCompleteName oCompleteName,
+    public Collaborator addCollaborator(CollaboratorShortName oShortName, CollaboratorCompleteName oCompleteName,
                                CollaboratorMechanographicNumber oMechanographicNumber, CollaboratorAddress oAddress,
                                CollaboratorPhoneNumber oPhoneNumber, CollaboratorBirthDate oBirthDate) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
@@ -56,6 +57,10 @@ public class CollaboratorSpecificationController {
         this.collaboratorBuilder = this.collaboratorBuilder.withAddress(oAddress);
         this.collaboratorBuilder = this.collaboratorBuilder.withPhoneNumber(oPhoneNumber);
         this.collaboratorBuilder = this.collaboratorBuilder.withBirthDate(oBirthDate);
+
+
+        Collaborator oCollaborator = this.collaboratorBuilder.build();
+        return oCollaborator;
     }
 
     public List<Role> getRoleList() {
@@ -68,6 +73,7 @@ public class CollaboratorSpecificationController {
     }
 
     public Collaborator saveCollaborator() {
+
         Collaborator oCollaborator = this.collaboratorBuilder.build();
         this.collaboratorRepo.save(oCollaborator); //TODO: Implementar metodo save
         return oCollaborator;
