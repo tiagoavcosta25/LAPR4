@@ -5,9 +5,9 @@ hide footbox
 participant "<<presentation>>\nServiceDraftSpecificationUI" as UI
 participant "<<application>>\nServiceDraftSpecificationController" as CTRL
 participant "<<domain>>\nServiceDraft" as S
-participant "<<domain>>\nTitulo" as T
-participant "<<domain>>\nDescricaoBreve" as DB
-participant "<<domain>>\nDescricaoCompleta" as DC
+participant "<<domain>>\nTitle" as T
+participant "<<domain>>\nBriefDescription" as DB
+participant "<<domain>>\nCompleteDescription" as DC
 participant "<<domain>>\nKeyword" as KW
 participant "<<domain>>\nFeedback" as FB
 

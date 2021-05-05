@@ -1,137 +1,41 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-package "UI" #DDDDDD {
-class EspecificarServicoUI{
+package "Presentation" #DDDDDD {
+class ServiceDraftSpecificationUI{
 
 }
 }
 
 
 package "Application" #DDDDDD {
-class EspecificarServicoController{
+class ServiceDraftSpecificationController{
 +create()
-+addServico(descricaoBreve, descricaoCompleta)
-+addKeyword(keyword)
-+addKeywordListToService()
-+enableFeedback(duracao)
-+getCatalogos()
-+addFormulario(nome, tipo)
-+addAtributo(nome, label, descricao, regex, script)
-+addAtributoTipo(tipoDados)
-+saveFormulario()
-+saveServico()
++getServiceDraftById(id)
++newDraft()
++addTitle()
++addBriefDescription(briefDescription)
++addCompleteDescription(completeDescription)
++addKeywordList(keywordList)
++addFeedback(feedback)
++saveServiceDraft(serviceDraft)
 }
 }
 
 
 package "Domain" #DDDDDD {
-class Servico{
-+create(descricaoBreve, descricaoCompleta, feedback, duracao, keywordList, formularioList)
-}
-
-class Formulario{
-+create(nome, label, descricao, regex, script, tipoDados, atributoList)
-}
-
-class Atributo{
-+create(nome, label, descricao, regex, script, tipoDados)
-}
-
-class DescricaoBreve{
-+createDescricaoBreve(descricaoBreve)
--validate(descricaoBreve)
-}
-
-class DescricaoCompleta{
-+createDescricaoCompleta(descricaoCompleta)
--validate(descricaoCompleta)
-}
-
-class Keyword{
-+createKeyword(keyword)
--validate(keyword)
-}
-
-class Feedback{
-+createFeedback(feedback)
--validate(feedback)
-}
-
-class FeedbackDuracao{
-+createFeedbackDuracao(feedbackDuracao)
--validate(feedbackDuracao)
-}
-
-class FormularioNome{
-+createFormularioNome(formularioNome)
--validate(formularioNome)
-}
-
-class FormularioTipo{
-+createFormularioTipo(formularioTipo)
--validate(formularioTipo)
-}
-
-class AtributoNome{
-+createAtributoNome(atributoNome)
--validate(atributoNome)
-}
-
-class AtributoLabel{
-+createAtributoLabel(atributoLabel)
--validate(atributoLabel)
-}
-
-class AtributoDescricao{
-+createAtributoDescricao(atributoDescricao)
--validate(atributoDescricao)
-}
-
-class AtributoRegex{
-+createAtributoRegex(atributoRegex)
--validate(atributoRegex)
-}
-
-class AtributoScript{
-+createAtributoScript(atributoScript)
--validate(atributoScript)
-}
-
-class AtributoTipoDados{
-+createAtributoTipoDados(atributoTipoDados)
--validate(atributoTipoDados)
-}
-
-package Builder #DDDDDD {
-class ServicoBuilder{
+class ServiceDraft{
+- title
+- briefDescription
+- completeDescription
+- keyword
+- feedback
 +create()
-+setDescricaoBreve(descricaoBreve)
-+setDescricaoCompleta(descricaoCompleta)
++setTitle()
++setBriefDescription(briefDescription)
++setCompleteDescription(completeDescription)
 +setKeywordList(keywordList)
 +setFeedback(feedback)
-+setFeedbackDuracao(duracao)
-+setFormularioList(formularioList)
-+createServico()
-}
-
-class FormularioBuilder{
-+create()
-+setNome(nome)
-+setLabel(label)
-+setDescricao(descricao)
-+setRegex(regex)
-+setScript(script)
-+setTipoDados(tipoDados)
-+createAtributo()
-}
-
-class AtributoBuilder{
-+create()
-+setNomeCompleto(nomeCompleto)
-+createColab()
-}
-
 }
 
 }
@@ -156,60 +60,22 @@ class RepositoryFactory{
 }
 
 package "Repository" #DDDDDD {
-class ServicoRepository{
+class ServiceDraftRepository{
 +create()
-+save(servico)
++save(serviceDraft)
 }
-
-class CatalogoRepository{
-+create()
-+all()
-}
-
-class FormularioRepository{
-+create()
-+save(formulario)
-}
-
 }
 
 
 
-EspecificarServicoUI ..> EspecificarServicoController
-EspecificarServicoController ..> ServicoBuilder
-EspecificarServicoController ..> FormularioBuilder
-EspecificarServicoController ..> AtributoBuilder
-EspecificarServicoController ..> PersistenceContext
+ServiceDraftSpecificationUI ..> ServiceDraftSpecificationController
+ServiceDraftSpecificationController ..> PersistenceContext
 
-AppSettings -> RepositoryFactory : cria
-PersistenceContext -> AppSettings : implementa
+AppSettings -> RepositoryFactory : creates
+PersistenceContext -> AppSettings : implements
 
-RepositoryFactory "1" -> "1" ServicoRepository : possui
-RepositoryFactory "1" -> "1" CatalogoRepository : possui
-RepositoryFactory "1" -> "1" ServicoRepository : possui
+RepositoryFactory "1" -> "1" ServiceDraftRepository : has
 
-ServicoRepository "1" -> "*" Servico : guarda
-ServicoBuilder "1" -> "*" Servico : cria
-FormularioRepository "1" -> "*" Formulario : guarda
-FormularioBuilder "1" -> "*" Formulario : cria
-
-Servico "1" -> "1" DescricaoBreve : possui
-Servico "1" -> "1" DescricaoCompleta : possui
-Servico "1" -> "*" Keyword : possui
-Servico "1" -> "0..1" Feedback : possui
-Servico "1" -> "0..1" FeedbackDuracao : tem
-Servico "1" -> "*" Formulario : tem
-
-Formulario "1" -> "1" FormularioNome : possui
-Formulario "1" -> "1" FormularioTipo : tem
-Formulario "1" -> "1..*" Atributo : possui
-
-Atributo "1" -> "1" AtributoNome : possui
-Atributo "1" -> "1" AtributoLabel : possui
-Atributo "1" -> "1" AtributoDescricao : possui
-Atributo "1" -> "1" AtributoRegex : possui
-Atributo "1" -> "1" AtributoScript : possui
-Atributo "1" -> "1" AtributoTipoDados : possui
-
+ServiceDraftRepository "1" -> "*" ServiceDraft : saves
 
 @enduml

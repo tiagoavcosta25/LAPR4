@@ -7,7 +7,7 @@ participant ":System" as SYST
 
 activate HSM
 
-HSM -> SYST : iniciates the request to add/update a field in a service draft
+HSM -> SYST : initiates the request to add/update a field in a service draft
 activate SYST
 
 SYST -> HSM : asks if the user pretends to use an existing draft
@@ -34,8 +34,31 @@ activate SYST
 SYST -> HSM : requests the user to insert the field
 deactivate SYST
 
-HSM -> SYST : inserts the field
+HSM -> SYST : selects the field
 activate SYST
+
+alt if the user chooses to add keywords
+loop until there is no more keywords to add
+SYST -> HSM : requests the user to insert the keyword
+deactivate SYST
+
+HSM -> SYST : inserts the keyword
+activate SYST
+
+SYST -> HSM : asks if the user wants to add more keywords
+deactivate SYST
+
+HSM -> SYST : responds
+activate SYST
+end
+
+else if the user chooses to any other field
+SYST -> HSM : requests the user to insert the keyword
+deactivate SYST
+
+HSM -> SYST : selects the field
+activate SYST
+end
 
 SYST -> HSM : saves the field in the draft and\n asks if there is more fields to add
 deactivate SYST
