@@ -15,28 +15,26 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class ServicoID implements ValueObject, Comparable<ServicoID> {
+public class ServiceID implements ValueObject, Comparable<ServiceID> {
 
     private static final long serialVersionUID = 1L;
 
     private String m_strID;
 
-    public ServicoID(final String strID) {
+    public ServiceID(final String strID) {
         if (StringPredicates.isNullOrEmpty(strID)) {
             throw new IllegalArgumentException(
                     "Service ID should neither be null nor empty");
         }
-        // TODO validate invariants, i.e., mecanographic number regular
-        // expression
         this.m_strID = strID;
     }
 
-    protected ServicoID() {
+    protected ServiceID() {
         // for ORM
     }
 
-    public static ServicoID valueOf(final String strID) {
-        return new ServicoID(strID);
+    public static ServiceID valueOf(final String strID) {
+        return new ServiceID(strID);
     }
 
     @Override
@@ -44,11 +42,11 @@ public class ServicoID implements ValueObject, Comparable<ServicoID> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ServicoID)) {
+        if (!(o instanceof ServiceID)) {
             return false;
         }
 
-        final ServicoID that = (ServicoID) o;
+        final ServiceID that = (ServiceID) o;
         return this.m_strID.equals(that.m_strID);
     }
 
@@ -63,7 +61,7 @@ public class ServicoID implements ValueObject, Comparable<ServicoID> {
     }
 
     @Override
-    public int compareTo(final ServicoID arg0) {
+    public int compareTo(final ServiceID arg0) {
         return m_strID.compareTo(arg0.m_strID);
     }
 }

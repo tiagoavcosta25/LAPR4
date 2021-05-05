@@ -15,27 +15,27 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class ServicoDescricaoCompleta implements ValueObject, Comparable<ServicoDescricaoCompleta> {
+public class ServiceCompleteDescription implements ValueObject, Comparable<ServiceCompleteDescription> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strDescricao;
+    private String m_strDescription;
 
-    public ServicoDescricaoCompleta(final String strDescricao) {
-        if (StringPredicates.isNullOrEmpty(strDescricao)) {
+    public ServiceCompleteDescription(final String strDescription) {
+        if (StringPredicates.isNullOrEmpty(strDescription)) {
             throw new IllegalArgumentException(
                     "Attribute Complete Description should neither be null nor empty");
         }
         // expression
-        this.m_strDescricao = strDescricao;
+        this.m_strDescription = strDescription;
     }
 
-    protected ServicoDescricaoCompleta() {
+    protected ServiceCompleteDescription() {
         // for ORM
     }
 
-    public static ServicoDescricaoCompleta valueOf(final String strDescricao) {
-        return new ServicoDescricaoCompleta(strDescricao);
+    public static ServiceCompleteDescription valueOf(final String strDescription) {
+        return new ServiceCompleteDescription(strDescription);
     }
 
     @Override
@@ -43,26 +43,26 @@ public class ServicoDescricaoCompleta implements ValueObject, Comparable<Servico
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ServicoDescricaoCompleta)) {
+        if (!(o instanceof ServiceCompleteDescription)) {
             return false;
         }
 
-        final ServicoDescricaoCompleta that = (ServicoDescricaoCompleta) o;
-        return this.m_strDescricao.equals(that.m_strDescricao);
+        final ServiceCompleteDescription that = (ServiceCompleteDescription) o;
+        return this.m_strDescription.equals(that.m_strDescription);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strDescricao.hashCode();
+        return this.m_strDescription.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strDescricao;
+        return this.m_strDescription;
     }
 
     @Override
-    public int compareTo(final ServicoDescricaoCompleta arg0) {
-        return m_strDescricao.compareTo(arg0.m_strDescricao);
+    public int compareTo(final ServiceCompleteDescription arg0) {
+        return m_strDescription.compareTo(arg0.m_strDescription);
     }
 }

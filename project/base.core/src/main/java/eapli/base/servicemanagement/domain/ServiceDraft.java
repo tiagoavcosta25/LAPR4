@@ -23,14 +23,11 @@
  */
 package eapli.base.servicemanagement.domain;
 
-import eapli.base.formulariomanagement.domain.*;
+import eapli.base.formulariomanagement.domain.Form;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -39,64 +36,111 @@ import java.util.List;
  */
 
 @Entity
-public class Servico implements AggregateRoot<Servico> {
+public class ServiceDraft implements AggregateRoot<Long> {
 
     @Version
     private Long version;
 
-    @EmbeddedId
-    private ServicoID m_oID;
+    @GeneratedValue
+    private Long m_lngID;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
     @OneToOne()
-    private ServicoDescricaoBreve m_oDescricaoBreve;
+    private String m_strTitle;
+    
+    @OneToOne()
+    private String m_strBriefDescription;
 
     @OneToOne()
-    private ServicoDescricaoCompleta m_oDescricaoCompleta;
+    private String m_strCompleteDescription;
 
     @OneToOne()
     @NotFound(action=NotFoundAction.IGNORE)
-    private Feedback m_oFeedback;
+    private Double m_dblFeedback;
 
     @OneToMany()
-    private List<Keyword> m_lstKeywords;
+    private List<String> m_lstKeywords;
 
     @OneToMany()
     private List<Form> m_lstForms;
 
-    public Servico(final ServicoID oID, final ServicoDescricaoBreve oDescricaoBreve, final ServicoDescricaoCompleta oDescricaoCompleta,
-                   final Feedback oFeedback, final List<Keyword> lstKeywords, final List<Form> lstForms) {
-        if (oID == null || oDescricaoBreve == null || oDescricaoCompleta == null || oFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
+    public ServiceDraft(final Long lngID, final String strTitle, final String strBriefDescription, final String strCompleteDescription,
+                        final Double dblFeedback, final List<String> lstKeywords, final List<Form> lstForms) {
+        if (intID == null || strTitle == null || strBriefDescription == null || strCompleteDescription == null || dblFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        this.m_oID = oID;
-        this.m_oDescricaoBreve = oDescricaoBreve;
-        this.m_oDescricaoCompleta = oDescricaoCompleta;
-        this.m_oFeedback = oFeedback;
+        this.m_lngID = lngID;
+        this.m_strBriefDescription = strBriefDescription;
+        this.m_strCompleteDescription = strCompleteDescription;
+        this.m_dblFeedback = dblFeedback;
         this.m_lstKeywords = lstKeywords;
         this.m_lstForms = lstForms;
     }
 
-    protected Servico() {
+    public ServiceDraft() {
         // for ORM only
     }
 
-    public ServicoDescricaoBreve descricaoBreve() {
-        return this.m_oDescricaoBreve;
+    public String BriefDescription() {
+        return this.m_strBriefDescription;
     }
-    public ServicoDescricaoCompleta descricaoCompleta() {
-        return this.m_oDescricaoCompleta;
+
+    public Long getID() {
+        return m_lngID;
     }
-    public Feedback feedback() {
-        return this.m_oFeedback;
+
+    public String getTitle() {
+        return m_strTitle;
     }
-    public List<Keyword> keywords() {
-        return this.m_lstKeywords;
+
+    public String getBriefDescription() {
+        return m_strBriefDescription;
     }
-    public List<Form> formularios() {
-        return this.m_lstForms;
+
+    public String getCompleteDescription() {
+        return m_strCompleteDescription;
+    }
+
+    public Double getFeedback() {
+        return m_dblFeedback;
+    }
+
+    public List<String> getKeywordList() {
+        return m_lstKeywords;
+    }
+
+    public List<Form> getFormList() {
+        return m_lstForms;
+    }
+
+    public void setID(Long m_lngID) {
+        this.m_lngID = m_lngID;
+    }
+
+    public void setTitle(String m_strTitle) {
+        this.m_strTitle = m_strTitle;
+    }
+
+    public void setBriefDescription(String m_strBriefDescription) {
+        this.m_strBriefDescription = m_strBriefDescription;
+    }
+
+    public void setCompleteDescription(String m_strCompleteDescription) {
+        this.m_strCompleteDescription = m_strCompleteDescription;
+    }
+
+    public void setFeedback(Double m_dblFeedback) {
+        this.m_dblFeedback = m_dblFeedback;
+    }
+
+    public void setKeywordList(List<String> m_lstKeywords) {
+        this.m_lstKeywords = m_lstKeywords;
+    }
+
+    public void setFormList(List<Form> m_lstForms) {
+        this.m_lstForms = m_lstForms;
     }
 
     @Override
@@ -114,12 +158,12 @@ public class Servico implements AggregateRoot<Servico> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public ServicoID id() {
+    public ServiceID id() {
         return identity();
     }
 
     @Override
-    public ServicoID identity() {
+    public ServiceID identity() {
         return this.m_oID;
     }
 }

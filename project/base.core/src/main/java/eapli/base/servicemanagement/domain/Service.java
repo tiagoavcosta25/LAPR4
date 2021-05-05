@@ -26,11 +26,9 @@ package eapli.base.servicemanagement.domain;
 import eapli.base.formulariomanagement.domain.*;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
+import sun.security.jca.ServiceId;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -39,22 +37,25 @@ import java.util.List;
  */
 
 @Entity
-public class Servico implements AggregateRoot<Servico> {
+public class Service implements AggregateRoot<ServiceID> {
 
     @Version
     private Long version;
 
-    @EmbeddedId
-    private ServicoID m_oID;
+    @GeneratedValue
+    private ServiceID m_oID;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
     @OneToOne()
-    private ServicoDescricaoBreve m_oDescricaoBreve;
+    private ServiceTitle m_oTitle;
+    
+    @OneToOne()
+    private ServiceBriefDescription m_oBriefDescription;
 
     @OneToOne()
-    private ServicoDescricaoCompleta m_oDescricaoCompleta;
+    private ServiceCompleteDescription m_oCompleteDescription;
 
     @OneToOne()
     @NotFound(action=NotFoundAction.IGNORE)
@@ -66,28 +67,32 @@ public class Servico implements AggregateRoot<Servico> {
     @OneToMany()
     private List<Form> m_lstForms;
 
-    public Servico(final ServicoID oID, final ServicoDescricaoBreve oDescricaoBreve, final ServicoDescricaoCompleta oDescricaoCompleta,
+    public Service(final ServiceID oID, final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
                    final Feedback oFeedback, final List<Keyword> lstKeywords, final List<Form> lstForms) {
-        if (oID == null || oDescricaoBreve == null || oDescricaoCompleta == null || oFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
+        if (oID == null || oServiceTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oID = oID;
-        this.m_oDescricaoBreve = oDescricaoBreve;
-        this.m_oDescricaoCompleta = oDescricaoCompleta;
+        this.m_oTitle = oTitle;
+        this.m_oBriefDescription = oBriefDescription;
+        this.m_oCompleteDescription = oCompleteDescription;
         this.m_oFeedback = oFeedback;
         this.m_lstKeywords = lstKeywords;
         this.m_lstForms = lstForms;
     }
 
-    protected Servico() {
+    protected Service() {
         // for ORM only
     }
 
-    public ServicoDescricaoBreve descricaoBreve() {
-        return this.m_oDescricaoBreve;
+    public ServiceTitle title() {
+        return this.m_oTitle;
     }
-    public ServicoDescricaoCompleta descricaoCompleta() {
-        return this.m_oDescricaoCompleta;
+    public ServiceBriefDescription briefDescription() {
+        return this.m_oBriefDescription;
+    }
+    public ServiceCompleteDescription completeDescription() {
+        return this.m_oCompleteDescription;
     }
     public Feedback feedback() {
         return this.m_oFeedback;
@@ -114,12 +119,12 @@ public class Servico implements AggregateRoot<Servico> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public ServicoID id() {
+    public ServiceID id() {
         return identity();
     }
 
     @Override
-    public ServicoID identity() {
+    public ServiceID identity() {
         return this.m_oID;
     }
 }

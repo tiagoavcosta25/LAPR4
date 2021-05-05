@@ -19,23 +19,23 @@ public class Feedback implements ValueObject, Comparable<Feedback> {
 
     private static final long serialVersionUID = 1L;
 
-    private Double m_dblDuracao;
+    private Double m_dblDuration;
 
-    public Feedback(final Double dblDuracao) {
-        if (dblDuracao == null) {
+    public Feedback(final Double dblDuration) {
+        if (dblDuration == null) {
             throw new IllegalArgumentException(
                     "Feedback should neither be null nor empty");
         }
         // expression
-        this.m_dblDuracao = dblDuracao;
+        this.m_dblDuration = dblDuration;
     }
 
     protected Feedback() {
         // for ORM
     }
 
-    public static Feedback valueOf(final Double dblDuracao) {
-        return new Feedback(dblDuracao);
+    public static Feedback valueOf(final Double dblDuration) {
+        return new Feedback(dblDuration);
     }
 
     @Override
@@ -48,21 +48,21 @@ public class Feedback implements ValueObject, Comparable<Feedback> {
         }
 
         final Feedback that = (Feedback) o;
-        return this.m_dblDuracao.equals(that.m_dblDuracao);
+        return this.m_dblDuration.equals(that.m_dblDuration);
     }
 
     @Override
     public int hashCode() {
-        return this.m_dblDuracao.hashCode();
+        return this.m_dblDuration.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_dblDuracao;
+        return String.valueOf(this.m_dblDuration);
     }
 
     @Override
     public int compareTo(final Feedback arg0) {
-        return m_dblDuracao.compareTo(arg0.m_dblDuracao);
+        return m_dblDuration.compareTo(arg0.m_dblDuration);
     }
 }

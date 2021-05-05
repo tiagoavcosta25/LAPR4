@@ -23,11 +23,13 @@
  */
 package eapli.base.servicemanagement.application;
 
-import eapli.base.formulariomanagement.domain.*;
-import eapli.base.formulariomanagement.repositories.FormularioRepository;
+import eapli.base.formmanagement.domain.*;
+import eapli.base.formmanagement.repositories.formRepository;
+import eapli.base.formulariomanagement.domain.Form;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.*;
-import eapli.base.servicemanagement.repositories.ServicoRepository;
+import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
+import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -37,76 +39,38 @@ import java.util.List;
 
 /**
  *
- * @author losa
+ * @author Pedro Santos 1190967@isep.ipp.pt
  */
-public class EspecificarServicoController {
+public class SaveDraftController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
 
-    private final ServicoRepository servicoRepo = PersistenceContext.repositories().servicos();
-    private final FormularioRepository formularioRepo = PersistenceContext.repositories().formularios();
-    private ServicoBuilder servicoBuilder = new ServicoBuilder();
-    private FormBuilder formBuilder = new FormBuilder();
-    private AttributeBuilder attributeBuilder = new AttributeBuilder();
-    private List<Keyword> m_lstKeywords = new ArrayList<>();
-    private List<Attribute> m_lstAttributes = new ArrayList<>();
-    private List<Form> m_lstForms = new ArrayList<>();
+    private final ServiceRepository serviceRepo = PersistenceContext.repositories().services();
+    private final ServiceDraftRepository draftRepo = PersistenceContext.repositories().serviceDrafts();
+    private final CatalogueRepository catalogueRepo = PersistenceContext.repositories().catalogues();
+    private ServiceBuilder serviceBuilder = new ServiceBuilder();
 
-    public void addServico(ServicoDescricaoBreve oDescricaoBreve, ServicoDescricaoCompleta oDescricaoCompleta) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
-
-        this.servicoBuilder = this.servicoBuilder.withDescricaoBreve(oDescricaoBreve);
-        this.servicoBuilder = this.servicoBuilder.withDescricaoCompleta(oDescricaoCompleta);
+    public ServiceDraft getServiceDraftById(Long lngID) {
+        return this.draftRepo.findByID(lngID);
     }
 
-    public void addKeyword(Keyword oKeyword) {
-        this.m_lstKeywords.add(oKeyword);
+    public List<Catalogue> getCatalogues() {
+        return this.catalogueRepo.all();
     }
 
-    public void addKeywordListToService() {
-        this.servicoBuilder = this.servicoBuilder.withKeywordList(this.m_lstKeywords);
-    }
+    public Service saveService(ServiceDraft oServiceDraft) {
+        String strTitle = oServiceDraft.getTitle();
+        String strBriefDescription = oServiceDraft.getBriefDescription();
+        String strCompleteDescription = oServiceDraft.getCompleteDescription();
+        Double strFeedback = oServiceDraft.getFeedback();
+        List<String> keywordList  = oServiceDraft.getKeywordList();
+        List<Form> formList  = oServiceDraft.getFormList();
 
-    public void enableFeedback(Feedback oDuracao) {
-        this.servicoBuilder = this.servicoBuilder.withFeedback(oDuracao);
-    }
-
-    public List<Catalogo> getCatalogos() {
-        return null; // TODO: Falta adicionar catalogos
-    }
-
-    public void addFormulario(FormNome oNome, FormType oTipo) {
-        this.formBuilder = this.formBuilder.withNome(oNome);
-        this.formBuilder = this.formBuilder.withTipo(oTipo);
-    }
-
-    public void addAtributo(AttributeName oNome, AttributeLabel oLabel, AttributeDescription oDescricao,
-                            AttributeRegex oRegex, AttributeScript oScript) {
-        this.attributeBuilder = this.attributeBuilder.withNome(oNome);
-        this.attributeBuilder = this.attributeBuilder.withLabel(oLabel);
-        this.attributeBuilder = this.attributeBuilder.withDescricao(oDescricao);
-        this.attributeBuilder = this.attributeBuilder.withRegex(oRegex);
-        this.attributeBuilder = this.attributeBuilder.withScript(oScript);
-    }
-
-    public Attribute addTipoDados(DataType oDataType) {
-        this.attributeBuilder = this.attributeBuilder.withTipoDados(oDataType);
-        Attribute oAttribute = this.attributeBuilder.build();
-        this.m_lstAttributes.add(oAttribute);
-        return oAttribute;
-    }
-
-    public Form saveFormulario() {
-        this.formBuilder = this.formBuilder.withAtributoList(this.m_lstAttributes);
-        Form oForm = this.formBuilder.build();
-        this.m_lstForms.add(oForm);
-        this.formularioRepo.save(oForm); //TODO: Implementar metodo save
-        return oForm;
-    }
-
-    public Servico saveServico() {
-        this.servicoBuilder = this.servicoBuilder.withFormularioList(this.m_lstForms);
-        Servico oServico = this.servicoBuilder.build();
-        this.servicoRepo.save(oServico); //TODO: Implementar metodo save
-        return oServico;
+        this.serviceBuilder.withTitle(strTitle);
+        this.serviceBuilder.withBriefDescription(strBriefDescription);
+        this.serviceBuilder.withCompleteDescription(strCompleteDescription);
+        this.serviceBuilder.withFeedback(strFeedback);
+        this.serviceBuilder.withKeywordList(keywordList);
+        this.serviceBuilder.withFormList(formList);
+        return this.serviceRepo.save(this.serviceBuilder.build());
     }
 }
