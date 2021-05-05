@@ -15,27 +15,27 @@ import javax.persistence.Embeddable;
  * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 @Embeddable
-public class ColaboradorMorada implements ValueObject, Comparable<ColaboradorMorada> {
+public class CollaboratorAddress implements ValueObject, Comparable<CollaboratorAddress> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strMorada;
+    private String m_strAddress;
 
-    public ColaboradorMorada(final String strMorada) {
-        if (StringPredicates.isNullOrEmpty(strMorada)) {
+    public CollaboratorAddress(final String strAddress) {
+        if (StringPredicates.isNullOrEmpty(strAddress)) {
             throw new IllegalArgumentException(
-                    "Morada não deverá ser null nem vazio.");
+                    "Address can't be null nor empty.");
         }
         // expression
-        this.m_strMorada = strMorada;
+        this.m_strAddress = strAddress;
     }
 
-    protected ColaboradorMorada() {
+    protected CollaboratorAddress() {
         // for ORM
     }
 
-    public static ColaboradorMorada valueOf(final String strMorada) {
-        return new ColaboradorMorada(strMorada);
+    public static CollaboratorAddress valueOf(final String strAddress) {
+        return new CollaboratorAddress(strAddress);
     }
 
     @Override
@@ -43,26 +43,26 @@ public class ColaboradorMorada implements ValueObject, Comparable<ColaboradorMor
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ColaboradorMorada)) {
+        if (!(o instanceof CollaboratorAddress)) {
             return false;
         }
 
-        final ColaboradorMorada that = (ColaboradorMorada) o;
-        return this.m_strMorada.equals(that.m_strMorada);
+        final CollaboratorAddress that = (CollaboratorAddress) o;
+        return this.m_strAddress.equals(that.m_strAddress);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strMorada.hashCode();
+        return this.m_strAddress.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strMorada;
+        return this.m_strAddress;
     }
 
     @Override
-    public int compareTo(final ColaboradorMorada arg0) {
-        return m_strMorada.compareTo(arg0.m_strMorada);
+    public int compareTo(final CollaboratorAddress arg0) {
+        return m_strAddress.compareTo(arg0.m_strAddress);
     }
 }

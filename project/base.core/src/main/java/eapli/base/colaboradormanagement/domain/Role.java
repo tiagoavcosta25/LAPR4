@@ -5,6 +5,6 @@
  */
 package eapli.base.colaboradormanagement.domain;
 
-public enum Funcao {
-    GestorDeServiçosDeHelpdesk, ResponsávelDeRecursosHumanos, Cliente, Utilizador, Colaborador;
+public enum Role {
+    HS_Manager, HR_REP, CLIENT, USER, COLLAB;
 }
