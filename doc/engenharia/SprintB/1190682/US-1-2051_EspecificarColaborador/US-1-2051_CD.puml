@@ -2,7 +2,7 @@
 skinparam classAttributeIconSize 0
 
 
-package "UI" #DDDDDD {
+package "Presentation" #DDDDDD {
 class CollaboratorSpecificationUI{
 
 }

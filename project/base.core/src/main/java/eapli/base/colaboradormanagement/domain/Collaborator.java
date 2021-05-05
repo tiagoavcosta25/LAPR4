@@ -20,7 +20,7 @@ public class Collaborator implements AggregateRoot<Collaborator> {
     @Version
     private Long version;
 
-    @EmbeddedId
+    @GeneratedValue
     private CollaboratorID m_oID;
 
     /**

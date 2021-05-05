@@ -34,7 +34,9 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -47,32 +49,36 @@ public class EspecificarColaboradorUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         try{
-            final String strNomeCurto = Console.readLine("Nome Curto");
-            final String strNomeCompleto = Console.readLine("Nome Completo");
-            final String strNumeroMecanografico = Console.readLine("Numero Mecanografico");
-            final String strMorada = Console.readLine("Morada");
-            final String strContacto = Console.readLine("Contacto");
-            final String strDataNascimento = Console.readLine("Data Nascimento");
+            final String strShortName = Console.readLine("Short Name");
+            final String strCompleteName = Console.readLine("Complete Name");
+            final String strMechanographicNumber = Console.readLine("Mechanographic Number");
+            final String strAddress = Console.readLine("Address");
+            final String strPhoneNumber = Console.readLine("Phone Number");
+            final String strBirthDate = Console.readLine("Birth Date");
 
-            final CollaboratorShortName oNomeCurto = new CollaboratorShortName(strNomeCurto);
-            final CollaboratorCompleteName oNomeCompleto = new CollaboratorCompleteName(strNomeCompleto);
-            final CollaboratorMechanographicNumber oNumeroMecanografico = new CollaboratorMechanographicNumber(strNumeroMecanografico) ;
-            final CollaboratorAddress oMorada = new CollaboratorAddress(strMorada);
-            final CollaboratorPhoneNumber oContacto = new CollaboratorPhoneNumber(Double.parseDouble(strContacto));
-            final CollaboratorBirthDate oDataNascimento = new CollaboratorBirthDate(strDataNascimento);
+            final CollaboratorShortName oShortName = new CollaboratorShortName(strShortName);
+            final CollaboratorCompleteName oCompleteName = new CollaboratorCompleteName(strCompleteName);
+            final CollaboratorMechanographicNumber oMechanographicNumber = new CollaboratorMechanographicNumber(strMechanographicNumber) ;
+            final CollaboratorAddress oAddress = new CollaboratorAddress(strAddress);
+            final CollaboratorPhoneNumber oPhoneNumber = new CollaboratorPhoneNumber(Double.parseDouble(strPhoneNumber));
+            final CollaboratorBirthDate oBirthDate = new CollaboratorBirthDate(strBirthDate);
 
-            this.theController.addColaborador(oNomeCurto, oNomeCompleto, oNumeroMecanografico,
-                    oMorada, oContacto, oDataNascimento);
+            this.theController.addCollaborator(oShortName, oCompleteName, oMechanographicNumber,
+                    oAddress, oPhoneNumber, oBirthDate);
 
             boolean blFlag;
 
-            final Set<Role> lstFuncoes = new HashSet<>();
+            List<Role> lstRoles = new ArrayList<>();
+            lstRoles = this.theController.getRoleList();
+
             do {
-                blFlag = showFuncoes(lstFuncoes);
+                blFlag = showRoles(lstRoles);
             } while (!blFlag);
 
-            if(Console.readLine("Confirm the creation of the Colaborador")){
-                Collaborator oCollaborator = this.theController.saveColaborador();
+            Console.readLine("Confirm the creation of the Colaborador");
+                    
+            if(blFlag){
+                Collaborator oCollaborator = this.theController.saveCollaborator();
             } else{
                 System.out.println("Operation Cancelled.");
             }
@@ -84,23 +90,21 @@ public class EspecificarColaboradorUI extends AbstractUI {
         return false;
     }
 
-
-    private boolean showFuncoes(final Set<Role> lstFuncoes) {
-        final Menu funcoesMenu = buildfuncoesMenu(lstFuncoes);
-        final MenuRenderer renderer = new VerticalMenuRenderer(lstFuncoes, MenuItemRenderer.DEFAULT);
+    private boolean showRoles(List<Role> lstRoles) {
+        final Menu catalogosMenu = buildRolesMenu(lstRoles);
+        final MenuRenderer renderer = new VerticalMenuRenderer(catalogosMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buildFuncoesMenu(final Set<Role> lstFuncoes) {
-        final Menu funcoesMenu = new Menu();
+    private Menu buildRolesMenu(List<Role> lstRoless) {
+        final Menu rolesMenu = new Menu();
         int counter = 0;
-        funcoesMenu.addItem(MenuItem.of(counter++, "No Tipo Form", Actions.SUCCESS));
-        for (final Role role : TipoForm.values()) {
-            funcoesMenu.addItem(MenuItem.of(counter++, role.toString(), () -> lstFuncoes.add(role)));
+        rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
+        for (final Role role : theController.getRoleList()) {
+            rolesMenu.addItem(MenuItem.of(counter++, role.toString(), () -> lstRoless.add(role)));
         }
-        return funcoesMenu;
+        return rolesMenu;
     }
-
 
     @Override
     public String headline() {
