@@ -15,27 +15,27 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AtributoNome implements ValueObject, Comparable<AtributoNome> {
+public class AttributeRegex implements ValueObject, Comparable<AttributeRegex> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strNome;
+    private String m_strRegex;
 
-    public AtributoNome(final String strNome) {
-        if (StringPredicates.isNullOrEmpty(strNome)) {
+    public AttributeRegex(final String strRegex) {
+        if (StringPredicates.isNullOrEmpty(strRegex)) {
             throw new IllegalArgumentException(
-                    "Attribute Name should neither be null nor empty");
+                    "Attribute Regex should neither be null nor empty");
         }
         // expression
-        this.m_strNome = strNome;
+        this.m_strRegex = strRegex;
     }
 
-    protected AtributoNome() {
+    protected AttributeRegex() {
         // for ORM
     }
 
-    public static AtributoNome valueOf(final String strNome) {
-        return new AtributoNome(strNome);
+    public static AttributeRegex valueOf(final String strNome) {
+        return new AttributeRegex(strNome);
     }
 
     @Override
@@ -43,26 +43,26 @@ public class AtributoNome implements ValueObject, Comparable<AtributoNome> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AtributoNome)) {
+        if (!(o instanceof AttributeRegex)) {
             return false;
         }
 
-        final AtributoNome that = (AtributoNome) o;
-        return this.m_strNome.equals(that.m_strNome);
+        final AttributeRegex that = (AttributeRegex) o;
+        return this.m_strRegex.equals(that.m_strRegex);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strNome.hashCode();
+        return this.m_strRegex.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strNome;
+        return this.m_strRegex;
     }
 
     @Override
-    public int compareTo(final AtributoNome arg0) {
-        return m_strNome.compareTo(arg0.m_strNome);
+    public int compareTo(final AttributeRegex arg0) {
+        return m_strRegex.compareTo(arg0.m_strRegex);
     }
 }

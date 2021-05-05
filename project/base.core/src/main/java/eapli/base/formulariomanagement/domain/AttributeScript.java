@@ -15,27 +15,27 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AtributoLabel implements ValueObject, Comparable<AtributoLabel> {
+public class AttributeScript implements ValueObject, Comparable<AttributeScript> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strLabel;
+    private String m_strScript;
 
-    public AtributoLabel(final String strLabel) {
-        if (StringPredicates.isNullOrEmpty(strLabel)) {
+    public AttributeScript(final String strScript) {
+        if (StringPredicates.isNullOrEmpty(strScript)) {
             throw new IllegalArgumentException(
-                    "Attribute Label should neither be null nor empty");
+                    "Attribute Script should neither be null nor empty");
         }
         // expression
-        this.m_strLabel = strLabel;
+        this.m_strScript = strScript;
     }
 
-    protected AtributoLabel() {
+    protected AttributeScript() {
         // for ORM
     }
 
-    public static AtributoLabel valueOf(final String strLabel) {
-        return new AtributoLabel(strLabel);
+    public static AttributeScript valueOf(final String strNome) {
+        return new AttributeScript(strNome);
     }
 
     @Override
@@ -43,26 +43,26 @@ public class AtributoLabel implements ValueObject, Comparable<AtributoLabel> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AtributoLabel)) {
+        if (!(o instanceof AttributeScript)) {
             return false;
         }
 
-        final AtributoLabel that = (AtributoLabel) o;
-        return this.m_strLabel.equals(that.m_strLabel);
+        final AttributeScript that = (AttributeScript) o;
+        return this.m_strScript.equals(that.m_strScript);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strLabel.hashCode();
+        return this.m_strScript.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strLabel;
+        return this.m_strScript;
     }
 
     @Override
-    public int compareTo(final AtributoLabel arg0) {
-        return m_strLabel.compareTo(arg0.m_strLabel);
+    public int compareTo(final AttributeScript arg0) {
+        return m_strScript.compareTo(arg0.m_strScript);
     }
 }

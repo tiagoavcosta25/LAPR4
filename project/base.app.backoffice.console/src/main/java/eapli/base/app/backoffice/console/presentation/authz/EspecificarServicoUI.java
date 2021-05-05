@@ -23,7 +23,9 @@
  */
 package eapli.base.app.backoffice.console.presentation.authz;
 
+import eapli.base.formulariomanagement.domain.*;
 import eapli.base.servicemanagement.application.EspecificarServicoController;
+import eapli.base.servicemanagement.domain.*;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -52,7 +54,10 @@ public class EspecificarServicoUI extends AbstractUI {
             final String strDescricaoBreve = Console.readLine("Brief Description");
             final String strDescricaoCompleta = Console.readLine("Complete Description");
 
-            this.theController.addServico(strDescricaoBreve, strDescricaoCompleta);
+            final ServicoDescricaoBreve oDescricaoBreve = new ServicoDescricaoBreve(strDescricaoBreve);
+            final ServicoDescricaoCompleta oDescricaoCompleta = new ServicoDescricaoCompleta(strDescricaoCompleta);
+
+            this.theController.addServico(oDescricaoBreve, oDescricaoCompleta);
 
             boolean blFlag;
             do {
@@ -61,9 +66,12 @@ public class EspecificarServicoUI extends AbstractUI {
 
             this.theController.addKeywordListToService();
 
-            if(Console.readLine("Do you want the ability to receive feedback on this service?")){
-                final Double dblDuration = Console.readLine("Feedback Duration");
-                this.theController.enableFeedback(dblDuration);
+            String strOp = Console.readLine("Do you want the ability to receive feedback on this service? (Y/N)");
+
+            if(strOp.compareToIgnoreCase("Y") == 0){
+                final Double dblDuration = Double.parseDouble(Console.readLine("Feedback Duration"));
+                Feedback oFeedback = new Feedback(dblDuration);
+                this.theController.enableFeedback(oFeedback);
             }
 
             final Set<Catalogo> lstCatalogos = new HashSet<>();
@@ -76,8 +84,11 @@ public class EspecificarServicoUI extends AbstractUI {
                 this.theController.saveFormulario();
             } while (!blFlag);
 
-            if(Console.readLine("Confirm the creation of the Service")){
+            strOp = Console.readLine("Confirm the creation of the Service (Y/N)");
+
+            if(strOp.compareToIgnoreCase("Y") == 0){
                 Servico oServico = this.theController.saveServico();
+                System.out.printf("Created the following Service:\n\n%s\n", oServico.toString());
             } else{
                 System.out.println("Operation Cancelled.");
             }
@@ -91,13 +102,15 @@ public class EspecificarServicoUI extends AbstractUI {
 
     private boolean readKeywords() {
         final String strKeyword = Console.readLine("Keyword");
-        this.theController.addKeyword(strKeyword);
-        return Console.readLine("Do you want to add another keyword to this service?");
+        final Keyword oKeyword = new Keyword(strKeyword);
+        this.theController.addKeyword(oKeyword);
+        String strOp = Console.readLine("Do you want to add another keyword to this service? (Y/N)");
+        return strOp.compareToIgnoreCase("Y") == 0;
     }
 
     private boolean showCatalogos(final Set<Catalogo> lstCatalogos) {
         final Menu catalogosMenu = buildCatalogosMenu(lstCatalogos);
-        final MenuRenderer renderer = new VerticalMenuRenderer(lstCatalogos, MenuItemRenderer.DEFAULT);
+        final MenuRenderer renderer = new VerticalMenuRenderer(catalogosMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
@@ -113,14 +126,16 @@ public class EspecificarServicoUI extends AbstractUI {
 
     private boolean insertForm() {
         final String strFormName = Console.readLine("Form Name");
+        FormularioNome oFormName = new FormularioNome(strFormName);
         final Set<TipoForm> lstTipoForm = new HashSet<>();
         final TipoForm oTipoForm = showTipoForm(lstTipoForm);
-        this.theController.addFormulario(strFormName, oTipoForm);
+        this.theController.addFormulario(oFormName, oTipoForm);
         boolean blFlag;
         do {
             blFlag = insertAttribute();
         } while (!blFlag);
-        return Console.readLine("Do you want to add another form to this service?");
+        String strOp = Console.readLine("Do you want to add another form to this service? (Y/N)");
+        return strOp.compareToIgnoreCase("Y") == 0;
     }
 
     private boolean showTipoForm(final Set<TipoForm> lstTipoForm) {
@@ -141,10 +156,15 @@ public class EspecificarServicoUI extends AbstractUI {
 
     private boolean insertAttribute() {
         final String strAttributeName = Console.readLine("Attribute Name");
+        final AttributeName oAttributeName = new AttributeName(strAttributeName);
         final String strAttributeLabel = Console.readLine("Attribute Label");
+        final AttributeLabel oAttributeLabel = new AttributeLabel(strAttributeLabel);
         final String strAttributeDescription = Console.readLine("Attribute Description");
+        final AttributeDescription oAttributeDescription = new AttributeDescription(strAttributeDescription);
         final String strAttributeRegex = Console.readLine("Attribute Regex");
+        final AttributeRegex oAttributeRegex = new AttributeRegex(strAttributeRegex);
         final String strAttributeScript = Console.readLine("Attribute Script");
+        final AttributeScript oAttributeScript = new AttributeScript(strAttributeScript);
 
         this.theController.addAtributo(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, strAttributeScript);
 

@@ -1,9 +1,6 @@
 package eapli.base.formulariomanagement.domain;
 
-import eapli.base.clientusermanagement.domain.ClientUser;
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.framework.domain.model.DomainFactory;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
@@ -11,11 +8,11 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 public class AtributoBuilder implements DomainFactory<Atributo> {
 
     private AtributoID m_oID;
-    private AtributoNome m_oNome;
-    private AtributoLabel m_oLabel;
-    private AtributoDescricao m_oDescricao;
-    private AtributoRegex m_oRegex;
-    private AtributoScript m_oScript;
+    private AttributeName m_oNome;
+    private AttributeLabel m_oLabel;
+    private AttributeDescription m_oDescricao;
+    private AttributeRegex m_oRegex;
+    private AttributeScript m_oScript;
     private TipoDados m_oTipoDados;
 
     public AtributoBuilder withID(AtributoID oID) {
@@ -23,27 +20,27 @@ public class AtributoBuilder implements DomainFactory<Atributo> {
         return this;
     }
 
-    public AtributoBuilder withNome(AtributoNome oNome) {
+    public AtributoBuilder withNome(AttributeName oNome) {
         this.m_oNome = oNome;
         return this;
     }
 
-    public AtributoBuilder withLabel(AtributoLabel oLabel) {
+    public AtributoBuilder withLabel(AttributeLabel oLabel) {
         this.m_oLabel = oLabel;
         return this;
     }
 
-    public AtributoBuilder withDescricao(AtributoDescricao oDescricao) {
+    public AtributoBuilder withDescricao(AttributeDescription oDescricao) {
         this.m_oDescricao = oDescricao;
         return this;
     }
 
-    public AtributoBuilder withRegex(AtributoRegex oRegex) {
+    public AtributoBuilder withRegex(AttributeRegex oRegex) {
         this.m_oRegex = oRegex;
         return this;
     }
 
-    public AtributoBuilder withScript(AtributoScript oScript) {
+    public AtributoBuilder withScript(AttributeScript oScript) {
         this.m_oScript = oScript;
         return this;
     }
