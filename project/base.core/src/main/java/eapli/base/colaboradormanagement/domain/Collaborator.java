@@ -20,31 +20,39 @@ public class Collaborator implements AggregateRoot<CollaboratorID> {
     @Version
     private Long version;
 
+    @Id
     @GeneratedValue
     private CollaboratorID m_oID;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
-    @OneToOne()
+    @Embedded
+    @Column(name = "phonenNumber")
     private CollaboratorPhoneNumber m_oPhoneNumber;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "birthDate")
     private CollaboratorBirthDate m_oBirthDate;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "address")
     private CollaboratorAddress m_oAddress;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "completeName")
     private CollaboratorCompleteName m_oCompleteName;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "shortName")
     private CollaboratorShortName m_oShortName;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "mechanographicNumber")
     private CollaboratorMechanographicNumber m_oMechanographicNumber;
 
-    @OneToMany()
+    @Embedded
+    @Column(name = "role")
     private Role m_oRole;
 
 

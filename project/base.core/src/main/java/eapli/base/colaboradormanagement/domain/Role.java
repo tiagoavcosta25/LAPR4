@@ -5,6 +5,9 @@
  */
 package eapli.base.colaboradormanagement.domain;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public enum Role {
     HS_Manager, HR_REP, CLIENT, USER, COLLAB;
 }
