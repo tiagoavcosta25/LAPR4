@@ -23,8 +23,6 @@
  */
 package eapli.base.servicemanagement.application;
 
-import eapli.base.clientusermanagement.domain.ClientUser;
-import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.formulariomanagement.domain.*;
 import eapli.base.formulariomanagement.repositories.FormularioRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -81,8 +79,8 @@ public class EspecificarServicoController {
         this.formularioBuilder = this.formularioBuilder.withTipo(oTipo);
     }
 
-    public void addAtributo(AtributoNome oNome, AtributoLabel oLabel, AtributoDescricao oDescricao,
-                            AtributoRegex oRegex, AtributoScript oScript) {
+    public void addAtributo(AttributeName oNome, AttributeLabel oLabel, AttributeDescription oDescricao,
+                            AttributeRegex oRegex, AttributeScript oScript) {
         this.atributoBuilder = this.atributoBuilder.withNome(oNome);
         this.atributoBuilder = this.atributoBuilder.withLabel(oLabel);
         this.atributoBuilder = this.atributoBuilder.withDescricao(oDescricao);

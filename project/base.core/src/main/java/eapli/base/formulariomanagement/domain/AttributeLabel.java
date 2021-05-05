@@ -15,13 +15,13 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AtributoLabel implements ValueObject, Comparable<AtributoLabel> {
+public class AttributeLabel implements ValueObject, Comparable<AttributeLabel> {
 
     private static final long serialVersionUID = 1L;
 
     private String m_strLabel;
 
-    public AtributoLabel(final String strLabel) {
+    public AttributeLabel(final String strLabel) {
         if (StringPredicates.isNullOrEmpty(strLabel)) {
             throw new IllegalArgumentException(
                     "Attribute Label should neither be null nor empty");
@@ -30,12 +30,12 @@ public class AtributoLabel implements ValueObject, Comparable<AtributoLabel> {
         this.m_strLabel = strLabel;
     }
 
-    protected AtributoLabel() {
+    protected AttributeLabel() {
         // for ORM
     }
 
-    public static AtributoLabel valueOf(final String strLabel) {
-        return new AtributoLabel(strLabel);
+    public static AttributeLabel valueOf(final String strLabel) {
+        return new AttributeLabel(strLabel);
     }
 
     @Override
@@ -43,11 +43,11 @@ public class AtributoLabel implements ValueObject, Comparable<AtributoLabel> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AtributoLabel)) {
+        if (!(o instanceof AttributeLabel)) {
             return false;
         }
 
-        final AtributoLabel that = (AtributoLabel) o;
+        final AttributeLabel that = (AttributeLabel) o;
         return this.m_strLabel.equals(that.m_strLabel);
     }
 
@@ -62,7 +62,7 @@ public class AtributoLabel implements ValueObject, Comparable<AtributoLabel> {
     }
 
     @Override
-    public int compareTo(final AtributoLabel arg0) {
+    public int compareTo(final AttributeLabel arg0) {
         return m_strLabel.compareTo(arg0.m_strLabel);
     }
 }

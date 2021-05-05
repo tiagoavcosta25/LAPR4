@@ -23,10 +23,8 @@
  */
 package eapli.base.formulariomanagement.domain;
 
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -51,25 +49,25 @@ public class Atributo implements AggregateRoot<Formulario> {
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
     @OneToOne()
-    private AtributoNome m_oNome;
+    private AttributeName m_oNome;
 
     @OneToOne()
-    private AtributoLabel m_oLabel;
+    private AttributeLabel m_oLabel;
 
     @OneToOne()
-    private AtributoDescricao m_oDescricao;
+    private AttributeDescription m_oDescricao;
 
     @OneToOne()
-    private AtributoRegex m_oRegex;
+    private AttributeRegex m_oRegex;
 
     @OneToOne()
-    private AtributoScript m_oScript;
+    private AttributeScript m_oScript;
 
     @OneToOne()
     private TipoDados m_oTipoDados;
 
-    public Atributo(final AtributoID oID, final AtributoNome oNome, final AtributoLabel oLabel, final AtributoDescricao oDescricao,
-                    final AtributoRegex oRegex, final AtributoScript oScript, final TipoDados oTipoDados) {
+    public Atributo(final AtributoID oID, final AttributeName oNome, final AttributeLabel oLabel, final AttributeDescription oDescricao,
+                    final AttributeRegex oRegex, final AttributeScript oScript, final TipoDados oTipoDados) {
         if (oID == null || oNome == null || oLabel == null || oDescricao == null || oRegex == null || oScript == null || oTipoDados == null) {
             throw new IllegalArgumentException();
         }
@@ -86,19 +84,19 @@ public class Atributo implements AggregateRoot<Formulario> {
         // for ORM only
     }
 
-    public AtributoNome name() {
+    public AttributeName name() {
         return this.m_oNome;
     }
-    public AtributoLabel label() {
+    public AttributeLabel label() {
         return this.m_oLabel;
     }
-    public AtributoDescricao descricao() {
+    public AttributeDescription descricao() {
         return this.m_oDescricao;
     }
-    public AtributoRegex regex() {
+    public AttributeRegex regex() {
         return this.m_oRegex;
     }
-    public AtributoScript script() {
+    public AttributeScript script() {
         return this.m_oScript;
     }
 

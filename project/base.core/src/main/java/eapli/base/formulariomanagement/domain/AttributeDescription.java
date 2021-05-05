@@ -15,13 +15,13 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AtributoDescricao implements ValueObject, Comparable<AtributoDescricao> {
+public class AttributeDescription implements ValueObject, Comparable<AttributeDescription> {
 
     private static final long serialVersionUID = 1L;
 
     private String m_strDescricao;
 
-    public AtributoDescricao(final String strDescricao) {
+    public AttributeDescription(final String strDescricao) {
         if (StringPredicates.isNullOrEmpty(strDescricao)) {
             throw new IllegalArgumentException(
                     "Attribute Description should neither be null nor empty");
@@ -30,12 +30,12 @@ public class AtributoDescricao implements ValueObject, Comparable<AtributoDescri
         this.m_strDescricao = strDescricao;
     }
 
-    protected AtributoDescricao() {
+    protected AttributeDescription() {
         // for ORM
     }
 
-    public static AtributoDescricao valueOf(final String strDescricao) {
-        return new AtributoDescricao(strDescricao);
+    public static AttributeDescription valueOf(final String strDescricao) {
+        return new AttributeDescription(strDescricao);
     }
 
     @Override
@@ -43,11 +43,11 @@ public class AtributoDescricao implements ValueObject, Comparable<AtributoDescri
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AtributoDescricao)) {
+        if (!(o instanceof AttributeDescription)) {
             return false;
         }
 
-        final AtributoDescricao that = (AtributoDescricao) o;
+        final AttributeDescription that = (AttributeDescription) o;
         return this.m_strDescricao.equals(that.m_strDescricao);
     }
 
@@ -62,7 +62,7 @@ public class AtributoDescricao implements ValueObject, Comparable<AtributoDescri
     }
 
     @Override
-    public int compareTo(final AtributoDescricao arg0) {
+    public int compareTo(final AttributeDescription arg0) {
         return m_strDescricao.compareTo(arg0.m_strDescricao);
     }
 }

@@ -15,13 +15,13 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AtributoRegex implements ValueObject, Comparable<AtributoRegex> {
+public class AttributeRegex implements ValueObject, Comparable<AttributeRegex> {
 
     private static final long serialVersionUID = 1L;
 
     private String m_strRegex;
 
-    public AtributoRegex(final String strRegex) {
+    public AttributeRegex(final String strRegex) {
         if (StringPredicates.isNullOrEmpty(strRegex)) {
             throw new IllegalArgumentException(
                     "Attribute Regex should neither be null nor empty");
@@ -30,12 +30,12 @@ public class AtributoRegex implements ValueObject, Comparable<AtributoRegex> {
         this.m_strRegex = strRegex;
     }
 
-    protected AtributoRegex() {
+    protected AttributeRegex() {
         // for ORM
     }
 
-    public static AtributoRegex valueOf(final String strNome) {
-        return new AtributoRegex(strNome);
+    public static AttributeRegex valueOf(final String strNome) {
+        return new AttributeRegex(strNome);
     }
 
     @Override
@@ -43,11 +43,11 @@ public class AtributoRegex implements ValueObject, Comparable<AtributoRegex> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AtributoRegex)) {
+        if (!(o instanceof AttributeRegex)) {
             return false;
         }
 
-        final AtributoRegex that = (AtributoRegex) o;
+        final AttributeRegex that = (AttributeRegex) o;
         return this.m_strRegex.equals(that.m_strRegex);
     }
 
@@ -62,7 +62,7 @@ public class AtributoRegex implements ValueObject, Comparable<AtributoRegex> {
     }
 
     @Override
-    public int compareTo(final AtributoRegex arg0) {
+    public int compareTo(final AttributeRegex arg0) {
         return m_strRegex.compareTo(arg0.m_strRegex);
     }
 }

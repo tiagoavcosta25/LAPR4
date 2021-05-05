@@ -15,13 +15,13 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AtributoScript implements ValueObject, Comparable<AtributoScript> {
+public class AttributeScript implements ValueObject, Comparable<AttributeScript> {
 
     private static final long serialVersionUID = 1L;
 
     private String m_strScript;
 
-    public AtributoScript(final String strScript) {
+    public AttributeScript(final String strScript) {
         if (StringPredicates.isNullOrEmpty(strScript)) {
             throw new IllegalArgumentException(
                     "Attribute Script should neither be null nor empty");
@@ -30,12 +30,12 @@ public class AtributoScript implements ValueObject, Comparable<AtributoScript> {
         this.m_strScript = strScript;
     }
 
-    protected AtributoScript() {
+    protected AttributeScript() {
         // for ORM
     }
 
-    public static AtributoScript valueOf(final String strNome) {
-        return new AtributoScript(strNome);
+    public static AttributeScript valueOf(final String strNome) {
+        return new AttributeScript(strNome);
     }
 
     @Override
@@ -43,11 +43,11 @@ public class AtributoScript implements ValueObject, Comparable<AtributoScript> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AtributoScript)) {
+        if (!(o instanceof AttributeScript)) {
             return false;
         }
 
-        final AtributoScript that = (AtributoScript) o;
+        final AttributeScript that = (AttributeScript) o;
         return this.m_strScript.equals(that.m_strScript);
     }
 
@@ -62,7 +62,7 @@ public class AtributoScript implements ValueObject, Comparable<AtributoScript> {
     }
 
     @Override
-    public int compareTo(final AtributoScript arg0) {
+    public int compareTo(final AttributeScript arg0) {
         return m_strScript.compareTo(arg0.m_strScript);
     }
 }
