@@ -41,34 +41,41 @@ public class ServiceDraft implements AggregateRoot<Long> {
     @Version
     private Long version;
 
-    @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long m_lngID;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
-    @OneToOne()
+    @Basic
+    @Column(name = "title")
     private String m_strTitle;
-    
-    @OneToOne()
+
+    @Basic
+    @Column(name = "briefDescription")
     private String m_strBriefDescription;
 
-    @OneToOne()
+    @Basic
+    @Column(name = "completeDescription")
     private String m_strCompleteDescription;
 
-    @OneToOne()
-    @NotFound(action=NotFoundAction.IGNORE)
+    @Basic
+    @Column(name = "feedback")
     private Double m_dblFeedback;
 
-    @OneToMany()
+    @ElementCollection
+    @Column(name = "keywords")
     private List<String> m_lstKeywords;
 
     @OneToMany()
+    @Column(name = "forms")
     private List<Form> m_lstForms;
 
     public ServiceDraft(final Long lngID, final String strTitle, final String strBriefDescription, final String strCompleteDescription,
                         final Double dblFeedback, final List<String> lstKeywords, final List<Form> lstForms) {
-        if (intID == null || strTitle == null || strBriefDescription == null || strCompleteDescription == null || dblFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
+        if (lngID == null || strTitle == null || strBriefDescription == null || strCompleteDescription == null || dblFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_lngID = lngID;
@@ -158,12 +165,12 @@ public class ServiceDraft implements AggregateRoot<Long> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public ServiceID id() {
+    public Long id() {
         return identity();
     }
 
     @Override
-    public ServiceID identity() {
-        return this.m_oID;
+    public Long identity() {
+        return this.m_lngID;
     }
 }

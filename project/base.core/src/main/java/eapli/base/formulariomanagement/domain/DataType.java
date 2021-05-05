@@ -5,6 +5,9 @@
  */
 package eapli.base.formulariomanagement.domain;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public enum DataType {
     INTEGER, STRING, BOOL, DATA, FILE, ENUM;
 }

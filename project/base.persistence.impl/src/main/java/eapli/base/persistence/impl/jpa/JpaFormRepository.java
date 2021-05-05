@@ -43,9 +43,4 @@ class JpaFormRepository
     public Iterable<Form> findAllActive() {
         return match("e.systemUser.active = true");
     }
-
-    @Override
-    public Form save(Form oForm) {
-        return null;
-    }
 }

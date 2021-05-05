@@ -23,6 +23,8 @@
  */
 package eapli.base.servicemanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.xml.txw2.annotation.XmlElement;
 import eapli.base.formulariomanagement.domain.*;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
@@ -42,34 +44,41 @@ public class Service implements AggregateRoot<ServiceID> {
     @Version
     private Long version;
 
+    @Id
     @GeneratedValue
+    @Column(name = "serviceID")
     private ServiceID m_oID;
 
-    /**
-     * cascade = CascadeType.NONE as the systemUser is part of another aggregate
-     */
-    @OneToOne()
+    @JsonProperty
+    @Column(name = "title")
     private ServiceTitle m_oTitle;
     
-    @OneToOne()
+    @Embedded
+    @Column(name = "briefDescription")
     private ServiceBriefDescription m_oBriefDescription;
 
-    @OneToOne()
+    @Embedded
+    @Column(name = "completeDescription")
     private ServiceCompleteDescription m_oCompleteDescription;
 
-    @OneToOne()
-    @NotFound(action=NotFoundAction.IGNORE)
+    @Embedded
+    @Column(name = "feedback")
+    @JoinColumn(name="keywordID")
     private Feedback m_oFeedback;
 
-    @OneToMany()
+    @ElementCollection()
+    @Column(name = "keywords")
+    @JoinColumn(name="keywordID")
     private List<Keyword> m_lstKeywords;
 
     @OneToMany()
+    @Column(name = "forms")
+    @JoinColumn(name="formID")
     private List<Form> m_lstForms;
 
     public Service(final ServiceID oID, final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
                    final Feedback oFeedback, final List<Keyword> lstKeywords, final List<Form> lstForms) {
-        if (oID == null || oServiceTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
+        if (oID == null || oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oID = oID;

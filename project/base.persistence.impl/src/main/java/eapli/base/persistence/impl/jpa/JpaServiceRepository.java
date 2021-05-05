@@ -42,9 +42,4 @@ class JpaServiceRepository
     public Iterable<Service> findAllActive() {
         return match("e.systemUser.active = true");
     }
-
-    @Override
-    public Service save(Service oService) {
-        return null;
-    }
 }

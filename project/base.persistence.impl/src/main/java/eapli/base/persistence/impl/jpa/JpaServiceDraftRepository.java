@@ -41,9 +41,4 @@ class JpaServiceDraftRepository
     public Iterable<ServiceDraft> findAllActive() {
         return match("e.systemUser.active = true");
     }
-
-    @Override
-    public ServiceDraft save(ServiceDraft oServiceDraft) {
-        return null;
-    }
 }
