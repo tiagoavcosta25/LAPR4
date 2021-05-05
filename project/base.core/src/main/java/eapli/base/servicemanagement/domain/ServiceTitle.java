@@ -15,27 +15,27 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class ServiceBriefDescription implements ValueObject, Comparable<ServiceBriefDescription> {
+public class ServiceTitle implements ValueObject, Comparable<ServiceTitle> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strDescricao;
+    private String m_strTitle;
 
-    public ServiceBriefDescription(final String strDescricao) {
-        if (StringPredicates.isNullOrEmpty(strDescricao)) {
+    public ServiceTitle(final String strTitle) {
+        if (StringPredicates.isNullOrEmpty(strTitle)) {
             throw new IllegalArgumentException(
-                    "Service Brief Description should neither be null nor empty");
+                    "Service Title should neither be null nor empty");
         }
         // expression
-        this.m_strDescricao = strDescricao;
+        this.m_strTitle = strTitle;
     }
 
-    protected ServiceBriefDescription() {
+    protected ServiceTitle() {
         // for ORM
     }
 
-    public static ServiceBriefDescription valueOf(final String strDescricao) {
-        return new ServiceBriefDescription(strDescricao);
+    public static ServiceTitle valueOf(final String strTitle) {
+        return new ServiceTitle(strTitle);
     }
 
     @Override
@@ -43,26 +43,26 @@ public class ServiceBriefDescription implements ValueObject, Comparable<ServiceB
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ServiceBriefDescription)) {
+        if (!(o instanceof ServiceTitle)) {
             return false;
         }
 
-        final ServiceBriefDescription that = (ServiceBriefDescription) o;
-        return this.m_strDescricao.equals(that.m_strDescricao);
+        final ServiceTitle that = (ServiceTitle) o;
+        return this.m_strTitle.equals(that.m_strTitle);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strDescricao.hashCode();
+        return this.m_strTitle.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strDescricao;
+        return this.m_strTitle;
     }
 
     @Override
-    public int compareTo(final ServiceBriefDescription arg0) {
-        return m_strDescricao.compareTo(arg0.m_strDescricao);
+    public int compareTo(final ServiceTitle arg0) {
+        return m_strTitle.compareTo(arg0.m_strTitle);
     }
 }

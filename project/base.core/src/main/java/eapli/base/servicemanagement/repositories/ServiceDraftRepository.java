@@ -1,7 +1,7 @@
 package eapli.base.servicemanagement.repositories;
 
-import eapli.base.servicemanagement.domain.Servico;
-import eapli.base.servicemanagement.domain.ServicoID;
+import eapli.base.servicemanagement.domain.Service;
+import eapli.base.servicemanagement.domain.ServiceDraft;
 import eapli.framework.domain.repositories.DomainRepository;
 
 import java.util.Optional;
@@ -10,20 +10,20 @@ import java.util.Optional;
  *
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
-public interface ServiceRepository
-        extends DomainRepository<ServicoID, Servico> {
+public interface ServiceDraftRepository
+        extends DomainRepository<Long, ServiceDraft> {
 
     /**
      * returns the client user (utente) with the given mecanographic number
      *
-     * @param oID
+     * @param lngID
      * @return
      */
-    default Optional<Servico> findByID(ServicoID oID) {
-        return ofIdentity(oID);
+    default Optional<ServiceDraft> findByID(Long lngID) {
+        return ofIdentity(lngID);
     }
 
-    public Iterable<Servico> findAllActive();
+    public Iterable<Service> findAllActive();
 
-    void save(Servico oServico);
+    ServiceDraft save(ServiceDraft oServiceDraft);
 }

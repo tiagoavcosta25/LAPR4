@@ -41,7 +41,7 @@ import java.util.Set;
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
-public class EspecificarServicoUI extends AbstractUI {
+public class ServiceDraftSpecificationUI extends AbstractUI {
 
     private final ServiceDraftSpecificationController theController = new ServiceDraftSpecificationController();
 
