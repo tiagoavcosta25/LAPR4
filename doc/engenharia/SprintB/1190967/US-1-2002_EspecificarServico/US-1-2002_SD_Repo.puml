@@ -27,7 +27,7 @@ deactivate AS
 PC --> CTRL : factory
 deactivate PC
 
-CTRL -> RF : catalogos()
+CTRL -> RF : XXs()
 activate RF
 
 RF -> R** : create
