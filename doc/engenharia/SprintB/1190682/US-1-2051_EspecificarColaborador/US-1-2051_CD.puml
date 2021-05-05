@@ -56,8 +56,7 @@ class BirthDate {
 }
 
 class Role {
-+createRole(Role)
--validate(Role)
++values()
 }
 
 package Builder #DDDDDD {
@@ -70,7 +69,7 @@ class CollaboratorBuilder{
 +withPhoneNumber(phoneNumber)
 +withBirthDate(birthDate)
 +withRole(Role)
-+createCollaborator()
++build()
 }
 }
 }
@@ -97,11 +96,6 @@ class CollaboratorRepository{
 +create()
 +save(collaborator)
 }
-
-class RoleRepository{
-+create()
-+save(role)
-}
 }
 
 }
@@ -115,7 +109,6 @@ AppSettings -> RepositoryFactory : creates
 PersistenceContext -> AppSettings : implements
 
 RepositoryFactory "1" -> "1" CollaboratorRepository : has
-RepositoryFactory "1" -> "1" RoleRepository : has
 
 CollaboratorRepository "1" -> "*" Collaborator : saves
 CollaboratorBuilder "1" -> "*" Collaborator : creates
