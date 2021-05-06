@@ -15,14 +15,15 @@ A interpretação feita deste requisito foi no sentido de ...
 
 ### Formato Breve
 
-O GSH Envia um pedido para criar um catálogo.O Sistema mostra a lista de colabores e pede a ecolha do colaborador responsável.O GSH escolhe o responsável.
+O GSH Envia um pedido para criar um catálogo.
+O Sistema solicita toda a informação necessária para a criação do catalogo(i.e. id, titulo, descBreve, descCompleta,criticidade). O GSH introduz os dados.
+O Sistema mostra a lista de colaboradores e pede a ecolha do colaborador responsável.O GSH escolhe o responsável.
 O Sistema mostra a lista de equipas e pede para escolher as listas com direito ao acesso ao catálogo. O GSH escolhe as equipas com acesso.
 O Sistema mostra a lista dos serviços e pede para escolher os serviços que necessita. O GSH escolhe os serviços.
-O Sistema solicita toda a informação necessária para a criação do catalogo.\n(i.e. id, titulo, descBreve, descCompleta,criticidade).
-Preenche com toda a informação solicitada. Apresenta a informação e solicita confirmação. Confirma.
+Apresenta a informação e solicita confirmação. Confirma.
 Valida e informa do sucesso da operação.
  
-![US-1-2001_SSD](US-1-2001_SSD.svg)
+![US_1_2001_SSD](US_1_2001_SSD.svg)
 
 ### Formato Completo
 
