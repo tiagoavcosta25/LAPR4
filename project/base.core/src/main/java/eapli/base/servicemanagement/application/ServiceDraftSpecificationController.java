@@ -99,7 +99,7 @@ public class ServiceDraftSpecificationController {
         return oForm;
     }
 
-    public ServiceDraft addFormToDraft() {
+    public ServiceDraft addFormsToDraft() {
         this.m_oServiceDraft.setFormList(this.m_lstForms);
         return this.m_oServiceDraft;
     }
