@@ -63,15 +63,14 @@ public class CollaboratorSpecificationUI extends AbstractUI {
             Collaborator oCollaborator = this.theController.addCollaborator(strEmail, strFirstName, strLastName, strShortName, strCompleteName,
                     strMechanographicNumber, strAddress, Double.parseDouble(strPhoneNumber), dtBirthDate);
 
-            List<Role> lstRoles = new ArrayList<>();
-            Role oRole = (Role) PrintList.chooseMultiple(lstRoles, "Choose a Role for this Collaborator", "Role");
-            lstRoles.add(oRole);
+            List<Role> lstRoles = Arrays.asList(this.theController.getRoleList());
+            lstRoles = PrintList.chooseMultiple(lstRoles, "Choose a Role for this Collaborator", "Role");
             Set<Role> setRole = new HashSet<>(lstRoles);
-            this.theController.addRoles(setRole); //TODO coloca os roles escolhidos na lista?
+            this.theController.addRoles(setRole);
 
 
-            List<Collaborator> lstCollaborators = new ArrayList<>();
-            Collaborator oManager = (Collaborator) PrintList.chooseOne(lstCollaborators, "Choose your Manager", "Manager");
+            List<Collaborator> lstCollaborators = this.theController.getCollaborators();
+            Collaborator oManager = PrintList.chooseOne(lstCollaborators, "Choose your Manager", "Manager");
             this.theController.addManager(oManager);
 
 
@@ -92,40 +91,8 @@ public class CollaboratorSpecificationUI extends AbstractUI {
         return false;
     }
 
-    private boolean showRoles(final Set<Role> lstRoles) {
-        final Menu rolesMenu = buildRolesMenu(lstRoles);
-        final MenuRenderer renderer = new VerticalMenuRenderer(rolesMenu, MenuItemRenderer.DEFAULT);
-        return renderer.render();
-    }
-
-    private Menu buildRolesMenu(final Set<Role> lstRoles) {
-        final Menu rolesMenu = new Menu();
-        int counter = 0;
-        rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
-        for (final Role roleType : theController.getRoleList()) {
-            rolesMenu.addItem(MenuItem.of(counter++, roleType.toString(), () -> lstRoles.add(roleType)));
-        }
-        return rolesMenu;
-    }
-
-    private boolean showCollaborators(List<Collaborator> lstCollaborators) {
-        final Menu collaboratorsMenu = buildCollaboratorsMenu(lstCollaborators);
-        final MenuRenderer renderer = new VerticalMenuRenderer(collaboratorsMenu, MenuItemRenderer.DEFAULT);
-        return renderer.render();
-    }
-
-    private Menu buildCollaboratorsMenu(List<Collaborator> lstCollaborators) {
-        final Menu rolesMenu = new Menu();
-        int counter = 0;
-        rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
-        for (final Collaborator collaboratorType : theController.getCollaborators()) {
-            rolesMenu.addItem(MenuItem.of(counter++, collaboratorType.toString(), () -> lstCollaborators.add(collaboratorType)));
-        }
-        return rolesMenu;
-    }
-
     @Override
     public String headline() {
-        return "Specify Colaborator";
+        return "Specify Collaborator";
     }
 }
