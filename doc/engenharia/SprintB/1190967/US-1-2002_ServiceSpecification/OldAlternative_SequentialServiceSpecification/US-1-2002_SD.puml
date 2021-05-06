@@ -1,0 +1,366 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Gestor de Serviços de Help Desk" as GSH
+
+participant "<<presentation>>\nEspecificarServicoUI" as UI
+participant "<<application>>\nEspecificarServicoController" as CTRL
+participant "<<builder>>\nServicoBuilder" as SBD
+participant "<<persistence>>\nPersistanceContext" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+database "<<repository>>\nCatalogoRepository" as CR
+participant "<<builder>>\nFormularioBuilder" as FBD
+participant "<<builder>>\nAtributoBuilder" as ABD
+participant "<<domain>>\nAtributo" as A
+participant "<<domain>>\nFormulario" as F
+database "<<repository>>\nFormularioRepository" as FR
+participant "<<domain>>\nServico" as S
+database "<<repository>>\nServicoRepository" as SR
+participant "<<domain>>\nTitulo" as T
+participant "<<domain>>\nDescricaoBreve" as DB
+participant "<<domain>>\nDescricaoCompleta" as DC
+participant "<<domain>>\nKeyword" as KW
+participant "<<domain>>\nFeedback" as FB
+participant "<<domain>>\nFormularioNome" as FM
+participant "<<domain>>\nFormularioTipo" as FT
+participant "<<domain>>\nAtributoNome" as AN
+participant "<<domain>>\nAtributoLabel" as AL
+participant "<<domain>>\nAtributoDescricao" as AD
+participant "<<domain>>\nAtributoRegex" as AR
+participant "<<domain>>\nAtributoScript" as ASC
+participant "<<domain>>\nAtributoTipoDados" as ATD
+
+
+activate GSH
+
+GSH -> UI : envia um pedido para especificar um servico
+activate UI
+UI -> CTRL** : create()
+UI -> GSH : solicita a introdução de dados (descricaoBreve, descricaoCompleta)
+deactivate UI
+
+GSH -> UI : introduz os dados
+activate UI
+
+UI -> CTRL : addServico(descricaoBreve, descricaoCompleta)
+activate CTRL
+
+CTRL -> SBD** : create
+CTRL -> SBD : setDescricaoBreve(descricaoBreve)
+activate SBD
+deactivate SBD
+CTRL -> SBD : setDescricaoCompleta(descricaoCompleta)
+activate SBD
+deactivate SBD
+deactivate CTRL
+
+loop até não serem precisas mais keywords
+UI -> GSH : solicita uma keyword
+deactivate UI
+
+GSH -> UI : introduz uma keyword
+activate UI
+
+UI -> CTRL : addKeyword(keyword)
+activate CTRL
+deactivate CTRL
+
+UI -> GSH : questiona se pretende adicionar mais keywords
+deactivate UI
+
+GSH -> UI : responde se pretende ou não adicionar mais keywords
+activate UI
+end
+
+UI -> CTRL : addKeywordListToService()
+activate CTRL
+
+CTRL -> SBD : setKeywordList(keywordList)
+activate SBD
+deactivate SBD
+deactivate CTRL
+
+UI -> GSH : pergunta se o serviço requer feedback
+deactivate UI
+
+GSH -> UI : seleciona se pretende ou não feedback neste serviço
+activate UI
+
+alt caso o serviço requeira feedback
+
+UI -> GSH : solicita a duração máxima permitida para o feedback
+deactivate UI
+
+GSH -> UI : introduz a duração máxima
+activate UI
+
+UI -> CTRL : enableFeedback(duracao)
+activate CTRL
+
+CTRL -> SBD : setFeedback(duracao)
+activate SBD
+deactivate SBD
+deactivate CTRL
+
+end
+
+UI -> CTRL : getCatalogos()
+activate CTRL
+
+CTRL -> PC : repositories()
+activate PC
+
+PC -> AS : instance()
+activate AS
+deactivate AS
+
+PC -> AS : getRepositoryFactory()
+activate AS
+
+AS -> RF** : create
+AS --> PC : factory
+deactivate AS
+
+PC --> CTRL : factory
+deactivate PC
+
+CTRL -> RF : catalogos()
+activate RF
+
+RF -> CR** : create
+RF --> CTRL : catalogoRepository
+deactivate RF
+
+CTRL -> CR : all()
+activate CR
+CR --> CTRL : list
+deactivate CR
+
+CTRL --> UI : list
+deactivate CTRL
+
+UI -> GSH : mostra a lista de catálogos e solicita a escolha de um catálogo
+deactivate UI
+
+GSH -> UI : escolhe o catálogo onde será disponibilizado o serviço
+activate UI
+
+loop até não serem precisos mais formulários
+UI -> GSH : solicita a introdução do nome do formulário
+deactivate UI
+
+GSH -> UI : introduz os dados
+activate UI
+
+UI -> GSH : apresenta os tipos de formulário disponiveis
+deactivate UI
+
+GSH -> UI : seleciona o tipo de formulário
+activate UI
+
+UI -> CTRL : addFormulario(nome, tipo)
+activate CTRL
+
+CTRL -> FBD** : create
+CTRL -> FBD : setNome(nome)
+activate FBD
+deactivate FBD
+
+CTRL -> FBD : setTipo(tipo)
+activate FBD
+deactivate FBD
+deactivate CTRL
+
+loop até não serem precisos mais atributos
+UI -> GSH : solicita a introdução de dados (regex, descricao, script, label, nome)
+deactivate UI
+
+GSH -> UI : introduz os dados
+activate UI
+
+UI -> CTRL : addAtributo(nome, label, descricao, regex, script)
+activate CTRL
+
+CTRL -> ABD** : create
+CTRL -> ABD : setNome(nome)
+activate ABD
+deactivate ABD
+
+CTRL -> ABD : setLabel(label)
+activate ABD
+deactivate ABD
+
+CTRL -> ABD : setDescricao(descricao)
+activate ABD
+deactivate ABD
+
+CTRL -> ABD : setRegex(regex)
+activate ABD
+deactivate ABD
+
+CTRL -> ABD : setScript(script)
+activate ABD
+deactivate ABD
+deactivate CTRL
+
+UI -> GSH : apresenta os tipos de dados disponiveis
+deactivate UI
+
+GSH -> UI : seleciona o tipo de dados
+activate UI
+
+UI -> CTRL : addAtributoTipo(tipoDados)
+activate CTRL
+
+CTRL -> ABD : setTipoDados(tipoDados)
+activate ABD
+deactivate ABD
+
+CTRL -> ABD : createAtributo()
+activate ABD
+
+ABD -> A** : create(nome, label, descricao, regex, script, tipoDados)
+activate A
+
+A --> ABD : atributo
+deactivate A
+
+ABD --> CTRL : atributo
+deactivate ABD
+
+CTRL --> UI : atributo
+deactivate CTRL
+
+UI -> GSH : pergunta se deseja adicionar mais atributos ao formulário em questão
+deactivate UI
+
+GSH -> UI : responde se pretende ou não adicionar mais atributos
+activate UI
+end
+
+UI -> CTRL : saveFormulario()
+activate CTRL
+
+CTRL -> FBD : setAtributoList(atributoList)
+activate FBD
+deactivate FBD
+
+CTRL -> FBD : createFormulario()
+activate FBD
+
+FBD -> F** : create(nome, tipo, atributoList)
+activate F
+
+F --> FBD : formulario
+deactivate F
+
+FBD --> CTRL : formulario
+deactivate FBD
+
+CTRL -> PC : repositories()
+activate PC
+
+PC -> AS : instance()
+activate AS
+deactivate AS
+
+PC -> AS : getRepositoryFactory()
+activate AS
+
+AS -> RF : create
+activate RF
+deactivate RF
+AS --> PC : factory
+deactivate AS
+
+PC --> CTRL : factory
+deactivate PC
+
+CTRL -> RF : formularios()
+activate RF
+
+RF -> FR** : create
+RF --> CTRL : formularioRepository
+deactivate RF
+
+CTRL -> FR : save(formulario)
+activate FR
+FR --> CTRL : formulario
+deactivate FR
+
+CTRL --> UI : formulario
+deactivate CTRL
+
+UI -> GSH : pergunta se deseja adicionar mais formulários ao serviço em questão
+deactivate UI
+
+GSH -> UI : responde se pretende ou não adicionar mais formulários
+activate UI
+end
+
+UI -> CTRL : saveServico()
+activate CTRL
+
+CTRL -> SBD : setFormularioList(formularioList)
+activate SBD
+deactivate SBD
+
+CTRL -> SBD : createServico()
+activate SBD
+
+SBD -> S** : create(descricaoBreve, descricaoCompleta, feedback, duracao, keywordList, formularioList)
+activate S
+
+S --> SBD : servico
+deactivate S
+
+SBD --> CTRL : servico
+deactivate SBD
+
+CTRL -> PC : repositories()
+activate PC
+
+PC -> AS : instance()
+activate AS
+deactivate AS
+
+PC -> AS : getRepositoryFactory()
+activate AS
+
+AS -> RF : create
+activate RF
+deactivate RF
+AS --> PC : factory
+deactivate AS
+
+PC --> CTRL : factory
+deactivate PC
+
+CTRL -> RF : servicos()
+activate RF
+
+RF -> SR** : create
+RF --> CTRL : servicoRepository
+deactivate RF
+
+CTRL -> SR : save(servico)
+activate SR
+SR --> CTRL : servico
+deactivate SR
+
+CTRL --> UI : servico
+deactivate CTRL
+
+UI -> GSH : valida, apresenta os dados do servico e solicita uma confirmação
+deactivate UI
+
+GSH -> UI : confirma
+activate UI
+UI -> GSH : regista o servico e informa do sucesso da operação
+deactivate UI
+deactivate UI
+deactivate GSH
+
+@enduml
