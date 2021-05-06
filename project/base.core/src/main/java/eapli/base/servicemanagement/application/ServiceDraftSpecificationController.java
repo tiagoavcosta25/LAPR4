@@ -78,12 +78,13 @@ public class ServiceDraftSpecificationController {
     }
 
     public Attribute addAttribute(AttributeName oName, AttributeLabel oLabel, AttributeDescription oDescription,
-                                  AttributeRegex oRegex, AttributeScript oScript) {
+                                  AttributeRegex oRegex, AttributeScript oScript, DataType oDataType) {
         this.attributeBuilder = this.attributeBuilder.withName(oName);
         this.attributeBuilder = this.attributeBuilder.withLabel(oLabel);
         this.attributeBuilder = this.attributeBuilder.withDescription(oDescription);
         this.attributeBuilder = this.attributeBuilder.withRegex(oRegex);
         this.attributeBuilder = this.attributeBuilder.withScript(oScript);
+        this.attributeBuilder = this.attributeBuilder.withDataType(oDataType);
 
         Attribute oAtrribute = this.attributeBuilder.build();
         this.m_lstAttributes.add(oAtrribute);
@@ -98,7 +99,7 @@ public class ServiceDraftSpecificationController {
         return oForm;
     }
 
-    public ServiceDraft addForm() {
+    public ServiceDraft addFormToDraft() {
         this.m_oServiceDraft.setFormList(this.m_lstForms);
         return this.m_oServiceDraft;
     }

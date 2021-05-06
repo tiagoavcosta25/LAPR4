@@ -48,29 +48,32 @@ public class SaveDraftController {
     private final ServiceDraftRepository draftRepo = PersistenceContext.repositories().serviceDrafts();
     private final CatalogueRepository catalogueRepo = PersistenceContext.repositories().catalogues();
     private ServiceBuilder serviceBuilder = new ServiceBuilder();
+    private ServiceDraft m_oServiceDraft = new ServiceDraft();
 
     public ServiceDraft getServiceDraftById(Long lngID) {
-        return this.draftRepo.findByID(lngID);
+        this.m_oServiceDraft = this.draftRepo.findByID(lngID);
+        return this.m_oServiceDraft;
     }
 
     public List<Catalogue> getCatalogues() {
         return this.catalogueRepo.all();
     }
 
-    public Service saveService(ServiceDraft oServiceDraft) {
-        String strTitle = oServiceDraft.getTitle();
-        String strBriefDescription = oServiceDraft.getBriefDescription();
-        String strCompleteDescription = oServiceDraft.getCompleteDescription();
-        Double strFeedback = oServiceDraft.getFeedback();
-        List<String> keywordList  = oServiceDraft.getKeywordList();
-        List<Form> formList  = oServiceDraft.getFormList();
+    public Service saveService(Catalogue oCatalogue) {
+        String strTitle = this.m_oServiceDraft.getTitle();
+        String strBriefDescription = this.m_oServiceDraft.getBriefDescription();
+        String strCompleteDescription = this.m_oServiceDraft.getCompleteDescription();
+        Double strFeedback = this.m_oServiceDraft.getFeedback();
+        List<String> keywordList  = this.m_oServiceDraft.getKeywordList();
+        List<Form> formList  = this.m_oServiceDraft.getFormList();
 
-        this.serviceBuilder.withTitle(strTitle);
-        this.serviceBuilder.withBriefDescription(strBriefDescription);
-        this.serviceBuilder.withCompleteDescription(strCompleteDescription);
-        this.serviceBuilder.withFeedback(strFeedback);
-        this.serviceBuilder.withKeywordList(keywordList);
-        this.serviceBuilder.withFormList(formList);
+        this.serviceBuilder = this.serviceBuilder.withTitle(strTitle);
+        this.serviceBuilder = this.serviceBuilder.withBriefDescription(strBriefDescription);
+        this.serviceBuilder = this.serviceBuilder.withCompleteDescription(strCompleteDescription);
+        this.serviceBuilder = this.serviceBuilder.withFeedback(strFeedback);
+        this.serviceBuilder = this.serviceBuilder.withCatalogue(oCatalogue);
+        this.serviceBuilder = this.serviceBuilder.withKeywordList(keywordList);
+        this.serviceBuilder = this.serviceBuilder.withFormList(formList);
         return this.serviceRepo.save(this.serviceBuilder.build());
     }
 }

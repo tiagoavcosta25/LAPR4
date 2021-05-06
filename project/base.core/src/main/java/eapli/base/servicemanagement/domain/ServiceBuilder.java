@@ -17,6 +17,7 @@ public class ServiceBuilder implements DomainFactory<Service> {
     private ServiceBriefDescription m_oBriefDescription;
     private ServiceCompleteDescription m_oCompleteDescription;
     private Feedback m_oFeedback;
+    private Catalogue m_oCatalogue;
     private List<Keyword> m_lstKeywords;
     private List<Form> m_lstForms;
 
@@ -45,6 +46,11 @@ public class ServiceBuilder implements DomainFactory<Service> {
         return this;
     }
 
+    public ServiceBuilder withCatalogue(Catalogue oCatalogue) {
+        this.m_oCatalogue = oCatalogue;
+        return this;
+    }
+
     public ServiceBuilder withKeywordList(List<String> lstKeywords) {
         List<Keyword> lstTemp = new ArrayList<>();
         for(String s : lstKeywords){
@@ -63,6 +69,6 @@ public class ServiceBuilder implements DomainFactory<Service> {
     public Service build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new Service(this.m_oID, this.m_oTitle, this.m_oBriefDescription, this.m_oCompleteDescription ,this.m_oFeedback, this.m_lstKeywords, this.m_lstForms);
+        return new Service(this.m_oID, this.m_oTitle, this.m_oBriefDescription, this.m_oCompleteDescription ,this.m_oFeedback, this.m_oCatalogue, this.m_lstKeywords, this.m_lstForms);
     }
 }

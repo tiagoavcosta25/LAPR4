@@ -66,6 +66,11 @@ public class Service implements AggregateRoot<ServiceID> {
     @JoinColumn(name="keywordID")
     private Feedback m_oFeedback;
 
+    @OneToOne
+    @Column(name = "catalogue")
+    @JoinColumn(name="catalogueID")
+    private Catalogue m_oCatalogue;
+
     @ElementCollection()
     @Column(name = "keywords")
     @JoinColumn(name="keywordID")
@@ -77,8 +82,8 @@ public class Service implements AggregateRoot<ServiceID> {
     private List<Form> m_lstForms;
 
     public Service(final ServiceID oID, final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
-                   final Feedback oFeedback, final List<Keyword> lstKeywords, final List<Form> lstForms) {
-        if (oID == null || oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
+                   final Feedback oFeedback, Catalogue oCatalogue, final List<Keyword> lstKeywords, final List<Form> lstForms) {
+        if (oID == null || oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || oCatalogue == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oID = oID;
@@ -86,6 +91,7 @@ public class Service implements AggregateRoot<ServiceID> {
         this.m_oBriefDescription = oBriefDescription;
         this.m_oCompleteDescription = oCompleteDescription;
         this.m_oFeedback = oFeedback;
+        this.m_oCatalogue = oCatalogue;
         this.m_lstKeywords = lstKeywords;
         this.m_lstForms = lstForms;
     }
@@ -105,6 +111,9 @@ public class Service implements AggregateRoot<ServiceID> {
     }
     public Feedback feedback() {
         return this.m_oFeedback;
+    }
+    public Catalogue catalogue() {
+        return this.m_oCatalogue;
     }
     public List<Keyword> keywords() {
         return this.m_lstKeywords;
