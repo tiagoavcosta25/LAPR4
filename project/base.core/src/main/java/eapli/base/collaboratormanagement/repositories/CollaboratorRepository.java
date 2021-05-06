@@ -1,7 +1,7 @@
-package eapli.base.colaboradormanagement.repositories;
+package eapli.base.collaboratormanagement.repositories;
 
-import eapli.base.colaboradormanagement.domain.Collaborator;
-import eapli.base.colaboradormanagement.domain.CollaboratorID;
+import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.collaboratormanagement.domain.CollaboratorID;
 import eapli.framework.domain.repositories.DomainRepository;
 
 import java.util.List;

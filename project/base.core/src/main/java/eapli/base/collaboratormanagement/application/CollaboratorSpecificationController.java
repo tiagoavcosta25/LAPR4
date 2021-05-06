@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.colaboradormanagement.application;
+package eapli.base.collaboratormanagement.application;
 
-import eapli.base.colaboradormanagement.domain.*;
-import eapli.base.colaboradormanagement.repositories.CollaboratorRepository;
+import eapli.base.collaboratormanagement.domain.*;
+import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -49,17 +49,17 @@ public class CollaboratorSpecificationController {
     private List<Collaborator> m_lstCollaborators = new ArrayList<>();
     private String m_strEmail, m_strFirstName, m_strLastName;
 
-    public Collaborator addCollaborator(String strEmail, String strFirstName, String strLastName, CollaboratorShortName oShortName, CollaboratorCompleteName oCompleteName,
-                               CollaboratorMechanographicNumber oMechanographicNumber, CollaboratorAddress oAddress,
-                               CollaboratorPhoneNumber oPhoneNumber, CollaboratorBirthDate oBirthDate) {
+    public Collaborator addCollaborator(String strEmail, String strFirstName, String strLastName, String strShortName,
+                                        String strCompleteName, String strMechanographicNumber, String strAddress,
+                                        Double dblPhoneNumber, Date dtBirthDate) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
-        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withShortName(oShortName);
-        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withCompleteName(oCompleteName);
-        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withMechanographicNumber(oMechanographicNumber);
-        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withAddress(oAddress);
-        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withPhoneNumber(oPhoneNumber);
-        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withBirthDate(oBirthDate);
+        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withShortName(strShortName);
+        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withCompleteName(strCompleteName);
+        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withMechanographicNumber(strMechanographicNumber);
+        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withAddress(strAddress);
+        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withPhoneNumber(dblPhoneNumber);
+        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withBirthDate(dtBirthDate);
         this.m_strEmail = strEmail;
         this.m_strFirstName = strFirstName;
         this.m_strLastName = strLastName;

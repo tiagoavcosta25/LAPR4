@@ -1,12 +1,9 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
-import eapli.base.colaboradormanagement.domain.Collaborator;
-import eapli.base.colaboradormanagement.domain.CollaboratorID;
-import eapli.base.colaboradormanagement.repositories.CollaboratorRepository;
-import eapli.base.servicemanagement.domain.Service;
-import eapli.base.servicemanagement.domain.ServiceID;
-import eapli.base.servicemanagement.repositories.ServiceRepository;
+import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.collaboratormanagement.domain.CollaboratorID;
+import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 

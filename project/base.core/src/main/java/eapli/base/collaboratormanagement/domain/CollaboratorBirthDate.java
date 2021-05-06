@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.base.colaboradormanagement.domain;
+package eapli.base.collaboratormanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Embeddable;
+import java.util.Date;
 
 /**
  *
@@ -19,23 +20,23 @@ public class CollaboratorBirthDate implements ValueObject, Comparable<Collaborat
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strBirthDate;
+    private Date m_dtBirthDate;
 
-    public CollaboratorBirthDate(final String strBirthDate) {
-        if (StringPredicates.isNullOrEmpty(strBirthDate)) {
+    public CollaboratorBirthDate(final Date tmBirthDate) {
+        if (tmBirthDate == null) {
             throw new IllegalArgumentException(
                     "Birth Date can't be null nor empty.");
         }
         // expression
-        this.m_strBirthDate = strBirthDate;
+        this.m_dtBirthDate = tmBirthDate;
     }
 
     protected CollaboratorBirthDate() {
         // for ORM
     }
 
-    public static CollaboratorBirthDate valueOf(final String strBirthDate) {
-        return new CollaboratorBirthDate(strBirthDate);
+    public static CollaboratorBirthDate valueOf(final Date tmBirthDate) {
+        return new CollaboratorBirthDate(tmBirthDate);
     }
 
     @Override
@@ -48,21 +49,21 @@ public class CollaboratorBirthDate implements ValueObject, Comparable<Collaborat
         }
 
         final CollaboratorBirthDate that = (CollaboratorBirthDate) o;
-        return this.m_strBirthDate.equals(that.m_strBirthDate);
+        return this.m_dtBirthDate.equals(that.m_dtBirthDate);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strBirthDate.hashCode();
+        return this.m_dtBirthDate.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strBirthDate;
+        return this.m_dtBirthDate.toString();
     }
 
     @Override
     public int compareTo(final CollaboratorBirthDate arg0) {
-        return m_strBirthDate.compareTo(arg0.m_strBirthDate);
+        return m_dtBirthDate.compareTo(arg0.m_dtBirthDate);
     }
 }

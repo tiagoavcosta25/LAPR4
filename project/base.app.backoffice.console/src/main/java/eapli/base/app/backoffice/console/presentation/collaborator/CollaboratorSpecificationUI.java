@@ -23,9 +23,9 @@
  */
 package eapli.base.app.backoffice.console.presentation.collaborator;
 
-import eapli.base.colaboradormanagement.application.CollaboratorSpecificationController;
-import eapli.base.colaboradormanagement.domain.*;
-import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.base.app.backoffice.console.presentation.service.PrintList;
+import eapli.base.collaboratormanagement.application.CollaboratorSpecificationController;
+import eapli.base.collaboratormanagement.domain.*;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -36,10 +36,8 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
@@ -59,41 +57,30 @@ public class CollaboratorSpecificationUI extends AbstractUI {
             final String strMechanographicNumber = Console.readLine("Mechanographic Number");
             final String strAddress = Console.readLine("Address");
             final String strPhoneNumber = Console.readLine("Phone Number");
-            final String strBirthDate = Console.readLine("Birth Date");
+            final String strBirthDate = Console.readLine("Birth Date (dd/MM/yyyy)");
+            final Date dtBirthDate = new SimpleDateFormat("dd/MM/yyyy").parse(strBirthDate);
 
-            final CollaboratorShortName oShortName = new CollaboratorShortName(strShortName);
-            final CollaboratorCompleteName oCompleteName = new CollaboratorCompleteName(strCompleteName);
-            final CollaboratorMechanographicNumber oMechanographicNumber = new CollaboratorMechanographicNumber(strMechanographicNumber) ;
-            final CollaboratorAddress oAddress = new CollaboratorAddress(strAddress);
-            final CollaboratorPhoneNumber oPhoneNumber = new CollaboratorPhoneNumber(Double.parseDouble(strPhoneNumber));
-            final CollaboratorBirthDate oBirthDate = new CollaboratorBirthDate(strBirthDate);
+            Collaborator oCollaborator = this.theController.addCollaborator(strEmail, strFirstName, strLastName, strShortName, strCompleteName,
+                    strMechanographicNumber, strAddress, Double.parseDouble(strPhoneNumber), dtBirthDate);
 
-            this.theController.addCollaborator(strEmail, strFirstName, strLastName, oShortName, oCompleteName, oMechanographicNumber,
-                    oAddress, oPhoneNumber, oBirthDate);
-
-            boolean blFlag;
-
-            Set<Role> lstRoles = new HashSet<>();
-
-            do {
-                blFlag = showRoles(lstRoles);
-            } while (!blFlag);
-
-            this.theController.addRoles(lstRoles);
+            List<Role> lstRoles = new ArrayList<>();
+            Role oRole = (Role) PrintList.chooseMultiple(lstRoles, "Choose a Role for this Collaborator", "Role");
+            lstRoles.add(oRole);
+            Set<Role> setRole = new HashSet<>(lstRoles);
+            this.theController.addRoles(setRole); //TODO coloca os roles escolhidos na lista?
 
 
             List<Collaborator> lstCollaborators = new ArrayList<>();
+            Collaborator oManager = (Collaborator) PrintList.chooseOne(lstCollaborators, "Choose your Manager", "Manager");
+            this.theController.addManager(oManager);
 
-            do {
-                blFlag = showCollaborators(lstCollaborators);
-            } while (!blFlag);
 
-            this.theController.addManager(lstCollaborators.get(0));
+            String strOp = Console.readLine("Confirm the creation of the following Collaborator (Y/N):\n\n%s\n" +
+                    oCollaborator.toString());
 
-            Console.readLine("Confirm the creation of the Colaborador");
-
-            if(blFlag){
-                Collaborator oCollaborator = this.theController.saveCollaborator();
+            if(strOp.compareToIgnoreCase("Y") == 0){
+                this.theController.saveCollaborator();
+                System.out.printf("Operation Successful.");
             } else{
                 System.out.println("Operation Cancelled.");
             }

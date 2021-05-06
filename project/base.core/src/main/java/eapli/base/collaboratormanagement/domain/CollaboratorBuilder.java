@@ -1,7 +1,11 @@
-package eapli.base.colaboradormanagement.domain;
+package eapli.base.collaboratormanagement.domain;
 
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -18,33 +22,33 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
     private SystemUser m_oSystemUser;
     private Collaborator m_oManager;
 
-    public CollaboratorBuilder withPhoneNumber(CollaboratorPhoneNumber oPhoneNumber) {
-        this.m_oPhoneNumber = oPhoneNumber;
+    public CollaboratorBuilder withPhoneNumber(Double dblPhoneNumber) {
+        this.m_oPhoneNumber = CollaboratorPhoneNumber.valueOf(dblPhoneNumber);
         return this;
     }
 
-    public CollaboratorBuilder withBirthDate(CollaboratorBirthDate oBirthDate) {
-        this.m_oBirthDate = oBirthDate;
+    public CollaboratorBuilder withBirthDate(Date dtBirthDate) {
+        this.m_oBirthDate = CollaboratorBirthDate.valueOf(dtBirthDate);
         return this;
     }
 
-    public CollaboratorBuilder withAddress(CollaboratorAddress oAddress) {
-        this.m_oAddress = oAddress;
+    public CollaboratorBuilder withAddress(String strAddress) {
+        this.m_oAddress = CollaboratorAddress.valueOf(strAddress);
         return this;
     }
 
-    public CollaboratorBuilder withCompleteName(CollaboratorCompleteName oCompleteName) {
-        this.m_oCompleteName = oCompleteName;
+    public CollaboratorBuilder withCompleteName(String strCompleteName) {
+        this.m_oCompleteName = CollaboratorCompleteName.valueOf(strCompleteName);
         return this;
     }
 
-    public CollaboratorBuilder withShortName(CollaboratorShortName oShortName) {
-        this.m_oShortName = oShortName;
+    public CollaboratorBuilder withShortName(String strShortName) {
+        this.m_oShortName = CollaboratorShortName.valueOf(strShortName);
         return this;
     }
 
-    public CollaboratorBuilder withMechanographicNumber(CollaboratorMechanographicNumber oMechanographicNumber) {
-        this.m_oMechanographicNumber = oMechanographicNumber;
+    public CollaboratorBuilder withMechanographicNumber(String strMechanographicNumber) {
+        this.m_oMechanographicNumber = CollaboratorMechanographicNumber.valueOf(strMechanographicNumber);
         return this;
     }
 

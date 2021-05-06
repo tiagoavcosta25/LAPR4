@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.base.colaboradormanagement.domain;
+package eapli.base.collaboratormanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
