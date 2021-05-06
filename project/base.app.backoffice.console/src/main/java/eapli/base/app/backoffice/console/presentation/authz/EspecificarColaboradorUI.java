@@ -49,12 +49,12 @@ public class EspecificarColaboradorUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         try{
-            final String strShortName = Console.readLine("Short Name");
-            final String strCompleteName = Console.readLine("Complete Name");
-            final String strMechanographicNumber = Console.readLine("Mechanographic Number");
-            final String strAddress = Console.readLine("Address");
-            final String strPhoneNumber = Console.readLine("Phone Number");
-            final String strBirthDate = Console.readLine("Birth Date");
+            final String strShortName = Console.readLine("Short Name:");
+            final String strCompleteName = Console.readLine("Complete Name:");
+            final String strMechanographicNumber = Console.readLine("Mechanographic Number:");
+            final String strAddress = Console.readLine("Address:");
+            final String strPhoneNumber = Console.readLine("Phone Number:");
+            final String strBirthDate = Console.readLine("Birth Date:");
 
             final CollaboratorShortName oShortName = new CollaboratorShortName(strShortName);
             final CollaboratorCompleteName oCompleteName = new CollaboratorCompleteName(strCompleteName);
@@ -76,7 +76,7 @@ public class EspecificarColaboradorUI extends AbstractUI {
             } while (!blFlag);
 
             Console.readLine("Confirm the creation of the Colaborador");
-                    
+
             if(blFlag){
                 Collaborator oCollaborator = this.theController.saveCollaborator();
             } else{
