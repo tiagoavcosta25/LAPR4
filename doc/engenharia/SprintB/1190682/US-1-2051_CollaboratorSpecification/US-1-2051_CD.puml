@@ -56,8 +56,8 @@ class BirthDate <<value object>>{
 -validate(birthDate)
 }
 
-class Role <<enum>>{
-+values()
+class BaseRoles <<enum>>{
++nonUserValues()
 }
 
 class RandomRawPassword <<domain>>{
@@ -138,7 +138,7 @@ CollaboratorBuilder "1" -> "*" Collaborator : creates
 Collaborator "1" -> "1" ShortName : has
 Collaborator "1" -> "1" CompleteName : has
 Collaborator "1" -> "1" NumeroMecanografico : is identified by
-Collaborator "1" -> "1" Role : has
+Collaborator "1" -> "1" BaseRoles : has
 Collaborator "1" -> "1" Address : has
 Collaborator "1" -> "1" PhoneNumber : has
 Collaborator "1" -> "1" BirthDate : has
