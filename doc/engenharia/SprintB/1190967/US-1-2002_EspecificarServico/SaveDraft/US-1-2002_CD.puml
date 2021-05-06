@@ -116,6 +116,17 @@ class CatalogueRepository{
 +all()
 }
 
+interface ServiceRepositoryInterface{
+
+}
+
+interface ServiceDraftRepositoryInterface{
+
+}
+
+interface CatalogueRepositoryInterface{
+
+}
 }
 
 
@@ -123,6 +134,10 @@ class CatalogueRepository{
 SaveDraftUI ..> SaveDraftController
 SaveDraftController ..> ServicoBuilder
 SaveDraftController ..> PersistenceContext
+
+ServiceRepository ..> ServiceRepositoryInterface
+ServiceDraftRepository ..> ServiceDraftRepositoryInterface
+CatalogueRepository ..> CatalogueRepositoryInterface
 
 AppSettings -> RepositoryFactory : creates
 PersistenceContext -> AppSettings : implements
@@ -142,6 +157,7 @@ Service "1" -> "1" CompleteDescription : has
 Service "1" -> "*" Keyword : has
 Service "1" -> "0..1" Feedback : has
 Service "1" -> "*" Form : has
+Service "1" -> "1" Catalogue : is available in
 
 
 @enduml

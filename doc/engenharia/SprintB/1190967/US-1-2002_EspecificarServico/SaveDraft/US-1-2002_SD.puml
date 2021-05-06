@@ -20,6 +20,7 @@ participant "<<domain>>\nBriefDescription" as DB
 participant "<<domain>>\nCompleteDescription" as DC
 participant "<<domain>>\nKeyword" as KW
 participant "<<domain>>\nFeedback" as FB
+participant "<<domain>>\nCatalogue" as C
 participant "<<domain>>\nFormName" as FM
 participant "<<domain>>\nFormType" as FT
 participant "<<domain>>\nAttributeName" as AN
@@ -83,7 +84,7 @@ deactivate UI
 HSM -> UI : confirms
 activate UI
 
-UI -> CTRL : saveService(serviceDraft)
+UI -> CTRL : saveService(catalogue)
 activate CTRL
 
 CTRL -> SD : title = getTitle()
@@ -123,6 +124,10 @@ activate SBD
 deactivate SBD
 
 CTRL -> SBD : withFeedback(feedback)
+activate SBD
+deactivate SBD
+
+CTRL -> SBD : withCatalogue(catalogue)
 activate SBD
 deactivate SBD
 
