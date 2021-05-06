@@ -10,7 +10,7 @@ participant "<<builder>>\nCollaboratorBuilder" as CB
 participant "<<domain>>\nRandomRawPassword" as PASS
 participant "<<domain>>\nAuthzRegistry" as AUTH
 participant "<<service>>\nUserService" as US
-participant "<<domain>>\nbaseRoles:BaseRoles" as ROLE
+participant "<<domain>>\nrole:Role" as ROLE
 database "<<repository>>\nCollaboratorRepository" as CR
 participant "<<domain>>\ncolab:Collaborator" as COLAB
 participant "<<persistence>>\nPersistenceContex" as PC
@@ -69,7 +69,7 @@ deactivate CTRL
 UI-> CTRL : getRoleList()
 activate CTRL
 
-CTRL-> ROLE : nonUserValues()
+CTRL-> ROLE : values()
 activate ROLE
 
 ROLE--> CTRL : rolesList
@@ -136,6 +136,14 @@ deactivate UI
 HRR-> UI : Select his/hers manager
 activate UI
 
+UI-> CTRL : addManager(manager)
+activate CTRL
+
+CTRL -> CB : withManager(manager)
+activate CB
+deactivate CB
+deactivate CTRL
+
 UI --> HRR: Validates, presents the information and asks for confirmation
 deactivate UI
 
@@ -148,7 +156,7 @@ activate CTRL
 
 CTRL-> CB : build()
 activate CB
-CB-> COLAB** : create(systemUser, shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate,role)
+CB-> COLAB** : create(systemUser, manager, shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate,role)
 activate COLAB
 
 COLAB --> CB : collaborator
