@@ -16,23 +16,17 @@ GSH-> SYST : Inserts the requested information
 activate SYST
 SYST --> GSH: Shows collaborators list
 deactivate SYST
-loop até não serem precisos mais formulários
+loop
 GSH-> SYST : Select the intended collaborator
 end
 activate SYST
 SYST --> GSH: Shows teams list
 deactivate SYST
-loop até não serem precisos mais formulários
+loop
 GSH-> SYST : Select the intended team
 end
-activate SYST
-SYST --> GSH: Shows services list
-deactivate SYST
 
-loop até não serem precisos mais formulários
-GSH-> SYST : Select the intended service
-activate SYST
-end
+
 SYST --> GSH: Validates, presents the information and asks for confirmation
 deactivate SYST
 

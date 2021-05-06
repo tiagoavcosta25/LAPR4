@@ -9,7 +9,7 @@ participant "<<aplication>>\nCatalogSpecificationController" as CTRL
 participant "<<builder>>\nCatalogBuilder" as CB
 participant "<<domain>>\ncollaborator:Collaborator" as COLLAB
 participant "<<domain>>\ncatalog:Catalog" as CATALOG
-participant "<<domain>>\nservice:Service" as SERV
+
 
 participant "<<domain>>\nteam:Team" as TEAM
 database "<<repository>>\nCatalogRepository" as CR
@@ -35,12 +35,12 @@ activate UI
 
 UI-> CTRL** : create()
 
-UI --> GSH: Request all information needed (i.e. title,id,briefDescription,completeDesription,\nicon,criteria)
+UI --> GSH: Request all information needed (i.e. title,id,briefDescription,completeDesription,\nicon)
 
 deactivate UI
 GSH-> UI : Inserts the requested information
 activate UI
-UI-> CTRL : addCatalog(title, id, briefDescription, completeDesription,\nicon,criteria)
+UI-> CTRL : addCatalog(title, id, briefDescription, completeDesription,\nicon)
 activate CTRL
 
 CTRL-> CB** : create()
@@ -120,34 +120,6 @@ deactivate CB
 
 
 
-UI-> CTRL : getServiceList()
-activate CTRL
-
-CTRL-> SERV : findAllvalues()
-activate SERV
-
-SERV--> CTRL : serviceList
-deactivate SERV
-CTRL--> UI : serviceList
-deactivate CTRL
-
-UI --> GSH: Shows services list
-deactivate UI
-
-loop until the user doesn't want to add more services
-GSH-> UI : Select the intended service
-activate UI
-
-UI-> CTRL : addService(service)
-activate CTRL
-CTRL-> CB : withService(service)
-deactivate CTRL
-end
-activate CB
-deactivate CB
-
-
-
 UI --> GSH: Validates, presents the information and asks for confirmation
 deactivate UI
 
@@ -160,7 +132,7 @@ activate CTRL
 
 CTRL-> CB : build()
 activate CB
-CB-> CATALOG** : create(title, id, briefDescription, completeDesription,icon,criteria)
+CB-> CATALOG** : create(title, id, briefDescription, completeDesription,icon)
 
 
 activate CATALOG
