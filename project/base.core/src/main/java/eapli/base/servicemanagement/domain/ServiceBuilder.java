@@ -1,6 +1,6 @@
 package eapli.base.servicemanagement.domain;
 
-import eapli.base.formulariomanagement.domain.*;
+import eapli.base.formmanagement.domain.*;
 import eapli.framework.domain.model.DomainFactory;
 
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ import java.util.List;
  */
 public class ServiceBuilder implements DomainFactory<Service> {
 
-    private ServiceID m_oID;
     private ServiceTitle m_oTitle;
     private ServiceBriefDescription m_oBriefDescription;
     private ServiceCompleteDescription m_oCompleteDescription;
@@ -21,28 +20,23 @@ public class ServiceBuilder implements DomainFactory<Service> {
     private List<Keyword> m_lstKeywords;
     private List<Form> m_lstForms;
 
-    public ServiceBuilder withID(ServiceID oID) {
-        this.m_oID = oID;
+    public ServiceBuilder withTitle(String strTitle) {
+        this.m_oTitle = ServiceTitle.valueOf(strTitle);
         return this;
     }
 
-    public ServiceBuilder withTitle(String oTitle) {
-        this.m_oTitle = new ServiceTitle(oTitle);
+    public ServiceBuilder withBriefDescription(String strBriefDescription) {
+        this.m_oBriefDescription = ServiceBriefDescription.valueOf(strBriefDescription);
         return this;
     }
 
-    public ServiceBuilder withBriefDescription(String oBriefDescription) {
-        this.m_oBriefDescription = new ServiceBriefDescription(oBriefDescription);
+    public ServiceBuilder withCompleteDescription(String strCompleteDescription) {
+        this.m_oCompleteDescription = ServiceCompleteDescription.valueOf(strCompleteDescription);
         return this;
     }
 
-    public ServiceBuilder withCompleteDescription(String oCompleteDescription) {
-        this.m_oCompleteDescription = new ServiceCompleteDescription(oCompleteDescription);
-        return this;
-    }
-
-    public ServiceBuilder withFeedback(Double oFeedback) {
-        this.m_oFeedback = new Feedback(oFeedback);
+    public ServiceBuilder withFeedback(Double dblFeedback) {
+        this.m_oFeedback = Feedback.valueOf(dblFeedback);
         return this;
     }
 
@@ -54,7 +48,7 @@ public class ServiceBuilder implements DomainFactory<Service> {
     public ServiceBuilder withKeywordList(List<String> lstKeywords) {
         List<Keyword> lstTemp = new ArrayList<>();
         for(String s : lstKeywords){
-            lstTemp.add(new Keyword(s));
+            lstTemp.add(Keyword.valueOf(s));
         }
         this.m_lstKeywords = lstTemp;
         return this;
@@ -69,6 +63,6 @@ public class ServiceBuilder implements DomainFactory<Service> {
     public Service build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new Service(this.m_oID, this.m_oTitle, this.m_oBriefDescription, this.m_oCompleteDescription ,this.m_oFeedback, this.m_oCatalogue, this.m_lstKeywords, this.m_lstForms);
+        return new Service(this.m_oTitle, this.m_oBriefDescription, this.m_oCompleteDescription ,this.m_oFeedback, this.m_oCatalogue, this.m_lstKeywords, this.m_lstForms);
     }
 }

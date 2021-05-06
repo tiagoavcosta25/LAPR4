@@ -23,7 +23,7 @@
  */
 package eapli.base.servicemanagement.domain;
 
-import eapli.base.formulariomanagement.domain.Form;
+import eapli.base.formmanagement.domain.Form;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 

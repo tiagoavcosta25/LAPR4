@@ -23,9 +23,7 @@
  */
 package eapli.base.app.backoffice.console.presentation.service;
 
-import eapli.base.formulariomanagement.domain.*;
 import eapli.base.servicemanagement.application.SaveDraftController;
-import eapli.base.servicemanagement.application.ServiceDraftSpecificationController;
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -37,8 +35,6 @@ import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt

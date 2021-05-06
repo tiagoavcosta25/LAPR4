@@ -23,7 +23,7 @@
  */
 package eapli.base.app.backoffice.console.presentation.service;
 
-import eapli.base.formulariomanagement.domain.*;
+import eapli.base.formmanagement.domain.*;
 import eapli.base.servicemanagement.application.ServiceDraftSpecificationController;
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.actions.Actions;
@@ -36,9 +36,7 @@ import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
@@ -87,10 +85,9 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
     }
     private boolean insertForm() {
         final String strFormName = Console.readLine("Form Name");
-        FormName oFormName = new FormName(strFormName);
         final List<FormType> lstFormType = new ArrayList<>();
         showFormType(lstFormType);
-        this.theController.addForm(oFormName, lstFormType.get(0)); //TODO: ver como mostrar uma lista e selecionar apenas um
+        this.theController.addForm(strFormName, lstFormType.get(0).toString()); //TODO: ver como mostrar uma lista e selecionar apenas um
         boolean blFlag;
         do {
             blFlag = insertAttribute();
@@ -117,21 +114,16 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
 
     private boolean insertAttribute() {
         final String strAttributeName = Console.readLine("Attribute Name");
-        final AttributeName oAttributeName = new AttributeName(strAttributeName);
         final String strAttributeLabel = Console.readLine("Attribute Label");
-        final AttributeLabel oAttributeLabel = new AttributeLabel(strAttributeLabel);
         final String strAttributeDescription = Console.readLine("Attribute Description");
-        final AttributeDescription oAttributeDescription = new AttributeDescription(strAttributeDescription);
         final String strAttributeRegex = Console.readLine("Attribute Regex");
-        final AttributeRegex oAttributeRegex = new AttributeRegex(strAttributeRegex);
         final String strAttributeScript = Console.readLine("Attribute Script");
-        final AttributeScript oAttributeScript = new AttributeScript(strAttributeScript);
 
 
         List<DataType> lstDataType = new ArrayList<>();
         showDataType(lstDataType);
 
-        this.theController.addAttribute(oAttributeName, oAttributeLabel, oAttributeDescription, oAttributeRegex, oAttributeScript, lstDataType.get(0));
+        this.theController.addAttribute(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, strAttributeScript, lstDataType.get(0).toString());
 
         String strOp = Console.readLine("Do you want to add another attribute to this service? (Y/N)");
         return strOp.compareToIgnoreCase("N") == 0;

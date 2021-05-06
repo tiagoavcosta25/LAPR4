@@ -7,7 +7,7 @@ import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.colaboradormanagement.repositories.CollaboratorRepository;
-import eapli.base.formulariomanagement.repositories.FormRepository;
+import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.framework.domain.repositories.TransactionalContext;

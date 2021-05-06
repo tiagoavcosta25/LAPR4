@@ -1,9 +1,6 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
-import eapli.base.formulariomanagement.domain.Form;
-import eapli.base.formulariomanagement.domain.FormID;
-import eapli.base.formulariomanagement.repositories.FormRepository;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.domain.ServiceID;
 import eapli.base.servicemanagement.repositories.ServiceRepository;

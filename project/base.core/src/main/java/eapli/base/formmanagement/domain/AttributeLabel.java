@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.base.formulariomanagement.domain;
+package eapli.base.formmanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
@@ -15,28 +15,27 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class FormID implements ValueObject, Comparable<FormID> {
+public class AttributeLabel implements ValueObject, Comparable<AttributeLabel> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strID;
+    private String m_strLabel;
 
-    public FormID(final String strID) {
-        if (StringPredicates.isNullOrEmpty(strID)) {
+    public AttributeLabel(final String strLabel) {
+        if (StringPredicates.isNullOrEmpty(strLabel)) {
             throw new IllegalArgumentException(
-                    "Form ID should neither be null nor empty");
+                    "Attribute Label should neither be null nor empty");
         }
-        // TODO validate invariants, i.e., mecanographic number regular
         // expression
-        this.m_strID = strID;
+        this.m_strLabel = strLabel;
     }
 
-    protected FormID() {
+    protected AttributeLabel() {
         // for ORM
     }
 
-    public static FormID valueOf(final String strID) {
-        return new FormID(strID);
+    public static AttributeLabel valueOf(final String strLabel) {
+        return new AttributeLabel(strLabel);
     }
 
     @Override
@@ -44,26 +43,26 @@ public class FormID implements ValueObject, Comparable<FormID> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof FormID)) {
+        if (!(o instanceof AttributeLabel)) {
             return false;
         }
 
-        final FormID that = (FormID) o;
-        return this.m_strID.equals(that.m_strID);
+        final AttributeLabel that = (AttributeLabel) o;
+        return this.m_strLabel.equals(that.m_strLabel);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strID.hashCode();
+        return this.m_strLabel.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strID;
+        return this.m_strLabel;
     }
 
     @Override
-    public int compareTo(final FormID arg0) {
-        return m_strID.compareTo(arg0.m_strID);
+    public int compareTo(final AttributeLabel arg0) {
+        return m_strLabel.compareTo(arg0.m_strLabel);
     }
 }

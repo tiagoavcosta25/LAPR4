@@ -25,8 +25,7 @@ package eapli.base.servicemanagement.application;
 
 import eapli.base.formmanagement.domain.*;
 import eapli.base.formmanagement.repositories.formRepository;
-import eapli.base.formulariomanagement.domain.*;
-import eapli.base.formulariomanagement.repositories.FormRepository;
+import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.*;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
@@ -40,7 +39,7 @@ import java.util.List;
 
 /**
  *
- * @author losa
+ * @author Pedro Santos 1190967@isep.ipp.pt
  */
 public class ServiceDraftSpecificationController {
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
@@ -70,23 +69,23 @@ public class ServiceDraftSpecificationController {
         return Arrays.asList(FormType.values());
     }
 
-    public void addForm(FormName oName, FormType oType) {
-        this.formBuilder = this.formBuilder.withName(oName);
-        this.formBuilder = this.formBuilder.withType(oType);
+    public void addForm(String strName, String strType) {
+        this.formBuilder = this.formBuilder.withName(strName);
+        this.formBuilder = this.formBuilder.withType(strType);
     }
 
     public List<DataType> showDataTypes() {
         return Arrays.asList(DataType.values());
     }
 
-    public Attribute addAttribute(AttributeName oName, AttributeLabel oLabel, AttributeDescription oDescription,
-                                  AttributeRegex oRegex, AttributeScript oScript, DataType oDataType) {
-        this.attributeBuilder = this.attributeBuilder.withName(oName);
-        this.attributeBuilder = this.attributeBuilder.withLabel(oLabel);
-        this.attributeBuilder = this.attributeBuilder.withDescription(oDescription);
-        this.attributeBuilder = this.attributeBuilder.withRegex(oRegex);
-        this.attributeBuilder = this.attributeBuilder.withScript(oScript);
-        this.attributeBuilder = this.attributeBuilder.withDataType(oDataType);
+    public Attribute addAttribute(String strName, String strLabel, String strDescription,
+                                  String strRegex, String strScript, String strDataType) {
+        this.attributeBuilder = this.attributeBuilder.withName(strName);
+        this.attributeBuilder = this.attributeBuilder.withLabel(strLabel);
+        this.attributeBuilder = this.attributeBuilder.withDescription(strDescription);
+        this.attributeBuilder = this.attributeBuilder.withRegex(strRegex);
+        this.attributeBuilder = this.attributeBuilder.withScript(strScript);
+        this.attributeBuilder = this.attributeBuilder.withDataType(strDataType);
 
         Attribute oAtrribute = this.attributeBuilder.build();
         this.m_lstAttributes.add(oAtrribute);

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.base.formulariomanagement.domain;
+package eapli.base.formmanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
@@ -15,27 +15,27 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class FormName implements ValueObject, Comparable<FormName> {
+public class AttributeName implements ValueObject, Comparable<AttributeName> {
 
     private static final long serialVersionUID = 1L;
 
     private String m_strName;
 
-    public FormName(final String strName) {
+    public AttributeName(final String strName) {
         if (StringPredicates.isNullOrEmpty(strName)) {
             throw new IllegalArgumentException(
-                    "Form Name should neither be null nor empty");
+                    "Attribute Name should neither be null nor empty");
         }
         // expression
         this.m_strName = strName;
     }
 
-    protected FormName() {
+    protected AttributeName() {
         // for ORM
     }
 
-    public static FormName valueOf(final String strName) {
-        return new FormName(strName);
+    public static AttributeName valueOf(final String strName) {
+        return new AttributeName(strName);
     }
 
     @Override
@@ -43,11 +43,11 @@ public class FormName implements ValueObject, Comparable<FormName> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof FormName)) {
+        if (!(o instanceof AttributeName)) {
             return false;
         }
 
-        final FormName that = (FormName) o;
+        final AttributeName that = (AttributeName) o;
         return this.m_strName.equals(that.m_strName);
     }
 
@@ -62,7 +62,7 @@ public class FormName implements ValueObject, Comparable<FormName> {
     }
 
     @Override
-    public int compareTo(final FormName arg0) {
+    public int compareTo(final AttributeName arg0) {
         return m_strName.compareTo(arg0.m_strName);
     }
 }

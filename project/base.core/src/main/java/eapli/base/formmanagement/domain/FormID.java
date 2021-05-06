@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.base.formulariomanagement.domain;
+package eapli.base.formmanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
@@ -15,27 +15,28 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-public class AttributeName implements ValueObject, Comparable<AttributeName> {
+public class FormID implements ValueObject, Comparable<FormID> {
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strName;
+    private String m_strID;
 
-    public AttributeName(final String strName) {
-        if (StringPredicates.isNullOrEmpty(strName)) {
+    public FormID(final String strID) {
+        if (StringPredicates.isNullOrEmpty(strID)) {
             throw new IllegalArgumentException(
-                    "Attribute Name should neither be null nor empty");
+                    "Form ID should neither be null nor empty");
         }
+        // TODO validate invariants, i.e., mecanographic number regular
         // expression
-        this.m_strName = strName;
+        this.m_strID = strID;
     }
 
-    protected AttributeName() {
+    protected FormID() {
         // for ORM
     }
 
-    public static AttributeName valueOf(final String strName) {
-        return new AttributeName(strName);
+    public static FormID valueOf(final String strID) {
+        return new FormID(strID);
     }
 
     @Override
@@ -43,26 +44,26 @@ public class AttributeName implements ValueObject, Comparable<AttributeName> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AttributeName)) {
+        if (!(o instanceof FormID)) {
             return false;
         }
 
-        final AttributeName that = (AttributeName) o;
-        return this.m_strName.equals(that.m_strName);
+        final FormID that = (FormID) o;
+        return this.m_strID.equals(that.m_strID);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strName.hashCode();
+        return this.m_strID.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strName;
+        return this.m_strID;
     }
 
     @Override
-    public int compareTo(final AttributeName arg0) {
-        return m_strName.compareTo(arg0.m_strName);
+    public int compareTo(final FormID arg0) {
+        return m_strID.compareTo(arg0.m_strID);
     }
 }
