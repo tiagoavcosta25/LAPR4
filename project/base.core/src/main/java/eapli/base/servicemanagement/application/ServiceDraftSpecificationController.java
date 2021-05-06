@@ -24,7 +24,6 @@
 package eapli.base.servicemanagement.application;
 
 import eapli.base.formmanagement.domain.*;
-import eapli.base.formmanagement.repositories.formRepository;
 import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.*;
@@ -32,10 +31,12 @@ import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -48,14 +49,13 @@ public class ServiceDraftSpecificationController {
     private final FormRepository formRepo = PersistenceContext.repositories().forms();
     private FormBuilder formBuilder = new FormBuilder();
     private AttributeBuilder attributeBuilder = new AttributeBuilder();
-    private List<Keyword> m_lstKeywords = new ArrayList<>();
     private List<Attribute> m_lstAttributes = new ArrayList<>();
     private List<Form> m_lstForms = new ArrayList<>();
     private ServiceDraft m_oServiceDraft = new ServiceDraft();
 
     public ServiceDraft getServiceDraftById(Long lngID) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
-        this.m_oServiceDraft = this.draftRepo.findByID(lngID);
+        this.m_oServiceDraft = this.draftRepo.findByID(lngID).get();
         return this.m_oServiceDraft;
     }
 

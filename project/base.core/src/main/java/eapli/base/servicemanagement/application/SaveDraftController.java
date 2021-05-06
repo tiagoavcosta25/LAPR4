@@ -50,7 +50,7 @@ public class SaveDraftController {
 
     public ServiceDraft getServiceDraftById(Long lngID) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
-        this.m_oServiceDraft = this.draftRepo.findByID(lngID);
+        this.m_oServiceDraft = this.draftRepo.findByID(lngID).get();
         return this.m_oServiceDraft;
     }
 

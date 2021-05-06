@@ -36,6 +36,7 @@ import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -85,31 +86,14 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
     }
     private boolean insertForm() {
         final String strFormName = Console.readLine("Form Name");
-        final List<FormType> lstFormType = new ArrayList<>();
-        showFormType(lstFormType);
-        this.theController.addForm(strFormName, lstFormType.get(0).toString()); //TODO: ver como mostrar uma lista e selecionar apenas um
+        FormType oFormType = PrintList.chooseOne(Arrays.asList(FormType.values()), "Choose a Form Type for this Form", "Form Type");
+        this.theController.addForm(strFormName, oFormType.toString());
         boolean blFlag;
         do {
             blFlag = insertAttribute();
         } while (!blFlag);
         String strOp = Console.readLine("Do you want to add another form to this service? (Y/N)");
         return strOp.compareToIgnoreCase("N") == 0;
-    }
-
-    private boolean showFormType(final List<FormType> lstFormType) {
-        final Menu formTypeMenu = buildFormTypeMenu(lstFormType);
-        final MenuRenderer renderer = new VerticalMenuRenderer(formTypeMenu, MenuItemRenderer.DEFAULT);
-        return renderer.render();
-    }
-
-    private Menu buildFormTypeMenu(final List<FormType> lstFormType) {
-        final Menu tipoFormMenu = new Menu();
-        int counter = 0;
-        tipoFormMenu.addItem(MenuItem.of(counter++, "No Form Type", Actions.SUCCESS));
-        for (final FormType formType : this.theController.showFormTypes()) {
-            tipoFormMenu.addItem(MenuItem.of(counter++, formType.toString(), () -> lstFormType.add(formType)));
-        }
-        return tipoFormMenu;
     }
 
     private boolean insertAttribute() {
@@ -120,10 +104,9 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
         final String strAttributeScript = Console.readLine("Attribute Script");
 
 
-        List<DataType> lstDataType = new ArrayList<>();
-        showDataType(lstDataType);
+        DataType oDataType = PrintList.chooseOne(Arrays.asList(DataType.values()), "Choose a Data Type for this Attribute", "Data Type");
 
-        this.theController.addAttribute(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, strAttributeScript, lstDataType.get(0).toString());
+        this.theController.addAttribute(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, strAttributeScript, oDataType.toString());
 
         String strOp = Console.readLine("Do you want to add another attribute to this service? (Y/N)");
         return strOp.compareToIgnoreCase("N") == 0;
