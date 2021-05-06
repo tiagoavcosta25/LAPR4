@@ -42,19 +42,22 @@ import java.util.Set;
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
  */
-public class EspecificarColaboradorUI extends AbstractUI {
+public class CollaboratorSpecificationUI extends AbstractUI {
 
     private final CollaboratorSpecificationController theController = new CollaboratorSpecificationController();
 
     @Override
     protected boolean doShow() {
         try{
-            final String strShortName = Console.readLine("Short Name:");
-            final String strCompleteName = Console.readLine("Complete Name:");
-            final String strMechanographicNumber = Console.readLine("Mechanographic Number:");
-            final String strAddress = Console.readLine("Address:");
-            final String strPhoneNumber = Console.readLine("Phone Number:");
-            final String strBirthDate = Console.readLine("Birth Date:");
+            final String strEmail = Console.readLine("Email");
+            final String strFirstName = Console.readLine("First Name");
+            final String strLastName = Console.readLine("Last Name");
+            final String strShortName = Console.readLine("Short Name");
+            final String strCompleteName = Console.readLine("Complete Name");
+            final String strMechanographicNumber = Console.readLine("Mechanographic Number");
+            final String strAddress = Console.readLine("Address");
+            final String strPhoneNumber = Console.readLine("Phone Number");
+            final String strBirthDate = Console.readLine("Birth Date");
 
             final CollaboratorShortName oShortName = new CollaboratorShortName(strShortName);
             final CollaboratorCompleteName oCompleteName = new CollaboratorCompleteName(strCompleteName);
@@ -63,7 +66,7 @@ public class EspecificarColaboradorUI extends AbstractUI {
             final CollaboratorPhoneNumber oPhoneNumber = new CollaboratorPhoneNumber(Double.parseDouble(strPhoneNumber));
             final CollaboratorBirthDate oBirthDate = new CollaboratorBirthDate(strBirthDate);
 
-            this.theController.addCollaborator(oShortName, oCompleteName, oMechanographicNumber,
+            this.theController.addCollaborator(strEmail, strFirstName, strLastName, oShortName, oCompleteName, oMechanographicNumber,
                     oAddress, oPhoneNumber, oBirthDate);
 
             boolean blFlag;

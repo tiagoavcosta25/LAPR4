@@ -10,7 +10,7 @@ participant "<<builder>>\nCollaboratorBuilder" as CB
 participant "<<domain>>\nRandomRawPassword" as PASS
 participant "<<domain>>\nAuthzRegistry" as AUTH
 participant "<<service>>\nUserService" as US
-participant "<<domain>>\nrole:Role" as ROLE
+participant "<<domain>>\nbaseRoles:BaseRoles" as ROLE
 database "<<repository>>\nCollaboratorRepository" as CR
 participant "<<domain>>\ncolab:Collaborator" as COLAB
 participant "<<persistence>>\nPersistenceContex" as PC
@@ -69,7 +69,7 @@ deactivate CTRL
 UI-> CTRL : getRoleList()
 activate CTRL
 
-CTRL-> ROLE : values()
+CTRL-> ROLE : nonUserValues()
 activate ROLE
 
 ROLE--> CTRL : rolesList
