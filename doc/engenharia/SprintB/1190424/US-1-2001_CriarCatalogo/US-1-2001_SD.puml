@@ -1,0 +1,188 @@
+@startuml
+autonumber
+hide footbox
+
+actor "GSH" as GSH
+
+participant "<<presentation>>\nCatalogSpecificationUI" as UI
+participant "<<aplication>>\nCatalogSpecificationController" as CTRL
+participant "<<builder>>\nCatalogBuilder" as CB
+participant "<<domain>>\ncollaborator:Collaborator" as COLLAB
+participant "<<domain>>\ncatalog:Catalog" as CATALOG
+participant "<<domain>>\nservice:Service" as SERV
+
+participant "<<domain>>\nteam:Team" as TEAM
+database "<<repository>>\nCatalogRepository" as CR
+
+participant "<<persistence>>\nPersistenceContex" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+participant "<<domain>>\nTitle" as TL
+participant "<<domain>>\nId" as ID
+participant "<<domain>>\nBriefDescription" as BD
+participant "<<domain>>\nCompleteDescription" as CD
+participant "<<domain>>\nIcon" as IC
+participant "<<domain>>\nCriteria" as CR
+participant "<<domain>>\nService" as SV
+participant "<<domain>>\nTeam" as TM
+participant "<<domain>>\nColab" as COLAB
+
+
+
+
+GSH-> UI : Iniciates the request to create a catalog
+activate UI
+
+UI-> CTRL** : create()
+
+UI --> GSH: Request all information needed (i.e. title,id,briefDescription,completeDesription,\nicon,criteria)
+
+deactivate UI
+GSH-> UI : Inserts the requested information
+activate UI
+UI-> CTRL : addCatalog(title, id, briefDescription, completeDesription,\nicon,criteria)
+activate CTRL
+
+CTRL-> CB** : create()
+CTRL-> CB : withTitle(title)
+activate CB
+deactivate CB
+CTRL-> CB : withId(id)
+activate CB
+deactivate CB
+CTRL-> CB : withbriefDescription(briefDescription)
+activate CB
+deactivate CB
+CTRL-> CB : withcompleteDesription(completeDesription)
+activate CB
+deactivate CB
+CTRL-> CB : withIcon(icon)
+activate CB
+deactivate CB
+CTRL-> CB : withCriteria(criteria)
+activate CB
+deactivate CB
+deactivate CB
+deactivate CTRL
+
+UI-> CTRL : getCollaboratorList()
+activate CTRL
+
+CTRL-> COLLAB : findAllvalues()
+activate COLLAB
+
+COLLAB--> CTRL : collaboratorList
+deactivate COLLAB
+CTRL--> UI : collaboratorList
+deactivate CTRL
+
+UI --> GSH: Shows collaborators list
+deactivate UI
+
+loop until the user doesn't want to add more collaborators
+GSH-> UI : Select the intended collaborator
+activate UI
+
+UI-> CTRL : addCollaborator(collaborator)
+activate CTRL
+CTRL-> CB : withColaborator(collaborator)
+deactivate CTRL
+end
+activate CB
+deactivate CB
+
+
+UI-> CTRL : getTeamList()
+activate CTRL
+
+CTRL-> TEAM : findAllvalues()
+activate TEAM
+
+TEAM--> CTRL : teamList
+deactivate TEAM
+CTRL--> UI : teamList
+deactivate CTRL
+
+UI --> GSH: Shows teams list
+deactivate UI
+
+loop until the user doesn't want to add more teams with access
+GSH-> UI : Select the intended team
+activate UI
+
+UI-> CTRL : addTeam(team)
+activate CTRL
+CTRL-> CB : withTeam(team)
+deactivate CTRL
+end
+activate CB
+deactivate CB
+
+
+
+UI-> CTRL : getServiceList()
+activate CTRL
+
+CTRL-> SERV : findAllvalues()
+activate SERV
+
+SERV--> CTRL : serviceList
+deactivate SERV
+CTRL--> UI : serviceList
+deactivate CTRL
+
+UI --> GSH: Shows services list
+deactivate UI
+
+loop until the user doesn't want to add more services
+GSH-> UI : Select the intended service
+activate UI
+
+UI-> CTRL : addService(service)
+activate CTRL
+CTRL-> CB : withService(service)
+deactivate CTRL
+end
+activate CB
+deactivate CB
+
+
+
+UI --> GSH: Validates, presents the information and asks for confirmation
+deactivate UI
+
+deactivate UI
+GSH-> UI : Confirms
+activate UI
+
+UI-> CTRL : saveCatalog()
+activate CTRL
+
+CTRL-> CB : build()
+activate CB
+CB-> CATALOG** : create(title, id, briefDescription, completeDesription,icon,criteria)
+
+
+activate CATALOG
+CATALOG --> CB : catalog
+
+CB --> CTRL : catalog
+deactivate CATALOG
+deactivate CB
+
+ref over CTRL
+US-1-2001_SD_Repo
+end ref
+
+CTRL-> CR : save(catalog)
+activate CR
+CR --> CTRL : catalog
+deactivate CR
+CTRL --> UI : catalog
+deactivate CTRL
+
+UI --> GSH: Informs of the success of the operation
+deactivate UI
+deactivate GSH
+
+@enduml
