@@ -41,14 +41,32 @@ import java.util.Set;
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
-public class ServiceDraftSpecificationUI extends AbstractUI {
+public class ServiceDraftFormSpecificationUI extends AbstractUI {
 
     private final ServiceDraftSpecificationController theController = new ServiceDraftSpecificationController();
 
     @Override
     protected boolean doShow() {
         try{
-            final String strDescricaoBreve = Console.readLine("Brief Description");
+            ServiceDraft oServiceDraft;
+            String strOp = Console.readLine("Do you want to use an existing draft? (Y/N)");
+
+            if(strOp.compareToIgnoreCase("Y") == 0){
+                Long lngID = Long.parseLong(Console.readLine("Draft ID"));
+                oServiceDraft = this.theController.getServiceDraftById(lngID);
+            } else{
+                oServiceDraft = this.theController.newDraft();
+            }
+
+            String strFormName = Console.readLine("Form Name");
+
+            final Set<Catalogo> lstCatalogos = new HashSet<>();
+            do {
+                blFlag = showCatalogos(lstCatalogos);
+            } while (!blFlag);
+
+
+
             final String strDescricaoCompleta = Console.readLine("Complete Description");
 
             final ServiceBriefDescription oDescricaoBreve = new ServiceBriefDescription(strDescricaoBreve);
