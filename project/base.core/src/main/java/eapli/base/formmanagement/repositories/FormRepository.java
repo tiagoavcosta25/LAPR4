@@ -1,7 +1,7 @@
-package eapli.base.formulariomanagement.repositories;
+package eapli.base.formmanagement.repositories;
 
-import eapli.base.formulariomanagement.domain.Form;
-import eapli.base.formulariomanagement.domain.FormID;
+import eapli.base.formmanagement.domain.Form;
+import eapli.base.formmanagement.domain.FormID;
 import eapli.framework.domain.repositories.DomainRepository;
 
 import java.util.Optional;

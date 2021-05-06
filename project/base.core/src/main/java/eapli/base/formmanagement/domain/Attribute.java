@@ -21,13 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.formulariomanagement.domain;
+package eapli.base.formmanagement.domain;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  *
@@ -35,51 +34,78 @@ import java.util.List;
  */
 
 @Entity
-public class Form implements AggregateRoot<FormID> {
+public class Attribute implements AggregateRoot<AttributeID> {
 
     @Version
     private Long version;
 
     @Id
     @GeneratedValue
-    @Column(name = "formID")
-    private FormID m_oID;
+    @Column(name = "attributeID")
+    private AttributeID m_oID;
 
+    /**
+     * cascade = CascadeType.NONE as the systemUser is part of another aggregate
+     */
     @Embedded
     @Column(name = "name")
-    private FormName m_oName;
+    private AttributeName m_oName;
 
     @Embedded
-    @Column(name = "type")
-    private FormType m_oFormType;
+    @Column(name = "label")
+    private AttributeLabel m_oLabel;
 
-    @OneToMany()
-    @Column(name = "attribute")
-    @JoinColumn(name="attributeID")
-    private List<Attribute> m_lstAttributes;
+    @Embedded
+    @Column(name = "description")
+    private AttributeDescription m_oDescription;
 
-    public Form(final FormID oID, final FormName oName, final FormType oFormType, final List<Attribute> lstAttributes) {
-        if (oID == null || oName == null || oFormType == null || lstAttributes.isEmpty()) {
+    @Embedded
+    @Column(name = "regex")
+    private AttributeRegex m_oRegex;
+
+    @Embedded
+    @Column(name = "scriptPath")
+    private AttributeScript m_oScript;
+
+    @Embedded
+    @Column(name = "dataType")
+    private DataType m_oDataType;
+
+    public Attribute(final AttributeName oName, final AttributeLabel oLabel, final AttributeDescription oDescription,
+                     final AttributeRegex oRegex, final AttributeScript oScript, final DataType oDataType) {
+        if (oName == null || oLabel == null || oDescription == null || oRegex == null || oScript == null || oDataType == null) {
             throw new IllegalArgumentException();
         }
-        this.m_oID = oID;
         this.m_oName = oName;
-        this.m_lstAttributes = lstAttributes;
-        this.m_oFormType = oFormType;
+        this.m_oLabel = oLabel;
+        this.m_oDescription = oDescription;
+        this.m_oRegex = oRegex;
+        this.m_oScript = oScript;
+        this.m_oDataType = oDataType;
     }
 
-    protected Form() {
+    protected Attribute() {
         // for ORM only
     }
 
-    public FormName name() {
+    public AttributeName name() {
         return this.m_oName;
     }
-    public List<Attribute> attributes() {
-        return this.m_lstAttributes;
+    public AttributeLabel label() {
+        return this.m_oLabel;
     }
-    public FormType type() {
-        return this.m_oFormType;
+    public AttributeDescription Description() {
+        return this.m_oDescription;
+    }
+
+    public AttributeRegex regex() {
+        return this.m_oRegex;
+    }
+    public AttributeScript script() {
+        return this.m_oScript;
+    }
+    public DataType dataType() {
+        return this.m_oDataType;
     }
 
     @Override
@@ -97,12 +123,12 @@ public class Form implements AggregateRoot<FormID> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public FormID id() {
+    public AttributeID id() {
         return identity();
     }
 
     @Override
-    public FormID identity() {
+    public AttributeID identity() {
         return this.m_oID;
     }
 }

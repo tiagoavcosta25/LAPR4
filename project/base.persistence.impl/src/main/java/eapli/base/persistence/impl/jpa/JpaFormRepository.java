@@ -1,14 +1,10 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
-import eapli.base.clientusermanagement.domain.ClientUser;
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
-import eapli.base.clientusermanagement.repositories.ClientUserRepository;
-import eapli.base.formulariomanagement.domain.Form;
-import eapli.base.formulariomanagement.domain.FormID;
-import eapli.base.formulariomanagement.repositories.FormRepository;
+import eapli.base.formmanagement.domain.Form;
+import eapli.base.formmanagement.domain.FormID;
+import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.util.HashMap;

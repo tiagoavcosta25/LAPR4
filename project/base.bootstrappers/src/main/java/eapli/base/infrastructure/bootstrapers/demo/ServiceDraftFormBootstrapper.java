@@ -5,20 +5,12 @@
  */
 package eapli.base.infrastructure.bootstrapers.demo;
 
-import eapli.base.clientusermanagement.application.AcceptRefuseSignupFactory;
-import eapli.base.clientusermanagement.application.AcceptRefuseSignupRequestController;
-import eapli.base.clientusermanagement.domain.SignupRequest;
-import eapli.base.formulariomanagement.domain.*;
-import eapli.base.infrastructure.bootstrapers.TestDataConstants;
-import eapli.base.myclientuser.application.SignupController;
-import eapli.base.servicemanagement.application.SaveDraftController;
+import eapli.base.formmanagement.domain.*;
 import eapli.base.servicemanagement.application.ServiceDraftSpecificationController;
-import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.domain.ServiceDraft;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
-import eapli.framework.io.util.Console;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +18,7 @@ import java.util.*;
 
 /**
  *
- * @author Paulo Sousa
+ * @author Pedro Santos 1190967@isep.ipp.pt
  */
 public class ServiceDraftFormBootstrapper implements Action {
     private static final Logger LOGGER = LoggerFactory.getLogger(
@@ -56,12 +48,11 @@ public class ServiceDraftFormBootstrapper implements Action {
                 oServiceDraft = this.m_oCtrl.newDraft();
             }
 
-            FormName oFormName = new FormName(strFormName);
-            this.m_oCtrl.addForm(oFormName, oFormType);
+            this.m_oCtrl.addForm(strFormName, oFormType.toString());
 
             for(int i = 0; i < intNumAttributes; i++){
-                insertAttribute(lstNames.get(i), lstLabels.get(i), lstDescriptions.get(i),
-                        lstRegex.get(i), lstScripts.get(i), lstDataType.get(i));
+                this.m_oCtrl.addAttribute(lstNames.get(i), lstLabels.get(i), lstDescriptions.get(i), lstRegex.get(i),
+                        lstScripts.get(i), lstDataType.get(i).toString());
             }
 
             oServiceDraft = this.m_oCtrl.addFormsToDraft();
@@ -70,19 +61,5 @@ public class ServiceDraftFormBootstrapper implements Action {
             LOGGER.error("Error Saving the Draft.");
         }
         return oServiceDraft;
-    }
-
-    private void insertAttribute(String strAttributeName, String strAttributeLabel, String strAttributeDescription,
-                                    String strAttributeRegex, String strAttributeScript, DataType oDataType) {
-        final AttributeName oAttributeName = new AttributeName(strAttributeName);
-        final AttributeLabel oAttributeLabel = new AttributeLabel(strAttributeLabel);
-        final AttributeDescription oAttributeDescription = new AttributeDescription(strAttributeDescription);
-        final AttributeRegex oAttributeRegex = new AttributeRegex(strAttributeRegex);
-        final AttributeScript oAttributeScript = new AttributeScript(strAttributeScript);
-
-
-        final Set<DataType> lstDataType = new HashSet<>();
-
-        this.m_oCtrl.addAttribute(oAttributeName, oAttributeLabel, oAttributeDescription, oAttributeRegex, oAttributeScript, oDataType);
     }
 }

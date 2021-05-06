@@ -1,4 +1,4 @@
-package eapli.base.formulariomanagement.domain;
+package eapli.base.formmanagement.domain;
 
 import eapli.framework.domain.model.DomainFactory;
 
@@ -10,23 +10,17 @@ import java.util.List;
  */
 public class FormBuilder implements DomainFactory<Form> {
 
-    private FormID m_oID;
     private FormName m_oName;
     private FormType m_oFormType;
     private List<Attribute> m_lstAttributes;
 
-    public FormBuilder withID(FormID oID) {
-        this.m_oID = oID;
+    public FormBuilder withName(String strName) {
+        this.m_oName = FormName.valueOf(strName);
         return this;
     }
 
-    public FormBuilder withName(FormName oName) {
-        this.m_oName = oName;
-        return this;
-    }
-
-    public FormBuilder withType(FormType oFormType) {
-        this.m_oFormType = oFormType;
+    public FormBuilder withType(String strFormType) {
+        this.m_oFormType = FormType.stringToFormType(strFormType);
         return this;
     }
 
@@ -39,6 +33,6 @@ public class FormBuilder implements DomainFactory<Form> {
     public Form build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new Form(this.m_oID, this.m_oName, this.m_oFormType,this.m_lstAttributes);
+        return new Form(this.m_oName, this.m_oFormType,this.m_lstAttributes);
     }
 }

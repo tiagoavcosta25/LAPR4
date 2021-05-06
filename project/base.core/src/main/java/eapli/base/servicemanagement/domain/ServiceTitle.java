@@ -26,7 +26,6 @@ public class ServiceTitle implements ValueObject, Comparable<ServiceTitle> {
             throw new IllegalArgumentException(
                     "Service Title should neither be null nor empty");
         }
-        // expression
         this.m_strTitle = strTitle;
     }
 

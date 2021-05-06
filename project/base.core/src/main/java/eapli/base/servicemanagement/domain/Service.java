@@ -24,11 +24,9 @@
 package eapli.base.servicemanagement.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.xml.txw2.annotation.XmlElement;
-import eapli.base.formulariomanagement.domain.*;
+import eapli.base.formmanagement.domain.*;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
-import sun.security.jca.ServiceId;
 
 import javax.persistence.*;
 import java.util.List;
@@ -81,12 +79,11 @@ public class Service implements AggregateRoot<ServiceID> {
     @JoinColumn(name="formID")
     private List<Form> m_lstForms;
 
-    public Service(final ServiceID oID, final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
+    public Service(final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
                    final Feedback oFeedback, Catalogue oCatalogue, final List<Keyword> lstKeywords, final List<Form> lstForms) {
-        if (oID == null || oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || oCatalogue == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
+        if (oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || oCatalogue == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        this.m_oID = oID;
         this.m_oTitle = oTitle;
         this.m_oBriefDescription = oBriefDescription;
         this.m_oCompleteDescription = oCompleteDescription;

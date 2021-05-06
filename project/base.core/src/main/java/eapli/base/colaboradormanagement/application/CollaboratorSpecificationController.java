@@ -25,7 +25,6 @@ package eapli.base.colaboradormanagement.application;
 
 import eapli.base.colaboradormanagement.domain.*;
 import eapli.base.colaboradormanagement.repositories.CollaboratorRepository;
-import eapli.base.formulariomanagement.domain.Attribute;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
