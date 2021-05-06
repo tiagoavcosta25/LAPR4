@@ -1,0 +1,40 @@
+@startuml
+autonumber
+hide footbox
+
+actor "GSH" as GSH
+
+participant ":Systema" as SYST
+
+activate GSH
+
+GSH-> SYST : Iniciates the request to create a catalog
+activate SYST
+SYST --> GSH: Request all information needed (i.e. title, id, briefDescription, completeDesription,icon,criteriadeactivate SYST
+deactivate SYST
+GSH-> SYST : Inserts the requested information
+activate SYST
+SYST --> GSH: Shows collaborators list
+deactivate SYST
+loop
+GSH-> SYST : Select the intended collaborator
+end
+activate SYST
+SYST --> GSH: Shows teams list
+deactivate SYST
+loop
+GSH-> SYST : Select the intended team
+end
+
+
+SYST --> GSH: Validates, presents the information and asks for confirmation
+deactivate SYST
+
+GSH-> SYST : Confirms
+activate SYST
+SYST --> GSH: Informs of the success of the operation
+deactivate SYST
+
+deactivate GSH
+
+@enduml
