@@ -22,7 +22,7 @@ O Sistema solicita toda a informação necessária para a criação do catalogo.
 Preenche com toda a informação solicitada. Apresenta a informação e solicita confirmação. Confirma.
 Valida e informa do sucesso da operação.
  
-![]()
+![US-1-2001_SSD](US-1-2001_SSD.svg)
 
 ### Formato Completo
 
