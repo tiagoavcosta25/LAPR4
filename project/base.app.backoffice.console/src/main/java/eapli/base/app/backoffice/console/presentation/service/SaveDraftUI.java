@@ -36,6 +36,7 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,7 +55,7 @@ public class SaveDraftUI extends AbstractUI {
 
             boolean blFlag;
 
-            final Set<Catalogue> lstCatalogues = new HashSet<>();
+            final List<Catalogue> lstCatalogues = new ArrayList<>();
             do {
                 blFlag = showCatalogues(lstCatalogues);
             } while (!blFlag);
@@ -77,13 +78,13 @@ public class SaveDraftUI extends AbstractUI {
     }
 
 
-    private boolean showCatalogues(final Set<Catalogue> lstCatalogues) {
+    private boolean showCatalogues(final List<Catalogue> lstCatalogues) {
         final Menu cataloguesMenu = buildCataloguesMenu(lstCatalogues);
         final MenuRenderer renderer = new VerticalMenuRenderer(cataloguesMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buildCataloguesMenu(final Set<Catalogue> lstCatalogues) {
+    private Menu buildCataloguesMenu(final List<Catalogue> lstCatalogues) {
         final Menu catalogosMenu = new Menu();
         int counter = 0;
         catalogosMenu.addItem(MenuItem.of(counter++, "No Catalogue", Actions.SUCCESS));

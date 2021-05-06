@@ -43,7 +43,7 @@ import java.util.List;
  * @author losa
  */
 public class ServiceDraftSpecificationController {
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
 
     private final ServiceDraftRepository draftRepo = PersistenceContext.repositories().serviceDrafts();
     private final FormRepository formRepo = PersistenceContext.repositories().forms();
@@ -55,11 +55,13 @@ public class ServiceDraftSpecificationController {
     private ServiceDraft m_oServiceDraft = new ServiceDraft();
 
     public ServiceDraft getServiceDraftById(Long lngID) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
         this.m_oServiceDraft = this.draftRepo.findByID(lngID);
         return this.m_oServiceDraft;
     }
 
     public ServiceDraft newDraft() {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
         this.m_oServiceDraft = new ServiceDraft();
         return this.m_oServiceDraft;
     }
