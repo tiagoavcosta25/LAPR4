@@ -81,7 +81,11 @@ Valida e informa do sucesso da operação.
 
 ###	Sequence Diagram
 
-![US55_SD.svg](US55_SD.svg)
+![US_1_2001_SD](US_1_2001_SD.svg)
+
+
+
+![US-1-2001_SD_Repo](US-1-2001_SD_Repo.svg)
 
 ## 3.2. Diagrama de Classes
 

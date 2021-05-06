@@ -7,11 +7,11 @@ actor "GSH" as GSH
 participant "<<presentation>>\nCatalogSpecificationUI" as UI
 participant "<<aplication>>\nCatalogSpecificationController" as CTRL
 participant "<<builder>>\nCatalogBuilder" as CB
-participant "<<domain>>\ncollaborator:Collaborator" as COLLAB
+database "<<repository>>\nCollaboratorRepository" as COLLAB
 participant "<<domain>>\ncatalog:Catalog" as CATALOG
+database "<<repository>>\nTeam" as TEAM
 
-
-participant "<<domain>>\nteam:Team" as TEAM
+participant "<<domain>>\nteam:Team" as TEA
 database "<<repository>>\nCatalogRepository" as CR
 
 participant "<<persistence>>\nPersistenceContex" as PC
@@ -34,13 +34,18 @@ GSH-> UI : Iniciates the request to create a catalog
 activate UI
 
 UI-> CTRL** : create()
-
+activate CTRL
 UI --> GSH: Request all information needed (i.e. title,id,briefDescription,completeDesription,\nicon)
+
+ref over CTRL
+US-1-2001_SD_Repo
+end ref
 
 deactivate UI
 GSH-> UI : Inserts the requested information
+deactivate CTRL
 activate UI
-UI-> CTRL : addCatalog(title, id, briefDescription, completeDesription,\nicon)
+UI-> CTRL : addCatalog(title, id, briefDescription, completeDesription)
 activate CTRL
 
 CTRL-> CB** : create()
@@ -56,9 +61,7 @@ deactivate CB
 CTRL-> CB : withcompleteDesription(completeDesription)
 activate CB
 deactivate CB
-CTRL-> CB : withIcon(icon)
-activate CB
-deactivate CB
+
 CTRL-> CB : withCriteria(criteria)
 activate CB
 deactivate CB
@@ -84,15 +87,19 @@ GSH-> UI : Select the intended collaborator
 activate UI
 
 UI-> CTRL : addCollaborator(collaborator)
-activate CTRL
-CTRL-> CB : withColaborator(collaborator)
-deactivate CTRL
 end
+UI->CTRL : addList()
+activate CTRL
+
+CTRL-> CB : withListColaborator(colabList)
+deactivate CTRL
+
 activate CB
-deactivate CB
+
 
 
 UI-> CTRL : getTeamList()
+deactivate CB
 activate CTRL
 
 CTRL-> TEAM : findAllvalues()
@@ -112,15 +119,18 @@ activate UI
 
 UI-> CTRL : addTeam(team)
 activate CTRL
-CTRL-> CB : withTeam(team)
-deactivate CTRL
 end
+UI->CTRL : addList()
+CTRL-> CB : withListTeam(teamList)
+deactivate CTRL
+
 activate CB
-deactivate CB
+
 
 
 
 UI --> GSH: Validates, presents the information and asks for confirmation
+deactivate CB
 deactivate UI
 
 deactivate UI
@@ -142,9 +152,7 @@ CB --> CTRL : catalog
 deactivate CATALOG
 deactivate CB
 
-ref over CTRL
-US-1-2001_SD_Repo
-end ref
+
 
 CTRL-> CR : save(catalog)
 activate CR
