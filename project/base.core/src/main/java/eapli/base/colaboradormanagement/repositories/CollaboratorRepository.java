@@ -1,12 +1,10 @@
 package eapli.base.colaboradormanagement.repositories;
 
-import eapli.base.clientusermanagement.domain.ClientUser;
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.colaboradormanagement.domain.Collaborator;
 import eapli.base.colaboradormanagement.domain.CollaboratorID;
 import eapli.framework.domain.repositories.DomainRepository;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,4 +25,6 @@ public interface CollaboratorRepository
     }
 
     public Iterable<Collaborator> findAllActive();
+
+    List<Collaborator> all();
 }

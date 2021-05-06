@@ -21,13 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.app.backoffice.console.presentation.authz;
+package eapli.base.app.backoffice.console.presentation.collaborator;
 
 import eapli.base.colaboradormanagement.application.CollaboratorSpecificationController;
 import eapli.base.colaboradormanagement.domain.*;
+import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
+import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
@@ -71,12 +73,22 @@ public class CollaboratorSpecificationUI extends AbstractUI {
 
             boolean blFlag;
 
-            List<Role> lstRoles = new ArrayList<>();
-            lstRoles = this.theController.getRoleList();
+            Set<Role> lstRoles = new HashSet<>();
 
             do {
                 blFlag = showRoles(lstRoles);
             } while (!blFlag);
+
+            this.theController.addRoles(lstRoles);
+
+
+            List<Collaborator> lstCollaborators = new ArrayList<>();
+
+            do {
+                blFlag = showCollaborators(lstCollaborators);
+            } while (!blFlag);
+
+            this.theController.addManager(lstCollaborators.get(0));
 
             Console.readLine("Confirm the creation of the Colaborador");
 
@@ -93,18 +105,34 @@ public class CollaboratorSpecificationUI extends AbstractUI {
         return false;
     }
 
-    private boolean showRoles(List<Role> lstRoles) {
-        final Menu catalogosMenu = buildRolesMenu(lstRoles);
-        final MenuRenderer renderer = new VerticalMenuRenderer(catalogosMenu, MenuItemRenderer.DEFAULT);
+    private boolean showRoles(final Set<Role> lstRoles) {
+        final Menu rolesMenu = buildRolesMenu(lstRoles);
+        final MenuRenderer renderer = new VerticalMenuRenderer(rolesMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buildRolesMenu(List<Role> lstRoless) {
+    private Menu buildRolesMenu(final Set<Role> lstRoles) {
         final Menu rolesMenu = new Menu();
         int counter = 0;
         rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
-        for (final Role role : theController.getRoleList()) {
-            rolesMenu.addItem(MenuItem.of(counter++, role.toString(), () -> lstRoless.add(role)));
+        for (final Role roleType : theController.getRoleList()) {
+            rolesMenu.addItem(MenuItem.of(counter++, roleType.toString(), () -> lstRoles.add(roleType)));
+        }
+        return rolesMenu;
+    }
+
+    private boolean showCollaborators(List<Collaborator> lstCollaborators) {
+        final Menu collaboratorsMenu = buildCollaboratorsMenu(lstCollaborators);
+        final MenuRenderer renderer = new VerticalMenuRenderer(collaboratorsMenu, MenuItemRenderer.DEFAULT);
+        return renderer.render();
+    }
+
+    private Menu buildCollaboratorsMenu(List<Collaborator> lstCollaborators) {
+        final Menu rolesMenu = new Menu();
+        int counter = 0;
+        rolesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
+        for (final Collaborator collaboratorType : theController.getCollaborators()) {
+            rolesMenu.addItem(MenuItem.of(counter++, collaboratorType.toString(), () -> lstCollaborators.add(collaboratorType)));
         }
         return rolesMenu;
     }

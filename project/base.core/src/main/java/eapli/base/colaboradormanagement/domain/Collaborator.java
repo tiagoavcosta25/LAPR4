@@ -9,12 +9,13 @@ import javax.persistence.*;
 
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 /**
  *
  * @author Jéssica Alves 1190682@isep.ipp.pt
  */
-@Embeddable
+@Entity
 public class Collaborator implements AggregateRoot<CollaboratorID> {
 
     @Version
@@ -27,6 +28,14 @@ public class Collaborator implements AggregateRoot<CollaboratorID> {
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
+    @OneToOne
+    @Column(name = "user")
+    private SystemUser m_oSystemUser;
+
+    @OneToOne
+    @Column(name = "manager")
+    private Collaborator m_oManager;
+
     @Embedded
     @Column(name = "phonenNumber")
     private CollaboratorPhoneNumber m_oPhoneNumber;
@@ -51,27 +60,22 @@ public class Collaborator implements AggregateRoot<CollaboratorID> {
     @Column(name = "mechanographicNumber")
     private CollaboratorMechanographicNumber m_oMechanographicNumber;
 
-    @Embedded
-    @Column(name = "role")
-    private Role m_oRole;
 
-
-    public Collaborator(final CollaboratorID oID, final CollaboratorPhoneNumber oPhoneNumber, final CollaboratorBirthDate oBirthDate,
-                        final CollaboratorAddress oAddress, final CollaboratorCompleteName oCompleteName,
-                        final CollaboratorShortName oShortName, final CollaboratorMechanographicNumber oMechanographicNumber,
-                        Role oRole) {
-        if (oID == null || oPhoneNumber == null || oBirthDate == null || oAddress == null || oCompleteName == null
-                || oShortName == null || oMechanographicNumber == null || oRole == null){
+    public Collaborator(final SystemUser oSystemUser, final Collaborator oManager, final CollaboratorPhoneNumber oPhoneNumber,
+                        final CollaboratorBirthDate oBirthDate, final CollaboratorAddress oAddress, final CollaboratorCompleteName oCompleteName,
+                        final CollaboratorShortName oShortName, final CollaboratorMechanographicNumber oMechanographicNumber) {
+        if (oSystemUser == null || oManager == null || oPhoneNumber == null || oBirthDate == null || oAddress == null || oCompleteName == null
+                || oShortName == null || oMechanographicNumber == null){
             throw new IllegalArgumentException();
         }
-        this.m_oID = oID;
+        this.m_oSystemUser = oSystemUser;
+        this.m_oManager = oManager;
         this.m_oPhoneNumber = oPhoneNumber;
         this.m_oBirthDate = oBirthDate;
         this.m_oAddress = oAddress;
         this.m_oCompleteName = oCompleteName;
         this.m_oShortName = oShortName;
         this.m_oMechanographicNumber = oMechanographicNumber;
-        this.m_oRole = oRole;
     }
 
     protected Collaborator() {
