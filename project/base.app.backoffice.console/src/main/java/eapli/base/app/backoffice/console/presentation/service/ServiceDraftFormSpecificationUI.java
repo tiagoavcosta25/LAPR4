@@ -35,7 +35,9 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -86,9 +88,9 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
     private boolean insertForm() {
         final String strFormName = Console.readLine("Form Name");
         FormName oFormName = new FormName(strFormName);
-        final Set<FormType> lstFormType = new HashSet<>();
+        final List<FormType> lstFormType = new ArrayList<>();
         showFormType(lstFormType);
-        this.theController.addForm(oFormName, lstFormType); //TODO: ver como mostrar uma lista e selecionar apenas um
+        this.theController.addForm(oFormName, lstFormType.get(0)); //TODO: ver como mostrar uma lista e selecionar apenas um
         boolean blFlag;
         do {
             blFlag = insertAttribute();
@@ -97,13 +99,13 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
         return strOp.compareToIgnoreCase("N") == 0;
     }
 
-    private boolean showFormType(final Set<FormType> lstFormType) {
+    private boolean showFormType(final List<FormType> lstFormType) {
         final Menu formTypeMenu = buildFormTypeMenu(lstFormType);
         final MenuRenderer renderer = new VerticalMenuRenderer(formTypeMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buildFormTypeMenu(final Set<FormType> lstFormType) {
+    private Menu buildFormTypeMenu(final List<FormType> lstFormType) {
         final Menu tipoFormMenu = new Menu();
         int counter = 0;
         tipoFormMenu.addItem(MenuItem.of(counter++, "No Form Type", Actions.SUCCESS));
@@ -126,22 +128,22 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
         final AttributeScript oAttributeScript = new AttributeScript(strAttributeScript);
 
 
-        final Set<DataType> lstDataType = new HashSet<>();
+        List<DataType> lstDataType = new ArrayList<>();
         showDataType(lstDataType);
 
-        this.theController.addAttribute(oAttributeName, oAttributeLabel, oAttributeDescription, oAttributeRegex, oAttributeScript, lstDataType);  //TODO: ver como mostrar uma lista e selecionar apenas um
+        this.theController.addAttribute(oAttributeName, oAttributeLabel, oAttributeDescription, oAttributeRegex, oAttributeScript, lstDataType.get(0));
 
         String strOp = Console.readLine("Do you want to add another attribute to this service? (Y/N)");
         return strOp.compareToIgnoreCase("N") == 0;
     }
 
-    private boolean showDataType(final Set<DataType> lstDataType) {
+    private boolean showDataType(final List<DataType> lstDataType) {
         final Menu dataTypeMenu = buildDataTypeMenu(lstDataType);
         final MenuRenderer renderer = new VerticalMenuRenderer(dataTypeMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buildDataTypeMenu(final Set<DataType> lstDataType) {
+    private Menu buildDataTypeMenu(final List<DataType> lstDataType) {
         final Menu dataTypeMenu = new Menu();
         int counter = 0;
         dataTypeMenu.addItem(MenuItem.of(counter++, "No Tipo Form", Actions.SUCCESS));

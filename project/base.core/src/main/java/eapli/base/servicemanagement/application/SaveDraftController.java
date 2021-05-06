@@ -42,7 +42,7 @@ import java.util.List;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 public class SaveDraftController {
-    private final AuthorizationService authz = AuthzRegistry.authorizationService();
+    private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
 
     private final ServiceRepository serviceRepo = PersistenceContext.repositories().services();
     private final ServiceDraftRepository draftRepo = PersistenceContext.repositories().serviceDrafts();
@@ -51,6 +51,7 @@ public class SaveDraftController {
     private ServiceDraft m_oServiceDraft = new ServiceDraft();
 
     public ServiceDraft getServiceDraftById(Long lngID) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
         this.m_oServiceDraft = this.draftRepo.findByID(lngID);
         return this.m_oServiceDraft;
     }
