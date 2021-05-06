@@ -115,7 +115,7 @@ public class Service implements AggregateRoot<ServiceID> {
     public List<Keyword> keywords() {
         return this.m_lstKeywords;
     }
-    public List<Form> formularios() {
+    public List<Form> forms() {
         return this.m_lstForms;
     }
 

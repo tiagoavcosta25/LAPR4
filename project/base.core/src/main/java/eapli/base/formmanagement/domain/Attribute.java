@@ -94,7 +94,7 @@ public class Attribute implements AggregateRoot<AttributeID> {
     public AttributeLabel label() {
         return this.m_oLabel;
     }
-    public AttributeDescription Description() {
+    public AttributeDescription description() {
         return this.m_oDescription;
     }
 

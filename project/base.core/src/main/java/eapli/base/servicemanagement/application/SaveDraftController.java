@@ -62,14 +62,14 @@ public class SaveDraftController {
         String strTitle = this.m_oServiceDraft.getTitle();
         String strBriefDescription = this.m_oServiceDraft.getBriefDescription();
         String strCompleteDescription = this.m_oServiceDraft.getCompleteDescription();
-        Double strFeedback = this.m_oServiceDraft.getFeedback();
+        Double dblFeedback = this.m_oServiceDraft.getFeedback();
         List<String> keywordList  = this.m_oServiceDraft.getKeywordList();
         List<Form> formList  = this.m_oServiceDraft.getFormList();
 
         this.serviceBuilder = this.serviceBuilder.withTitle(strTitle);
         this.serviceBuilder = this.serviceBuilder.withBriefDescription(strBriefDescription);
         this.serviceBuilder = this.serviceBuilder.withCompleteDescription(strCompleteDescription);
-        this.serviceBuilder = this.serviceBuilder.withFeedback(strFeedback);
+        this.serviceBuilder = this.serviceBuilder.withFeedback(dblFeedback);
         this.serviceBuilder = this.serviceBuilder.withCatalogue(oCatalogue);
         this.serviceBuilder = this.serviceBuilder.withKeywordList(keywordList);
         this.serviceBuilder = this.serviceBuilder.withFormList(formList);

@@ -73,12 +73,11 @@ public class ServiceDraft implements AggregateRoot<Long> {
     @Column(name = "forms")
     private List<Form> m_lstForms;
 
-    public ServiceDraft(final Long lngID, final String strTitle, final String strBriefDescription, final String strCompleteDescription,
+    public ServiceDraft(final String strTitle, final String strBriefDescription, final String strCompleteDescription,
                         final Double dblFeedback, final List<String> lstKeywords, final List<Form> lstForms) {
-        if (lngID == null || strTitle == null || strBriefDescription == null || strCompleteDescription == null || dblFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
+        if (strTitle == null || strBriefDescription == null || strCompleteDescription == null || dblFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        this.m_lngID = lngID;
         this.m_strBriefDescription = strBriefDescription;
         this.m_strCompleteDescription = strCompleteDescription;
         this.m_dblFeedback = dblFeedback;
@@ -88,10 +87,6 @@ public class ServiceDraft implements AggregateRoot<Long> {
 
     public ServiceDraft() {
         // for ORM only
-    }
-
-    public String BriefDescription() {
-        return this.m_strBriefDescription;
     }
 
     public Long getID() {
