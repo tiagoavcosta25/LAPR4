@@ -16,6 +16,7 @@ class CollaboratorSpecificationController <<aplication>>{
 +getRoleList()
 +addRoles(roles)
 +getCollaborators()
++addManager(manager)
 +saveCollaborator()
 }
 }
@@ -82,6 +83,7 @@ class CollaboratorBuilder <<builder>>{
 +withPhoneNumber(phoneNumber)
 +withBirthDate(birthDate)
 +withRole(Role)
++withManager(manager)
 +withSystemUser(systemUser)
 +build()
 }
