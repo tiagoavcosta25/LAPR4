@@ -45,7 +45,7 @@ public class AttributeBuilder implements DomainFactory<Attribute> {
         return this;
     }
 
-    public AttributeBuilder withTipoDados(DataType oDataType) {
+    public AttributeBuilder withDataType(DataType oDataType) {
         this.m_oDataType = oDataType;
         return this;
     }
