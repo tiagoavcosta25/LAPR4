@@ -2,7 +2,7 @@
 skinparam classAttributeIconSize 0
 
 package "Presentation" #DDDDDD {
-class ServiceDraftSpecificationUI{
+class ServiceDraftFieldSpecificationUI{
 
 }
 }
@@ -64,12 +64,17 @@ class ServiceDraftRepository{
 +create()
 +save(serviceDraft)
 }
+
+interface ServiceDraftRepositoryInterface{
+
 }
 
 
 
-ServiceDraftSpecificationUI ..> ServiceDraftSpecificationController
+ServiceDraftFieldSpecificationUI ..> ServiceDraftSpecificationController
 ServiceDraftSpecificationController ..> PersistenceContext
+
+ServiceDraftRepository ..> ServiceDraftRepositoryInterface
 
 AppSettings -> RepositoryFactory : creates
 PersistenceContext -> AppSettings : implements

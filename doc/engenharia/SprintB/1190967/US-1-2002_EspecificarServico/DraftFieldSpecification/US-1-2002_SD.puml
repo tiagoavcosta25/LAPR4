@@ -4,7 +4,7 @@ hide footbox
 
 actor "Help Desk Services Manager" as HSM
 
-participant "<<presentation>>\nServiceDraftSpecificationUI" as UI
+participant "<<presentation>>\nServiceDraftFieldSpecificationUI" as UI
 participant "<<application>>\nServiceDraftSpecificationController" as CTRL
 database "<<repository>>\nServiceDraftRepository" as SR
 participant "<<domain>>\nServiceDraft" as S
