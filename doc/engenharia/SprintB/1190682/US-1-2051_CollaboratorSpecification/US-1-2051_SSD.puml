@@ -4,21 +4,35 @@ hide footbox
 
 actor "Human Resource Representative" as HRR
 
-participant ":Systema" as SYST
+participant ":System" as SYST
 
 activate HRR
 
 HRR-> SYST : Iniciates the request to specify a collaborator
 activate SYST
-SYST --> HRR: Request all information needed (i.e. short and complete name,\nmechanographic number, address, phone number, birth date)
+SYST --> HRR: Request all information needed (i.e. email, first name,\n last nameshort and complete name,mechanographic number, \naddress, phone number, birth date)
 deactivate SYST
 
 HRR-> SYST : Inserts the requested information
 activate SYST
-SYST --> HRR: Shows roles' list
+loop until there is no more roles to add
+SYST --> HRR: Shows role's list
 deactivate SYST
 
 HRR-> SYST : Select the intended role
+activate SYST
+
+SYST --> HRR: Asks if the user wants to add more roles
+deactivate SYST
+
+HRR-> SYST : Responds
+activate SYST
+end
+
+SYST --> HRR: Shows colaborator's list
+deactivate SYST
+
+HRR-> SYST : Select his/hers manager
 activate SYST
 SYST --> HRR: Validates, presents the information and asks for confirmation
 deactivate SYST
