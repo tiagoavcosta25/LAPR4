@@ -156,7 +156,7 @@ activate CTRL
 
 CTRL-> CB : build()
 activate CB
-CB-> COLAB** : create(systemUser, manager, shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate,role)
+CB-> COLAB** : create(systemUser, manager, shortName, completeName, mechanographicNumber,address, phoneNumber, birthDate)
 activate COLAB
 
 COLAB --> CB : collaborator

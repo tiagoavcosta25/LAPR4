@@ -7,11 +7,11 @@ actor "GSH" as GSH
 participant "<<presentation>>\nCatalogSpecificationUI" as UI
 participant "<<aplication>>\nCatalogSpecificationController" as CTRL
 participant "<<builder>>\nCatalogBuilder" as CB
-participant "<<domain>>\ncollaborator:Collaborator" as COLLAB
+database "<<repository>>\nCollaboratorRepository" as COLLAB
 participant "<<domain>>\ncatalog:Catalog" as CATALOG
+database "<<repository>>\nTeam" as TEAM
 
-
-participant "<<domain>>\nteam:Team" as TEAM
+participant "<<domain>>\nteam:Team" as TEA
 database "<<repository>>\nCatalogRepository" as CR
 
 participant "<<persistence>>\nPersistenceContex" as PC
@@ -34,13 +34,18 @@ GSH-> UI : Iniciates the request to create a catalog
 activate UI
 
 UI-> CTRL** : create()
-
+activate CTRL
 UI --> GSH: Request all information needed (i.e. title,id,briefDescription,completeDesription,\nicon)
+
+ref over CTRL
+US-1-2001_SD_Repo
+end ref
 
 deactivate UI
 GSH-> UI : Inserts the requested information
+deactivate CTRL
 activate UI
-UI-> CTRL : addCatalog(title, id, briefDescription, completeDesription,\nicon)
+UI-> CTRL : addCatalog(title, id, briefDescription, completeDesription)
 activate CTRL
 
 CTRL-> CB** : create()
@@ -56,9 +61,7 @@ deactivate CB
 CTRL-> CB : withcompleteDesription(completeDesription)
 activate CB
 deactivate CB
-CTRL-> CB : withIcon(icon)
-activate CB
-deactivate CB
+
 CTRL-> CB : withCriteria(criteria)
 activate CB
 deactivate CB
@@ -79,20 +82,39 @@ deactivate CTRL
 UI --> GSH: Shows collaborators list
 deactivate UI
 
-loop until the user doesn't want to add more collaborators
+
+
+
+
+loop until there is no more collaborators to add
+UI --> GSH: Shows collaborators list
+deactivate UI
+
 GSH-> UI : Select the intended collaborator
 activate UI
 
-UI-> CTRL : addCollaborator(collaborator)
-activate CTRL
-CTRL-> CB : withColaborator(collaborator)
-deactivate CTRL
+UI --> GSH: Asks if the user wants to add more collaborators
+deactivate UI
+
+GSH-> UI : Responds
+activate UI
 end
+
+
+UI-> CTRL : addCollaborator(collaborator)
+
+UI->CTRL : addList()
+activate CTRL
+
+CTRL-> CB : withListColaborator(colabList)
+deactivate CTRL
+
 activate CB
-deactivate CB
+
 
 
 UI-> CTRL : getTeamList()
+deactivate CB
 activate CTRL
 
 CTRL-> TEAM : findAllvalues()
@@ -103,24 +125,34 @@ deactivate TEAM
 CTRL--> UI : teamList
 deactivate CTRL
 
+loop until there is no more teams to add
 UI --> GSH: Shows teams list
 deactivate UI
 
-loop until the user doesn't want to add more teams with access
 GSH-> UI : Select the intended team
 activate UI
 
+UI --> GSH: Asks if the user wants to add more teams
+deactivate UI
+
+GSH-> UI : Responds
+activate UI
+end
+
 UI-> CTRL : addTeam(team)
 activate CTRL
-CTRL-> CB : withTeam(team)
+
+UI->CTRL : addList()
+CTRL-> CB : withListTeam(teamList)
 deactivate CTRL
-end
+
 activate CB
-deactivate CB
+
 
 
 
 UI --> GSH: Validates, presents the information and asks for confirmation
+deactivate CB
 deactivate UI
 
 deactivate UI
@@ -142,9 +174,7 @@ CB --> CTRL : catalog
 deactivate CATALOG
 deactivate CB
 
-ref over CTRL
-US-1-2001_SD_Repo
-end ref
+
 
 CTRL-> CR : save(catalog)
 activate CR

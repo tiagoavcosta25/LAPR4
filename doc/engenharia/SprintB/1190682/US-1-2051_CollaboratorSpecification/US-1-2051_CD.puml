@@ -24,7 +24,7 @@ class CollaboratorSpecificationController <<aplication>>{
 
 package "Domain" #DDDDDD {
 class Collaborator <<entity>>{
-+create(systemUser, shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate,Role)
++create(systemUser, shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate)
 }
 
 class ShortName <<value object>>{
