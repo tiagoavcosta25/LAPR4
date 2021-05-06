@@ -51,7 +51,6 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
                 oServiceDraft = this.theController.newDraft();
             }
 
-
             do{
                 strOp = addField();
             } while(strOp.compareToIgnoreCase("Y") == 0);
