@@ -2,7 +2,7 @@
 skinparam classAttributeIconSize 0
 
 package "Presentation" #DDDDDD {
-class ServiceDraftSpecificationUI{
+class ServiceDraftFormSpecificationUI{
 
 }
 }
@@ -16,9 +16,10 @@ class ServiceDraftSpecificationController{
 +addForm(name, formType)
 +addAttribute(name, label, description, regex, scriptPath, dataType)
 +saveForm()
-+addForm()
++addFormToDraft()
 +saveServiceDraft()
 }
+
 }
 
 
@@ -134,14 +135,25 @@ class FormRepository{
 +save(form)
 }
 
+interface ServiceDraftRepositoryInterface{
+
+}
+
+interface FormRepositoryInterface{
+
+}
+
 }
 
 
 
-ServiceDraftSpecificationUI ..> ServiceDraftSpecificationController
+ServiceDraftFormSpecificationUI ..> ServiceDraftSpecificationController
 ServiceDraftSpecificationController ..> FormBuilder
 ServiceDraftSpecificationController ..> AttributeBuilder
 ServiceDraftSpecificationController ..> PersistenceContext
+
+ServiceDraftRepository ..> ServiceDraftRepositoryInterface
+FormRepository ..> FormRepositoryInterface
 
 AppSettings -> RepositoryFactory : creates
 PersistenceContext -> AppSettings : implements

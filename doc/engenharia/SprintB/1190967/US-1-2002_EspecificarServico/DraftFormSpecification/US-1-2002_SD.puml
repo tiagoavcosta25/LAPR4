@@ -4,7 +4,7 @@ hide footbox
 
 actor "Gestor de Serviços de Help Desk" as HSM
 
-participant "<<presentation>>\nServiceDraftSpecificationUI" as UI
+participant "<<presentation>>\nServiceDraftFormSpecificationUI" as UI
 participant "<<application>>\nServiceDraftSpecificationController" as CTRL
 database "<<repository>>\nServiceDraftRepository" as SR
 participant "<<domain>>\nFormType" as FT
@@ -218,7 +218,7 @@ HSM -> UI : responds
 activate UI
 end
 
-UI -> CTRL : addForm()
+UI -> CTRL : addFormToDraft()
 activate CTRL
 
 CTRL -> S : setFormList(formList)
