@@ -60,50 +60,19 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
 
             String strFormName = Console.readLine("Form Name");
 
-            final Set<Catalogo> lstCatalogos = new HashSet<>();
-            do {
-                blFlag = showCatalogos(lstCatalogos);
-            } while (!blFlag);
-
-
-
-            final String strDescricaoCompleta = Console.readLine("Complete Description");
-
-            final ServiceBriefDescription oDescricaoBreve = new ServiceBriefDescription(strDescricaoBreve);
-            final ServiceCompleteDescription oDescricaoCompleta = new ServiceCompleteDescription(strDescricaoCompleta);
-
-            this.theController.addServico(oDescricaoBreve, oDescricaoCompleta);
-
             boolean blFlag;
             do {
-                blFlag = readKeywords();
-            } while (!blFlag);
-
-            this.theController.addKeywordListToService();
-
-            String strOp = Console.readLine("Do you want the ability to receive feedback on this service? (Y/N)");
-
-            if(strOp.compareToIgnoreCase("Y") == 0){
-                final Double dblDuration = Double.parseDouble(Console.readLine("Feedback Duration"));
-                Feedback oFeedback = new Feedback(dblDuration);
-                this.theController.enableFeedback(oFeedback);
-            }
-
-            final Set<Catalogo> lstCatalogos = new HashSet<>();
-            do {
-                blFlag = showCatalogos(lstCatalogos);
-            } while (!blFlag);
-
-            do {
                 blFlag = insertForm();
-                this.theController.saveFormulario();
+                this.theController.saveForm();
             } while (!blFlag);
 
-            strOp = Console.readLine("Confirm the creation of the Service (Y/N)");
+            oServiceDraft = this.theController.addFormToDraft();
+
+            strOp = Console.readLine("Confirm the following Service Draft(Y/N):\n\n%s" + oServiceDraft.toString() + "\n\n");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
-                Service oService = this.theController.saveServico();
-                System.out.printf("Created the following Service:\n\n%s\n", oService.toString());
+                oServiceDraft = this.theController.saveServiceDraft();
+                System.out.printf("Service Created");
             } else{
                 System.out.println("Operation Cancelled.");
             }
@@ -114,46 +83,22 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
 
         return false;
     }
-
-    private boolean readKeywords() {
-        final String strKeyword = Console.readLine("Keyword");
-        final Keyword oKeyword = new Keyword(strKeyword);
-        this.theController.addKeyword(oKeyword);
-        String strOp = Console.readLine("Do you want to add another keyword to this service? (Y/N)");
-        return strOp.compareToIgnoreCase("Y") == 0;
-    }
-
-    private boolean showCatalogos(final Set<Catalogo> lstCatalogos) {
-        final Menu catalogosMenu = buildCatalogosMenu(lstCatalogos);
-        final MenuRenderer renderer = new VerticalMenuRenderer(catalogosMenu, MenuItemRenderer.DEFAULT);
-        return renderer.render();
-    }
-
-    private Menu buildCatalogosMenu(final Set<Catalogo> lstCatalogos) {
-        final Menu catalogosMenu = new Menu();
-        int counter = 0;
-        catalogosMenu.addItem(MenuItem.of(counter++, "No Catalogue", Actions.SUCCESS));
-        for (final Catalogo catalogo : theController.getCatalogos()) {
-            catalogosMenu.addItem(MenuItem.of(counter++, catalogo.toString(), () -> lstCatalogos.add(catalogo)));
-        }
-        return catalogosMenu;
-    }
-
     private boolean insertForm() {
         final String strFormName = Console.readLine("Form Name");
         FormName oFormName = new FormName(strFormName);
         final Set<FormType> lstFormType = new HashSet<>();
-        final FormType oFormType = showTipoForm(lstFormType);
-        this.theController.addFormulario(oFormName, oFormType);
+        showFormType(lstFormType);
+        final FormType oFormType = FormType.stringToFormType(Console.readLine("Form Type"));
+        this.theController.addForm(oFormName, oFormType);
         boolean blFlag;
         do {
             blFlag = insertAttribute();
         } while (!blFlag);
         String strOp = Console.readLine("Do you want to add another form to this service? (Y/N)");
-        return strOp.compareToIgnoreCase("Y") == 0;
+        return strOp.compareToIgnoreCase("N") == 0;
     }
 
-    private boolean showTipoForm(final Set<FormType> lstFormType) {
+    private boolean showFormType(final Set<FormType> lstFormType) {
         final Menu tipoFormMenu = buildTipoFormMenu(lstFormType);
         final MenuRenderer renderer = new VerticalMenuRenderer(tipoFormMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
@@ -163,7 +108,7 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
         final Menu tipoFormMenu = new Menu();
         int counter = 0;
         tipoFormMenu.addItem(MenuItem.of(counter++, "No Tipo Form", Actions.SUCCESS));
-        for (final FormType formType : FormType.values()) {
+        for (final FormType formType : this.theController.showFormTypes()) {
             tipoFormMenu.addItem(MenuItem.of(counter++, formType.toString(), () -> lstFormType.add(formType)));
         }
         return tipoFormMenu;
@@ -181,27 +126,28 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
         final String strAttributeScript = Console.readLine("Attribute Script");
         final AttributeScript oAttributeScript = new AttributeScript(strAttributeScript);
 
-        this.theController.addAtributo(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, strAttributeScript);
 
-        final Set<DataType> lstTipoDados = new HashSet<>();
-        final DataType oDataType = showTipoDados(lstTipoDados);
+        final Set<DataType> lstDataType = new HashSet<>();
+        showDataType(lstDataType);
+        final DataType oDataType = DataType.stringToDataType(Console.readLine("Data Type"));
 
-        this.theController.addAtributoTipo(oDataType);
+        this.theController.addAttribute(oAttributeName, oAttributeLabel, oAttributeDescription, oAttributeRegex, oAttributeScript, oDataType);
 
-        return Console.readLine("Do you want to add another attribute to this service?");
+        String strOp = Console.readLine("Do you want to add another attribute to this service? (Y/N)");
+        return strOp.compareToIgnoreCase("N") == 0;
     }
 
-    private boolean showTipoDados(final Set<DataType> lstTipoDados) {
-        final Menu tipoDadosMenu = buildTipoDadosMenu(lstTipoDados);
+    private boolean showDataType(final Set<DataType> lstTipoDados) {
+        final Menu tipoDadosMenu = buildDataTypeMenu(lstTipoDados);
         final MenuRenderer renderer = new VerticalMenuRenderer(tipoDadosMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buildTipoDadosMenu(final Set<DataType> lstTipoDados) {
+    private Menu buildDataTypeMenu(final Set<DataType> lstTipoDados) {
         final Menu tipoDadosMenu = new Menu();
         int counter = 0;
         tipoDadosMenu.addItem(MenuItem.of(counter++, "No Tipo Form", Actions.SUCCESS));
-        for (final DataType dataType : DataType.values()) {
+        for (final DataType dataType : this.theController.showDataTypes()) {
             tipoDadosMenu.addItem(MenuItem.of(counter++, dataType.toString(), () -> lstTipoDados.add(dataType)));
         }
         return tipoDadosMenu;
