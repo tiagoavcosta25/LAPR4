@@ -67,7 +67,7 @@ Valida e informa do sucesso da operação.
 
 ### Parte do Modelo de Domínio Relevante para esta User Story
 
-![US2001_MD](US2001_MD.svg)
+![US_1_2001_MD](US_1_2001_md.svg)
 
 # 3. Design
 
