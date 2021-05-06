@@ -3,64 +3,77 @@ skinparam classAttributeIconSize 0
 
 
 package "Presentation" #DDDDDD {
-class CollaboratorSpecificationUI{
+class CollaboratorSpecificationUI <<presentation>>{
 
 }
 }
 
 
 package "Application" #DDDDDD {
-class CollaboratorSpecificationController{
+class CollaboratorSpecificationController <<aplication>>{
 +create()
-+addCollaborator(shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate)
++addColaborador(email, firstName, lastName, shortName, \ncompleteName, mechanographicNumber,\naddress, phoneNumber, birthDate)
 +getRoleList()
-+addRole(role)
++addRoles(roles)
++getCollaborators()
 +saveCollaborator()
 }
 }
 
 
 package "Domain" #DDDDDD {
-class Collaborator{
-+create(shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate,Role)
+class Collaborator <<entity>>{
++create(systemUser, shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate,Role)
 }
 
-class ShortName {
+class ShortName <<value object>>{
 +createShortName(shortName)
 -validate(shortName)
 }
 
-class CompleteName {
+class CompleteName <<value object>>{
 +createCompleteName(completeName)
 -validate(completeName)
 }
 
-class NumeroMecanografico {
+class NumeroMecanografico <<value object>>{
 +createNumeroMecanografico(numeroMecanografico)
 -validate(numeroMecanografico)
 }
 
-class Address {
+class Address <<value object>>{
 +createAddress(address)
 -validate(address)
 }
 
-class PhoneNumber {
+class PhoneNumber <<value object>>{
 +createPhoneNumber(phoneNumber)
 -validate(phoneNumber)
 }
 
-class BirthDate {
+class BirthDate <<value object>>{
 +createBirthDate(birthDate)
 -validate(birthDate)
 }
 
-class Role {
+class Role <<enum>>{
 +values()
 }
 
+class RandomRawPassword <<domain>>{
++toString()
+}
+
+class AuthzRegistry <<domain>>{
++userService()
+}
+
+class UserService <<domain>>{
++registerNewUser(username, password, firstName, lastName, email, roles)
+}
+
 package Builder #DDDDDD {
-class CollaboratorBuilder{
+class CollaboratorBuilder <<builder>>{
 +create()
 +withShortName(shortName)
 +withCompleteName(completeName)
@@ -69,32 +82,37 @@ class CollaboratorBuilder{
 +withPhoneNumber(phoneNumber)
 +withBirthDate(birthDate)
 +withRole(Role)
++withSystemUser(systemUser)
 +build()
 }
 }
 }
 
 package Persistence #DDDDDD {
-class PersistenceContext{
+class PersistenceContext <<persistence>>{
 +repositories()
 }
 
-class AppSettings{
+class AppSettings <<persistence>>{
 +instance()
 +getRepositoryFactory()
 }
 
 package Factory #DDDDDD {
-class RepositoryFactory{
+class RepositoryFactory <<factory>>{
 +collaborators()
 +roles()
 }
 }
 
 package "Repository" #DDDDDD {
-class CollaboratorRepository{
-+create()
+class CollaboratorRepository <<repository>>{
++all()
 +save(collaborator)
+}
+
+interface CollaboratorRepositoryInterface{
+
 }
 }
 
@@ -104,11 +122,15 @@ class CollaboratorRepository{
 CollaboratorSpecificationUI ..> CollaboratorSpecificationController
 CollaboratorSpecificationController ..> CollaboratorBuilder
 CollaboratorSpecificationController ..> PersistenceContext
+CollaboratorSpecificationController ..> RandomRawPassword
+CollaboratorSpecificationController ..> AuthzRegistry
+CollaboratorSpecificationController ..> UserService
 
 AppSettings -> RepositoryFactory : creates
 PersistenceContext -> AppSettings : implements
 
 RepositoryFactory "1" -> "1" CollaboratorRepository : has
+CollaboratorRepository ..> CollaboratorRepositoryInterface
 
 CollaboratorRepository "1" -> "*" Collaborator : saves
 CollaboratorBuilder "1" -> "*" Collaborator : creates
