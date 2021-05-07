@@ -1,0 +1,118 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Human Resource Representative" as HRR
+
+participant "<<presentation>>\nTeamCreatorUI" as UI
+participant "<<aplication>>\nTeamCreatorController" as CTRL
+participant "<<aplication>>\nAuthzRegistry" as AUTHR
+participant "<<aplication>>\nAuthorizationService" as AUTH
+participant "<<domain>>\nteamTypes:TeamTypes" as TT
+database "<<repository>>\nCollaboratorRepository" as CR
+participant "<<builder>>\nTeamBuilder" as TB
+participant "<<domain>>\nTeam" as TEAM
+database "<<repository>>\nTeamRepository" as TR
+
+activate HRR
+HRR -> UI : Initiates the request to create a Team
+
+activate UI
+UI -> CTRL** : create()
+
+activate CTRL
+ref over CTRL
+US-1-2052_SD_Repo
+end ref
+
+CTRL -> AUTHR : m_oAuthz = authorizationService()
+activate AUTHR
+deactivate CTRL
+deactivate AUTHR
+
+UI -> CTRL : getTeamTypes()
+
+activate CTRL
+CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
+CTRL -> TT : values()
+
+activate TT
+TT --> CTRL : teamTypes
+deactivate TT
+
+CTRL --> UI : teamTypes
+deactivate CTRL
+
+UI --> HRR : Displays the existing type of teams
+
+HRR -> UI : Select's the type of team
+
+UI --> HRR : Requests all information needed (i.e. acronym, designation)
+
+HRR -> UI : Inserts the requested information
+
+UI -> CTRL : getColaborators()
+
+activate CTRL
+CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
+CTRL -> CR : all()
+
+activate CR
+CR --> CTRL : colabList
+
+deactivate CR
+CTRL --> UI : colabList
+deactivate CTRL
+
+
+loop until user command
+UI --> HRR : Displays colaborator's list
+
+HRR -> UI : Selects the intended team representative
+
+UI --> HRR : Asks if the user wishes to add more representatives
+
+HRR --> UI : Responds
+end
+
+UI -> CTRL : createTeam(teamType, acronym, designation, colabList)
+
+activate CTRL
+CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
+CTRL -> TB** : create()
+CTRL -> TB : withTeamType()
+
+activate TB
+
+CTRL -> TB : withRepresentatives()
+CTRL -> TB : withAcronym()
+CTRL -> TB : withDesignation()
+CTRL -> TB : build()
+
+TB -> TEAM** : create(teamType, acronym, designation, colabList)
+
+activate TEAM
+TEAM --> TB : team
+deactivate TEAM
+
+TB --> CTRL : team
+deactivate TB
+
+CTRL -> TR : save(team)
+
+activate TR
+TR --> CTRL : team
+deactivate TR
+
+CTRL --> UI : team
+deactivate CTRL
+
+UI --> HRR : Informs of the success of the operation
+
+
+
+
+
+
+
+@enduml
