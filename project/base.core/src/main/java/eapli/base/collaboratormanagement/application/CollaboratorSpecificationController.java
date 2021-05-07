@@ -49,16 +49,16 @@ public class CollaboratorSpecificationController {
     private List<Collaborator> m_lstCollaborators = new ArrayList<>();
     private String m_strEmail, m_strFirstName, m_strLastName;
 
-    public Collaborator addCollaborator(String strEmail, String strFirstName, String strLastName, String strShortName,
-                                        String strCompleteName, String strMechanographicNumber, String strAddress,
-                                        Double dblPhoneNumber, Date dtBirthDate) {
+    public Collaborator addCollaborator(String strEmail, String strFirstName, String strLastName,
+                                        String strCompleteName, Long lngMechanographicNumber, String strAddress,
+                                        String strPhoneNumber, Date dtBirthDate) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
-        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withShortName(strShortName);
+        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withShortName(strFirstName, strLastName);
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withCompleteName(strCompleteName);
-        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withMechanographicNumber(strMechanographicNumber);
+        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withMechanographicNumber(lngMechanographicNumber);
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withAddress(strAddress);
-        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withPhoneNumber(dblPhoneNumber);
+        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withPhoneNumber(strPhoneNumber);
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withBirthDate(dtBirthDate);
         this.m_strEmail = strEmail;
         this.m_strFirstName = strFirstName;

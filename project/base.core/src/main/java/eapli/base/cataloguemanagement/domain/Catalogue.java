@@ -1,6 +1,8 @@
 package eapli.base.cataloguemanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.servicemanagement.domain.ServiceID;
 import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
@@ -18,17 +20,20 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
     @Version
     private Long version;
 
-    @EmbeddedId
+    @Id
+    @GeneratedValue
     @Column(name = "catalogueID")
     private CatalogueID m_oID;
 
-    @Column(name = "cataloguetitle")
+    @@JsonProperty
+    @Column(name = "title")
     private CatalogueTitle m_oCatalogueTitle;
 
-    @Column(name = "catalogueBriefDescription")
+    @Embedded
+    @Column(name = "BriefDescription")
     private CatalogueBriefDescription m_oCatalogueBriefDescription;
 
-    @Column(name = "catalogueCompleteDescription")
+    @Column(name = "CompleteDescription")
     private CatalogueCompleteDescription m_oCatalogueCompleteDescription;
 
     @OneToOne
@@ -47,9 +52,9 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
 
     public Catalogue(CatalogueBriefDescription oCatalogueBriefDescription, CatalogueCompleteDescription oCatalogueCompleteDescription,
                      CatalogueTitle oCatalogueTitle, Collaborator oCollaborator, Set<Team> setAccess){
-
-        Preconditions.noneNull(oCatalogueBriefDescription, oCatalogueCompleteDescription, oCatalogueTitle,oCollaborator,setAccess);
-        this.m_oCatalogueBriefDescription = oCatalogueBriefDescription;
+        if (oCatalogueBriefDescription == null || oCatalogueCompleteDescription == null || oCatalogueTitle == null || oCollaborator == null  || setAccess.isEmpty()) {
+            throw new IllegalArgumentException();
+        }this.m_oCatalogueBriefDescription = oCatalogueBriefDescription;
         this.m_oCatalogueCompleteDescription = oCatalogueCompleteDescription;
         this.m_oCatalogueTitle = oCatalogueTitle;
         this.m_oCollaborator = oCollaborator;
@@ -72,38 +77,14 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
 
     @Override
     public boolean sameAs(final Object other) {
-        if(!(other instanceof Catalogue)) {
-            return false;
-        }
-
-        final Catalogue that = (Catalogue) other;
-        if(this == that) {
-            return true;
-        }
-
-        return identity().equals(that.identity()) && m_oCatalogueTitle.equals(that.m_oCatalogueTitle)
-                && m_oCatalogueBriefDescription.equals(that.m_oCatalogueBriefDescription) &&
-                m_oCatalogueCompleteDescription.equals(that.m_oCatalogueCompleteDescription) &&
-                m_setAccess.equals(that.m_setAccess) &&
-                m_oCollaborator.equals(that.m_oCollaborator) ;
+        return DomainEntities.areEqual(this, other);
     }
 
-    @Override
-    public CatalogueID identity() {
-        return this.m_oID;
+
+    public CatalogueID id() {
+        return identity();
     }
 
-    public CatalogueTitle catalogueTitle() {
-        return this.catalogueTitle();
-    }
-
-    public CatalogueBriefDescription catalogueBriefDescription() {
-        return this.catalogueBriefDescription();
-    }
-
-    public Collaborator collaborator() {
-        return this.collaborator();
-    }
 
     public Set<Team> access() {
         return this.m_setAccess;
@@ -111,5 +92,10 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
 
     public boolean hasID(CatalogueID oID) {
         return this.m_oID.equals(oID);
+    }
+
+    @Override
+    public CatalogueID identity() {
+        return this.m_oID;
     }
 }

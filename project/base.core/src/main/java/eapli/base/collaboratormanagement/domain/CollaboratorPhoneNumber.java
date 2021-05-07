@@ -6,6 +6,7 @@
 package eapli.base.collaboratormanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
+import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Embeddable;
 
@@ -19,22 +20,46 @@ public class CollaboratorPhoneNumber implements ValueObject, Comparable<Collabor
     private static final long serialVersionUID = 1L;
 
     private Double m_dblPhoneNumber;
+    private String m_strPrefix;
 
-    public CollaboratorPhoneNumber(final Double dblPhoneNumber) {
+    public CollaboratorPhoneNumber(final String strPhoneNumber) {
+
+        if (StringPredicates.isNullOrEmpty(strPhoneNumber) || (strPhoneNumber.length() != 9 && strPhoneNumber.length() != 13)) {
+            throw new IllegalArgumentException(
+                    "Phone Number should neither be null nor empty and must have nine or thirteen digits.");
+        }
+
+        Double dblPhoneNumber;
+        String strPrefix;
+
+        if (strPhoneNumber.length() == 13){
+            strPrefix = strPhoneNumber.substring(0,3);
+            dblPhoneNumber = Double.parseDouble(strPhoneNumber.substring(3,strPhoneNumber.length() - 1));
+        } else {
+            strPrefix = "+351";
+            dblPhoneNumber = Double.parseDouble(strPhoneNumber);
+        }
+
         if (dblPhoneNumber == null || dblPhoneNumber <= 0 || String.valueOf(dblPhoneNumber).length() != 9) {
             throw new IllegalArgumentException(
                     "Phone Number should neither be null, empty, less than zero nor less or greater than nine digits.");
         }
+
+        if (strPrefix.matches("/+[0-9]{3}")) {
+            throw new IllegalArgumentException(
+                    "Prefix should have a plus sign followed by three numbers.");
+        }
         // expression
         this.m_dblPhoneNumber = dblPhoneNumber;
+        this.m_strPrefix = strPrefix;
     }
 
     protected CollaboratorPhoneNumber() {
         // for ORM
     }
 
-    public static CollaboratorPhoneNumber valueOf(final double dblPhoneNumber) {
-        return new CollaboratorPhoneNumber(dblPhoneNumber);
+    public static CollaboratorPhoneNumber valueOf(final String strPhoneNumber) {
+        return new CollaboratorPhoneNumber(strPhoneNumber);
     }
 
     @Override
@@ -47,7 +72,7 @@ public class CollaboratorPhoneNumber implements ValueObject, Comparable<Collabor
         }
 
         final CollaboratorPhoneNumber that = (CollaboratorPhoneNumber) o;
-        return this.m_dblPhoneNumber == that.m_dblPhoneNumber;
+        return this.m_dblPhoneNumber == that.m_dblPhoneNumber && this.m_strPrefix.equals(that.m_strPrefix);
     }
 
     @Override
@@ -57,7 +82,7 @@ public class CollaboratorPhoneNumber implements ValueObject, Comparable<Collabor
 
     @Override
     public String toString() {
-        return Double.toString(this.m_dblPhoneNumber);
+        return this.m_strPrefix + this.m_dblPhoneNumber;
     }
 
     @Override
