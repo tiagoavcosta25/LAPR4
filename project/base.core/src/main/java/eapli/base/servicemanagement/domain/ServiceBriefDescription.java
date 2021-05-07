@@ -18,13 +18,14 @@ import javax.persistence.Embeddable;
 public class ServiceBriefDescription implements ValueObject, Comparable<ServiceBriefDescription> {
 
     private static final long serialVersionUID = 1L;
+    private static final Integer m_intMaxLength = 60;
 
     private String m_strDescription;
 
     public ServiceBriefDescription(final String strDescription) {
-        if (StringPredicates.isNullOrEmpty(strDescription)) {
+        if (StringPredicates.isNullOrEmpty(strDescription) || !(strDescription.length() < m_intMaxLength)) {
             throw new IllegalArgumentException(
-                    "Service Brief Description should neither be null nor empty");
+                    "Service Brief Description should not be null, empty nor have more than 60 characters");
         }
         // expression
         this.m_strDescription = strDescription;

@@ -18,13 +18,14 @@ import javax.persistence.Embeddable;
 public class ServiceTitle implements ValueObject, Comparable<ServiceTitle> {
 
     private static final long serialVersionUID = 1L;
+    private static final String m_strRegex = "[a-zA-Z]{1,20}";
 
     private String m_strTitle;
 
     public ServiceTitle(final String strTitle) {
-        if (StringPredicates.isNullOrEmpty(strTitle)) {
+        if (StringPredicates.isNullOrEmpty(strTitle) || !strTitle.matches(m_strRegex)) {
             throw new IllegalArgumentException(
-                    "Service Title should neither be null nor empty");
+                    "Service Title should neither be null, empty, contain other characters besides letters nor have more than 20 characters");
         }
         this.m_strTitle = strTitle;
     }
