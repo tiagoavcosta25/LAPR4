@@ -1,5 +1,6 @@
 package eapli.base.cataloguemanagement.domain;
 
+import eapli.base.teammanagement.domain.TeamID;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 import javax.persistence.Embeddable;
