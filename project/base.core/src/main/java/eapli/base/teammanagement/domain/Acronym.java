@@ -14,8 +14,7 @@ import javax.persistence.Embeddable;
 public class Acronym implements ValueObject, Comparable<Acronym> {
 
     private static final long serialVersionUID = 1L;
-
-    @Column(unique = true)
+    
     private String m_strAcronym;
 
     public Acronym(final String strAcronym) {

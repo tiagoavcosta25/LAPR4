@@ -28,7 +28,7 @@ public class Team implements AggregateRoot<TeamID> {
     @Enumerated(EnumType.STRING)
     private TeamType m_enumTeamType;
 
-    @Column(name = "acronym")
+    @Column(unique = true, name = "acronym")
     private Acronym m_oAcronym;
 
     @Column(name = "teamDescription")
