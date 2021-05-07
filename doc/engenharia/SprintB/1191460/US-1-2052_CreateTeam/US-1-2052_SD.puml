@@ -80,13 +80,13 @@ UI -> CTRL : createTeam(teamType, acronym, teamDescription, representation)
 activate CTRL
 CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
 CTRL -> TB** : create()
-CTRL -> TB : withTeamType()
+CTRL -> TB : withTeamType(teamType)
 
 activate TB
 
-CTRL -> TB : withRepresentation()
-CTRL -> TB : withAcronym()
-CTRL -> TB : withDescription()
+CTRL -> TB : withAcronym(acronym)
+CTRL -> TB : withDescription(teamDescription)
+CTRL -> TB : withRepresentation(representation)
 CTRL -> TB : build()
 
 TB -> TEAM** : create(teamType, acronym, teamDescription, representation)
