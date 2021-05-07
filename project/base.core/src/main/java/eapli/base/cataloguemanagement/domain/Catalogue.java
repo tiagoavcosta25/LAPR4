@@ -25,7 +25,7 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
     @Column(name = "catalogueID")
     private CatalogueID m_oID;
 
-    @@JsonProperty
+    @JsonProperty
     @Column(name = "title")
     private CatalogueTitle m_oCatalogueTitle;
 
