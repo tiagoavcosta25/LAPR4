@@ -18,11 +18,12 @@ import javax.persistence.Embeddable;
 public class AttributeDescription implements ValueObject, Comparable<AttributeDescription> {
 
     private static final long serialVersionUID = 1L;
+    private static final Integer m_intMaxLength = 60;
 
     private String m_strDescription;
 
     public AttributeDescription(final String strDescription) {
-        if (StringPredicates.isNullOrEmpty(strDescription)) {
+        if (StringPredicates.isNullOrEmpty(strDescription) || !(strDescription.length() < m_intMaxLength)) {
             throw new IllegalArgumentException(
                     "Attribute Description should neither be null nor empty");
         }
