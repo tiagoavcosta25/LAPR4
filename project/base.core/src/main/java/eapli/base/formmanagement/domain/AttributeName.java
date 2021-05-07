@@ -18,14 +18,14 @@ import javax.persistence.Embeddable;
 public class AttributeName implements ValueObject, Comparable<AttributeName> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "[a-zA-Z]{1,20}";
+    private static final String m_strRegex = "[a-zA-Z]{1,50}";
 
     private String m_strName;
 
     public AttributeName(final String strName) {
         if (StringPredicates.isNullOrEmpty(strName) || !strName.matches(m_strRegex)) {
             throw new IllegalArgumentException(
-                    "Attribute Name should neither be null, empty, contain other characters besides letters nor have more than 20 characters");
+                    "Attribute Name should neither be null, empty, contain other characters besides letters nor have more than 50 characters");
         }
         // expression
         this.m_strName = strName;

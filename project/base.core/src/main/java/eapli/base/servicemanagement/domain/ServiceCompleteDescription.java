@@ -18,14 +18,14 @@ import javax.persistence.Embeddable;
 public class ServiceCompleteDescription implements ValueObject, Comparable<ServiceCompleteDescription> {
 
     private static final long serialVersionUID = 1L;
-    private static final Integer m_intMaxLength = 256;
+    private static final Integer m_intMaxLength = 500;
 
     private String m_strDescription;
 
     public ServiceCompleteDescription(final String strDescription) {
         if (StringPredicates.isNullOrEmpty(strDescription) || !(strDescription.length() < m_intMaxLength)) {
             throw new IllegalArgumentException(
-                    "Attribute Complete Description should not be null, empty nor have more than 256 characters");
+                    "Attribute Complete Description should not be null, empty nor have more than 500 characters");
         }
         // expression
         this.m_strDescription = strDescription;

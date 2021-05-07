@@ -7,28 +7,29 @@ package eapli.base.infrastructure.bootstrapers.demo;
 
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.cataloguemanagement.domain.CatalogueID;
-import eapli.base.clientusermanagement.application.AcceptRefuseSignupFactory;
-import eapli.base.clientusermanagement.application.AcceptRefuseSignupRequestController;
-import eapli.base.clientusermanagement.domain.SignupRequest;
-import eapli.base.infrastructure.bootstrapers.TestDataConstants;
-import eapli.base.myclientuser.application.SignupController;
+import eapli.base.collaboratormanagement.application.CollaboratorSpecificationController;
 import eapli.base.servicemanagement.application.SaveDraftController;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
+import eapli.framework.infrastructure.authz.domain.model.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
-public class SaveDraftBootstrapper implements Action {
+public class CollaboratorSpecificationBootstrapper implements Action {
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            SaveDraftBootstrapper.class);
+            CollaboratorSpecificationBootstrapper.class);
 
-    private final SaveDraftController m_oCtrl = new SaveDraftController();
+    private final CollaboratorSpecificationController m_oCtrl = new CollaboratorSpecificationController();
 
     @Override
     public boolean execute() {
@@ -39,18 +40,13 @@ public class SaveDraftBootstrapper implements Action {
         return true;
     }
 
-    private Service saveDraft(final Long lngDraftId, final CatalogueID oCatalogueId) {
+    private Service specifyCollaborator(String strEmail, String strFirstName, String strLastName,
+                                        String strCompleteName, String strMechanographicNumber, String strAddress,
+                                        Double dblPhoneNumber, Date dtBirthDate, Set<Role> setRoles) {
         Service oService = null;
         try {
-            this.m_oCtrl.getServiceDraftById(lngDraftId);
-            Catalogue oCatalogue = null;
-            for(Catalogue c : this.m_oCtrl.getCatalogues()){
-                if(c.hasID(oCatalogueId)){
-                    oCatalogue = c;
-                    break;
-                }
-            }
-            oService = this.m_oCtrl.saveService(oCatalogue);
+            this.m_oCtrl.addCollaborator(strEmail, strFirstName, strLastName, strCompleteName, strMechanographicNumber, strAddress, dblPhoneNumber, dtBirthDate);
+            this.m_oCtrl.addRoles(setRoles);
         } catch (final ConcurrencyException | IntegrityViolationException e) {
             LOGGER.error("Error Saving the Draft.");
         }
