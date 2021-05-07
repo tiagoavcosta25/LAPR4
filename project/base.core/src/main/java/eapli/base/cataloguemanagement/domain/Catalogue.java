@@ -108,4 +108,8 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
     public Set<Team> access() {
         return this.m_setAccess;
     }
+
+    public boolean hasID(CatalogueID oID) {
+        return this.m_oID.equals(oID);
+    }
 }
