@@ -1,4 +1,5 @@
 package eapli.base.cataloguemanagement.domain;
+        import eapli.base.collaboratormanagement.domain.CollaboratorCompleteName;
         import eapli.framework.domain.model.ValueObject;
         import eapli.framework.strings.util.StringPredicates;
         import javax.persistence.Embeddable;
@@ -28,8 +29,8 @@ public class CatalogueTitle implements ValueObject, Comparable<CatalogueTitle> {
         // for ORM
     }
 
-    public static eapli.base.cataloguemanagement.domain.CatalogueTitle valueOf(final String strTitle) {
-        return new eapli.base.cataloguemanagement.domain.CatalogueTitle(strTitle);
+    public static CatalogueTitle valueOf(final String strTitle) {
+        return new CatalogueTitle(strTitle);
     }
 
     @Override

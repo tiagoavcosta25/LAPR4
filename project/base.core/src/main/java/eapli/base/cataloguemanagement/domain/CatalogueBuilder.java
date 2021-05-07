@@ -21,19 +21,19 @@ public class CatalogueBuilder implements DomainFactory<Catalogue> {
 
 
 
-    public CatalogueBuilder withTitle(CatalogueTitle oTitle) {
-        this.m_oCatalogueTitle = oTitle;
+    public CatalogueBuilder withTitle(String strTitle) {
+        this.m_oCatalogueTitle = CatalogueTitle.valueOf(strTitle);
         return this;
     }
 
-    public CatalogueBuilder withBriefDescription(CatalogueBriefDescription oCatalogueBriefDescription) {
-        this.m_oCatalogueBriefDescription = oCatalogueBriefDescription;
+    public CatalogueBuilder withBriefDescription(String srtCatalogueBriefDescription) {
+        this.m_oCatalogueBriefDescription = CatalogueBriefDescription.valueOf(srtCatalogueBriefDescription);
         return this;
     }
 
 
-    public CatalogueBuilder withCompleteDescription(CatalogueCompleteDescription oCatalogueCompleteDescription) {
-        this.m_oCatalogueCompleteDescription = oCatalogueCompleteDescription;
+    public CatalogueBuilder withCompleteDescription(String strCatalogueCompleteDescription) {
+        this.m_oCatalogueCompleteDescription =  CatalogueCompleteDescription.valueOf(strCatalogueCompleteDescription);
         return this;
     }
 
