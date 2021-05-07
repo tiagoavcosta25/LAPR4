@@ -42,11 +42,11 @@ deactivate CTRL
 deactivate UI
 HRR-> UI : Inserts the requested information
 activate UI
-UI-> CTRL : addColaborador(email, firstName, lastName, shortName, \ncompleteName, mechanographicNumber,\naddress, phoneNumber, birthDate)
+UI-> CTRL : addColaborador(email, firstName, lastName,\ncompleteName, mechanographicNumber,\naddress, phoneCode, phoneNumber, birthDate)
 activate CTRL
 
 CTRL-> CB** : create()
-CTRL-> CB : withShortName(shortName)
+CTRL-> CB : withShortName(firstName, lastName)
 activate CB
 deactivate CB
 CTRL-> CB : withCompleteName(completeName)
@@ -58,7 +58,7 @@ deactivate CB
 CTRL-> CB : withAddress(address)
 activate CB
 deactivate CB
-CTRL-> CB : withPhoneNumber(phoneNumber)
+CTRL-> CB : withPhoneNumber(phoneNumber, phoneCode)
 activate CB
 deactivate CB
 CTRL-> CB : withBirthDate(birthDate)
@@ -156,7 +156,7 @@ activate CTRL
 
 CTRL-> CB : build()
 activate CB
-CB-> COLAB** : create(systemUser, manager, shortName, completeName, mechanographicNumber,address, phoneNumber, birthDate)
+CB-> COLAB** : create(systemUser, manager, phoneNumber, completeName, mechanographicNumber,address, phoneNumber, birthDate)
 activate COLAB
 
 COLAB --> CB : collaborator

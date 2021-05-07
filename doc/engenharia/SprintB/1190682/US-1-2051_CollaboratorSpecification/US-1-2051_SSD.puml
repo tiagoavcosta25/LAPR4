@@ -10,7 +10,7 @@ activate HRR
 
 HRR-> SYST : Iniciates the request to specify a collaborator
 activate SYST
-SYST --> HRR: Request all information needed (i.e. email, first name,\n last nameshort and complete name,mechanographic number, \naddress, phone number, birth date)
+SYST --> HRR: Request all information needed (i.e. email, first name,\n last name and complete name,mechanographic number, \naddress, phone code, phone number, birth date)
 deactivate SYST
 
 HRR-> SYST : Inserts the requested information
