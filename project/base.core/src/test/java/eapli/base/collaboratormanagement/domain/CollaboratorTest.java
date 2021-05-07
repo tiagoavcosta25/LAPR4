@@ -70,10 +70,4 @@ public class CollaboratorTest extends TestCase {
         String expected = "Lorem";
         assertEquals(real.toString(), expected);
     }
-
-    public void testMechanographicNumber() {
-        CollaboratorMechanographicNumber real = c.mechanographicNumber();
-        String expected = "Ipsum";
-        assertEquals(real.toString(), expected);
-    }
 }

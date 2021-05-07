@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates and open the template
- * in the editor.
- */
 package eapli.base.collaboratormanagement.domain;
 
 import javax.persistence.*;
@@ -19,14 +14,14 @@ import java.util.Set;
  * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 @Entity
-public class Collaborator implements AggregateRoot<CollaboratorID> {
+public class Collaborator implements AggregateRoot<CollaboratorMechanographicNumber> {
 
     @Version
     private Long version;
 
-    @Id
-    @GeneratedValue
-    private CollaboratorID m_oID;
+    @EmbeddedId
+    @Column(name = "mechanographicNumber")
+    private CollaboratorMechanographicNumber m_oMechanographicNumber;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -58,10 +53,6 @@ public class Collaborator implements AggregateRoot<CollaboratorID> {
     @Embedded
     @Column(name = "shortName")
     private CollaboratorShortName m_oShortName;
-
-    @Embedded
-    @Column(name = "mechanographicNumber")
-    private CollaboratorMechanographicNumber m_oMechanographicNumber;
 
     @ManyToMany(mappedBy = "m_setRepresentation")
     private Set<Team> m_setTeams;
@@ -101,9 +92,6 @@ public class Collaborator implements AggregateRoot<CollaboratorID> {
     public CollaboratorShortName shortName() {
         return this.m_oShortName;
     }
-    public CollaboratorMechanographicNumber mechanographicNumber() {
-        return this.m_oMechanographicNumber;
-    }
 
     @Override
     public boolean equals(final Object o) {
@@ -120,12 +108,12 @@ public class Collaborator implements AggregateRoot<CollaboratorID> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public CollaboratorID id() {
+    public CollaboratorMechanographicNumber id() {
         return identity();
     }
 
     @Override
-    public CollaboratorID identity() {
-        return this.m_oID;
+    public CollaboratorMechanographicNumber identity() {
+        return this.m_oMechanographicNumber;
     }
 }

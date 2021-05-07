@@ -2,9 +2,6 @@ package eapli.base.collaboratormanagement.domain;
 
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
