@@ -82,9 +82,8 @@ public class CollaboratorSpecificationController {
 
     }
 
-    public List<Collaborator> getCollaborators() {
-        m_lstCollaborators = m_oCollaboratorRepo.all();
-        return m_lstCollaborators;
+    public Iterable<Collaborator> getCollaborators() {
+        return m_oCollaboratorRepo.findAll();
     }
 
     public void addManager(Collaborator oManager) {

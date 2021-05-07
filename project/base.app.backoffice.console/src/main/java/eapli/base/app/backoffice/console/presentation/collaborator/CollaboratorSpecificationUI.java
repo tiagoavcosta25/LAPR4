@@ -65,7 +65,7 @@ public class CollaboratorSpecificationUI extends AbstractUI {
             this.theController.addRoles(setRole);
 
 
-            List<Collaborator> lstCollaborators = this.theController.getCollaborators();
+            Iterable<Collaborator> lstCollaborators = this.theController.getCollaborators();
             Collaborator oManager = PrintList.chooseOne(lstCollaborators, "Choose your Manager", "Manager");
             this.theController.addManager(oManager);
 

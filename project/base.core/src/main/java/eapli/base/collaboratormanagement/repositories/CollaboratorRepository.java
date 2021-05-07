@@ -26,5 +26,4 @@ public interface CollaboratorRepository
 
     public Iterable<Collaborator> findAllActive();
 
-    List<Collaborator> all();
 }
