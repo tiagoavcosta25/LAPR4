@@ -1,6 +1,7 @@
 package eapli.base.cataloguemanagement.domain;
 
 import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.servicemanagement.domain.ServiceBuilder;
 import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.model.DomainFactory;
 
@@ -14,7 +15,7 @@ public class CatalogueBuilder implements DomainFactory<Catalogue> {
 
     private CatalogueCompleteDescription m_oCatalogueCompleteDescription;
 
-    private Set<Collaborator> m_setRepresentation;
+    private Collaborator m_oCollaborator;
 
     private Set<Team> m_setAccess;
 
@@ -36,10 +37,12 @@ public class CatalogueBuilder implements DomainFactory<Catalogue> {
         return this;
     }
 
-    public CatalogueBuilder withRepresentation(Set<Collaborator> setRepresentation) {
-        this.m_setRepresentation = setRepresentation;
+
+    public CatalogueBuilder withCollaborator(Collaborator oCollaborator) {
+        this.m_oCollaborator = oCollaborator;
         return this;
     }
+
 
     public CatalogueBuilder withAccess(Set<Team> setAccess) {
         this.m_setAccess = setAccess;
@@ -48,6 +51,6 @@ public class CatalogueBuilder implements DomainFactory<Catalogue> {
 
     @Override
     public Catalogue build() {
-        return new Catalogue(m_oCatalogueBriefDescription,m_oCatalogueCompleteDescription,m_oCatalogueTitle , m_setRepresentation, m_setAccess);
+        return new Catalogue(m_oCatalogueBriefDescription,m_oCatalogueCompleteDescription,m_oCatalogueTitle , m_oCollaborator, m_setAccess);
     }
 }
