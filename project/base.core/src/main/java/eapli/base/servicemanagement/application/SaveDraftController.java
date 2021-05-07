@@ -54,9 +54,10 @@ public class SaveDraftController {
         return this.m_oServiceDraft;
     }
 
-    public List<Catalogue> getCatalogues() {
+    //TODO: FIX METHOD
+    /*public List<Catalogue> getCatalogues() {
         return this.catalogueRepo.all();
-    }
+    }*/
 
     public Service saveService(Catalogue oCatalogue) {
         String strTitle = this.m_oServiceDraft.getTitle();
