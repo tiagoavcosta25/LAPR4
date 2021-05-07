@@ -7,7 +7,7 @@
 
 | Sprint | Funcionalidade     |
 |--------|--------------------|
-| **B**  | [US-1-2052](US-1-2052_CriarEquipa) |
+| **B**  | [US-1-2052](US-1-2052_CreateTeam) |
 | **B**  | [USDemo2](USDemo2) |
 | **C**  | [USDemo3](USDemo3) |
 | **C**  | [USDemo3](USDemo4) |
