@@ -40,9 +40,4 @@ class JpaCollaboratorRepository
     public Iterable<Collaborator> findAllActive() {
         return match("e.systemUser.active = true");
     }
-
-    @Override
-    public List<Collaborator> all() {
-        return null; //TODO
-    }
 }

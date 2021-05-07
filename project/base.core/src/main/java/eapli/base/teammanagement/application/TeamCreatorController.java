@@ -30,9 +30,9 @@ public class TeamCreatorController {
         return Arrays.asList(TeamType.values());
     }
 
-    public List<Collaborator> getCollaborators() {
+    public Iterable<Collaborator> getCollaborators() {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
-        return m_oCollaboratorRepo.all();
+        return m_oCollaboratorRepo.findAll();
     }
 
     public Team createTeam(TeamID oTeamID, TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
