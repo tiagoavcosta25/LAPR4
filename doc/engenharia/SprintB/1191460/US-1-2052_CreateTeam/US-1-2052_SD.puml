@@ -58,10 +58,10 @@ CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
 CTRL -> CR : all()
 
 activate CR
-CR --> CTRL : collabList
+CR --> CTRL : collabSet
 
 deactivate CR
-CTRL --> UI : collabList
+CTRL --> UI : collabSet
 deactivate CTRL
 
 
