@@ -11,6 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ *
+ * @author Tiago Costa 1191460@isep.ipp.pt
+ */
 public class JpaTeamRepository extends JpaAutoTxRepository<Team, TeamID, TeamID>
     implements TeamRepository {
 
