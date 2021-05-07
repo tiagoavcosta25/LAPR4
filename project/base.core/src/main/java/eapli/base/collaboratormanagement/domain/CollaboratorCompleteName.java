@@ -20,11 +20,12 @@ public class CollaboratorCompleteName implements ValueObject, Comparable<Collabo
     private static final long serialVersionUID = 1L;
 
     private String m_strCompleteName;
+    private static final String m_strRegex = "[a-zA-Z]+";
 
     public CollaboratorCompleteName(final String strCompleteName) {
-        if (StringPredicates.isNullOrEmpty(strCompleteName)) {
+        if (StringPredicates.isNullOrEmpty(strCompleteName) || !strCompleteName.matches(m_strRegex)) {
             throw new IllegalArgumentException(
-                    "Complete name can't be null nor empty.");
+                    "Complete name should neither be null, empty nor contain other characters besides letters.");
         }
         // expression
         this.m_strCompleteName = strCompleteName;

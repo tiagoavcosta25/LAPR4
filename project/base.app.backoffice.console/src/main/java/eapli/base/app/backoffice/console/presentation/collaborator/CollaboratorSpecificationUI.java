@@ -26,15 +26,9 @@ package eapli.base.app.backoffice.console.presentation.collaborator;
 import eapli.base.app.backoffice.console.presentation.service.PrintList;
 import eapli.base.collaboratormanagement.application.CollaboratorSpecificationController;
 import eapli.base.collaboratormanagement.domain.*;
-import eapli.framework.actions.Actions;
-import eapli.framework.actions.menu.Menu;
-import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import eapli.framework.presentation.console.menu.MenuItemRenderer;
-import eapli.framework.presentation.console.menu.MenuRenderer;
-import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -52,16 +46,16 @@ public class CollaboratorSpecificationUI extends AbstractUI {
             final String strEmail = Console.readLine("Email");
             final String strFirstName = Console.readLine("First Name");
             final String strLastName = Console.readLine("Last Name");
-            final String strShortName = Console.readLine("Short Name");
             final String strCompleteName = Console.readLine("Complete Name");
             final String strMechanographicNumber = Console.readLine("Mechanographic Number");
             final String strAddress = Console.readLine("Address");
             final String strPhoneNumber = Console.readLine("Phone Number");
             final String strBirthDate = Console.readLine("Birth Date (dd/MM/yyyy)");
+
             final Date dtBirthDate = new SimpleDateFormat("dd/MM/yyyy").parse(strBirthDate);
 
-            Collaborator oCollaborator = this.theController.addCollaborator(strEmail, strFirstName, strLastName, strShortName, strCompleteName,
-                    strMechanographicNumber, strAddress, Double.parseDouble(strPhoneNumber), dtBirthDate);
+            Collaborator oCollaborator = this.theController.addCollaborator(strEmail, strFirstName, strLastName, strCompleteName,
+                    Long.parseLong(strMechanographicNumber), strAddress, strPhoneNumber, dtBirthDate);
 
             List<Role> lstRoles = Arrays.asList(this.theController.getRoleList());
             lstRoles = PrintList.chooseMultiple(lstRoles, "Choose a Role for this Collaborator", "Role");

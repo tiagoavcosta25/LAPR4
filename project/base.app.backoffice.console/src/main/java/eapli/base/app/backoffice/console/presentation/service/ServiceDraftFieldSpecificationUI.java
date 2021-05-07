@@ -55,8 +55,6 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
                 strOp = addField();
             } while(strOp.compareToIgnoreCase("Y") == 0);
 
-
-
             strOp = Console.readLine("Confirm the changes made on the Draft (Y/N)");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
@@ -65,7 +63,6 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
             } else{
                 System.out.println("Operation Cancelled.");
             }
-
         } catch (Exception e){
             System.out.println("Error in creating a service.");
         }

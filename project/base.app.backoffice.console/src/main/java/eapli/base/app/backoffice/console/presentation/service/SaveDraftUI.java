@@ -23,18 +23,12 @@
  */
 package eapli.base.app.backoffice.console.presentation.service;
 
+import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.servicemanagement.application.SaveDraftController;
 import eapli.base.servicemanagement.domain.*;
-import eapli.framework.actions.Actions;
-import eapli.framework.actions.menu.Menu;
-import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import eapli.framework.presentation.console.menu.MenuItemRenderer;
-import eapli.framework.presentation.console.menu.MenuRenderer;
-import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
-
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
@@ -49,7 +43,9 @@ public class SaveDraftUI extends AbstractUI {
             Long lngID = Long.parseLong(Console.readLine("Draft ID"));
             ServiceDraft oServiceDraft = this.theController.getServiceDraftById(lngID);
 
-            Catalogue oCatalogue = (Catalogue) PrintList.chooseOne(lstCatalogues, "Choose a Catalogue for this Service", "Catalogue");
+            List<Catalogue> lstCatalogues = this.theController.getCatalogues();
+
+            Catalogue oCatalogue = PrintList.chooseOne(lstCatalogues, "Choose a Catalogue for this Service", "Catalogue");
 
             String strOp = Console.readLine("Confirm the creation of the following Service (Y/N):\n\n%s\n" +
                     oServiceDraft.toString());

@@ -9,6 +9,7 @@ import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Embeddable;
+import java.util.Locale;
 
 /**
  *
@@ -19,23 +20,27 @@ public class CollaboratorShortName implements ValueObject, Comparable<Collaborat
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strShortName;
+    private String m_strFirstName;
+    private String m_strLastName;
+    private static final String m_strRegex = "[a-zA-Z]+";
 
-    public CollaboratorShortName(final String strShortName) {
-        if (StringPredicates.isNullOrEmpty(strShortName)) {
+    public CollaboratorShortName(final String strFirstName, final String strLastName) {
+        if (StringPredicates.isNullOrEmpty(strFirstName) || !strFirstName.matches(m_strRegex) ||
+                StringPredicates.isNullOrEmpty(strLastName) || !strFirstName.matches(strLastName)) {
             throw new IllegalArgumentException(
-                    "Short name can't be null nor empty.");
+                    "Name should neither be null, empty nor contain other characters besides letters.");
         }
         // expression
-        this.m_strShortName = strShortName;
+        this.m_strFirstName = strFirstName;
+        this.m_strLastName = strLastName;
     }
 
     protected CollaboratorShortName() {
         // for ORM
     }
 
-    public static CollaboratorShortName valueOf(final String strShortName) {
-        return new CollaboratorShortName(strShortName);
+    public static CollaboratorShortName valueOf(final String strFirstName, final String strLastName) {
+        return new CollaboratorShortName(strFirstName, strLastName);
     }
 
     @Override
@@ -48,21 +53,21 @@ public class CollaboratorShortName implements ValueObject, Comparable<Collaborat
         }
 
         final CollaboratorShortName that = (CollaboratorShortName) o;
-        return this.m_strShortName.equals(that.m_strShortName);
+        return this.m_strFirstName.equals(that.m_strFirstName) && this.m_strLastName.equals(that.m_strLastName) ;
     }
 
     @Override
     public int hashCode() {
-        return this.m_strShortName.hashCode();
+        return this.toString().hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strShortName;
+        return this.m_strFirstName + " " + this.m_strLastName;
     }
 
     @Override
     public int compareTo(final CollaboratorShortName arg0) {
-        return m_strShortName.compareTo(arg0.m_strShortName);
+        return this.toString().compareTo(arg0.toString());
     }
 }

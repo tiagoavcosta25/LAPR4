@@ -18,13 +18,14 @@ import javax.persistence.Embeddable;
 public class AttributeLabel implements ValueObject, Comparable<AttributeLabel> {
 
     private static final long serialVersionUID = 1L;
+    private static final String m_strRegex = "[a-zA-Z]{1,50}";
 
     private String m_strLabel;
 
     public AttributeLabel(final String strLabel) {
-        if (StringPredicates.isNullOrEmpty(strLabel)) {
+        if (StringPredicates.isNullOrEmpty(strLabel) || !strLabel.matches(m_strRegex)) {
             throw new IllegalArgumentException(
-                    "Attribute Label should neither be null nor empty");
+                    "Attribute Label should neither be null, empty, contain other characters besides letters nor have more than 50 characters");
         }
         // expression
         this.m_strLabel = strLabel;

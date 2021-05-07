@@ -1,5 +1,6 @@
 package eapli.base.servicemanagement.domain;
 
+import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.formmanagement.domain.*;
 import eapli.framework.domain.model.DomainFactory;
 

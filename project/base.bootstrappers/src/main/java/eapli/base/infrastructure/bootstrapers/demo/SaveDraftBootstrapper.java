@@ -5,6 +5,8 @@
  */
 package eapli.base.infrastructure.bootstrapers.demo;
 
+import eapli.base.cataloguemanagement.domain.Catalogue;
+import eapli.base.cataloguemanagement.domain.CatalogueID;
 import eapli.base.clientusermanagement.application.AcceptRefuseSignupFactory;
 import eapli.base.clientusermanagement.application.AcceptRefuseSignupRequestController;
 import eapli.base.clientusermanagement.domain.SignupRequest;
@@ -30,25 +32,25 @@ public class SaveDraftBootstrapper implements Action {
 
     @Override
     public boolean execute() {
-        saveDraft(1l, "1");
-        saveDraft(2l, "2");
-        saveDraft(3l, "3");
-        saveDraft(4l, "4");
+        saveDraft(1l, CatalogueID.valueOf("1"));
+        saveDraft(2l, CatalogueID.valueOf("1"));
+        saveDraft(3l, CatalogueID.valueOf("1"));
+        saveDraft(4l, CatalogueID.valueOf("1"));
         return true;
     }
 
-    private Service saveDraft(final Long lngDraftId, String strCatalogueId) {
+    private Service saveDraft(final Long lngDraftId, final CatalogueID oCatalogueId) {
         Service oService = null;
         try {
             this.m_oCtrl.getServiceDraftById(lngDraftId);
-            Catalogue oCatalogue;
+            Catalogue oCatalogue = null;
             for(Catalogue c : this.m_oCtrl.getCatalogues()){
-                if(c.hasId(strCatalogueId)){
+                if(c.hasID(oCatalogueId)){
                     oCatalogue = c;
                     break;
                 }
             }
-            this.m_oCtrl.saveService(oCatalogue);
+            oService = this.m_oCtrl.saveService(oCatalogue);
         } catch (final ConcurrencyException | IntegrityViolationException e) {
             LOGGER.error("Error Saving the Draft.");
         }

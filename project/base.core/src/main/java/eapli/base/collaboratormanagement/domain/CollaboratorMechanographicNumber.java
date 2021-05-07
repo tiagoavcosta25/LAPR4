@@ -19,23 +19,22 @@ public class CollaboratorMechanographicNumber implements ValueObject, Comparable
 
     private static final long serialVersionUID = 1L;
 
-    private String m_strMechanographicNumber;
+    private Long m_lngMechanographicNumber;
 
-    public CollaboratorMechanographicNumber(final String strMechanographicNumber) {
-        if (StringPredicates.isNullOrEmpty(strMechanographicNumber)) {
+    public CollaboratorMechanographicNumber(final long lngMechanographicNumber) {
+        if (lngMechanographicNumber < 0 || String.valueOf(lngMechanographicNumber).length() > 6) {
             throw new IllegalArgumentException(
-                    "Mechanographic number can't be null nor empty.");
+                    "Mechanographic Number should neither be less than zero nor less than six digits.");
         }
-        // expression
-        this.m_strMechanographicNumber = strMechanographicNumber;
+        this.m_lngMechanographicNumber = lngMechanographicNumber;
     }
 
     protected CollaboratorMechanographicNumber() {
         // for ORM
     }
 
-    public static CollaboratorMechanographicNumber valueOf(final String strMechanographicNumber) {
-        return new CollaboratorMechanographicNumber(strMechanographicNumber);
+    public static CollaboratorMechanographicNumber valueOf(final long lngMechanographicNumber) {
+        return new CollaboratorMechanographicNumber(lngMechanographicNumber);
     }
 
     @Override
@@ -48,21 +47,21 @@ public class CollaboratorMechanographicNumber implements ValueObject, Comparable
         }
 
         final CollaboratorMechanographicNumber that = (CollaboratorMechanographicNumber) o;
-        return this.m_strMechanographicNumber.equals(that.m_strMechanographicNumber);
+        return this.m_lngMechanographicNumber == that.m_lngMechanographicNumber;
     }
 
     @Override
     public int hashCode() {
-        return this.m_strMechanographicNumber.hashCode();
+        return this.m_lngMechanographicNumber.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strMechanographicNumber;
+        return Long.toString(this.m_lngMechanographicNumber);
     }
 
     @Override
     public int compareTo(final CollaboratorMechanographicNumber arg0) {
-        return m_strMechanographicNumber.compareTo(arg0.m_strMechanographicNumber);
+        return Math.round(m_lngMechanographicNumber) - Math.round(arg0.m_lngMechanographicNumber);
     }
 }

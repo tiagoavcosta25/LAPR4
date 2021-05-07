@@ -2,9 +2,6 @@ package eapli.base.collaboratormanagement.domain;
 
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -22,8 +19,8 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
     private SystemUser m_oSystemUser;
     private Collaborator m_oManager;
 
-    public CollaboratorBuilder withPhoneNumber(Double dblPhoneNumber) {
-        this.m_oPhoneNumber = CollaboratorPhoneNumber.valueOf(dblPhoneNumber);
+    public CollaboratorBuilder withPhoneNumber(String strPhoneNumber) {
+        this.m_oPhoneNumber = CollaboratorPhoneNumber.valueOf(strPhoneNumber);
         return this;
     }
 
@@ -42,13 +39,13 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
         return this;
     }
 
-    public CollaboratorBuilder withShortName(String strShortName) {
-        this.m_oShortName = CollaboratorShortName.valueOf(strShortName);
+    public CollaboratorBuilder withShortName(String strFirstName, String strLastName) {
+        this.m_oShortName = CollaboratorShortName.valueOf(strFirstName, strLastName);
         return this;
     }
 
-    public CollaboratorBuilder withMechanographicNumber(String strMechanographicNumber) {
-        this.m_oMechanographicNumber = CollaboratorMechanographicNumber.valueOf(strMechanographicNumber);
+    public CollaboratorBuilder withMechanographicNumber(Long lngMechanographicNumber) {
+        this.m_oMechanographicNumber = CollaboratorMechanographicNumber.valueOf(lngMechanographicNumber);
         return this;
     }
 
@@ -64,8 +61,6 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
 
     @Override
     public Collaborator build() {
-        // since the factory knows that all the parts are needed it could throw
-        // an exception. however, we will leave that to the constructor
         return new Collaborator(this.m_oSystemUser, this.m_oManager, this.m_oPhoneNumber, this.m_oBirthDate ,this.m_oAddress,
                 this.m_oCompleteName, this.m_oShortName, this.m_oMechanographicNumber);
     }

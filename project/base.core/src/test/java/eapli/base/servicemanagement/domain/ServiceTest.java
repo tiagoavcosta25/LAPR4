@@ -1,5 +1,9 @@
 package eapli.base.servicemanagement.domain;
 
+import eapli.base.cataloguemanagement.domain.Catalogue;
+import eapli.base.cataloguemanagement.domain.CatalogueBriefDescription;
+import eapli.base.cataloguemanagement.domain.CatalogueCompleteDescription;
+import eapli.base.cataloguemanagement.domain.CatalogueTitle;
 import eapli.base.formmanagement.domain.*;
 import junit.framework.TestCase;
 
@@ -12,8 +16,9 @@ public class ServiceTest extends TestCase {
     public final Attribute a = new Attribute(AttributeName.valueOf("Lorem"), AttributeLabel.valueOf("Ipsum"), AttributeDescription.valueOf("Lorem"),
             AttributeRegex.valueOf("Ipsum"), AttributeScript.valueOf("Lorem"), DataType.stringToDataType("Integer"));
     public final Form f = new Form(FormName.valueOf("Lorem"), FormType.valueOf("Service"), Arrays.asList(a));
-    public final Catalogue c = new Catalogue();
-    public final Service s = getDummyService("Lorem", "Ipsum", "Lorem", 2, c, Arrays.asList("Ipsum"), Arrays.asList(f));
+    public final Catalogue c = new Catalogue(CatalogueBriefDescription.valueOf("Lorem"), CatalogueCompleteDescription.valueOf("Lorem"),
+            CatalogueTitle.valueOf("Lorem"), null, null);
+    public final Service s = getDummyService("Lorem", "Ipsum", "Lorem", 2d, c, Arrays.asList("Ipsum"), Arrays.asList(f));
 
     public static Service getDummyService(final String strTitle, final String strBriefDescription, final String strCompleteDescription,
                                               final Double dblFeedback, Catalogue oCatalogue, final List<String> lstKeywords, final List<Form> lstForms) {
@@ -55,7 +60,7 @@ public class ServiceTest extends TestCase {
     public void testCatalogue() {
         Catalogue real = s.catalogue();
         Catalogue expected = c;
-        assertEquals(real, c);
+        assertEquals(real, expected);
     }
 
     public void testKeywords() {
