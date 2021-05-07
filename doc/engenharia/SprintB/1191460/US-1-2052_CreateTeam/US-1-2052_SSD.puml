@@ -22,13 +22,13 @@ HRR-> SYST : Inserts the requested information
 activate SYST
 
 loop until user command
-    SYST --> HRR: Shows colaborator's list
+    SYST --> HRR: Shows collaborator's list
     deactivate SYST
 
-    HRR-> SYST : Select's the team's responsible colaborator
+    HRR-> SYST : Select's the team's responsible collaborator
     activate SYST
 
-    SYST --> HRR: Asks if the user wants to add more responsible colaborator's
+    SYST --> HRR: Asks if the user wants to add more responsible collaborator's
     deactivate SYST
 
     HRR-> SYST : Responds
