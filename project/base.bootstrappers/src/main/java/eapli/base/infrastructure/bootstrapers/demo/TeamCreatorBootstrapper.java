@@ -42,7 +42,7 @@ public class TeamCreatorBootstrapper implements Action {
         return true;
     }
 
-    //TODO: FIX
+    //TODO: FIX MISSING TEAMID
     private Team createTeam(TeamType enumTeamType, String strAcronym, String strTeamDescription,
                                     List<Long> listColabID) {
         Team oTeam = null;
