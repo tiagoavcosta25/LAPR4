@@ -26,18 +26,17 @@ public class CatalogueSpecificationController {
     private final TeamRepository m_oTeamRepo = PersistenceContext.repositories().teams();
 
 
-    public List<Collaborator> getCollaborators() {
+    public Iterable<Collaborator> getCollaborators() {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
-        return m_oCollaboratorRepo.all();
+        return m_oCollaboratorRepo.findAll();
     }
 
-    public List<Team> getTeams() {
+    public Iterable<Team> getTeams() {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
-        return m_oTeamRepo.all();
+        return m_oTeamRepo.findAll();
     }
-
-
-    public Catalogue createCatalog(String strTitle, String strBriefDescription, String strCompleteDescription, String strCollaborator, Set<Team> setAccess) {
+    
+    public Catalogue createCatalog(String strTitle, String strBriefDescription, String strCompleteDescription, Collaborator strCollaborator, Set<Team> setAccess) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
         final CatalogueBuilder catalogueBuilder = new CatalogueBuilder();
         catalogueBuilder.withTitle(strTitle).withBriefDescription(strBriefDescription).withCompleteDescription(strCompleteDescription).withCollaborator(strCollaborator).withAccess(setAccess);
