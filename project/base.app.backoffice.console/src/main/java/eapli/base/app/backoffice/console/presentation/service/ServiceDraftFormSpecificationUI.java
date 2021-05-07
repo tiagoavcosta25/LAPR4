@@ -104,28 +104,12 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
         final String strAttributeScript = Console.readLine("Attribute Script");
 
 
-        DataType oDataType = PrintList.chooseOne(Arrays.asList(DataType.values()), "Choose a Data Type for this Attribute", "Data Type");
+        DataType oDataType = PrintList.chooseOne(this.theController.showDataTypes(), "Choose a Data Type for this Attribute", "Data Type");
 
         this.theController.addAttribute(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, strAttributeScript, oDataType.toString());
 
         String strOp = Console.readLine("Do you want to add another attribute to this service? (Y/N)");
         return strOp.compareToIgnoreCase("N") == 0;
-    }
-
-    private boolean showDataType(final List<DataType> lstDataType) {
-        final Menu dataTypeMenu = buildDataTypeMenu(lstDataType);
-        final MenuRenderer renderer = new VerticalMenuRenderer(dataTypeMenu, MenuItemRenderer.DEFAULT);
-        return renderer.render();
-    }
-
-    private Menu buildDataTypeMenu(final List<DataType> lstDataType) {
-        final Menu dataTypeMenu = new Menu();
-        int counter = 0;
-        dataTypeMenu.addItem(MenuItem.of(counter++, "No Tipo Form", Actions.SUCCESS));
-        for (final DataType dataType : this.theController.showDataTypes()) {
-            dataTypeMenu.addItem(MenuItem.of(counter++, dataType.toString(), () -> lstDataType.add(dataType)));
-        }
-        return dataTypeMenu;
     }
 
 

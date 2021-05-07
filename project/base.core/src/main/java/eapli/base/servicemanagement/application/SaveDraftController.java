@@ -50,17 +50,19 @@ public class SaveDraftController {
     private ServiceDraft m_oServiceDraft = new ServiceDraft();
 
     public ServiceDraft getServiceDraftById(Long lngID) {
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft = this.draftRepo.findByID(lngID).get();
         return this.m_oServiceDraft;
     }
 
 
     public List<Catalogue> getCatalogues() {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         return this.catalogueRepo.all();
     }
 
     public Service saveService(Catalogue oCatalogue) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         String strTitle = this.m_oServiceDraft.getTitle();
         String strBriefDescription = this.m_oServiceDraft.getBriefDescription();
         String strCompleteDescription = this.m_oServiceDraft.getCompleteDescription();
