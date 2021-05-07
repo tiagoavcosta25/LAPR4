@@ -17,7 +17,7 @@ public class CatalogueTitle implements ValueObject, Comparable<CatalogueTitle> {
     private String m_strTitle;
 
     public CatalogueTitle(final String strTitle) {
-        if (StringPredicates.isNullOrEmpty(m_strTitle)) {
+        if (StringPredicates.isNullOrEmpty(strTitle)) {
             throw new IllegalArgumentException(
                     "Catalogue´s title can't be null nor empty.");
         }

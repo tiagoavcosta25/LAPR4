@@ -51,7 +51,7 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
 
     public Catalogue(CatalogueBriefDescription oCatalogueBriefDescription, CatalogueCompleteDescription oCatalogueCompleteDescription,
                      CatalogueTitle oCatalogueTitle, Collaborator oCollaborator, Set<Team> setAccess){
-        if (oCatalogueBriefDescription == null || oCatalogueCompleteDescription == null || oCatalogueTitle == null || oCollaborator == null  || setAccess.isEmpty()) {
+        if (oCatalogueBriefDescription == null || oCatalogueCompleteDescription == null || oCatalogueTitle == null || oCollaborator == null) {
             throw new IllegalArgumentException();
         }this.m_oCatalogueBriefDescription = oCatalogueBriefDescription;
         this.m_oCatalogueCompleteDescription = oCatalogueCompleteDescription;

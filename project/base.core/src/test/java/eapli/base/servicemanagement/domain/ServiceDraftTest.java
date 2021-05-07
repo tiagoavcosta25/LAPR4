@@ -10,12 +10,32 @@ import java.util.List;
 public class ServiceDraftTest extends TestCase {
 
     public final List<String> lstKeywords = new ArrayList<>(Arrays.asList("Ipsum"));
-    public final Attribute a = new Attribute(AttributeName.valueOf("Lorem"), AttributeLabel.valueOf("Ipsum"), AttributeDescription.valueOf("Lorem"),
-            AttributeRegex.valueOf("Ipsum"), AttributeScript.valueOf("Lorem"), DataType.stringToDataType("Integer"));
-    public final Form f = new Form(FormName.valueOf("Lorem"), FormType.valueOf("Service"), Arrays.asList(a));
-    public final List<Form> lstForms = new ArrayList<>(Arrays.asList(f));
+
+    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:/folder/script.bin", "Integer");
+    public final Form f = getDummyForm("Lorem", "MANUAL_TASK", Arrays.asList(a));
+    public List<Form> lstForms = new ArrayList<>(Arrays.asList(f));
     public final ServiceDraft s = new ServiceDraft("Lorem", "Ipsum", "Lorem",
             1d, lstKeywords, lstForms);
+
+    public static Attribute getDummyAttribute(final String strName, final String strLabel, final String strDescription,
+                                              final String strRegex, final String strScript, final String strDataType) {
+        AttributeBuilder attributeBuilder = new AttributeBuilder();
+        attributeBuilder = attributeBuilder.withName(strName);
+        attributeBuilder = attributeBuilder.withLabel(strLabel);
+        attributeBuilder = attributeBuilder.withDescription(strDescription);
+        attributeBuilder = attributeBuilder.withRegex(strRegex);
+        attributeBuilder = attributeBuilder.withScript(strScript);
+        attributeBuilder = attributeBuilder.withDataType(strDataType);
+        return attributeBuilder.build();
+    }
+
+    public static Form getDummyForm(final String oName, final String oFormType, final List<Attribute> lstAttributes) {
+        FormBuilder formBuilder = new FormBuilder();
+        formBuilder = formBuilder.withName(oName);
+        formBuilder = formBuilder.withType(oFormType);
+        formBuilder = formBuilder.withAttributeList(lstAttributes);
+        return formBuilder.build();
+    }
 
     public void testGetID() {
         s.setID(1l);
@@ -55,8 +75,8 @@ public class ServiceDraftTest extends TestCase {
     }
 
     public void testGetFormList() {
-        List<Form> real = s.getFormList();
-        List<Form> expected = lstForms;
+        Form real = s.getFormList().get(0);
+        Form expected = f;
         assertEquals(real, expected);
     }
 

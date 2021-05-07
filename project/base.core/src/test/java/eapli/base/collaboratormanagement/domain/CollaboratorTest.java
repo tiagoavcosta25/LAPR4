@@ -40,15 +40,14 @@ public class CollaboratorTest extends TestCase {
     }
 
     public void testPhoneNumber() {
-        CollaboratorPhoneNumber real = c.phoneNumber();
-        Double expected = 919191919d;
-        assertEquals(real.toString(), expected);
+        String real = c.phoneNumber().toString();
+        String expected = "+3519.19191919E8";
+        assertEquals(real, expected);
     }
 
     public void testBirthDate() throws ParseException {
-        CollaboratorBirthDate real = c.birthDate();
-        Date dtBirthDate = new SimpleDateFormat("dd/MM/yyyy").parse("1/1/2000");
-        Date expected = dtBirthDate;
+        String real = c.birthDate().toString();
+        String expected = dtBirthDate.toString();
         assertEquals(real.toString(), expected);
     }
 
@@ -87,12 +86,14 @@ public class CollaboratorTest extends TestCase {
     }
 
     public void testId() {
-        CollaboratorMechanographicNumber real = c.id();
-        assertNull(real);
+        String real = c.id().toString();
+        String excepted = "123456";
+        assertEquals(excepted, real);
     }
 
     public void testIdentity() {
-        CollaboratorMechanographicNumber real = c.identity();
-        assertNull(real);
+        String real = c.identity().toString();
+        String excepted = "123456";
+        assertEquals(excepted, real);
     }
 }

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 public class AttributeTest extends TestCase {
 
-    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:\\folder\\script.bin", "Integer");
+    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:/folder/script.bin", "Integer");
 
     public static Attribute getDummyAttribute(final String strName, final String strLabel, final String strDescription,
                                            final String strRegex, final String strScript, final String strDataType) {
@@ -52,14 +52,14 @@ public class AttributeTest extends TestCase {
     @Test
     public void testScript() {
         AttributeScript real = a.script();
-        String expected = "Lorem";
+        String expected = "D:/folder/script.bin";
         assertEquals(real.toString(), expected);
     }
 
     @Test
     public void testDataType() {
         DataType real = a.dataType();
-        String expected = "Ipsum";
+        String expected = "INTEGER";
         assertEquals(real.toString(), expected);
     }
 

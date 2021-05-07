@@ -78,6 +78,7 @@ public class ServiceDraft implements AggregateRoot<Long> {
         if (strTitle == null || strBriefDescription == null || strCompleteDescription == null || dblFeedback == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
             throw new IllegalArgumentException();
         }
+        this.m_strTitle = strTitle;
         this.m_strBriefDescription = strBriefDescription;
         this.m_strCompleteDescription = strCompleteDescription;
         this.m_dblFeedback = dblFeedback;

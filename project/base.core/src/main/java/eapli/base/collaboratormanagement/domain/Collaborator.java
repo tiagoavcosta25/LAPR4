@@ -63,7 +63,7 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     public Collaborator(final SystemUser oSystemUser, final Collaborator oManager, final CollaboratorPhoneNumber oPhoneNumber,
                         final CollaboratorBirthDate oBirthDate, final CollaboratorAddress oAddress, final CollaboratorCompleteName oCompleteName,
                         final CollaboratorShortName oShortName, final CollaboratorMechanographicNumber oMechanographicNumber) {
-        if (oSystemUser == null || oManager == null || oPhoneNumber == null || oBirthDate == null || oAddress == null || oCompleteName == null
+        if (oSystemUser == null || oPhoneNumber == null || oBirthDate == null || oAddress == null || oCompleteName == null
                 || oShortName == null || oMechanographicNumber == null){
             throw new IllegalArgumentException();
         }

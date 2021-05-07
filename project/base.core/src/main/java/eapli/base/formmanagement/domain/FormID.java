@@ -26,8 +26,6 @@ public class FormID implements ValueObject, Comparable<FormID> {
             throw new IllegalArgumentException(
                     "Form ID should neither be null nor empty");
         }
-        // TODO validate invariants, i.e., mecanographic number regular
-        // expression
         this.m_strID = strID;
     }
 

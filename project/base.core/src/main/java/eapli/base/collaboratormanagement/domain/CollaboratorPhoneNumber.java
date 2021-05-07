@@ -24,7 +24,8 @@ public class CollaboratorPhoneNumber implements ValueObject, Comparable<Collabor
 
     public CollaboratorPhoneNumber(final Double dblPhoneNumber, String strPhoneCode) {
 
-        if (dblPhoneNumber == null || (dblPhoneNumber.toString()).length() != 9) {
+        int length = (int)(Math.log10(dblPhoneNumber)+1);
+        if (dblPhoneNumber == null || length != 9) {
             throw new IllegalArgumentException(
                     "Phone Number should neither be null nor empty and must have nine digits.");
         }

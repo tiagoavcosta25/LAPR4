@@ -26,8 +26,6 @@ public class AttributeID implements ValueObject, Comparable<AttributeID> {
             throw new IllegalArgumentException(
                     "Attribute ID should neither be null nor empty");
         }
-        // TODO validate invariants, i.e., mecanographic number regular
-        // expression
         this.m_strID = strID;
     }
 
