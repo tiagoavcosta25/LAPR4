@@ -10,6 +10,7 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -24,9 +25,9 @@ public class TeamCreatorController {
     private final CollaboratorRepository m_oCollaboratorRepo = PersistenceContext.repositories().collaborators();
     private final TeamRepository m_oTeamRepo = PersistenceContext.repositories().teams();
 
-    public TeamType[] getTeamTypes() {
+    public Iterable<TeamType> getTeamTypes() {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
-        return TeamType.values();
+        return Arrays.asList(TeamType.values());
     }
 
     public List<Collaborator> getCollaborators() {
@@ -34,11 +35,11 @@ public class TeamCreatorController {
         return m_oCollaboratorRepo.all();
     }
 
-    public Team createTeam(TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
+    public Team createTeam(TeamID oTeamID, TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
                            Set<Collaborator> setRepresentation) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
         final TeamBuilder teamBuilder = new TeamBuilder();
-        teamBuilder.withTeamType(enumTeamType).withAcronym(oAcronym).withTeamDescription(oTeamDescription)
+        teamBuilder.withTeamID(oTeamID).withTeamType(enumTeamType).withAcronym(oAcronym).withTeamDescription(oTeamDescription)
                 .withRepresentation(setRepresentation);
         return m_oTeamRepo.save(teamBuilder.build());
     }

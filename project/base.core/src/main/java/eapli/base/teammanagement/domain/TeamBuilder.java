@@ -7,6 +7,8 @@ import java.util.Set;
 
 public class TeamBuilder implements DomainFactory<Team> {
 
+    private TeamID m_oTeamID;
+
     private TeamType m_enumTeamType;
 
     private Acronym m_oAcronym;
@@ -14,6 +16,11 @@ public class TeamBuilder implements DomainFactory<Team> {
     private TeamDescription m_oTeamDescription;
 
     private Set<Collaborator> m_setRepresentation;
+
+    public TeamBuilder withTeamID(TeamID oTeamID) {
+        this.m_oTeamID = oTeamID;
+        return this;
+    }
 
     public TeamBuilder withTeamType(TeamType enumTeamType) {
         this.m_enumTeamType = enumTeamType;
