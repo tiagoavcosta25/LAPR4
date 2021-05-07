@@ -1,6 +1,5 @@
 package eapli.base.teammanagement.domain;
 
-import eapli.base.cataloguemanagement.domain.CatalogueID;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
@@ -42,9 +41,10 @@ public class Team implements AggregateRoot<TeamID> {
     )
     private Set<Collaborator> m_setRepresentation;
 
-    public Team(TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
+    public Team(TeamID oTeamID, TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
                 Set<Collaborator> setRepresentation) {
-        Preconditions.noneNull(oAcronym, oTeamDescription, enumTeamType, setRepresentation);
+        Preconditions.noneNull(oTeamID, oAcronym, oTeamDescription, enumTeamType, setRepresentation);
+        this.m_oID = oTeamID;
         this.m_enumTeamType = enumTeamType;
         this.m_oAcronym = oAcronym;
         this.m_oTeamDescription = oTeamDescription;

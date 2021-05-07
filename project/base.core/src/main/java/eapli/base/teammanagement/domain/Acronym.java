@@ -3,7 +3,6 @@ package eapli.base.teammanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -14,7 +13,7 @@ import javax.persistence.Embeddable;
 public class Acronym implements ValueObject, Comparable<Acronym> {
 
     private static final long serialVersionUID = 1L;
-    
+
     private String m_strAcronym;
 
     public Acronym(final String strAcronym) {

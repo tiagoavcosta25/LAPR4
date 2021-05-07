@@ -3,6 +3,7 @@ package eapli.base.teammanagement.domain;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.framework.domain.model.DomainFactory;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class TeamBuilder implements DomainFactory<Team> {
@@ -38,12 +39,12 @@ public class TeamBuilder implements DomainFactory<Team> {
     }
 
     public TeamBuilder withRepresentation(Set<Collaborator> setRepresentation) {
-        this.m_setRepresentation = setRepresentation;
+        this.m_setRepresentation = new HashSet<>(setRepresentation);
         return this;
     }
 
     @Override
     public Team build() {
-        return new Team(m_enumTeamType, m_oAcronym, m_oTeamDescription, m_setRepresentation);
+        return new Team(m_oTeamID, m_enumTeamType, m_oAcronym, m_oTeamDescription, m_setRepresentation);
     }
 }
