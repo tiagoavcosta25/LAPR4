@@ -8,10 +8,7 @@ package eapli.base.infrastructure.bootstrapers.demo;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.domain.CollaboratorMechanographicNumber;
 import eapli.base.teammanagement.application.TeamCreatorController;
-import eapli.base.teammanagement.domain.Acronym;
-import eapli.base.teammanagement.domain.Team;
-import eapli.base.teammanagement.domain.TeamDescription;
-import eapli.base.teammanagement.domain.TeamType;
+import eapli.base.teammanagement.domain.*;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -35,28 +32,28 @@ public class TeamCreatorBootstrapper implements Action {
         List<Long> setColabsID = new ArrayList<>();
         setColabsID.add(123456l);
         setColabsID.add(987654l);
-        createTeam(TeamType.TYPE_FIRE, "TM1", "Team 1", setColabsID);
+        createTeam("1", TeamType.TYPE_FIRE, "TM1", "Team 1", setColabsID);
         setColabsID.clear();
         setColabsID.add(564821l);
-        createTeam(TeamType.TYPE_FIRE, "TM2", "Team 2", setColabsID);
+        createTeam("2", TeamType.TYPE_FIRE, "TM2", "Team 2", setColabsID);
         return true;
     }
 
-    //TODO: FIX MISSING TEAMID
-    private Team createTeam(TeamType enumTeamType, String strAcronym, String strTeamDescription,
-                                    List<Long> listColabID) {
+    private Team createTeam(String strID, TeamType enumTeamType, String strAcronym, String strTeamDescription,
+                                    List<Long> listCollabID) {
         Team oTeam = null;
         try {
-            Set<Collaborator> setColab = new HashSet<>();
+            Set<Collaborator> setCollab = new HashSet<>();
             for(Collaborator c : this.m_oCtrl.getCollaborators()){
-                for(int i = 0; i < listColabID.size(); i++){
-                    if(c.hasMecNumber(CollaboratorMechanographicNumber.valueOf(listColabID.get(i)))){
-                        setColab.add(c);
+                for(int i = 0; i < listCollabID.size(); i++){
+                    if(c.hasMecNumber(CollaboratorMechanographicNumber.valueOf(listCollabID.get(i)))){
+                        setCollab.add(c);
                         break;
                     }
                 }
             }
-            oTeam = this.m_oCtrl.createTeam(enumTeamType, Acronym.valueOf(strAcronym), TeamDescription.valueOf(strTeamDescription), setColab);
+            oTeam = this.m_oCtrl.createTeam(TeamID.valueOf(strID), enumTeamType, Acronym.valueOf(strAcronym),
+                    TeamDescription.valueOf(strTeamDescription), setCollab);
 
         } catch (final ConcurrencyException | IntegrityViolationException e) {
             LOGGER.error("Error Creating Team.");

@@ -40,27 +40,28 @@ public class CollaboratorSpecificationBootstrapper implements Action {
         setRoles.add(BaseRoles.HS_MANAGER);
         setRoles.add(BaseRoles.ADMIN);
         specifyCollaborator("doe@company.com", "John", "Doe", "John James Doe",
-                123456l, "Doe Street, Number 123", "912345678", new Date(2000, 01, 01),
+                123456l, "Doe Street, Number 123", "+351", 912345678d, new Date(2000, 01, 01),
                 setRoles, null);
         setRoles.clear();
         setRoles.add(BaseRoles.HR_REP);
         specifyCollaborator("jane@company.com", "Jane", "Doe", "Jane Mary Doe",
-                987654l, "Downtown Street, Number 56", "+351987654321", new Date(2001, 02, 02),
+                987654l, "Downtown Street, Number 56", "+351", 987654321d, new Date(2001, 02, 02),
                 setRoles, 123456l);
         setRoles.clear();
         setRoles.add(BaseRoles.COMMERCIAL_DIR);
         specifyCollaborator("walker@company.com", "Tony", "Walker", "Tony Steven Walker",
-                564821l, "Bleecker Street, Number 117", "955123682", new Date(1989, 11, 11),
+                564821l, "Bleecker Street, Number 117", "", 955123682d, new Date(1989, 11, 11),
                 setRoles, null);
         return true;
     }
 
     private Collaborator specifyCollaborator(String strEmail, String strFirstName, String strLastName,
                                         String strCompleteName, Long lngMechanographicNumber, String strAddress,
-                                        String strPhoneNumber, Date dtBirthDate, Set<Role> setRoles, Long lngManagerMecNumber) {
+                                             String strPhoneCode, Double dblPhoneNumber, Date dtBirthDate, Set<Role> setRoles,
+                                             Long lngManagerMecNumber) {
         Collaborator oCollaborator = null;
         try {
-            this.m_oCtrl.addCollaborator(strEmail, strFirstName, strLastName, strCompleteName, lngMechanographicNumber, strAddress, strPhoneNumber, dtBirthDate);
+            this.m_oCtrl.addCollaborator(strEmail, strFirstName, strLastName, strCompleteName, lngMechanographicNumber, strAddress, strPhoneCode, dblPhoneNumber, dtBirthDate);
             this.m_oCtrl.addRoles(setRoles);
             Collaborator oManager = null;
             if(lngManagerMecNumber != null){

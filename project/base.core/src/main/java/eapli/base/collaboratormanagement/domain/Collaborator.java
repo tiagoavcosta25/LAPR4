@@ -31,11 +31,9 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
     @OneToOne
-    @Column(name = "user")
     private SystemUser m_oSystemUser;
 
     @OneToOne
-    @Column(name = "manager")
     private Collaborator m_oManager;
 
     @Embedded

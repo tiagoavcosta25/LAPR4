@@ -1,0 +1,3 @@
+2021-05-07 23:33:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "SYSTEMUSER" not found; SQL statement:
+select systemuser0_.username as username1_15_, systemuser0_.active as active2_15_, systemuser0_.createdOn as createdo3_15_, systemuser0_.deactivatedOn as deactiva4_15_, systemuser0_.email as email5_15_, systemuser0_.firstName as firstnam6_15_, systemuser0_.lastName as lastname7_15_, systemuser0_.password as password8_15_, systemuser0_.resetToken as resettok9_15_, systemuser0_.roles_pk as roles_p11_15_, systemuser0_.version as version10_15_ from SystemUser systemuser0_ where systemuser0_.username=? [42102-200]

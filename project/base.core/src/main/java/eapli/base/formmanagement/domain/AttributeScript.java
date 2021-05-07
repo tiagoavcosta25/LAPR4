@@ -18,7 +18,7 @@ import javax.persistence.Embeddable;
 public class AttributeScript implements ValueObject, Comparable<AttributeScript> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "([a-zA-Z]:)?(\\\\\\\\[a-zA-Z0-9_.-]+)+\\\\\\\\[a-zA-Z0-9_.-].txt";
+    private static final String m_strRegex = "([a-zA-Z]:)?(\\\\\\\\[a-zA-Z0-9_.-]+)+\\\\\\\\[a-zA-Z0-9_.-].bin";
 
     private String m_strScriptPath;
 

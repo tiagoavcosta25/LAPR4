@@ -36,28 +36,25 @@ public class CatalogueSpecificationBootstrapper implements Action {
         specifyCatalogue("Repair Catalogue",
                 "Catalogue containing all the Repair Services.",
                 "This Catalogue contains all the Repair Services presented in the app.",
-                new ArrayList<>(Arrays.asList(123456l)), new ArrayList<>(Arrays.asList(TeamID.valueOf("1"))));
+                123456l, new ArrayList<>(Arrays.asList(TeamID.valueOf("1"))));
         specifyCatalogue("HR Catalogue",
                 "Catalogue containing all the HR Services.",
                 "This Catalogue contains all the HR Services presented in the app.",
-                new ArrayList<>(Arrays.asList(654321l)), new ArrayList<>(Arrays.asList(TeamID.valueOf("2"))));
+                654321l, new ArrayList<>(Arrays.asList(TeamID.valueOf("2"))));
         return true;
     }
 
     private Catalogue specifyCatalogue(final String strTitle, final String strBriefDescription,
                                      final String strCompleteDescription,
-                                       List<Long> lstCollabIDs, List<TeamID> lstTeamIDs) {
+                                       Long lngCollabID, List<TeamID> lstTeamIDs) {
         Catalogue oCatalogue = null;
         try {
-            List<Collaborator> lstCollabs = new ArrayList<>();
+            Collaborator oCollaborator = null;
             for(Collaborator c : this.m_oCtrl.getCollaborators()){
-                for(int i = 0; i < lstCollabIDs.size(); i++){
-                    if(c.hasMecNumber(CollaboratorMechanographicNumber.valueOf(lstCollabIDs.get(i)))){
-                        lstCollabs.add(c);
-                        i++;
+                    if(c.hasMecNumber(CollaboratorMechanographicNumber.valueOf(lngCollabID))){
+                        oCollaborator = c;
                         break;
                     }
-                }
             }
 
             Set<Team> setTeams = new HashSet<>();
@@ -70,7 +67,7 @@ public class CatalogueSpecificationBootstrapper implements Action {
                     }
                 }
             }
-            this.m_oCtrl.createCatalog(strTitle, strBriefDescription, strCompleteDescription, lstCollabs, setTeams);
+            this.m_oCtrl.createCatalog(strTitle, strBriefDescription, strCompleteDescription, oCollaborator, setTeams);
             oCatalogue = this.m_oCtrl.saveCatalogue();
         } catch (final ConcurrencyException | IntegrityViolationException e) {
             LOGGER.error("Error Saving the Draft.");

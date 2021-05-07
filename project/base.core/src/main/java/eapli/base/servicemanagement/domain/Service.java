@@ -65,8 +65,7 @@ public class Service implements AggregateRoot<ServiceID> {
     @JoinColumn(name="keywordID")
     private Feedback m_oFeedback;
 
-    @OneToOne
-    @Column(name = "catalogue")
+    @ManyToOne
     @JoinColumn(name="catalogueID")
     private Catalogue m_oCatalogue;
 

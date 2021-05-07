@@ -37,7 +37,6 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
     private CatalogueCompleteDescription m_oCatalogueCompleteDescription;
 
     @OneToOne
-    @Column(name = "collaborator")
     @JoinColumn(name="colaboratorID")
     private Collaborator m_oCollaborator;
 

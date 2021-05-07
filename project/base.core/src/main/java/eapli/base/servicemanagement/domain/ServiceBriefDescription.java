@@ -20,7 +20,7 @@ public class ServiceBriefDescription implements ValueObject, Comparable<ServiceB
     private static final long serialVersionUID = 1L;
     private static final Integer m_intMaxLength = 40;
 
-    private String m_strDescription;
+    private String m_strBriefDescription;
 
     public ServiceBriefDescription(final String strDescription) {
         if (StringPredicates.isNullOrEmpty(strDescription) || !(strDescription.length() < m_intMaxLength)) {
@@ -28,7 +28,7 @@ public class ServiceBriefDescription implements ValueObject, Comparable<ServiceB
                     "Service Brief Description should not be null, empty nor have more than 40 characters");
         }
         // expression
-        this.m_strDescription = strDescription;
+        this.m_strBriefDescription = strDescription;
     }
 
     protected ServiceBriefDescription() {
@@ -49,21 +49,21 @@ public class ServiceBriefDescription implements ValueObject, Comparable<ServiceB
         }
 
         final ServiceBriefDescription that = (ServiceBriefDescription) o;
-        return this.m_strDescription.equals(that.m_strDescription);
+        return this.m_strBriefDescription.equals(that.m_strBriefDescription);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strDescription.hashCode();
+        return this.m_strBriefDescription.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strDescription;
+        return this.m_strBriefDescription;
     }
 
     @Override
     public int compareTo(final ServiceBriefDescription arg0) {
-        return m_strDescription.compareTo(arg0.m_strDescription);
+        return m_strBriefDescription.compareTo(arg0.m_strBriefDescription);
     }
 }

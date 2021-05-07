@@ -23,6 +23,10 @@
  */
 package eapli.base.app.backoffice.console.presentation;
 
+import eapli.base.app.backoffice.console.presentation.collaborator.CollaboratorSpecificationUI;
+import eapli.base.app.backoffice.console.presentation.service.SaveDraftUI;
+import eapli.base.app.backoffice.console.presentation.service.ServiceDraftFieldSpecificationUI;
+import eapli.base.app.backoffice.console.presentation.service.ServiceDraftFormSpecificationUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
 import eapli.base.app.backoffice.console.presentation.authz.AddUserUI;
@@ -63,45 +67,31 @@ public class MainMenu extends AbstractUI {
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
 
-    // DISH TYPES
+    // SERVICES
     private static final int DISH_TYPE_REGISTER_OPTION = 1;
     private static final int DISH_TYPE_LIST_OPTION = 2;
     private static final int DISH_TYPE_CHANGE_OPTION = 3;
     private static final int DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION = 4;
 
-    // DISHES
+    // CATALOGUE
     private static final int DISH_REGISTER_OPTION = 5;
-    private static final int DISH_LIST_OPTION = 6;
-    private static final int DISH_REGISTER_DTO_OPTION = 7;
-    private static final int DISH_LIST_DTO_OPTION = 8;
-    private static final int DISH_ACTIVATE_DEACTIVATE_OPTION = 9;
-    private static final int DISH_CHANGE_OPTION = 10;
 
-    // DISH PROPERTIES
+    // COLLABORATOR
     private static final int CHANGE_DISH_NUTRICIONAL_INFO_OPTION = 1;
-    private static final int CHANGE_DISH_PRICE_OPTION = 2;
 
-    // MATERIALS
+    // TEAMS
     private static final int MATERIAL_REGISTER_OPTION = 1;
-    private static final int MATERIAL_LIST_OPTION = 2;
-
-    // REPORTING
-    private static final int REPORTING_DISHES_PER_DISHTYPE_OPTION = 1;
-    private static final int REPORTING_HIGH_CALORIES_DISHES_OPTION = 2;
-    private static final int REPORTING_DISHES_PER_CALORIC_CATEGORY_OPTION = 3;
-
-    // MEALS
-    private static final int LIST_MEALS_OPTION = 1;
-    private static final int MEAL_REGISTER_OPTION = 2;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
     private static final int SETTINGS_OPTION = 4;
-    private static final int DISH_OPTION = 5;
-    private static final int TRACEABILITY_OPTION = 6;
-    private static final int MEALS_OPTION = 7;
-    private static final int REPORTING_DISHES_OPTION = 8;
+    private static final int COLLABORATOR_OPTION = 5;
+    private static final int TEAMS_OPTION = 6;
+    private static final int CATALOGUE_OPTION = 7;
+    private static final int SERVICE_FIELD_OPTION = 8;
+    private static final int SERVICE_FORM_OPTION = 9;
+    private static final int SERVICE_SAVE_OPTION = 10;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -180,6 +170,12 @@ public class MainMenu extends AbstractUI {
         menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
                 new AcceptRefuseSignupRequestAction());
         menu.addItem(ADD_USER_OPTION, "Add User", new AddUserUI()::show);
+        menu.addItem(COLLABORATOR_OPTION, "Specify Collaborator", new CollaboratorSpecificationUI()::show);
+        menu.addItem(TEAMS_OPTION, "Create Team", new CollaboratorSpecificationUI()::show);
+        menu.addItem(CATALOGUE_OPTION, "Specify Catalogue", new CollaboratorSpecificationUI()::show);
+        menu.addItem(SERVICE_FIELD_OPTION, "Add/Update Service Draft (Field)", new ServiceDraftFieldSpecificationUI()::show);
+        menu.addItem(SERVICE_FORM_OPTION, "Add/Update Service Draft (Form)", new ServiceDraftFormSpecificationUI()::show);
+        menu.addItem(SERVICE_SAVE_OPTION, "Save Service", new SaveDraftUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

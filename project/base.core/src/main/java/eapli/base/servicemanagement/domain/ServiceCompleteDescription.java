@@ -20,7 +20,7 @@ public class ServiceCompleteDescription implements ValueObject, Comparable<Servi
     private static final long serialVersionUID = 1L;
     private static final Integer m_intMaxLength = 500;
 
-    private String m_strDescription;
+    private String m_strCompleteDescription;
 
     public ServiceCompleteDescription(final String strDescription) {
         if (StringPredicates.isNullOrEmpty(strDescription) || !(strDescription.length() < m_intMaxLength)) {
@@ -28,7 +28,7 @@ public class ServiceCompleteDescription implements ValueObject, Comparable<Servi
                     "Attribute Complete Description should not be null, empty nor have more than 500 characters");
         }
         // expression
-        this.m_strDescription = strDescription;
+        this.m_strCompleteDescription = strDescription;
     }
 
     protected ServiceCompleteDescription() {
@@ -49,21 +49,21 @@ public class ServiceCompleteDescription implements ValueObject, Comparable<Servi
         }
 
         final ServiceCompleteDescription that = (ServiceCompleteDescription) o;
-        return this.m_strDescription.equals(that.m_strDescription);
+        return this.m_strCompleteDescription.equals(that.m_strCompleteDescription);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strDescription.hashCode();
+        return this.m_strCompleteDescription.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strDescription;
+        return this.m_strCompleteDescription;
     }
 
     @Override
     public int compareTo(final ServiceCompleteDescription arg0) {
-        return m_strDescription.compareTo(arg0.m_strDescription);
+        return m_strCompleteDescription.compareTo(arg0.m_strCompleteDescription);
     }
 }
