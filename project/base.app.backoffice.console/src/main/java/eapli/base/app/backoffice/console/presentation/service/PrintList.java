@@ -23,6 +23,7 @@
  */
 package eapli.base.app.backoffice.console.presentation.service;
 
+import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.domain.ServiceDraft;
 import eapli.framework.actions.Actions;
@@ -45,17 +46,19 @@ public class PrintList {
 
     final static Scanner sc = new Scanner(System.in);
 
-    public static <T> T chooseOne(List<T> lstElements, String strHeader, String strElementName) {
+    public static <T> T chooseOne(Iterable<T> itElements, String strHeader, String strElementName) {
         try{
             Integer i = 0;
+            List<T> lstTemp = new ArrayList<>();
             System.out.printf("\n---------------------------------\n%s\n---------------------------------\n\n", strHeader);
-            for(T t : lstElements){
+            for(T t : itElements){
                 System.out.printf("[%d] %s", i, t.toString());
+                lstTemp.add(t);
             }
             System.out.printf("\n\n\nSelect %s Number: ", strElementName);
             Integer intOp = sc.nextInt();
 
-            return lstElements.get(intOp);
+            return lstTemp.get(intOp);
 
         } catch (Exception e){
             System.out.println("Error in selecting.");
@@ -63,26 +66,28 @@ public class PrintList {
         }
     }
 
-    public static <T> List<T> chooseMultiple(List<T> lstElements, String strHeader, String strElementName) {
+    public static <T> List<T> chooseMultiple(Iterable<T> itElements, String strHeader, String strElementName) {
         try{
             Integer i = 0;
+            List<T> lstTemp = new ArrayList<>();
             System.out.printf("\n---------------------------------\n%s\n---------------------------------\n\n", strHeader);
-            for(T t : lstElements){
+            for(T t : itElements){
                 System.out.printf("[%d] %s\n", i, t.toString());
+                lstTemp.add(t);
             }
 
             Integer intOp;
             i = 1;
-            List<T> lstTemp = new ArrayList<>();
+            List<T> lstReturn = new ArrayList<>();
 
             do{
                 System.out.printf("\n\n\n [%d x]Select %s Number: ", i, strElementName);
                 intOp = sc.nextInt();
                 i++;
-                lstTemp.add(lstElements.get(intOp));
+                lstReturn.add(lstTemp.get(intOp));
             } while(intOp != 0);
 
-            return lstTemp;
+            return lstReturn;
 
         } catch (Exception e){
             System.out.printf("Error in selecting.\n", strElementName);

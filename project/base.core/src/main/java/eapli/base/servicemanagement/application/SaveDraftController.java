@@ -56,9 +56,9 @@ public class SaveDraftController {
     }
 
 
-    public List<Catalogue> getCatalogues() {
+    public Iterable<Catalogue> getCatalogues() {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        return this.catalogueRepo.all();
+        return this.catalogueRepo.findAll();
     }
 
     public Service saveService(Catalogue oCatalogue) {

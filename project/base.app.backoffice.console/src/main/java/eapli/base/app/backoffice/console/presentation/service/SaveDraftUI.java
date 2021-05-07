@@ -43,9 +43,9 @@ public class SaveDraftUI extends AbstractUI {
             Long lngID = Long.parseLong(Console.readLine("Draft ID"));
             ServiceDraft oServiceDraft = this.theController.getServiceDraftById(lngID);
 
-            List<Catalogue> lstCatalogues = this.theController.getCatalogues();
+            Iterable<Catalogue> itCatalogues = this.theController.getCatalogues();
 
-            Catalogue oCatalogue = PrintList.chooseOne(lstCatalogues, "Choose a Catalogue for this Service", "Catalogue");
+            Catalogue oCatalogue = PrintList.chooseOne(itCatalogues, "Choose a Catalogue for this Service", "Catalogue");
 
             String strOp = Console.readLine("Confirm the creation of the following Service (Y/N):\n\n%s\n" +
                     oServiceDraft.toString());
