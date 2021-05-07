@@ -26,15 +26,9 @@ package eapli.base.app.backoffice.console.presentation.collaborator;
 import eapli.base.app.backoffice.console.presentation.service.PrintList;
 import eapli.base.collaboratormanagement.application.CollaboratorSpecificationController;
 import eapli.base.collaboratormanagement.domain.*;
-import eapli.framework.actions.Actions;
-import eapli.framework.actions.menu.Menu;
-import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import eapli.framework.presentation.console.menu.MenuItemRenderer;
-import eapli.framework.presentation.console.menu.MenuRenderer;
-import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
 import java.text.SimpleDateFormat;
 import java.util.*;

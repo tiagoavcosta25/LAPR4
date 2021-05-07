@@ -6,7 +6,6 @@
 package eapli.base.collaboratormanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
-import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Embeddable;
 import java.util.Date;
@@ -22,13 +21,13 @@ public class CollaboratorBirthDate implements ValueObject, Comparable<Collaborat
 
     private Date m_dtBirthDate;
 
-    public CollaboratorBirthDate(final Date tmBirthDate) {
-        if (tmBirthDate == null) {
+    public CollaboratorBirthDate(final Date dtBirthDate) {
+        if (dtBirthDate.after(new Date())) {
             throw new IllegalArgumentException(
-                    "Birth Date can't be null nor empty.");
+                    "Birth Date can't be set in the future.");
         }
         // expression
-        this.m_dtBirthDate = tmBirthDate;
+        this.m_dtBirthDate = dtBirthDate;
     }
 
     protected CollaboratorBirthDate() {

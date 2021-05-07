@@ -21,9 +21,9 @@ public class CollaboratorPhoneNumber implements ValueObject, Comparable<Collabor
     private Double m_dblPhoneNumber;
 
     public CollaboratorPhoneNumber(final Double dblPhoneNumber) {
-        if (dblPhoneNumber == null) {
+        if (dblPhoneNumber == null || dblPhoneNumber <= 0 || String.valueOf(dblPhoneNumber).length() != 9) {
             throw new IllegalArgumentException(
-                    "Phone Number can't be null nor empty.");
+                    "Phone Number should neither be null, empty, less than zero nor less or greater than nine digits.");
         }
         // expression
         this.m_dblPhoneNumber = dblPhoneNumber;
