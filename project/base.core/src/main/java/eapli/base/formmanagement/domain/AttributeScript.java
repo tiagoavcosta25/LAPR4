@@ -18,13 +18,14 @@ import javax.persistence.Embeddable;
 public class AttributeScript implements ValueObject, Comparable<AttributeScript> {
 
     private static final long serialVersionUID = 1L;
+    private static final String m_strRegex = "([a-zA-Z]:)?(\\\\\\\\[a-zA-Z0-9_.-]+)+\\\\\\\\[a-zA-Z0-9_.-].txt";
 
     private String m_strScriptPath;
 
     public AttributeScript(final String strScriptPath) {
-        if (StringPredicates.isNullOrEmpty(strScriptPath)) {
+        if (StringPredicates.isNullOrEmpty(strScriptPath) || !strScriptPath.matches(m_strRegex)) {
             throw new IllegalArgumentException(
-                    "Attribute Script should neither be null nor empty");
+                    "Attribute Script should neither be null nor empty and be a valid file path");
         }
         // expression
         this.m_strScriptPath = strScriptPath;

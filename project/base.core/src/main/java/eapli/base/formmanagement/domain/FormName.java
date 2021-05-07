@@ -18,13 +18,14 @@ import javax.persistence.Embeddable;
 public class FormName implements ValueObject, Comparable<FormName> {
 
     private static final long serialVersionUID = 1L;
+    private static final String m_strRegex = "[a-zA-Z]{1,20}";
 
     private String m_strName;
 
     public FormName(final String strName) {
-        if (StringPredicates.isNullOrEmpty(strName)) {
+        if (StringPredicates.isNullOrEmpty(strName) || !strName.matches(m_strRegex)) {
             throw new IllegalArgumentException(
-                    "Form Name should neither be null nor empty");
+                    "Form Name should neither be null, empty, contain other characters besides letters nor have more than 20 characters");
         }
         // expression
         this.m_strName = strName;

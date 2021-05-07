@@ -3,6 +3,7 @@
  */
 package eapli.base.infrastructure.persistence;
 
+import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
