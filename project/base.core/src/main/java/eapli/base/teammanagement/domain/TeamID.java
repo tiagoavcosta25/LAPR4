@@ -19,7 +19,7 @@ public class TeamID implements ValueObject, Comparable<TeamID> {
     public TeamID(final String strID) {
         if(StringPredicates.isNullOrEmpty(strID)) {
             throw new IllegalArgumentException(
-                    "Team's ID can't be null nor empty.");
+                    "Team's ID should neither be null nor empty.");
         }
         this.m_strID = strID;
     }
@@ -34,8 +34,8 @@ public class TeamID implements ValueObject, Comparable<TeamID> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof TeamID)) return false;
+        if(this == o) return true;
+        if(!(o instanceof TeamID)) return false;
         final TeamID that = (TeamID) o;
         return this.m_strID.equals(that.m_strID);
     }
