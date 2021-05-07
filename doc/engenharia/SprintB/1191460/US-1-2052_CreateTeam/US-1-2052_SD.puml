@@ -47,7 +47,7 @@ UI --> HRR : Displays the existing type of teams
 
 HRR -> UI : Select's the type of team
 
-UI --> HRR : Requests all information needed (i.e. acronym, designation)
+UI --> HRR : Requests all information needed (i.e. acronym, teamDescription)
 
 HRR -> UI : Inserts the requested information
 
@@ -75,7 +75,7 @@ UI --> HRR : Asks if the user wishes to add more representatives
 HRR --> UI : Responds
 end
 
-UI -> CTRL : createTeam(teamType, acronym, designation, collabList)
+UI -> CTRL : createTeam(teamType, acronym, teamDescription, representation)
 
 activate CTRL
 CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
@@ -84,12 +84,12 @@ CTRL -> TB : withTeamType()
 
 activate TB
 
-CTRL -> TB : withRepresentatives()
+CTRL -> TB : withRepresentation()
 CTRL -> TB : withAcronym()
-CTRL -> TB : withDesignation()
+CTRL -> TB : withDescription()
 CTRL -> TB : build()
 
-TB -> TEAM** : create(teamType, acronym, designation, collabList)
+TB -> TEAM** : create(teamType, acronym, teamDescription, representation)
 
 activate TEAM
 TEAM --> TB : team
