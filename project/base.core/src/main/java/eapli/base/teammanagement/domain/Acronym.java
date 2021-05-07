@@ -21,7 +21,7 @@ public class Acronym implements ValueObject, Comparable<Acronym> {
     public Acronym(final String strAcronym) {
         if(StringPredicates.isNullOrEmpty(strAcronym)) {
             throw new IllegalArgumentException(
-                    "Acronym should neither be null or empty.");
+                    "Acronym should neither be null nor empty.");
         }
         this.m_strAcronym = strAcronym;
     }
