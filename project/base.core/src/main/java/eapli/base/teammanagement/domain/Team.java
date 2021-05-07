@@ -24,14 +24,14 @@ public class Team implements AggregateRoot<TeamID> {
     @Column(name = "teamID")
     private TeamID m_oID;
 
+    @Enumerated(EnumType.STRING)
+    private TeamType m_enumTeamType;
+
     @Column(name = "acronym")
     private Acronym m_oAcronym;
 
     @Column(name = "teamDescription")
     private TeamDescription m_oTeamDescription;
-
-    @Enumerated(EnumType.STRING)
-    private TeamType m_enumTeamType;
 
     @ManyToMany
     @JoinTable(
@@ -41,12 +41,12 @@ public class Team implements AggregateRoot<TeamID> {
     )
     private Set<Collaborator> m_setRepresentation;
 
-    public Team(Acronym oAcronym, TeamDescription oTeamDescription, TeamType enumTeamType,
+    public Team(TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
                 Set<Collaborator> setRepresentation) {
         Preconditions.noneNull(oAcronym, oTeamDescription, enumTeamType, setRepresentation);
+        this.m_enumTeamType = enumTeamType;
         this.m_oAcronym = oAcronym;
         this.m_oTeamDescription = oTeamDescription;
-        this.m_enumTeamType = enumTeamType;
         this.m_setRepresentation = setRepresentation;
     }
 
