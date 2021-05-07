@@ -22,9 +22,9 @@ public class Feedback implements ValueObject, Comparable<Feedback> {
     private Double m_dblDuration;
 
     public Feedback(final Double dblDuration) {
-        if (dblDuration == null) {
+        if (dblDuration == null || dblDuration < 0) {
             throw new IllegalArgumentException(
-                    "Feedback should neither be null nor empty");
+                    "Feedback Duration should neither be null, empty nor less than zero");
         }
         // expression
         this.m_dblDuration = dblDuration;

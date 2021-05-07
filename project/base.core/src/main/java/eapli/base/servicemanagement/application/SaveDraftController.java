@@ -23,7 +23,8 @@
  */
 package eapli.base.servicemanagement.application;
 
-import eapli.base.formmanagement.repositories.formRepository;
+import eapli.base.cataloguemanagement.domain.Catalogue;
+import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.formmanagement.domain.Form;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.*;
@@ -54,10 +55,10 @@ public class SaveDraftController {
         return this.m_oServiceDraft;
     }
 
-    //TODO: FIX METHOD
-    /*public List<Catalogue> getCatalogues() {
+
+    public List<Catalogue> getCatalogues() {
         return this.catalogueRepo.all();
-    }*/
+    }
 
     public Service saveService(Catalogue oCatalogue) {
         String strTitle = this.m_oServiceDraft.getTitle();

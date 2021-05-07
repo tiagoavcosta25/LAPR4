@@ -24,6 +24,7 @@
 package eapli.base.servicemanagement.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.formmanagement.domain.*;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;

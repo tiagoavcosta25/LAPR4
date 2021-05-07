@@ -18,13 +18,14 @@ import javax.persistence.Embeddable;
 public class Keyword implements ValueObject, Comparable<Keyword> {
 
     private static final long serialVersionUID = 1L;
+    private static final String m_strRegex = "[a-zA-Z]+";
 
     private String m_strKeyword;
 
     public Keyword(final String strKeyword) {
-        if (StringPredicates.isNullOrEmpty(strKeyword)) {
+        if (StringPredicates.isNullOrEmpty(strKeyword) || !strKeyword.matches(m_strRegex)) {
             throw new IllegalArgumentException(
-                    "Keyword should neither be null nor empty");
+                    "Keyword should neither be null, empty nor contain other characters besides letters.");
         }
         // expression
         this.m_strKeyword = strKeyword;
