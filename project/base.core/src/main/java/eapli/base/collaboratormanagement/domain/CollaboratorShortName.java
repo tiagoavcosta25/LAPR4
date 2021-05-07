@@ -23,12 +23,13 @@ public class CollaboratorShortName implements ValueObject, Comparable<Collaborat
     private String m_strFirstName;
     private String m_strLastName;
     private static final String m_strRegex = "[a-zA-Z]+";
+    private static final Integer m_intMaxLength = 15;
 
     public CollaboratorShortName(final String strFirstName, final String strLastName) {
-        if (StringPredicates.isNullOrEmpty(strFirstName) || !strFirstName.matches(m_strRegex) ||
-                StringPredicates.isNullOrEmpty(strLastName) || !strFirstName.matches(strLastName)) {
+        if (StringPredicates.isNullOrEmpty(strFirstName) || !strFirstName.matches(m_strRegex) || !(strFirstName.length() < m_intMaxLength) ||
+                StringPredicates.isNullOrEmpty(strLastName) || !strFirstName.matches(m_strRegex) || !(strLastName.length() < m_intMaxLength)) {
             throw new IllegalArgumentException(
-                    "Name should neither be null, empty nor contain other characters besides letters.");
+                    "Name should neither be null, empty, contain other characters besides letters nor have more then 80 characters.");
         }
         // expression
         this.m_strFirstName = strFirstName;

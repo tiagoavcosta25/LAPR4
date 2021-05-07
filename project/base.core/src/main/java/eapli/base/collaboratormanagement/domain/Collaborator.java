@@ -7,6 +7,7 @@ import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.strings.util.StringPredicates;
 
 import java.util.Set;
 
@@ -16,6 +17,8 @@ import java.util.Set;
  */
 @Entity
 public class Collaborator implements AggregateRoot<CollaboratorMechanographicNumber> {
+
+    private String m_strCollaborator;
 
     @Version
     private Long version;
@@ -80,6 +83,15 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
         // for ORM only
     }
 
+    public Collaborator(String strCollaborator) {
+        if (StringPredicates.isNullOrEmpty(strCollaborator)) {
+            throw new IllegalArgumentException(
+                    "Collaborator can't be null nor empty.");
+        }
+        // expression
+        this.m_strCollaborator = strCollaborator;
+    }
+
     public CollaboratorPhoneNumber phoneNumber() {
         return this.m_oPhoneNumber;
     }
@@ -121,4 +133,5 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     public boolean hasMecNumber(CollaboratorMechanographicNumber oMecNumber) {
         return this.m_oMechanographicNumber.equals(oMecNumber);
     }
+
 }

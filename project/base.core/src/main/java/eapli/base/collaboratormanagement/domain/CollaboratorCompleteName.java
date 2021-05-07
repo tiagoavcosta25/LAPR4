@@ -21,11 +21,12 @@ public class CollaboratorCompleteName implements ValueObject, Comparable<Collabo
 
     private String m_strCompleteName;
     private static final String m_strRegex = "[a-zA-Z]+";
+    private static final Integer m_intMaxLength = 80;
 
     public CollaboratorCompleteName(final String strCompleteName) {
-        if (StringPredicates.isNullOrEmpty(strCompleteName) || !strCompleteName.matches(m_strRegex)) {
+        if (StringPredicates.isNullOrEmpty(strCompleteName) || !strCompleteName.matches(m_strRegex) || !(strCompleteName.length() < m_intMaxLength)) {
             throw new IllegalArgumentException(
-                    "Complete name should neither be null, empty nor contain other characters besides letters.");
+                    "Complete name should neither be null, empty, contain other characters besides letters nor have more then 80 characters.");
         }
         // expression
         this.m_strCompleteName = strCompleteName;

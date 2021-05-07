@@ -19,8 +19,8 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
     private SystemUser m_oSystemUser;
     private Collaborator m_oManager;
 
-    public CollaboratorBuilder withPhoneNumber(String strPhoneNumber) {
-        this.m_oPhoneNumber = CollaboratorPhoneNumber.valueOf(strPhoneNumber);
+    public CollaboratorBuilder withPhoneNumber(Double dbPhoneNumber, String strPhoneCode) {
+        this.m_oPhoneNumber = CollaboratorPhoneNumber.valueOf(strPhoneCode, dbPhoneNumber);
         return this;
     }
 

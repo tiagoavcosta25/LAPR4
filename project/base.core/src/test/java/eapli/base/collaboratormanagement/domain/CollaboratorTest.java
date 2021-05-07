@@ -1,13 +1,11 @@
 package eapli.base.collaboratormanagement.domain;
 
-import eapli.base.servicemanagement.domain.ServiceID;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import junit.framework.TestCase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class CollaboratorTest extends TestCase {
@@ -15,8 +13,8 @@ public class CollaboratorTest extends TestCase {
 
     Date dtBirthDate = new SimpleDateFormat("dd/MM/yyyy").parse("1/1/2000");
 
-    public final Collaborator c = getDummyCollaborator(dummyUser("dummy", BaseRoles.ADMIN), null, "919191919",
-            dtBirthDate, "Lorem", "Ipsum", "Lorem", 123456l);
+    public final Collaborator c = getDummyCollaborator(dummyUser("dummy", BaseRoles.ADMIN), null, 919191919d,
+            "+351", dtBirthDate, "Lorem", "Ipsum", "Lorem", 123456l);
 
     public CollaboratorTest() throws ParseException {
     }
@@ -26,13 +24,13 @@ public class CollaboratorTest extends TestCase {
         return userBuilder.with(username, "duMMy1", "dummy", "dummy", "a@b.ro").withRoles(roles).build();
     }
 
-    public static Collaborator getDummyCollaborator(final SystemUser oSystemUser, final Collaborator oManager, final String strPhoneNumber,
+    public static Collaborator getDummyCollaborator(final SystemUser oSystemUser, final Collaborator oManager, final Double dblPhoneNumber, final String strPhoneCode,
                                                     final Date dtBirthDate, final String strAddress, final String strCompleteName,
                                                     final String strShortName, final Long lngMechanographicNumber) {
         CollaboratorBuilder collaboratorBuilder = new CollaboratorBuilder();
         collaboratorBuilder = collaboratorBuilder.withSystemUser(oSystemUser);
         collaboratorBuilder = collaboratorBuilder.withManager(oManager);
-        collaboratorBuilder = collaboratorBuilder.withPhoneNumber(strPhoneNumber);
+        collaboratorBuilder = collaboratorBuilder.withPhoneNumber(dblPhoneNumber, strPhoneCode);
         collaboratorBuilder = collaboratorBuilder.withBirthDate(dtBirthDate);
         collaboratorBuilder = collaboratorBuilder.withAddress(strAddress);
         collaboratorBuilder = collaboratorBuilder.withCompleteName(strCompleteName);

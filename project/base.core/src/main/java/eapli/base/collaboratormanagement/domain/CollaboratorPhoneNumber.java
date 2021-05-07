@@ -20,46 +20,34 @@ public class CollaboratorPhoneNumber implements ValueObject, Comparable<Collabor
     private static final long serialVersionUID = 1L;
 
     private Double m_dblPhoneNumber;
-    private String m_strPrefix;
+    private String m_strPhoneCode;
 
-    public CollaboratorPhoneNumber(final String strPhoneNumber) {
+    public CollaboratorPhoneNumber(final Double dblPhoneNumber, String strPhoneCode) {
 
-        if (StringPredicates.isNullOrEmpty(strPhoneNumber) || (strPhoneNumber.length() != 9 && strPhoneNumber.length() != 13)) {
+        if (dblPhoneNumber == null || (dblPhoneNumber.toString()).length() != 9) {
             throw new IllegalArgumentException(
-                    "Phone Number should neither be null nor empty and must have nine or thirteen digits.");
+                    "Phone Number should neither be null nor empty and must have nine digits.");
         }
 
-        Double dblPhoneNumber;
-        String strPrefix;
-
-        if (strPhoneNumber.length() == 13){
-            strPrefix = strPhoneNumber.substring(0,3);
-            dblPhoneNumber = Double.parseDouble(strPhoneNumber.substring(3,strPhoneNumber.length() - 1));
+        if (StringPredicates.isNullOrEmpty(strPhoneCode)){
+            strPhoneCode = "+351";
         } else {
-            strPrefix = "+351";
-            dblPhoneNumber = Double.parseDouble(strPhoneNumber);
+            if (strPhoneCode.matches("/+[0-9]+")) {
+                throw new IllegalArgumentException(
+                        "Phone Code should have a plus sign followed by numbers.");
+            }
         }
 
-        if (dblPhoneNumber == null || dblPhoneNumber <= 0 || String.valueOf(dblPhoneNumber).length() != 9) {
-            throw new IllegalArgumentException(
-                    "Phone Number should neither be null, empty, less than zero nor less or greater than nine digits.");
-        }
-
-        if (strPrefix.matches("/+[0-9]{3}")) {
-            throw new IllegalArgumentException(
-                    "Prefix should have a plus sign followed by three numbers.");
-        }
-        // expression
         this.m_dblPhoneNumber = dblPhoneNumber;
-        this.m_strPrefix = strPrefix;
+        this.m_strPhoneCode = strPhoneCode;
     }
 
     protected CollaboratorPhoneNumber() {
         // for ORM
     }
 
-    public static CollaboratorPhoneNumber valueOf(final String strPhoneNumber) {
-        return new CollaboratorPhoneNumber(strPhoneNumber);
+    public static CollaboratorPhoneNumber valueOf(final String strPhoneNumber, final Double dblPhoneNumber) {
+        return new CollaboratorPhoneNumber(dblPhoneNumber, strPhoneNumber);
     }
 
     @Override
@@ -72,7 +60,7 @@ public class CollaboratorPhoneNumber implements ValueObject, Comparable<Collabor
         }
 
         final CollaboratorPhoneNumber that = (CollaboratorPhoneNumber) o;
-        return this.m_dblPhoneNumber == that.m_dblPhoneNumber && this.m_strPrefix.equals(that.m_strPrefix);
+        return this.m_dblPhoneNumber == that.m_dblPhoneNumber && this.m_strPhoneCode.equals(that.m_strPhoneCode);
     }
 
     @Override
@@ -82,7 +70,7 @@ public class CollaboratorPhoneNumber implements ValueObject, Comparable<Collabor
 
     @Override
     public String toString() {
-        return this.m_strPrefix + this.m_dblPhoneNumber;
+        return this.m_strPhoneCode + this.m_dblPhoneNumber;
     }
 
     @Override

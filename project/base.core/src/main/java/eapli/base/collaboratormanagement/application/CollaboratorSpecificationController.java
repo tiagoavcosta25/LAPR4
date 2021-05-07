@@ -51,14 +51,14 @@ public class CollaboratorSpecificationController {
 
     public Collaborator addCollaborator(String strEmail, String strFirstName, String strLastName,
                                         String strCompleteName, Long lngMechanographicNumber, String strAddress,
-                                        String strPhoneNumber, Date dtBirthDate) {
+                                        String strPhoneCode, Double dblPhoneNumber, Date dtBirthDate) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withShortName(strFirstName, strLastName);
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withCompleteName(strCompleteName);
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withMechanographicNumber(lngMechanographicNumber);
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withAddress(strAddress);
-        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withPhoneNumber(strPhoneNumber);
+        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withPhoneNumber(dblPhoneNumber, strPhoneCode);
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withBirthDate(dtBirthDate);
         this.m_strEmail = strEmail;
         this.m_strFirstName = strFirstName;
@@ -95,5 +95,27 @@ public class CollaboratorSpecificationController {
         Collaborator oCollaborator = this.m_oCollaboratorBuilder.build();
         this.m_oCollaboratorRepo.save(oCollaborator);
         return oCollaborator;
+    }
+
+
+    public boolean importHistoricalTransactions(String strEmail, String strFirstName, String strLastName,
+                                                String strCompleteName, Long lngMechanographicNumber,
+                                                String strAddress, String strPhoneCode, Double dblPhoneNumber,
+                                                Date dtBirthDate, Long lngManager, Set<Role> lstRoles) {
+
+        try {
+
+        addCollaborator(strEmail, strFirstName, strLastName, strCompleteName, lngMechanographicNumber,
+                strAddress, strPhoneCode, dblPhoneNumber, dtBirthDate);
+
+        addManager(m_oCollaboratorRepo.findByID(CollaboratorMechanographicNumber.valueOf(lngManager)).get());
+        addRoles(lstRoles);
+
+        saveCollaborator();
+
+        return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 }

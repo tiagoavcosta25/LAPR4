@@ -49,13 +49,15 @@ public class CollaboratorSpecificationUI extends AbstractUI {
             final String strCompleteName = Console.readLine("Complete Name");
             final String strMechanographicNumber = Console.readLine("Mechanographic Number");
             final String strAddress = Console.readLine("Address");
+            final String strPhoneCode = Console.readLine("Phone Code");
             final String strPhoneNumber = Console.readLine("Phone Number");
             final String strBirthDate = Console.readLine("Birth Date (dd/MM/yyyy)");
 
             final Date dtBirthDate = new SimpleDateFormat("dd/MM/yyyy").parse(strBirthDate);
 
-            Collaborator oCollaborator = this.theController.addCollaborator(strEmail, strFirstName, strLastName, strCompleteName,
-                    Long.parseLong(strMechanographicNumber), strAddress, strPhoneNumber, dtBirthDate);
+            Collaborator oCollaborator = this.theController.addCollaborator(strEmail, strFirstName, strLastName,
+                    strCompleteName, Long.parseLong(strMechanographicNumber), strAddress, strPhoneCode,
+                    Double.parseDouble(strPhoneNumber), dtBirthDate);
 
             List<Role> lstRoles = Arrays.asList(this.theController.getRoleList());
             lstRoles = PrintList.chooseMultiple(lstRoles, "Choose a Role for this Collaborator", "Role");
