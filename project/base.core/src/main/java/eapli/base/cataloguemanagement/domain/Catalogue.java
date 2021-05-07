@@ -31,13 +31,10 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
     @Column(name = "catalogueCompleteDescription")
     private CatalogueCompleteDescription m_oCatalogueCompleteDescription;
 
-    @ManyToMany
-    @JoinTable(
-            name = "catalogue_collaborator",
-            joinColumns = @JoinColumn(name = "catalogueID"),
-            inverseJoinColumns = @JoinColumn(name = "collaboratorID")
-    )
-    private Set<Collaborator> m_setRepresentation;
+    @OneToOne
+    @Column(name = "collaborator")
+    @JoinColumn(name="colaboratorID")
+    private Collaborator m_oCollaborator;
 
 
     @ManyToMany
@@ -49,13 +46,13 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
     private Set<Team> m_setAccess;
 
     public Catalogue(CatalogueBriefDescription oCatalogueBriefDescription, CatalogueCompleteDescription oCatalogueCompleteDescription,
-                     CatalogueTitle oCatalogueTitle, Set<Collaborator> setRepresentation, Set<Team> setAccess){
+                     CatalogueTitle oCatalogueTitle, Collaborator oCollaborator, Set<Team> setAccess){
 
-        Preconditions.noneNull(oCatalogueBriefDescription, oCatalogueCompleteDescription, oCatalogueTitle, setRepresentation,setAccess);
+        Preconditions.noneNull(oCatalogueBriefDescription, oCatalogueCompleteDescription, oCatalogueTitle,oCollaborator,setAccess);
         this.m_oCatalogueBriefDescription = oCatalogueBriefDescription;
         this.m_oCatalogueCompleteDescription = oCatalogueCompleteDescription;
         this.m_oCatalogueTitle = oCatalogueTitle;
-        this.m_setRepresentation = setRepresentation;
+        this.m_oCollaborator = oCollaborator;
         this.m_setAccess = setAccess;
     }
 
@@ -88,7 +85,7 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
                 && m_oCatalogueBriefDescription.equals(that.m_oCatalogueBriefDescription) &&
                 m_oCatalogueCompleteDescription.equals(that.m_oCatalogueCompleteDescription) &&
                 m_setAccess.equals(that.m_setAccess) &&
-                m_setRepresentation.equals(that.m_setRepresentation) ;
+                m_oCollaborator.equals(that.m_oCollaborator) ;
     }
 
     @Override
@@ -104,12 +101,8 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
         return this.catalogueBriefDescription();
     }
 
-    public CatalogueCompleteDescription catalogueCompleteDescription() {
-        return this.catalogueCompleteDescription();
-    }
-
-    public Set<Collaborator> representation() {
-        return this.m_setRepresentation;
+    public Collaborator collaborator() {
+        return this.collaborator();
     }
 
     public Set<Team> access() {
