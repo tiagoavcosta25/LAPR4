@@ -7,9 +7,12 @@ package eapli.base.collaboratormanagement.domain;
 
 import javax.persistence.*;
 
+import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+
+import java.util.Set;
 
 /**
  *
@@ -59,6 +62,9 @@ public class Collaborator implements AggregateRoot<CollaboratorID> {
     @Embedded
     @Column(name = "mechanographicNumber")
     private CollaboratorMechanographicNumber m_oMechanographicNumber;
+
+    @ManyToMany(mappedBy = "m_setRepresentation")
+    private Set<Team> m_setTeams;
 
 
     public Collaborator(final SystemUser oSystemUser, final Collaborator oManager, final CollaboratorPhoneNumber oPhoneNumber,
