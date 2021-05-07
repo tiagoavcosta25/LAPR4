@@ -51,22 +51,22 @@ UI --> HRR : Requests all information needed (i.e. acronym, designation)
 
 HRR -> UI : Inserts the requested information
 
-UI -> CTRL : getColaborators()
+UI -> CTRL : getCollaborators()
 
 activate CTRL
 CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
 CTRL -> CR : all()
 
 activate CR
-CR --> CTRL : colabList
+CR --> CTRL : collabList
 
 deactivate CR
-CTRL --> UI : colabList
+CTRL --> UI : collabList
 deactivate CTRL
 
 
 loop until user command
-UI --> HRR : Displays colaborator's list
+UI --> HRR : Displays collaborator's list
 
 HRR -> UI : Selects the intended team representative
 
@@ -75,7 +75,7 @@ UI --> HRR : Asks if the user wishes to add more representatives
 HRR --> UI : Responds
 end
 
-UI -> CTRL : createTeam(teamType, acronym, designation, colabList)
+UI -> CTRL : createTeam(teamType, acronym, designation, collabList)
 
 activate CTRL
 CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
@@ -89,7 +89,7 @@ CTRL -> TB : withAcronym()
 CTRL -> TB : withDesignation()
 CTRL -> TB : build()
 
-TB -> TEAM** : create(teamType, acronym, designation, colabList)
+TB -> TEAM** : create(teamType, acronym, designation, collabList)
 
 activate TEAM
 TEAM --> TB : team
