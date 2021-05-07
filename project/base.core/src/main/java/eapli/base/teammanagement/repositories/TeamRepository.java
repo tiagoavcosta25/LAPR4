@@ -4,7 +4,6 @@ import eapli.base.teammanagement.domain.Team;
 import eapli.base.teammanagement.domain.TeamID;
 import eapli.framework.domain.repositories.DomainRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,8 +22,4 @@ public interface TeamRepository
     default Optional<Team> findByID(TeamID oID) {
         return ofIdentity(oID);
     }
-
-    public Iterable<Team> findAllActive();
-
-    List<Team> all();
 }
