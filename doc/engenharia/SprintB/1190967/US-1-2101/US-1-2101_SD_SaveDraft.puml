@@ -2,21 +2,39 @@
 autonumber
 hide footbox
 
-participant "<<boostrapers>>\nCatalogueSpecificationBootstrapper" as BOOT
-participant "<<aplication>>\nCatalogueSpecificationController" as CTRL
-participant "<<domain>>\ncatalogue:Catalogue" as CATAL
+participant "<<boostrapers>>\nSaveDraftBootstrapper" as BOOT
+participant "<<aplication>>\nSaveDraftController" as CTRL
+participant "<<domain>>\nservice:Service" as SER
 
 [o-> BOOT : execute
 
 activate BOOT
 BOOT -> CTRL** : create()
 
-BOOT -> CTRL : specifyCatalogue(title, briefDescription,\ncompleteDescription, collabID, teamIDs)
+BOOT -> BOOT : saveDraft(intOp)
+
+BOOT -> CTRL : getDrafts()
 activate CTRL
 ref over CTRL
-Code Sequence similar to US-1-2001_SD
+Code Sequence similar to US-1-2002_SD_SaveDraft
+end ref
+CTRL --> BOOT : drafts
+deactivate CTRL
+
+BOOT -> CTRL : getCatalogues()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_SaveDraft
 end ref
 CTRL --> BOOT : collaborator
+deactivate CTRL
+
+BOOT -> CTRL : saveService(draft, catalogue)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_SaveDraft
+end ref
+CTRL --> BOOT : service
 deactivate CTRL
 deactivate BOOT
 
