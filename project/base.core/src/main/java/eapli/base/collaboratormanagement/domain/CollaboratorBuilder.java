@@ -4,7 +4,6 @@ import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  *

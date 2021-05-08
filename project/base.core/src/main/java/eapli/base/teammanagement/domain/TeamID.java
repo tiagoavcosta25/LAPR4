@@ -3,6 +3,7 @@ package eapli.base.teammanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -14,6 +15,7 @@ public class TeamID implements ValueObject, Comparable<TeamID> {
     private static final long serialVersionUID = 1L;
     private static final String m_strRegex = "[a-z-A-Z0-9]{1,15}";
 
+    @Column(name = "teamID")
     private String m_strID;
 
     public TeamID(final String strID) {

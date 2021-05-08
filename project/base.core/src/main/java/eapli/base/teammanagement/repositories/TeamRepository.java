@@ -1,6 +1,5 @@
 package eapli.base.teammanagement.repositories;
 
-import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.teammanagement.domain.Team;
 import eapli.base.teammanagement.domain.TeamID;
 import eapli.framework.domain.repositories.DomainRepository;

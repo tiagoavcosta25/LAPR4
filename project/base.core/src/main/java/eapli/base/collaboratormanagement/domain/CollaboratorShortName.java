@@ -10,7 +10,6 @@ import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import java.util.Locale;
 
 /**
  *

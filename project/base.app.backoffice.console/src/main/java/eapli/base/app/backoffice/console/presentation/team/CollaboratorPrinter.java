@@ -1,7 +1,6 @@
 package eapli.base.app.backoffice.console.presentation.team;
 
 import eapli.base.collaboratormanagement.domain.Collaborator;
-import eapli.base.teammanagement.domain.TeamType;
 import eapli.framework.visitor.Visitor;
 
 /**

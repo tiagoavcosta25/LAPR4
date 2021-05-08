@@ -10,7 +10,6 @@ import eapli.framework.domain.model.ValueObject;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  *

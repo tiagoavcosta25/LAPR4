@@ -2,17 +2,16 @@ package eapli.base.teammanagement.application;
 
 import eapli.base.collaboratormanagement.application.ListCollaboratorService;
 import eapli.base.collaboratormanagement.domain.Collaborator;
-import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.teammanagement.domain.*;
+import eapli.base.teammanagement.domain.Team;
+import eapli.base.teammanagement.domain.TeamBuilder;
+import eapli.base.teammanagement.domain.TeamType;
 import eapli.base.teammanagement.repositories.TeamRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 /**

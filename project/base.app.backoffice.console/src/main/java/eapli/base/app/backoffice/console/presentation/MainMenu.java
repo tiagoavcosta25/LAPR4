@@ -23,10 +23,7 @@
  */
 package eapli.base.app.backoffice.console.presentation;
 
-import eapli.base.app.backoffice.console.presentation.collaborator.AddCollabToTeamAction;
-import eapli.base.app.backoffice.console.presentation.collaborator.CollaboratorSpecificationUI;
-import eapli.base.app.backoffice.console.presentation.collaborator.ListCollaboratorTeamsAction;
-import eapli.base.app.backoffice.console.presentation.collaborator.ListCollaboratorsAction;
+import eapli.base.app.backoffice.console.presentation.collaborator.*;
 import eapli.base.app.backoffice.console.presentation.service.SaveDraftUI;
 import eapli.base.app.backoffice.console.presentation.service.ServiceDraftFieldSpecificationUI;
 import eapli.base.app.backoffice.console.presentation.service.ServiceDraftFormSpecificationUI;
@@ -222,7 +219,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(COLLABORATORS_SPECIFY, "Specify Collaborator", new CollaboratorSpecificationUI()::show);
         menu.addItem(ADD_COLLABORATOR_TO_TEAM_OPTION, "Add Collaborator to Team", new AddCollabToTeamAction());
         menu.addItem(REMOVE_COLLABORATOR_FROM_TEAM_OPTION, "Remove Collaborator from Team",
-                new CollaboratorSpecificationUI()::show);
+                new RemoveCollabFromTeamAction());
         menu.addItem(LIST_TEAM_FROM_COLLABORATOR, "List Collaborator's Team's",
                 new ListCollaboratorTeamsAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);

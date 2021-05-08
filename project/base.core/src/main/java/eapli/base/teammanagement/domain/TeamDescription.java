@@ -15,7 +15,7 @@ public class TeamDescription implements ValueObject, Comparable<TeamDescription>
 
     private static final long serialVersionUID = 1L;
 
-    @Column(nullable = false)
+    @Column(name = "teamDescription", nullable = false)
     private String m_strTeamDescriptrion;
 
     public TeamDescription(final String strTeamDescriptrion) {

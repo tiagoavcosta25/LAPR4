@@ -29,7 +29,7 @@ public class CreateTeamUI extends AbstractUI {
                 System.out.println("Team needs atleast one representative!");
                 representation = selectCollaborators();
             }
-            String strOp = Console.readLine("Confirm the team with code %s creation? (Y/N) " + id);
+            String strOp = Console.readLine("Confirm the team with code " + id + " creation? (Y/N) " + id);
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.createTeam(id, theTeamType, acronym, teamDescription, representation);
@@ -76,6 +76,8 @@ public class CreateTeamUI extends AbstractUI {
     private Collaborator selectCollaborator() {
         System.out.println("List of Collaborators - Select a Collaborator");
         final Iterable<Collaborator> listCollaborator = theController.getCollaborators();
+        if(!listCollaborator.iterator().hasNext())
+            throw new IllegalArgumentException("No collaborators avaiable!");
         final SelectWidget<Collaborator> selectorCollaborator = new SelectWidget<>("Select a Collaborator", listCollaborator,
                 new CollaboratorPrinter());
         selectorCollaborator.show();

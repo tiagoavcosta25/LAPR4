@@ -2,10 +2,7 @@ package eapli.base.app.backoffice.console.presentation.team;
 
 import eapli.base.teammanagement.application.ListTeamTypeController;
 import eapli.base.teammanagement.domain.TeamType;
-import eapli.framework.domain.repositories.IntegrityViolationException;
-import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractListUI;
-import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.visitor.Visitor;
 
 /**

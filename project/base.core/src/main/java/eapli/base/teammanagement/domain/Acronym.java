@@ -16,7 +16,7 @@ public class Acronym implements ValueObject, Comparable<Acronym> {
     private static final long serialVersionUID = 1L;
     private static final String m_strRegex = "[a-z-A-Z0-9]{1,10}";
 
-    @Column(unique = true)
+    @Column(unique = true, name = "acronym")
     private String m_strAcronym;
 
     public Acronym(final String strAcronym) {

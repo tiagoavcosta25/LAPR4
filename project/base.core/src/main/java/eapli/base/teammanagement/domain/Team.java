@@ -21,24 +21,16 @@ public class Team implements AggregateRoot<TeamID> {
     private Long version;
 
     @EmbeddedId
-    @Column(name = "teamID")
     private TeamID m_oID;
 
     @Enumerated(EnumType.STRING)
     private TeamType m_enumTeamType;
 
-    @Column(unique = true, name = "acronym")
     private Acronym m_oAcronym;
 
-    @Column(name = "teamDescription")
     private TeamDescription m_oTeamDescription;
 
-    @ManyToMany
-    @JoinTable(
-            name = "team_collaborator",
-            joinColumns = @JoinColumn(name = "teamID"),
-            inverseJoinColumns = @JoinColumn(name = "collaboratorID")
-    )
+    @OneToMany
     private Set<Collaborator> m_setRepresentation;
 
     public Team(TeamID oTeamID, TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,

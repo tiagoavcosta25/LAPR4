@@ -6,7 +6,6 @@
 package eapli.base.collaboratormanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
-import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -49,7 +48,7 @@ public class CollaboratorMechanographicNumber implements ValueObject, Comparable
         }
 
         final CollaboratorMechanographicNumber that = (CollaboratorMechanographicNumber) o;
-        return this.m_lngMechanographicNumber == that.m_lngMechanographicNumber;
+        return this.m_lngMechanographicNumber.equals(that.m_lngMechanographicNumber);
     }
 
     @Override

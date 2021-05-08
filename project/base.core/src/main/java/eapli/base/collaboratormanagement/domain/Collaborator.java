@@ -1,14 +1,12 @@
 package eapli.base.collaboratormanagement.domain;
 
-import javax.persistence.*;
-
 import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,7 +50,7 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     @Embedded
     private CollaboratorShortName m_oShortName;
 
-    @ManyToMany(mappedBy = "m_setRepresentation")
+    @OneToMany
     private Set<Team> m_setTeams;
 
 
@@ -103,16 +101,22 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     public SystemUser user(){return this.m_oSystemUser;}
     public Set<Team> teams(){return this.m_setTeams;}
     public void addTeam(Team oTeam) {
-        if(!oTeam.representation().contains(this) && !this.m_setTeams.contains(oTeam))
+        if(!oTeam.representation().contains(this))
             this.m_setTeams.add(oTeam);
         else
             throw new IllegalArgumentException("Collaborator is already a representative of the team or in the team!");
     }
     public void removeTeam(Team oTeam) {
-        if(this.m_setTeams.contains(oTeam))
-            this.m_setTeams.remove(oTeam);
+        if(this.m_setTeams.contains(oTeam)) {
+            Set<Team> set = this.m_setTeams;
+            set.remove(oTeam);
+            this.m_setTeams = set;
+        }
         else
             throw new IllegalArgumentException("Collaborator does not belong to the team and cannot be removed!");
+        for (Team m_setTeam : this.m_setTeams) {
+            System.out.println(m_setTeam.identity());
+        }
     }
 
 
