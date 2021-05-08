@@ -34,7 +34,7 @@ import javax.persistence.*;
  */
 
 @Entity
-public class Attribute implements AggregateRoot<AttributeID> {
+public class Attribute implements AggregateRoot<Long> {
 
     @Version
     private Long version;
@@ -42,7 +42,7 @@ public class Attribute implements AggregateRoot<AttributeID> {
     @Id
     @GeneratedValue
     @Column(name = "attributeID")
-    private AttributeID m_oID;
+    private Long m_lngID;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -123,12 +123,12 @@ public class Attribute implements AggregateRoot<AttributeID> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public AttributeID id() {
+    public Long id() {
         return identity();
     }
 
     @Override
-    public AttributeID identity() {
-        return this.m_oID;
+    public Long identity() {
+        return this.m_lngID;
     }
 }

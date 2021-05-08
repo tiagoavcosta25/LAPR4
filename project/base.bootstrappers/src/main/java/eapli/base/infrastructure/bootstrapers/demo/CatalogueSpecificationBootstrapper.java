@@ -32,17 +32,17 @@ public class CatalogueSpecificationBootstrapper implements Action {
         specifyCatalogue("Repair Catalogue",
                 "Catalogue containing all the Repair Services.",
                 "This Catalogue contains all the Repair Services presented in the app.",
-                123456l, new ArrayList<>(Arrays.asList(TeamID.valueOf("1"))));
+                123456l, new ArrayList<>(Arrays.asList(1l)));
         specifyCatalogue("HR Catalogue",
                 "Catalogue containing all the HR Services.",
                 "This Catalogue contains all the HR Services presented in the app.",
-                654321l, new ArrayList<>(Arrays.asList(TeamID.valueOf("2"))));
+                654321l, new ArrayList<>(Arrays.asList(2l)));
         return true;
     }
 
     private Catalogue specifyCatalogue(final String strTitle, final String strBriefDescription,
                                      final String strCompleteDescription,
-                                       Long lngCollabID, List<TeamID> lstTeamIDs) {
+                                       Long lngCollabID, List<Long> lstTeamIDs) {
         Catalogue oCatalogue = null;
         try {
             Collaborator oCollaborator = null;

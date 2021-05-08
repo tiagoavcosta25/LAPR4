@@ -13,6 +13,7 @@ import junit.framework.TestCase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -25,7 +26,7 @@ public class ServiceTest extends TestCase {
     public final Form f = getDummyForm("Lorem", "MANUAL_TASK", Arrays.asList(a));
 
     public final Collaborator c = getDummyCollaborator(dummyUser("dummy", BaseRoles.ADMIN), null, 919191919d,
-            "+351", new SimpleDateFormat("dd/MM/yyyy").parse("1/1/2000"), "Lorem", "Ipsum",
+            "+351", LocalDate.of(2000,01,01), "Lorem", "Ipsum",
             "Lorem", 123456l);
 
     public final Catalogue cat = new Catalogue(CatalogueBriefDescription.valueOf("Lorem"), CatalogueCompleteDescription.valueOf("Lorem"),
@@ -58,7 +59,7 @@ public class ServiceTest extends TestCase {
     }
 
     public static Collaborator getDummyCollaborator(final SystemUser oSystemUser, final Collaborator oManager, final Double dblPhoneNumber, final String strPhoneCode,
-                                                    final Date dtBirthDate, final String strAddress, final String strCompleteName,
+                                                    final LocalDate dtBirthDate, final String strAddress, final String strCompleteName,
                                                     final String strShortName, final Long lngMechanographicNumber) {
         CollaboratorBuilder collaboratorBuilder = new CollaboratorBuilder();
         collaboratorBuilder = collaboratorBuilder.withSystemUser(oSystemUser);
@@ -147,12 +148,12 @@ public class ServiceTest extends TestCase {
     }
 
     public void testId() {
-        ServiceID real = s.id();
+        Long real = s.id();
         assertNull(real);
     }
 
     public void testIdentity() {
-        ServiceID real = s.identity();
+        Long real = s.identity();
         assertNull(real);
     }
 }

@@ -1,11 +1,8 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
-import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.domain.ServiceDraft;
-import eapli.base.servicemanagement.domain.ServiceID;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
-import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 

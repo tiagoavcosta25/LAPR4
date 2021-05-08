@@ -66,12 +66,12 @@ public class FormTest extends TestCase {
     }
 
     public void testId() {
-        FormID real = f.id();
+        Long real = f.id();
         assertNull(real);
     }
 
     public void testIdentity() {
-        FormID real = f.identity();
+        Long real = f.identity();
         assertNull(real);
     }
 }

@@ -31,6 +31,7 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -53,7 +54,7 @@ public class CollaboratorSpecificationUI extends AbstractUI {
             final String strPhoneNumber = Console.readLine("Phone Number");
             final String strBirthDate = Console.readLine("Birth Date (dd/MM/yyyy)");
 
-            final Date dtBirthDate = new SimpleDateFormat("dd/MM/yyyy").parse(strBirthDate);
+            final LocalDate dtBirthDate = LocalDate.parse(strBirthDate);
 
             Collaborator oCollaborator = this.theController.addCollaborator(strEmail, strFirstName, strLastName,
                     strCompleteName, Long.parseLong(strMechanographicNumber), strAddress, strPhoneCode,

@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ImportCollaboratorCSV {
@@ -34,7 +37,7 @@ public class ImportCollaboratorCSV {
             String strAddress = line.split(";")[5].trim();
             String strPhoneCode = line.split(";")[6].trim();
             Double dblPhoneNumber = Double.parseDouble(line.split(";")[7].trim());
-            Date strBirthDate = new SimpleDateFormat("dd/MM/yyyy").parse(line.split(";")[8].trim());
+            LocalDate strBirthDate = LocalDate.parse(line.split(";")[8].trim());
             Long lngManager = Long.parseLong(line.split(";")[9].trim());
 
             for (int i = 10; i < file.length(); i++){
