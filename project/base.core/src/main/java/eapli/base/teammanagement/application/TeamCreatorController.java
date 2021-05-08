@@ -28,7 +28,6 @@ public class TeamCreatorController {
     private final ListCollaboratorService listCollaboratorService = new ListCollaboratorService();
 
     public Iterable<Collaborator> getCollaborators() {
-        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
         return listCollaboratorService.allCollaborators();
     }
 

@@ -1,6 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.teammanagement.domain.Team;
 import eapli.base.teammanagement.domain.TeamID;
 import eapli.base.teammanagement.repositories.TeamRepository;
