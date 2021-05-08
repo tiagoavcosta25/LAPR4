@@ -12,12 +12,15 @@ import javax.persistence.Embeddable;
 public class TeamID implements ValueObject, Comparable<TeamID> {
 
     private static final long serialVersionUID = 1L;
+    private static final String m_strRegex = "[a-z-A-Z0-9]{1,15}";
 
     private String m_strID;
 
     public TeamID(final String strID) {
         if(StringPredicates.isNullOrEmpty(strID)) {
-            throw new IllegalArgumentException("Team's ID shoud neither be null nor empty!");
+            throw new IllegalArgumentException(
+                    "TeamID should neither be null, empty, nor contain characters besides letters and numbers. " +
+                    "It also should have a max of 15 characters");
         }
         this.m_strID = strID;
     }
