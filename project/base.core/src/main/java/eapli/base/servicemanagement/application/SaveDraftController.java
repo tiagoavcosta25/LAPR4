@@ -63,7 +63,8 @@ public class SaveDraftController {
         return this.catalogueRepo.findByID(lngID).get();
     }
 
-    public Service saveService(Catalogue oCatalogue) {
+    public Service saveService(ServiceDraft oServiceDraft, Catalogue oCatalogue) {
+        this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         String strTitle = this.m_oServiceDraft.getTitle();
         String strBriefDescription = this.m_oServiceDraft.getBriefDescription();
