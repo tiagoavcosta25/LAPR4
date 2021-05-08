@@ -1,6 +1,5 @@
 package eapli.base.teammanagement.domain;
 
-import eapli.base.cataloguemanagement.domain.CatalogueID;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
