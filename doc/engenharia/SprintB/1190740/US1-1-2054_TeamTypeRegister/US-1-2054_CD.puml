@@ -1,0 +1,102 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "base.app.backoffice.console" #AAAAAA {
+    package "presentation" #CCCCCC {
+        class TeamTypeRegisterUI <<presentation>>{
+        }
+    }
+}
+
+package "base.core" #AAAAAA {
+    package "eapli.base" #CCCCCC {
+        package infrastructure.persistence #DDDDDD {
+            class PersistenceContext <<persistence>>{
+                +repositories()
+            }
+
+            interface RepositoryFactory{
+            }
+        }
+
+        package "teamtypemanagement" #CCCCCC{
+            package "teamtypemanagement.repositories" #DDDDDD{
+                interface TeamTypeRepositoryInterface {
+                }
+            }
+
+            package "teamtypemanagement.application" #DDDDDD{
+                class TeamTypeRegisterController <<application>> {}
+            }
+
+            package "teamtypemanagement.domain" #DDDDDD {
+                class TeamType <<entity>> {
+                    -id
+                    -description
+                    -color
+                    +create(id, description, color)
+                }
+
+                class TeamTypeId <<value object>> {
+                }
+
+                class TeamTypeDescription <<value object>> {
+                }
+
+                class TeamTypeColor <<value object>> {
+                }
+
+                class TeamTypeBuilder <<builder>> {
+                    -id
+                    -description
+                    -color
+                    +withId(id)
+                    +withDescription(description)
+                    +withColor(color)
+                    +build()
+                }
+            }
+        }
+
+        class AppSettings <<persistence>>{
+            +instance()
+            +getRepositoryFactory()
+        }
+    }
+}
+
+package "base.persistence.impl" #AAAAAA {
+    package "jpa" #CCCCCC {
+        class TeamTypeRepository <<repository>>{
+            +save(team)
+        }
+
+        class JpaRepositoryFactory <<factory>>{
+            +teamTypes()
+        }
+
+    }
+}
+
+TeamTypeRegisterUI ..> TeamTypeRegisterController
+TeamTypeRegisterController ..> PersistenceContext
+TeamTypeRegisterController ..> TeamTypeBuilder
+
+AppSettings -> JpaRepositoryFactory : creates
+JpaRepositoryFactory -> RepositoryFactory : implements
+PersistenceContext -> RepositoryFactory : has
+RepositoryFactory -> TeamTypeRepository : has
+
+JpaRepositoryFactory "1" -> "1" TeamTypeRepository : has
+TeamTypeRepository ..> TeamTypeRepositoryInterface
+
+TeamTypeRepository "1" -> "*" TeamType : saves
+
+TeamType "1" -> "1" TeamTypeId : has
+TeamType "1" -> "1" TeamTypeDescription : has
+TeamType "1" -> "1" TeamTypeColor : has
+
+TeamTypeBuilder "1" -> "1" TeamTypeId : has
+TeamTypeBuilder "1" -> "1" TeamTypeDescription : has
+TeamTypeBuilder "1" -> "1" TeamTypeColor : has
+@enduml
