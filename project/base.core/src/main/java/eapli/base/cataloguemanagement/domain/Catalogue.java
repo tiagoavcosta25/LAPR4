@@ -35,11 +35,11 @@ public class Catalogue implements AggregateRoot<Long> {
     private CatalogueCompleteDescription m_oCatalogueCompleteDescription;
 
     @OneToOne
-    @JoinColumn(name="colaboratorID")
+    @JoinColumn(name = "collaboratorID")
     private Collaborator m_oCollaborator;
 
 
-    @ManyToMany
+    @OneToMany
     @JoinTable(
             name = "catalogue_team",
             joinColumns = @JoinColumn(name = "catalogueID"),
@@ -48,10 +48,11 @@ public class Catalogue implements AggregateRoot<Long> {
     private Set<Team> m_setAccess;
 
     public Catalogue(CatalogueBriefDescription oCatalogueBriefDescription, CatalogueCompleteDescription oCatalogueCompleteDescription,
-                     CatalogueTitle oCatalogueTitle, Collaborator oCollaborator, Set<Team> setAccess){
+                     CatalogueTitle oCatalogueTitle, Collaborator oCollaborator, Set<Team> setAccess) {
         if (oCatalogueBriefDescription == null || oCatalogueCompleteDescription == null || oCatalogueTitle == null || oCollaborator == null) {
             throw new IllegalArgumentException();
-        }this.m_oCatalogueBriefDescription = oCatalogueBriefDescription;
+        }
+        this.m_oCatalogueBriefDescription = oCatalogueBriefDescription;
         this.m_oCatalogueCompleteDescription = oCatalogueCompleteDescription;
         this.m_oCatalogueTitle = oCatalogueTitle;
         this.m_oCollaborator = oCollaborator;
@@ -87,9 +88,6 @@ public class Catalogue implements AggregateRoot<Long> {
         return this.m_setAccess;
     }
 
-    public boolean hasID(CatalogueID oID) {
-        return this.m_lngID.equals(oID);
-    }
 
     @Override
     public Long identity() {

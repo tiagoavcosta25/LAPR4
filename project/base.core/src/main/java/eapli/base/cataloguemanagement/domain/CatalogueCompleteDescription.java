@@ -9,13 +9,13 @@ import javax.persistence.Embeddable;
 public class CatalogueCompleteDescription implements ValueObject, Comparable<CatalogueCompleteDescription> {
 
     private static final long serialVersionUID = 1L;
-
+    private static final Integer m_intMaxLength = 80;
     private String m_strCompleteDescription;
 
     public CatalogueCompleteDescription(final String strCompleteDescription) {
-        if (StringPredicates.isNullOrEmpty(strCompleteDescription)) {
+        if (StringPredicates.isNullOrEmpty(strCompleteDescription)|| !(strCompleteDescription.length() < m_intMaxLength)) {
             throw new IllegalArgumentException(
-                    "Complete description can't be null nor empty.");
+                    "Complete description can't be null nor empty, or have more then 80 characters.");
         }
         // expression
         this.m_strCompleteDescription = strCompleteDescription;
