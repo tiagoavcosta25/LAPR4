@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 public class AttributeTest extends TestCase {
 
-    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:/folder/script.bin", "Integer");
+    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:/folder/script.bat", "Integer");
 
     public static Attribute getDummyAttribute(final String strName, final String strLabel, final String strDescription,
                                            final String strRegex, final String strScript, final String strDataType) {

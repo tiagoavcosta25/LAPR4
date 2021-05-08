@@ -19,19 +19,19 @@ class JpaServiceDraftRepository
         implements ServiceDraftRepository {
 
     public JpaServiceDraftRepository(TransactionalContext autoTx) {
-        super(autoTx, "m_oID");
+        super(autoTx, "serviceDraftID");
     }
 
     public JpaServiceDraftRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "m_oID");
+                "serviceDraftID");
     }
 
     @Override
     public Optional<ServiceDraft> findById(Long oID) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("m_oID", oID);
-        return matchOne("e.id=:m_oID", params);
+        params.put("serviceDraftID", oID);
+        return matchOne("e.id=:serviceDraftID", params);
     }
 
     @Override
