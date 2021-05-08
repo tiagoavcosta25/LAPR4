@@ -5,16 +5,13 @@
  */
 package eapli.base.formmanagement.domain;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
 public enum DataType {
     INTEGER, STRING, BOOL, DATA, FILE, ENUM;
 
     public static DataType stringToDataType(String strType) {
-        switch (strType)
+        switch (strType.toUpperCase())
             {
-                case "Integer":
+                case "INTEGER":
                     return INTEGER;
                 case "STRING":
                     return STRING;
