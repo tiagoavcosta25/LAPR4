@@ -80,6 +80,8 @@ public class SaveDraftController {
         this.serviceBuilder = this.serviceBuilder.withCatalogue(oCatalogue);
         this.serviceBuilder = this.serviceBuilder.withKeywordList(keywordList);
         this.serviceBuilder = this.serviceBuilder.withFormList(formList);
-        return this.serviceRepo.save(this.serviceBuilder.build());
+        Service oService = this.serviceRepo.save(this.serviceBuilder.build());
+        this.draftRepo.delete(this.m_oServiceDraft);
+        return oService;
     }
 }

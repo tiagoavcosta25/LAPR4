@@ -8,6 +8,7 @@ package eapli.base.servicemanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -20,6 +21,7 @@ public class ServiceBriefDescription implements ValueObject, Comparable<ServiceB
     private static final long serialVersionUID = 1L;
     private static final Integer m_intMaxLength = 40;
 
+    @Column(name = "serviceBriefDescription")
     private String m_strBriefDescription;
 
     public ServiceBriefDescription(final String strDescription) {

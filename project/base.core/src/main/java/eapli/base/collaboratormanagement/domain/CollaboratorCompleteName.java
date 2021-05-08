@@ -8,6 +8,7 @@ package eapli.base.collaboratormanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -19,6 +20,7 @@ public class CollaboratorCompleteName implements ValueObject, Comparable<Collabo
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "completeName")
     private String m_strCompleteName;
     private static final String m_strRegex = "[a-zA-Z ]+";
     private static final Integer m_intMaxLength = 80;

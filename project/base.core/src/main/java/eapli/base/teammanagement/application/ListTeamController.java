@@ -1,13 +1,8 @@
 package eapli.base.teammanagement.application;
 
-import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.teammanagement.domain.Team;
 import eapli.base.teammanagement.domain.TeamID;
-import eapli.base.teammanagement.repositories.TeamRepository;
-import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
-import eapli.framework.infrastructure.authz.application.AuthorizationService;
-import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 import java.util.Optional;
 
@@ -18,16 +13,13 @@ import java.util.Optional;
 @UseCaseController
 public class ListTeamController {
 
-    private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
-    private final TeamRepository m_oTeamRepository = PersistenceContext.repositories().teams();
+    private final ListTeamService m_oListTeamService = new ListTeamService();
 
-    public Iterable<Team> allTeams() {
-        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HR_REP, BaseRoles.ADMIN, BaseRoles.POWER_USER);
-        return this.m_oTeamRepository.findAll();
+    public Iterable<Team> getTeams() {
+        return this.m_oListTeamService.getTeams();
     }
 
     public Optional<Team> findByID(final TeamID oID) {
-        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HR_REP, BaseRoles.ADMIN, BaseRoles.POWER_USER);
-        return m_oTeamRepository.findByID(oID);
+        return m_oListTeamService.findByID(oID);
     }
 }

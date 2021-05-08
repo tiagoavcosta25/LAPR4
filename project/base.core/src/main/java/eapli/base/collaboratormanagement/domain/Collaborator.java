@@ -9,6 +9,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.strings.util.StringPredicates;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,7 +25,6 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     private Long version;
 
     @EmbeddedId
-    @Column(name = "mechanographicNumber")
     private CollaboratorMechanographicNumber m_oMechanographicNumber;
 
     /**
@@ -34,27 +34,22 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     private SystemUser m_oSystemUser;
 
     @OneToOne
-    @JoinColumn(name="manager")
+    @JoinColumn(name="mechanographicNumber")
     private Collaborator m_oManager;
 
     @Embedded
-    @Column(name = "phonenNumber")
     private CollaboratorPhoneNumber m_oPhoneNumber;
 
     @Embedded
-    @Column(name = "birthDate")
     private CollaboratorBirthDate m_oBirthDate;
 
     @Embedded
-    @Column(name = "address")
     private CollaboratorAddress m_oAddress;
 
     @Embedded
-    @Column(name = "completeName")
     private CollaboratorCompleteName m_oCompleteName;
 
     @Embedded
-    @Column(name = "shortName")
     private CollaboratorShortName m_oShortName;
 
     @ManyToMany(mappedBy = "m_setRepresentation")
@@ -76,6 +71,7 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
         this.m_oCompleteName = oCompleteName;
         this.m_oShortName = oShortName;
         this.m_oMechanographicNumber = oMechanographicNumber;
+        this.m_setTeams = new HashSet<>();
     }
 
     protected Collaborator() {
@@ -105,6 +101,19 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
         return this.m_oShortName;
     }
     public SystemUser user(){return this.m_oSystemUser;}
+    public Set<Team> teams(){return this.m_setTeams;}
+    public void addTeam(Team oTeam) {
+        if(!oTeam.representation().contains(this) && !this.m_setTeams.contains(oTeam))
+            this.m_setTeams.add(oTeam);
+        else
+            throw new IllegalArgumentException("Collaborator is already a representative of the team or in the team!");
+    }
+    public void removeTeam(Team oTeam) {
+        if(this.m_setTeams.contains(oTeam))
+            this.m_setTeams.remove(oTeam);
+        else
+            throw new IllegalArgumentException("Collaborator does not belong to the team and cannot be removed!");
+    }
 
 
     @Override

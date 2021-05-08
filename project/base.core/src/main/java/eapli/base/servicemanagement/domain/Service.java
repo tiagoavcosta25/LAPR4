@@ -49,19 +49,15 @@ public class Service implements AggregateRoot<Long> {
     private Long m_lngID;
 
     @JsonProperty
-    @Column(name = "serviceTitle")
     private ServiceTitle m_oTitle;
     
     @Embedded
-    @Column(name = "serviceBriefDescription")
     private ServiceBriefDescription m_oBriefDescription;
 
     @Embedded
-    @Column(name = "serviceCompleteDescription")
     private ServiceCompleteDescription m_oCompleteDescription;
 
     @Embedded
-    @Column(name = "serviceFeedback")
     private Feedback m_oFeedback;
 
     @ManyToOne
@@ -73,11 +69,7 @@ public class Service implements AggregateRoot<Long> {
     private List<Keyword> m_lstKeywords;
 
     @OneToMany()
-    @JoinTable(
-            name = "service_form",
-            joinColumns = @JoinColumn(name = "serviceID"),
-            inverseJoinColumns = @JoinColumn(name = "formID")
-    )
+    @Column(name = "serviceForms")
     private List<Form> m_lstForms;
 
     public Service(final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,

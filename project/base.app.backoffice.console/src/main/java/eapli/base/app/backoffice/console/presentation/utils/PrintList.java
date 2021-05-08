@@ -56,12 +56,16 @@ public class PrintList {
                 i++;
                 lstTemp.add(t);
             }
+            if(lstTemp.isEmpty()){
+                System.out.println("There is no " + strElementName + "s in the Database.\n\n");
+                return null;
+            }
             Integer intOp = Integer.parseInt(Console.readLine("\n\n\nSelect " + strElementName + " Number >"));
 
             return lstTemp.get(intOp - 1);
 
         } catch (Exception e){
-            System.out.println("Error in selecting.");
+            System.out.println("Error in selecting.\n\n");
             return null;
         }
     }

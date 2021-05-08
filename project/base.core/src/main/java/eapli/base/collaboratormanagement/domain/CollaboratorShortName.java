@@ -8,6 +8,7 @@ package eapli.base.collaboratormanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Locale;
 
@@ -20,7 +21,10 @@ public class CollaboratorShortName implements ValueObject, Comparable<Collaborat
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "firstName")
     private String m_strFirstName;
+
+    @Column(name = "lasttName")
     private String m_strLastName;
     private static final String m_strRegex = "[a-zA-Z ]+";
     private static final Integer m_intMaxLength = 15;

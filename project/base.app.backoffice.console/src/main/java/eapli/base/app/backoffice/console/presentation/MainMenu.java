@@ -23,7 +23,10 @@
  */
 package eapli.base.app.backoffice.console.presentation;
 
+import eapli.base.app.backoffice.console.presentation.collaborator.AddCollabToTeamAction;
 import eapli.base.app.backoffice.console.presentation.collaborator.CollaboratorSpecificationUI;
+import eapli.base.app.backoffice.console.presentation.collaborator.ListCollaboratorTeamsAction;
+import eapli.base.app.backoffice.console.presentation.collaborator.ListCollaboratorsAction;
 import eapli.base.app.backoffice.console.presentation.service.SaveDraftUI;
 import eapli.base.app.backoffice.console.presentation.service.ServiceDraftFieldSpecificationUI;
 import eapli.base.app.backoffice.console.presentation.service.ServiceDraftFormSpecificationUI;
@@ -80,7 +83,11 @@ public class MainMenu extends AbstractUI {
     private static final int CATALOGUE_SPECIFY = 1;
 
     // COLLABORATOR
-    private static final int COLLABORATORS_SPECIFY = 1;
+    private static final int LIST_COLLABORATORS_OPTION = 1;
+    private static final int COLLABORATORS_SPECIFY = 2;
+    private static final int ADD_COLLABORATOR_TO_TEAM_OPTION = 3;
+    private static final int REMOVE_COLLABORATOR_FROM_TEAM_OPTION = 4;
+    private static final int LIST_TEAM_FROM_COLLABORATOR = 5;
 
     // TEAMS
     private static final int LIST_TEAMS_OPTION = 1;
@@ -211,7 +218,13 @@ public class MainMenu extends AbstractUI {
     private Menu buildCollaboratorsMenu() {
         final Menu menu = new Menu("Collaborators >");
 
+        menu.addItem(LIST_COLLABORATORS_OPTION, "List Collaborator's", new ListCollaboratorsAction());
         menu.addItem(COLLABORATORS_SPECIFY, "Specify Collaborator", new CollaboratorSpecificationUI()::show);
+        menu.addItem(ADD_COLLABORATOR_TO_TEAM_OPTION, "Add Collaborator to Team", new AddCollabToTeamAction());
+        menu.addItem(REMOVE_COLLABORATOR_FROM_TEAM_OPTION, "Remove Collaborator from Team",
+                new CollaboratorSpecificationUI()::show);
+        menu.addItem(LIST_TEAM_FROM_COLLABORATOR, "List Collaborator's Team's",
+                new ListCollaboratorTeamsAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
