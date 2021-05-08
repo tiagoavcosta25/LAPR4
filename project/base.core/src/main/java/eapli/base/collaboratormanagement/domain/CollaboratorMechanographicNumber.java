@@ -24,7 +24,7 @@ public class CollaboratorMechanographicNumber implements ValueObject, Comparable
     public CollaboratorMechanographicNumber(final long lngMechanographicNumber) {
         if (lngMechanographicNumber < 0 || String.valueOf(lngMechanographicNumber).length() > 6) {
             throw new IllegalArgumentException(
-                    "Mechanographic Number should neither be less than zero nor less than six digits.");
+                    "Mechanographic Number should neither be less than zero nor more than six digits.");
         }
         this.m_lngMechanographicNumber = lngMechanographicNumber;
     }
