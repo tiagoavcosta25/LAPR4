@@ -11,12 +11,30 @@ participant "<<domain>>\ncatalogue:Catalogue" as CATAL
 activate BOOT
 BOOT -> CTRL** : create()
 
-BOOT -> CTRL : specifyCatalogue(title, briefDescription,\ncompleteDescription, collabID, teamIDs)
+BOOT -> BOOT : specifyCatalogue(title, briefDescription,\ncompleteDescription, collabID, teamIDs)
+
+BOOT -> CTRL : getCollaborators(collabID)
 activate CTRL
 ref over CTRL
 Code Sequence similar to US-1-2001_SD
 end ref
 CTRL --> BOOT : collaborator
+deactivate CTRL
+
+BOOT -> CTRL : createCatalog(title, briefDescription, \ncompleteDescription, collab, setTeams)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2001_SD
+end ref
+CTRL --> BOOT : catalogue
+deactivate CTRL
+
+BOOT -> CTRL : saveCatalogue()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2001_SD
+end ref
+CTRL --> BOOT : catalogue
 deactivate CTRL
 deactivate BOOT
 
