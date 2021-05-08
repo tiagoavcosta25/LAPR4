@@ -33,7 +33,7 @@ public class CatalogueSpecificationController {
 
     public Collaborator getCollaboratorById(Long lngID) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        return this.m_oCollaboratorRepo.findByID(CollaboratorMechanographicNumber.valueOf(lngID)).get();
+        return this.m_oCollaboratorRepo.findByMecanographicNumber(CollaboratorMechanographicNumber.valueOf(lngID)).get();
     }
 
     public Iterable<Team> getTeams() {

@@ -5,6 +5,7 @@ import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
+import eapli.base.teamtypemanagement.repositories.TeamTypeRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.JpaAutoTxUserRepository;
@@ -113,5 +114,15 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public JpaTeamRepository teams() {
 		return new JpaTeamRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public TeamTypeRepository teamTypes(final TransactionalContext autoTx) {
+		return new JpaTeamTypeRepository(autoTx);
+	}
+
+	@Override
+	public JpaTeamTypeRepository teamTypes() {
+		return new JpaTeamTypeRepository(Application.settings().getPersistenceUnitName());
 	}
 }

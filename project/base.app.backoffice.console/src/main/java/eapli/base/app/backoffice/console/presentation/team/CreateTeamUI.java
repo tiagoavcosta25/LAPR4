@@ -32,8 +32,15 @@ public class CreateTeamUI extends AbstractUI {
                 System.out.println("Team needs atleast one representative!");
                 representation = selectCollaborators();
             }
-            this.theController.createTeam(id, theTeamType, acronym, teamDescription, representation);
-            System.out.printf("Operation Successful. The Following Team was created successfully > id: %s\tacronym :%s\n\n", id, acronym);
+            String strOp = Console.readLine("Confirm the team with code %s creation? (Y/N) " + id);
+
+            if(strOp.compareToIgnoreCase("Y") == 0){
+                this.theController.createTeam(id, theTeamType, acronym, teamDescription, representation);
+                System.out.printf("Operation Successful. The Following Team was created successfully > id:" +
+                        " %s\tacronym :%s\n\n", id, acronym);
+            } else{
+                System.out.println("Operation Cancelled.");
+            }
         } catch (final Exception ex) {
             System.out.println("Error while creating a team.");
         }

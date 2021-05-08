@@ -17,7 +17,7 @@ public class TeamID implements ValueObject, Comparable<TeamID> {
     private String m_strID;
 
     public TeamID(final String strID) {
-        if(StringPredicates.isNullOrEmpty(strID)) {
+        if(StringPredicates.isNullOrEmpty(strID) || !strID.matches(m_strRegex)) {
             throw new IllegalArgumentException(
                     "TeamID should neither be null, empty, nor contain characters besides letters and numbers. " +
                     "It also should have a max of 15 characters");

@@ -6,6 +6,7 @@ import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.strings.util.StringPredicates;
 
 import java.util.Set;
@@ -103,6 +104,8 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     public CollaboratorShortName shortName() {
         return this.m_oShortName;
     }
+    public SystemUser user(){return this.m_oSystemUser;}
+
 
     @Override
     public boolean equals(final Object o) {

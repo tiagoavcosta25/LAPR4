@@ -1,4 +1,4 @@
-** Tiago Costa [1191460](./)** 
+** João Parente [1190740](./)** 
 ===============================
 
 
@@ -7,8 +7,8 @@
 
 | Sprint | Funcionalidade     |
 |--------|--------------------|
-| **B**  | [US-1-2052](US-1-2052_CreateTeam) |
-| **B**  | [US-1-2053](US-1-2053_AddOrRemoveCollabFromTeam) |
+| **B**  | [US-1-2054](US-1-2054_TeamTypeRegister) |
+| **B**  | [USDemo2](USDemo2) |
 | **C**  | [USDemo3](USDemo3) |
 | **C**  | [USDemo3](USDemo4) |
 | **D**  | [USDemo3](USDemo5) |

@@ -1,10 +1,12 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
+import eapli.base.clientusermanagement.domain.ClientUser;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.domain.CollaboratorMechanographicNumber;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.util.HashMap;
@@ -30,10 +32,17 @@ class JpaCollaboratorRepository
     }
 
     @Override
-    public Optional<Collaborator> findById(CollaboratorMechanographicNumber oID) {
+    public Optional<Collaborator> findByMecanographicNumber(CollaboratorMechanographicNumber oID) {
         final Map<String, Object> params = new HashMap<>();
         params.put("m_oID", oID);
         return matchOne("e.id=:m_oID", params);
+    }
+
+    @Override
+    public Optional<Collaborator> findByUsername(Username name) {
+        final Map<String, Object> params = new HashMap<>();
+        params.put("name", name);
+        return matchOne("e.systemUser.username=:name", params);
     }
 
     @Override

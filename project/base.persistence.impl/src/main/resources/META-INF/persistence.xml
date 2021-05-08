@@ -16,13 +16,14 @@
     <class>eapli.base.servicemanagement.domain.ServiceDraft</class>
     <class>eapli.base.formmanagement.domain.Form</class>
     <class>eapli.base.teammanagement.domain.Team</class>
+    <class>eapli.base.teamtypemanagement.domain.TeamType</class>
     <class>eapli.base.cataloguemanagement.domain.Catalogue</class>
     <class>eapli.base.collaboratormanagement.domain.Collaborator</class>
 
     <properties>
-      <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->
+      <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/../db/base"/>-->
 
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:..\db\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:C:\Users\wq71\Desktop\lapr4\db\base;MV_STORE=FALSE;AUTO_SERVER=true;"/>
 
       <property name="javax.persistence.jdbc.user" value="sa"/>
       <property name="javax.persistence.jdbc.password" value="eapli"/>
