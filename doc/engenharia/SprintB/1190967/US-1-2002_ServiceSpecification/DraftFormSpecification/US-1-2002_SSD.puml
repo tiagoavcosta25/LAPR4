@@ -17,10 +17,11 @@ HSM -> SYST : responds
 activate SYST
 
 alt if the user pretends to use an existing draft
-SYST -> HSM : requests the draft's id
+
+SYST -> HSM : presents the draft list and asks the user to choose a draft
 deactivate SYST
 
-HSM -> SYST : inserts said id
+HSM -> SYST : chooses a draft
 activate SYST
 end
 
