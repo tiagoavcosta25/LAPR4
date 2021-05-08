@@ -22,7 +22,7 @@ public class CollaboratorShortName implements ValueObject, Comparable<Collaborat
 
     private String m_strFirstName;
     private String m_strLastName;
-    private static final String m_strRegex = "[a-zA-Z]+";
+    private static final String m_strRegex = "[a-zA-Z ]+";
     private static final Integer m_intMaxLength = 15;
 
     public CollaboratorShortName(final String strFirstName, final String strLastName) {

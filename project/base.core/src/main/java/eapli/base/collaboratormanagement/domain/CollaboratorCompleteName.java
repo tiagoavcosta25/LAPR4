@@ -20,7 +20,7 @@ public class CollaboratorCompleteName implements ValueObject, Comparable<Collabo
     private static final long serialVersionUID = 1L;
 
     private String m_strCompleteName;
-    private static final String m_strRegex = "[a-zA-Z]+";
+    private static final String m_strRegex = "[a-zA-Z ]+";
     private static final Integer m_intMaxLength = 80;
 
     public CollaboratorCompleteName(final String strCompleteName) {
