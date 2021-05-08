@@ -6,13 +6,9 @@
 package eapli.base.infrastructure.bootstrapers.demo;
 import eapli.base.cataloguemanagement.application.CatalogueSpecificationController;
 import eapli.base.cataloguemanagement.domain.Catalogue;
-import eapli.base.cataloguemanagement.domain.CatalogueBriefDescription;
-import eapli.base.cataloguemanagement.domain.CatalogueCompleteDescription;
-import eapli.base.cataloguemanagement.domain.CatalogueTitle;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.domain.CollaboratorMechanographicNumber;
 import eapli.base.teammanagement.domain.Team;
-import eapli.base.teammanagement.domain.TeamID;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;

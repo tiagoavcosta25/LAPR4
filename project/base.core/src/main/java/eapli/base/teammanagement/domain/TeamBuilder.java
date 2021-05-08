@@ -8,8 +8,6 @@ import java.util.Set;
 
 public class TeamBuilder implements DomainFactory<Team> {
 
-    private TeamID m_oTeamID;
-
     private TeamType m_enumTeamType;
 
     private Acronym m_oAcronym;
@@ -18,23 +16,18 @@ public class TeamBuilder implements DomainFactory<Team> {
 
     private Set<Collaborator> m_setRepresentation;
 
-    public TeamBuilder withTeamID(TeamID oTeamID) {
-        this.m_oTeamID = oTeamID;
+    public TeamBuilder withTeamType(String enumTeamType) {
+        this.m_enumTeamType = TeamType.valueOf(enumTeamType);
         return this;
     }
 
-    public TeamBuilder withTeamType(TeamType enumTeamType) {
-        this.m_enumTeamType = enumTeamType;
+    public TeamBuilder withAcronym(String oAcronym) {
+        this.m_oAcronym = Acronym.valueOf(oAcronym);
         return this;
     }
 
-    public TeamBuilder withAcronym(Acronym oAcronym) {
-        this.m_oAcronym = oAcronym;
-        return this;
-    }
-
-    public TeamBuilder withTeamDescription(TeamDescription oTeamDescription) {
-        this.m_oTeamDescription = oTeamDescription;
+    public TeamBuilder withTeamDescription(String oTeamDescription) {
+        this.m_oTeamDescription = TeamDescription.valueOf(oTeamDescription);
         return this;
     }
 
@@ -45,6 +38,6 @@ public class TeamBuilder implements DomainFactory<Team> {
 
     @Override
     public Team build() {
-        return new Team(m_oTeamID, m_enumTeamType, m_oAcronym, m_oTeamDescription, m_setRepresentation);
+        return new Team(m_enumTeamType, m_oAcronym, m_oTeamDescription, m_setRepresentation);
     }
 }

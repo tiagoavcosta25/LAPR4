@@ -13,16 +13,17 @@ import java.util.Set;
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
 @Entity
-public class Team implements AggregateRoot<TeamID> {
+public class Team implements AggregateRoot<Long> {
 
     private static final long serialVersionUID = 1L;
 
     @Version
     private Long version;
 
-    @EmbeddedId
+    @Id
+    @GeneratedValue
     @Column(name = "teamID")
-    private TeamID m_oID;
+    private Long m_oID;
 
     @Enumerated(EnumType.STRING)
     private TeamType m_enumTeamType;
@@ -41,10 +42,9 @@ public class Team implements AggregateRoot<TeamID> {
     )
     private Set<Collaborator> m_setRepresentation;
 
-    public Team(TeamID oTeamID, TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
+    public Team(TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
                 Set<Collaborator> setRepresentation) {
-        Preconditions.noneNull(oTeamID, oAcronym, oTeamDescription, enumTeamType, setRepresentation);
-        this.m_oID = oTeamID;
+        Preconditions.noneNull(oAcronym, oTeamDescription, enumTeamType, setRepresentation);
         this.m_enumTeamType = enumTeamType;
         this.m_oAcronym = oAcronym;
         this.m_oTeamDescription = oTeamDescription;
@@ -82,8 +82,12 @@ public class Team implements AggregateRoot<TeamID> {
     }
 
     @Override
-    public TeamID identity() {
+    public Long identity() {
         return this.m_oID;
+    }
+
+    public Long id() {
+        return this.identity();
     }
 
     public Acronym acronym() {
@@ -100,9 +104,5 @@ public class Team implements AggregateRoot<TeamID> {
 
     public Set<Collaborator> representation() {
         return this.m_setRepresentation;
-    }
-
-    public boolean hasID(TeamID oID) {
-        return this.m_oID.equals(oID);
     }
 }
