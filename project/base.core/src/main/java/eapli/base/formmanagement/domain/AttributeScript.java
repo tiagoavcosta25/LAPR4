@@ -8,6 +8,8 @@ package eapli.base.formmanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 
 /**
@@ -15,6 +17,7 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
+@Access(AccessType.FIELD)
 public class AttributeScript implements ValueObject, Comparable<AttributeScript> {
 
     private static final long serialVersionUID = 1L;

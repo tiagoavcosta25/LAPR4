@@ -24,7 +24,7 @@ public class ListTeamsUI extends AbstractListUI<Team> {
 
     @Override
     protected Iterable<Team> elements() {
-        return theController.allTeams();
+        return theController.getTeams();
     }
 
     @Override
