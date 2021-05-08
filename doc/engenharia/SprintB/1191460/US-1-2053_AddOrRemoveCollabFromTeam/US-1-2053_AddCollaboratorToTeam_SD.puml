@@ -12,7 +12,7 @@ database "<<repository>>\nCollaboratorRepository" as CR
 database "<<repository>>\nTeamRepository" as TR
 
 activate HRR
-HRR -> UI : Iniciates the request to remove a collaborator from a team
+HRR -> UI : Iniciates the request to add a collaborator to a team
 
 activate UI
 UI -> CTRL** : create()
@@ -57,14 +57,14 @@ deactivate TR
 CTRL --> UI : teamSet
 deactivate CTRL
 
-UI --> HRR : Display collaborator's team's list
+UI --> HRR : Display team's list
 
 HRR -> UI : Selects the intended Team
 
-UI -> CTRL : removeCollabFromTeam(collab, team)
+UI -> CTRL : addCollabToTeam(collab, team)
 
 activate CTRL
-CTRL -> CR : removeCollabFromTeam(collab, team)
+CTRL -> CR : addCollabToTeam(collab, team)
 
 activate CR
 CR --> CTRL : collab

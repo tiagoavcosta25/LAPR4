@@ -8,7 +8,7 @@
 | Sprint | Funcionalidade     |
 |--------|--------------------|
 | **B**  | [US-1-2052](US-1-2052_CreateTeam) |
-| **B**  | [USDemo2](USDemo2) |
+| **B**  | [US-1-2053](US-1-2053_AddOrRemoveCollabFromTeam) |
 | **C**  | [USDemo3](USDemo3) |
 | **C**  | [USDemo3](USDemo4) |
 | **D**  | [USDemo3](USDemo5) |
