@@ -92,15 +92,15 @@ public class Team implements AggregateRoot<Long> {
     }
 
     public Acronym acronym() {
-        return this.acronym();
+        return this.m_oAcronym;
     }
 
     public TeamDescription teamDescription() {
-        return this.teamDescription();
+        return this.m_oTeamDescription;
     }
 
     public TeamType teamType() {
-        return this.teamType();
+        return this.m_enumTeamType;
     }
 
     public Set<Collaborator> representation() {

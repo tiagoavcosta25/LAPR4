@@ -24,11 +24,7 @@ public class TeamCreatorController {
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
     private final CollaboratorRepository m_oCollaboratorRepo = PersistenceContext.repositories().collaborators();
     private final TeamRepository m_oTeamRepo = PersistenceContext.repositories().teams();
-
-    public Iterable<TeamType> getTeamTypes() {
-        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
-        return Arrays.asList(TeamType.values());
-    }
+    private final ListTeamTypeService listTeamTypeService = new ListTeamTypeService();
 
     public Iterable<Collaborator> getCollaborators() {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
@@ -44,4 +40,7 @@ public class TeamCreatorController {
         return m_oTeamRepo.save(teamBuilder.build());
     }
 
+    public Iterable<TeamType> getTeamTypes() {
+        return this.listTeamTypeService.getTeamTypes();
+    }
 }
