@@ -27,6 +27,7 @@ import eapli.base.app.backoffice.console.presentation.collaborator.CollaboratorS
 import eapli.base.app.backoffice.console.presentation.service.SaveDraftUI;
 import eapli.base.app.backoffice.console.presentation.service.ServiceDraftFieldSpecificationUI;
 import eapli.base.app.backoffice.console.presentation.service.ServiceDraftFormSpecificationUI;
+import eapli.base.app.backoffice.console.presentation.teamtype.TeamTypeRegisterUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
 import eapli.base.app.backoffice.console.presentation.authz.AddUserUI;
@@ -89,6 +90,7 @@ public class MainMenu extends AbstractUI {
     private static final int TEAMS_OPTION = 6;
     private static final int CATALOGUE_OPTION = 7;
     private static final int SERVICES_OPTION = 8;
+    private static final int TEAM_TYPES_OPTION = 9;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -142,6 +144,9 @@ public class MainMenu extends AbstractUI {
         if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP)) {
             final Menu teamsMenu = buildTeamsMenu();
             mainMenu.addSubMenu(TEAMS_OPTION, teamsMenu);
+
+            mainMenu.addSubMenu(TEAM_TYPES_OPTION, buildTeamTypesMenu());
+
             final Menu settingsMenu = buildCollaboratorsMenu();
             mainMenu.addSubMenu(COLLABORATOR_OPTION, settingsMenu);
         }
@@ -222,8 +227,12 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
 
+    private static final int TEAM_TYPES_REGISTRY = 1;
 
-
-
-
+    private Menu buildTeamTypesMenu() {
+        final Menu menu = new Menu("Team types >");
+        menu.addItem(TEAM_TYPES_REGISTRY, "Register Team Type", new TeamTypeRegisterUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+        return menu;
+    }
 }
