@@ -68,19 +68,18 @@ public class MainMenu extends AbstractUI {
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
 
     // SERVICES
-    private static final int DISH_TYPE_REGISTER_OPTION = 1;
-    private static final int DISH_TYPE_LIST_OPTION = 2;
-    private static final int DISH_TYPE_CHANGE_OPTION = 3;
-    private static final int DISH_TYPE_ACTIVATE_DEACTIVATE_OPTION = 4;
+    private static final int SERVICES_ADD_FIELD = 1;
+    private static final int SERVICES_ADD_FORM = 2;
+    private static final int SERVICES_SAVE = 3;
 
     // CATALOGUE
-    private static final int DISH_REGISTER_OPTION = 5;
+    private static final int CATALOGUE_SPECIFY = 1;
 
     // COLLABORATOR
-    private static final int CHANGE_DISH_NUTRICIONAL_INFO_OPTION = 1;
+    private static final int COLLABORATORS_SPECIFY = 1;
 
     // TEAMS
-    private static final int MATERIAL_REGISTER_OPTION = 1;
+    private static final int TEAMS_CREATE = 1;
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
@@ -89,9 +88,7 @@ public class MainMenu extends AbstractUI {
     private static final int COLLABORATOR_OPTION = 5;
     private static final int TEAMS_OPTION = 6;
     private static final int CATALOGUE_OPTION = 7;
-    private static final int SERVICE_FIELD_OPTION = 8;
-    private static final int SERVICE_FORM_OPTION = 9;
-    private static final int SERVICE_SAVE_OPTION = 10;
+    private static final int SERVICES_OPTION = 8;
 
     private static final String SEPARATOR_LABEL = "--------------";
 
@@ -142,6 +139,19 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(SETTINGS_OPTION, settingsMenu);
         }
 
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP)) {
+            final Menu teamsMenu = buildTeamsMenu();
+            mainMenu.addSubMenu(TEAMS_OPTION, teamsMenu);
+            final Menu settingsMenu = buildCollaboratorsMenu();
+            mainMenu.addSubMenu(COLLABORATOR_OPTION, settingsMenu);
+        }
+        if (authz.isAuthenticatedUserAuthorizedTo(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER)) {
+            final Menu teamsMenu = buildCataloguesMenu();
+            mainMenu.addSubMenu(CATALOGUE_OPTION, teamsMenu);
+            final Menu servicesMenu = buildServicesMenu();
+            mainMenu.addSubMenu(SERVICES_OPTION, servicesMenu);
+        }
+
         if (!Application.settings().isMenuLayoutHorizontal()) {
             mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         }
@@ -169,13 +179,44 @@ public class MainMenu extends AbstractUI {
         menu.addItem(DEACTIVATE_USER_OPTION, "Deactivate User", new DeactivateUserAction());
         menu.addItem(ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION, "Accept/Refuse Signup Request",
                 new AcceptRefuseSignupRequestAction());
-        menu.addItem(ADD_USER_OPTION, "Add User", new AddUserUI()::show);
-        menu.addItem(COLLABORATOR_OPTION, "Specify Collaborator", new CollaboratorSpecificationUI()::show);
-        menu.addItem(TEAMS_OPTION, "Create Team", new CollaboratorSpecificationUI()::show);
-        menu.addItem(CATALOGUE_OPTION, "Specify Catalogue", new CollaboratorSpecificationUI()::show);
-        menu.addItem(SERVICE_FIELD_OPTION, "Add/Update Service Draft (Field)", new ServiceDraftFieldSpecificationUI()::show);
-        menu.addItem(SERVICE_FORM_OPTION, "Add/Update Service Draft (Form)", new ServiceDraftFormSpecificationUI()::show);
-        menu.addItem(SERVICE_SAVE_OPTION, "Save Service", new SaveDraftUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildServicesMenu() {
+        final Menu menu = new Menu("Services >");
+
+        menu.addItem(SERVICES_ADD_FIELD, "Add/Update Service Draft (Field)", new ServiceDraftFieldSpecificationUI()::show);
+        menu.addItem(SERVICES_ADD_FORM, "Add/Update Service Draft (Form)", new ServiceDraftFormSpecificationUI()::show);
+        menu.addItem(SERVICES_SAVE, "Save Service", new SaveDraftUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildCollaboratorsMenu() {
+        final Menu menu = new Menu("Collaborators >");
+
+        menu.addItem(COLLABORATORS_SPECIFY, "Specify Collaborator", new CollaboratorSpecificationUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildCataloguesMenu() {
+        final Menu menu = new Menu("Catalogue >");
+
+        menu.addItem(CATALOGUE_SPECIFY, "Specify Catalogue", new CollaboratorSpecificationUI()::show);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildTeamsMenu() {
+        final Menu menu = new Menu("Teams >");
+
+        menu.addItem(CATALOGUE_SPECIFY, "Create Team", new CollaboratorSpecificationUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

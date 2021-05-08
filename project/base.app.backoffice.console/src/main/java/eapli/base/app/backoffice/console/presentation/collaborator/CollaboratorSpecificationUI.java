@@ -56,7 +56,7 @@ public class CollaboratorSpecificationUI extends AbstractUI {
 
             final LocalDate dtBirthDate = LocalDate.parse(strBirthDate);
 
-            Collaborator oCollaborator = this.theController.addCollaborator(strEmail, strFirstName, strLastName,
+            this.theController.addCollaborator(strEmail, strFirstName, strLastName,
                     strCompleteName, Long.parseLong(strMechanographicNumber), strAddress, strPhoneCode,
                     Double.parseDouble(strPhoneNumber), dtBirthDate);
 
@@ -71,12 +71,11 @@ public class CollaboratorSpecificationUI extends AbstractUI {
             this.theController.addManager(oManager);
 
 
-            String strOp = Console.readLine("Confirm the creation of the following Collaborator (Y/N):\n\n%s\n" +
-                    oCollaborator.toString());
+            String strOp = Console.readLine("Confirm the creation of this Collaborator (Y/N):\n");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
-                this.theController.saveCollaborator();
-                System.out.printf("Operation Successful.");
+                Collaborator oCollaborator = this.theController.saveCollaborator();
+                System.out.printf("Operation Successful. The Following Collaborator was created successfully: \n\n%s", oCollaborator.toString());
             } else{
                 System.out.println("Operation Cancelled.");
             }

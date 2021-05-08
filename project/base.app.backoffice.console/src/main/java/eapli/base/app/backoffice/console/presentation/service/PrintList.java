@@ -48,17 +48,17 @@ public class PrintList {
 
     public static <T> T chooseOne(Iterable<T> itElements, String strHeader, String strElementName) {
         try{
-            Integer i = 0;
+            Integer i = 1;
             List<T> lstTemp = new ArrayList<>();
-            System.out.printf("\n---------------------------------\n%s\n---------------------------------\n\n", strHeader);
+            System.out.printf("\n==========================================\n%s\n==========================================\n\n", strHeader);
             for(T t : itElements){
-                System.out.printf("[%d] %s", i, t.toString());
+                System.out.printf("[%d] %s\n", i, t.toString());
+                i++;
                 lstTemp.add(t);
             }
-            System.out.printf("\n\n\nSelect %s Number: ", strElementName);
-            Integer intOp = sc.nextInt();
+            Integer intOp = Integer.parseInt(Console.readLine("\n\n\nSelect " + strElementName + " Number >"));
 
-            return lstTemp.get(intOp);
+            return lstTemp.get(intOp - 1);
 
         } catch (Exception e){
             System.out.println("Error in selecting.");
@@ -81,10 +81,9 @@ public class PrintList {
             List<T> lstReturn = new ArrayList<>();
 
             do{
-                System.out.printf("\n\n\n [%d x]Select %s Number: ", i, strElementName);
-                intOp = sc.nextInt();
+                intOp = Integer.parseInt(Console.readLine("\n\n\n [" + i + " x]Select " + strElementName + " Number >"));
                 i++;
-                lstReturn.add(lstTemp.get(intOp));
+                lstReturn.add(lstTemp.get(intOp - 1));
             } while(intOp != 0);
 
             return lstReturn;
