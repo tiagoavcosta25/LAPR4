@@ -32,14 +32,14 @@ public class TeamCreatorBootstrapper implements Action {
         List<Long> setColabsID = new ArrayList<>();
         setColabsID.add(123456l);
         setColabsID.add(987654l);
-        createTeam("1", TeamType.TYPE_FIRE, "TM1", "Team 1", setColabsID);
+        createTeam(TeamType.TYPE_FIRE.toString(), "TM1", "Team 1", setColabsID);
         setColabsID.clear();
         setColabsID.add(564821l);
-        createTeam("2", TeamType.TYPE_FIRE, "TM2", "Team 2", setColabsID);
+        createTeam(TeamType.TYPE_FIRE.toString(), "TM2", "Team 2", setColabsID);
         return true;
     }
 
-    private Team createTeam(String strID, TeamType enumTeamType, String strAcronym, String strTeamDescription,
+    private Team createTeam(String strTeamType, String strAcronym, String strTeamDescription,
                                     List<Long> listCollabID) {
         Team oTeam = null;
         try {
@@ -52,8 +52,8 @@ public class TeamCreatorBootstrapper implements Action {
                     }
                 }
             }
-            oTeam = this.m_oCtrl.createTeam(TeamID.valueOf(strID), enumTeamType, Acronym.valueOf(strAcronym),
-                    TeamDescription.valueOf(strTeamDescription), setCollab);
+            oTeam = this.m_oCtrl.createTeam(strTeamType, strAcronym,
+                    strTeamDescription, setCollab);
 
         } catch (final ConcurrencyException | IntegrityViolationException e) {
             LOGGER.error("Error Creating Team.");

@@ -35,11 +35,11 @@ public class TeamCreatorController {
         return m_oCollaboratorRepo.findAll();
     }
 
-    public Team createTeam(TeamID oTeamID, TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
+    public Team createTeam(String enumTeamType, String oAcronym, String oTeamDescription,
                            Set<Collaborator> setRepresentation) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
         final TeamBuilder teamBuilder = new TeamBuilder();
-        teamBuilder.withTeamID(oTeamID).withTeamType(enumTeamType).withAcronym(oAcronym).withTeamDescription(oTeamDescription)
+        teamBuilder.withTeamType(enumTeamType).withAcronym(oAcronym).withTeamDescription(oTeamDescription)
                 .withRepresentation(setRepresentation);
         return m_oTeamRepo.save(teamBuilder.build());
     }
