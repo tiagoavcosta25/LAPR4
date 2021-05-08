@@ -8,6 +8,7 @@ package eapli.base.formmanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -20,6 +21,7 @@ public class FormName implements ValueObject, Comparable<FormName> {
     private static final long serialVersionUID = 1L;
     private static final String m_strRegex = "[a-zA-Z0-9 ]{1,50}";
 
+    @Column(name = "formName")
     private String m_strName;
 
     public FormName(final String strName) {

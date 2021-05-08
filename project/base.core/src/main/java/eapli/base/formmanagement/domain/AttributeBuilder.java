@@ -1,5 +1,7 @@
 package eapli.base.formmanagement.domain;
 
+import eapli.framework.domain.model.DomainFactory;
+
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
  */

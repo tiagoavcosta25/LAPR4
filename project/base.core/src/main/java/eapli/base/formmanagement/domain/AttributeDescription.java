@@ -8,6 +8,9 @@ package eapli.base.formmanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -15,11 +18,13 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
+@Access(AccessType.FIELD)
 public class AttributeDescription implements ValueObject, Comparable<AttributeDescription> {
 
     private static final long serialVersionUID = 1L;
     private static final Integer m_intMaxLength = 500;
 
+    @Column(name = "attributeDescription")
     private String m_strDescription;
 
     public AttributeDescription(final String strDescription) {

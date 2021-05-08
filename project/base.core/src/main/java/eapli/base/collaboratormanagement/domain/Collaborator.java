@@ -25,7 +25,6 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     private Long version;
 
     @EmbeddedId
-    @Column(name = "mechanographicNumber")
     private CollaboratorMechanographicNumber m_oMechanographicNumber;
 
     /**
@@ -35,27 +34,22 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     private SystemUser m_oSystemUser;
 
     @OneToOne
-    @JoinColumn(name="manager")
+    @JoinColumn(name="mechanographicNumber")
     private Collaborator m_oManager;
 
     @Embedded
-    @Column(name = "phonenNumber")
     private CollaboratorPhoneNumber m_oPhoneNumber;
 
     @Embedded
-    @Column(name = "birthDate")
     private CollaboratorBirthDate m_oBirthDate;
 
     @Embedded
-    @Column(name = "address")
     private CollaboratorAddress m_oAddress;
 
     @Embedded
-    @Column(name = "completeName")
     private CollaboratorCompleteName m_oCompleteName;
 
     @Embedded
-    @Column(name = "shortName")
     private CollaboratorShortName m_oShortName;
 
     @ManyToMany(mappedBy = "m_setRepresentation")

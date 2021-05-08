@@ -8,6 +8,7 @@ package eapli.base.servicemanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -19,6 +20,7 @@ public class Feedback implements ValueObject, Comparable<Feedback> {
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "serviceFeedbackDuration")
     private Double m_dblDuration;
 
     public Feedback(final Double dblDuration) {

@@ -8,6 +8,7 @@ package eapli.base.servicemanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -20,6 +21,7 @@ public class ServiceTitle implements ValueObject, Comparable<ServiceTitle> {
     private static final long serialVersionUID = 1L;
     private static final String m_strRegex = "[a-zA-Z0-9 ]{1,20}";
 
+    @Column(name = "serviceTitle")
     private String m_strTitle;
 
     public ServiceTitle(final String strTitle) {

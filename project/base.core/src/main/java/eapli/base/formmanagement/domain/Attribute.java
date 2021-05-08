@@ -27,6 +27,7 @@ import eapli.base.servicemanagement.domain.Keyword;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.domain.model.ValueObject;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -42,27 +43,21 @@ public class Attribute implements ValueObject, Comparable<Attribute>{
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
     @Embedded
-    @Column(name = "attributeName")
     private AttributeName m_oName;
 
     @Embedded
-    @Column(name = "attributeLabel")
     private AttributeLabel m_oLabel;
 
     @Embedded
-    @Column(name = "attributeDescription")
     private AttributeDescription m_oDescription;
 
     @Embedded
-    @Column(name = "attributeRegex")
     private AttributeRegex m_oRegex;
 
     @Embedded
-    @Column(name = "attributeScriptPath")
     private AttributeScript m_oScript;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "attributeDataType")
     private DataType m_oDataType;
 
     public Attribute(final AttributeName oName, final AttributeLabel oLabel, final AttributeDescription oDescription,
