@@ -42,24 +42,24 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
     protected boolean doShow() {
         try{
             ServiceDraft oServiceDraft;
-            String strOp = Console.readLine("Do you want to use an existing draft? (Y/N)");
+            String strOp = Console.readLine("Do you want to use an existing draft? (Y/N) >");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
-                Long lngID = Long.parseLong(Console.readLine("Draft ID"));
-                oServiceDraft = this.theController.getServiceDraftById(lngID);
+                Iterable<ServiceDraft> itDrafts = this.theController.getDrafts();
+                oServiceDraft = PrintList.chooseOne(itDrafts, "Choose the Service Draft to Save", "Service Draft");
             } else{
                 oServiceDraft = this.theController.newDraft();
             }
 
             do{
-                strOp = addField();
+                strOp = addField(oServiceDraft);
             } while(strOp.compareToIgnoreCase("Y") == 0);
 
-            strOp = Console.readLine("Confirm the changes made on the Draft (Y/N)");
+            strOp = Console.readLine("Confirm the changes made on the Draft (Y/N) >");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 oServiceDraft = this.theController.saveServiceDraft();
-                System.out.printf("Created the following Service:\n\n%s\n", oServiceDraft.toString());
+                System.out.printf("New Draft > %s\n", oServiceDraft.toString());
             } else{
                 System.out.println("Operation Cancelled.");
             }
@@ -70,39 +70,39 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
         return false;
     }
 
-    private String addField() {
-        String strOp = Console.readLine("\nMENU\n\n" +
+    private String addField(ServiceDraft oServiceDraft) {
+        String strOp = Console.readLine("\nMENU\n==========================================\n" +
                 "1 - Title\n2- Brief Description\n3 - Complete Description"
-                + "4 - Keywords\n5- Enable Feedback\n\n0 - Quit"
-                + "Choose a field to add/update in the draft");
+                + "\n4 - Keywords\n5- Enable Feedback\n\n0 - Quit"
+                + "\nChoose a field to add/update in the draft >");
 
         switch (Integer.parseInt(strOp))
         {
             case 1:
-                this.theController.addTitle(Console.readLine("Service Title"));
+                this.theController.addTitle(oServiceDraft, Console.readLine("Service Title >"));
                 break;
             case 2:
-                this.theController.addBriefDescription(Console.readLine("Brief Description"));
+                this.theController.addBriefDescription(oServiceDraft, Console.readLine("Brief Description >"));
                 break;
             case 3:
-                this.theController.addCompleteDescription(Console.readLine("Complete Description"));
+                this.theController.addCompleteDescription(oServiceDraft, Console.readLine("Complete Description >"));
                 break;
             case 4:
                 List<String> lstKeywords = new ArrayList<>();
                 do{
-                    lstKeywords.add(Console.readLine("Keywords"));
-                    strOp = Console.readLine("Do you want to add more keywords? (Y/N)");
+                    lstKeywords.add(Console.readLine("Keywords >"));
+                    strOp = Console.readLine("Do you want to add more keywords? (Y/N) >");
                 } while(strOp.compareToIgnoreCase("Y") == 0);
-                this.theController.addKeywordList(lstKeywords);
+                this.theController.addKeywordList(oServiceDraft, lstKeywords);
                 break;
             case 5:
-                this.theController.addFeedback(Double.parseDouble(Console.readLine("Feedback Duration")));
+                this.theController.addFeedback(oServiceDraft, Double.parseDouble(Console.readLine("Feedback Duration >")));
                 break;
             case 0:
             default:
                 return null;
         }
-        return Console.readLine("Do you want to add more fields to this draft? (Y/N)");
+        return Console.readLine("\nDo you want to add more fields to this draft? (Y/N) >");
     }
 
     @Override

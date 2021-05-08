@@ -40,11 +40,10 @@ public class SaveDraftUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         try{
-            Long lngID = Long.parseLong(Console.readLine("Draft ID"));
-            ServiceDraft oServiceDraft = this.theController.getServiceDraftById(lngID);
+            Iterable<ServiceDraft> itDrafts = this.theController.getDrafts();
+            ServiceDraft oServiceDraft = PrintList.chooseOne(itDrafts, "Choose the Service Draft to Save", "Service Draft");
 
             Iterable<Catalogue> itCatalogues = this.theController.getCatalogues();
-
             Catalogue oCatalogue = PrintList.chooseOne(itCatalogues, "Choose a Catalogue for this Service", "Catalogue");
 
             String strOp = Console.readLine("Confirm the creation of the following Service (Y/N):\n\n%s\n" +
@@ -58,7 +57,7 @@ public class SaveDraftUI extends AbstractUI {
             }
 
         } catch (Exception e){
-            System.out.println("Error in creating a service.");
+            System.out.println("Error in saving a service.");
         }
 
         return false;

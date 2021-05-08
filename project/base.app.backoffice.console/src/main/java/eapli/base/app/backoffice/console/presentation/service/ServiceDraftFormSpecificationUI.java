@@ -50,65 +50,63 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
     protected boolean doShow() {
         try{
             ServiceDraft oServiceDraft;
-            String strOp = Console.readLine("Do you want to use an existing draft? (Y/N)");
+            String strOp = Console.readLine("Do you want to use an existing draft? (Y/N) >");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
-                Long lngID = Long.parseLong(Console.readLine("Draft ID"));
-                oServiceDraft = this.theController.getServiceDraftById(lngID);
+                Iterable<ServiceDraft> itDrafts = this.theController.getDrafts();
+                oServiceDraft = PrintList.chooseOne(itDrafts, "Choose the Service Draft to Save", "Service Draft");
             } else{
                 oServiceDraft = this.theController.newDraft();
             }
 
-            String strFormName = Console.readLine("Form Name");
-
             boolean blFlag;
             do {
-                blFlag = insertForm();
+                blFlag = insertForm(oServiceDraft);
                 this.theController.saveForm();
             } while (!blFlag);
 
             oServiceDraft = this.theController.addFormsToDraft();
 
-            strOp = Console.readLine("Confirm the following Service Draft(Y/N):\n\n%s" + oServiceDraft.toString() + "\n\n");
+            strOp = Console.readLine("Confirm the following Service Draft(Y/N) >\n\n%s" + oServiceDraft.toString() + "\n\n");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.saveServiceDraft();
-                System.out.printf("Service Created");
+                System.out.printf("Service Drafted.");
             } else{
                 System.out.println("Operation Cancelled.");
             }
 
         } catch (Exception e){
-            System.out.println("Error in creating a service.");
+            System.out.println("Error in creating forms for a service draft.");
         }
 
         return false;
     }
-    private boolean insertForm() {
-        final String strFormName = Console.readLine("Form Name");
+    private boolean insertForm(ServiceDraft oServiceDraft) {
+        final String strFormName = Console.readLine("Form Name >");
         FormType oFormType = PrintList.chooseOne(this.theController.showFormTypes(), "Choose a Form Type for this Form", "Form Type");
-        this.theController.addForm(strFormName, oFormType.toString());
+        this.theController.addForm(oServiceDraft, strFormName.trim(), oFormType.toString());
         boolean blFlag;
         do {
             blFlag = insertAttribute();
         } while (!blFlag);
-        String strOp = Console.readLine("Do you want to add another form to this service? (Y/N)");
+        String strOp = Console.readLine("Do you want to add another form to this service? (Y/N) >");
         return strOp.compareToIgnoreCase("N") == 0;
     }
 
     private boolean insertAttribute() {
-        final String strAttributeName = Console.readLine("Attribute Name");
-        final String strAttributeLabel = Console.readLine("Attribute Label");
-        final String strAttributeDescription = Console.readLine("Attribute Description");
-        final String strAttributeRegex = Console.readLine("Attribute Regex");
-        final String strAttributeScript = Console.readLine("Attribute Script");
+        final String strAttributeName = Console.readLine("Attribute Name >");
+        final String strAttributeLabel = Console.readLine("Attribute Label >");
+        final String strAttributeDescription = Console.readLine("Attribute Description >");
+        final String strAttributeRegex = Console.readLine("Attribute Regex >");
+        final String strAttributeScript = Console.readLine("Attribute Script >");
 
 
         DataType oDataType = PrintList.chooseOne(this.theController.showDataTypes(), "Choose a Data Type for this Attribute", "Data Type");
 
         this.theController.addAttribute(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, strAttributeScript, oDataType.toString());
 
-        String strOp = Console.readLine("Do you want to add another attribute to this service? (Y/N)");
+        String strOp = Console.readLine("Do you want to add another attribute to this service? (Y/N) >");
         return strOp.compareToIgnoreCase("N") == 0;
     }
 
