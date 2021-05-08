@@ -32,24 +32,18 @@ public class SaveDraftBootstrapper implements Action {
 
     @Override
     public boolean execute() {
-        saveDraft(1l, CatalogueID.valueOf("1"));
-        saveDraft(2l, CatalogueID.valueOf("1"));
-        saveDraft(3l, CatalogueID.valueOf("1"));
-        saveDraft(4l, CatalogueID.valueOf("1"));
+        saveDraft(1l, 1l);
+        saveDraft(2l, 1l);
+        saveDraft(3l, 1l);
+        saveDraft(4l, 1l);
         return true;
     }
 
-    private Service saveDraft(final Long lngDraftId, final CatalogueID oCatalogueId) {
+    private Service saveDraft(final Long lngDraftId, final Long lngCatalogueId) {
         Service oService = null;
         try {
             this.m_oCtrl.getServiceDraftById(lngDraftId);
-            Catalogue oCatalogue = null;
-            for(Catalogue c : this.m_oCtrl.getCatalogues()){
-                if(c.hasID(oCatalogueId)){
-                    oCatalogue = c;
-                    break;
-                }
-            }
+            Catalogue oCatalogue = this.m_oCtrl.getCatalogueById(lngCatalogueId);
             oService = this.m_oCtrl.saveService(oCatalogue);
         } catch (final ConcurrencyException | IntegrityViolationException e) {
             LOGGER.error("Error Saving the Draft.");

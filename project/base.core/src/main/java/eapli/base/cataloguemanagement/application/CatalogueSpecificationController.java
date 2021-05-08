@@ -4,6 +4,7 @@ import eapli.base.cataloguemanagement.domain.*;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.domain.CollaboratorBuilder;
+import eapli.base.collaboratormanagement.domain.CollaboratorMechanographicNumber;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.teammanagement.domain.*;
@@ -31,9 +32,24 @@ public class CatalogueSpecificationController {
         return m_oCollaboratorRepo.findAll();
     }
 
+    public Collaborator getCollaboratorById(Long lngID) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        return this.m_oCollaboratorRepo.findByID(CollaboratorMechanographicNumber.valueOf(lngID)).get();
+    }
+
     public Iterable<Team> getTeams() {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
         return m_oTeamRepo.findAll();
+    }
+
+    public Team getTeamById(Long lngID) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        return this.m_oTeamRepo.findByID(lngID).get();
+    }
+
+    public Catalogue getCatalogueById(Long lngID) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        return this.m_oCatalogueRepo.findByID(lngID).get();
     }
     
     public Catalogue createCatalog(String strTitle, String strBriefDescription, String strCompleteDescription, Collaborator strCollaborator, Set<Team> setAccess) {

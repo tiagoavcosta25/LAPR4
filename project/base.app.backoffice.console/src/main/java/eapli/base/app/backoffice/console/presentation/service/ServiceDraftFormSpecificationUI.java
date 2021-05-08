@@ -86,7 +86,7 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
     }
     private boolean insertForm() {
         final String strFormName = Console.readLine("Form Name");
-        FormType oFormType = PrintList.chooseOne(Arrays.asList(FormType.values()), "Choose a Form Type for this Form", "Form Type");
+        FormType oFormType = PrintList.chooseOne(this.theController.showFormTypes(), "Choose a Form Type for this Form", "Form Type");
         this.theController.addForm(strFormName, oFormType.toString());
         boolean blFlag;
         do {

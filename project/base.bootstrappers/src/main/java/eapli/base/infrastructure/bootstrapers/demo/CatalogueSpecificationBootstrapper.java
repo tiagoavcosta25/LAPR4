@@ -45,23 +45,11 @@ public class CatalogueSpecificationBootstrapper implements Action {
                                        Long lngCollabID, List<Long> lstTeamIDs) {
         Catalogue oCatalogue = null;
         try {
-            Collaborator oCollaborator = null;
-            for(Collaborator c : this.m_oCtrl.getCollaborators()){
-                    if(c.hasMecNumber(CollaboratorMechanographicNumber.valueOf(lngCollabID))){
-                        oCollaborator = c;
-                        break;
-                    }
-            }
+            Collaborator oCollaborator = this.m_oCtrl.getCollaboratorById(lngCollabID);
 
             Set<Team> setTeams = new HashSet<>();
-            for(Team t : this.m_oCtrl.getTeams()){
-                for(int i = 0; i < lstTeamIDs.size(); i++){
-                    if(t.hasID(lstTeamIDs.get(i))){
-                        setTeams.add(t);
-                        i++;
-                        break;
-                    }
-                }
+            for(Long lngId : lstTeamIDs){
+                setTeams.add(this.m_oCtrl.getTeamById(lngId));
             }
             this.m_oCtrl.createCatalog(strTitle, strBriefDescription, strCompleteDescription, oCollaborator, setTeams);
             oCatalogue = this.m_oCtrl.saveCatalogue();

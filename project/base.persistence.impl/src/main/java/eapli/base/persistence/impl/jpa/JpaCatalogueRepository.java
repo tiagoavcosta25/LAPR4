@@ -14,7 +14,7 @@ import java.util.Optional;
 
 
 class JpaCatalogueRepository
-        extends JpaAutoTxRepository<Catalogue, CatalogueID, CatalogueID>
+        extends JpaAutoTxRepository<Catalogue, Long, Long>
         implements CatalogueRepository {
 
 
@@ -28,21 +28,15 @@ class JpaCatalogueRepository
     }
 
     @Override
-    public Optional<Catalogue> findById(CatalogueID oID) {
+    public Optional<Catalogue> findById(Long lngID) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("m_oID", oID);
-        return matchOne("e.id=:m_oID", params);
+        params.put("catalogueID", lngID);
+        return matchOne("e.id=:catalogueID", params);
     }
 
     @Override
     public Iterable<Catalogue> findAllActive() {
         return match("e.systemUser.active = true");
     }
-
-    @Override
-    public List<Catalogue> all() {
-        return (List<Catalogue>) findAll();
-    }
-
 
 }

@@ -61,6 +61,11 @@ public class SaveDraftController {
         return this.catalogueRepo.findAll();
     }
 
+    public Catalogue getCatalogueById(Long lngID) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        return this.catalogueRepo.findByID(lngID).get();
+    }
+
     public Service saveService(Catalogue oCatalogue) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         String strTitle = this.m_oServiceDraft.getTitle();

@@ -88,9 +88,9 @@ public class ServiceDraftSpecificationController {
         this.attributeBuilder = this.attributeBuilder.withScript(strScript);
         this.attributeBuilder = this.attributeBuilder.withDataType(strDataType);
 
-        Attribute oAtrribute = this.attributeBuilder.build();
-        this.m_lstAttributes.add(oAtrribute);
-        return oAtrribute;
+        Attribute oAttribute = this.attributeBuilder.build();
+        this.m_lstAttributes.add(oAttribute);
+        return oAttribute;
     }
 
     public Form saveForm() {

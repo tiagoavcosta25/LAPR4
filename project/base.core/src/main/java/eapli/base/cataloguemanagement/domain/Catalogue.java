@@ -11,7 +11,7 @@ import java.util.Set;
 
 
 @Entity
-public class Catalogue implements AggregateRoot<CatalogueID> {
+public class Catalogue implements AggregateRoot<Long> {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
     @Id
     @GeneratedValue
     @Column(name = "catalogueID")
-    private CatalogueID m_oID;
+    private Long m_lngID;
 
     @JsonProperty
     @Column(name = "title")
@@ -78,7 +78,7 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
     }
 
 
-    public CatalogueID id() {
+    public Long id() {
         return identity();
     }
 
@@ -88,11 +88,11 @@ public class Catalogue implements AggregateRoot<CatalogueID> {
     }
 
     public boolean hasID(CatalogueID oID) {
-        return this.m_oID.equals(oID);
+        return this.m_lngID.equals(oID);
     }
 
     @Override
-    public CatalogueID identity() {
-        return this.m_oID;
+    public Long identity() {
+        return this.m_lngID;
     }
 }
