@@ -49,19 +49,15 @@ public class Service implements AggregateRoot<Long> {
     private Long m_lngID;
 
     @JsonProperty
-    @Column(name = "serviceTitle")
     private ServiceTitle m_oTitle;
     
     @Embedded
-    @Column(name = "serviceBriefDescription")
     private ServiceBriefDescription m_oBriefDescription;
 
     @Embedded
-    @Column(name = "serviceCompleteDescription")
     private ServiceCompleteDescription m_oCompleteDescription;
 
     @Embedded
-    @Column(name = "serviceFeedback")
     private Feedback m_oFeedback;
 
     @ManyToOne

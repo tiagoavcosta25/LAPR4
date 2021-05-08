@@ -8,6 +8,9 @@ package eapli.base.formmanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -15,10 +18,12 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
+@Access(AccessType.FIELD)
 public class AttributeRegex implements ValueObject, Comparable<AttributeRegex> {
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "attributeRegex")
     private String m_strRegex;
 
     public AttributeRegex(final String strRegex) {

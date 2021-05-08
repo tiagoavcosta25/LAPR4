@@ -31,6 +31,8 @@ import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import org.springframework.dao.support.DataAccessUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
