@@ -24,7 +24,7 @@ class JpaCatalogueRepository
 
     public JpaCatalogueRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "m_oID");
+                "catalogueID");
     }
 
     @Override
