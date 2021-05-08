@@ -27,7 +27,6 @@ public class SaveDraftBootstrapper implements Action {
     @Override
     public boolean execute() {
         saveDraft(1);
-        saveDraft(2);
         return true;
     }
 

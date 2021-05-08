@@ -90,8 +90,9 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
                 break;
             case 4:
                 List<String> lstKeywords = new ArrayList<>();
+                int i = 1;
                 do{
-                    lstKeywords.add(Console.readLine("Keywords >"));
+                    lstKeywords.add(Console.readLine("Keyword Number " + i + " >"));
                     strOp = Console.readLine("Do you want to add more keywords? (Y/N) >");
                 } while(strOp.compareToIgnoreCase("Y") == 0);
                 this.theController.addKeywordList(oServiceDraft, lstKeywords);

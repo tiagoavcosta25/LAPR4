@@ -69,11 +69,7 @@ public class Service implements AggregateRoot<Long> {
     private List<Keyword> m_lstKeywords;
 
     @OneToMany()
-    @JoinTable(
-            name = "service_form",
-            joinColumns = @JoinColumn(name = "serviceID"),
-            inverseJoinColumns = @JoinColumn(name = "formID")
-    )
+    @Column(name = "serviceForms")
     private List<Form> m_lstForms;
 
     public Service(final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
