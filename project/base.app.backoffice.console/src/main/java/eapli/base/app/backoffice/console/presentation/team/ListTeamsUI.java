@@ -39,6 +39,6 @@ public class ListTeamsUI extends AbstractListUI<Team> {
 
     @Override
     protected String listHeader() {
-        return String.format("#  %-20s%-20s%-30s%-15s", "ACRONYM", "TEAM TYPE", "TEAM DESCRIPTION", "REPRESENTATION");
+        return String.format("#  %-20s%-20s%-20s%-30s%-15s", "ID" , "ACRONYM", "TEAM TYPE", "TEAM DESCRIPTION", "REPRESENTATION");
     }
 }

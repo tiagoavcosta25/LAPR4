@@ -1,0 +1,73 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<boostrapers>>\nServiceDraftFieldBootstrapper" as BOOT
+participant "<<aplication>>\nServiceDraftSpecificationController" as CTRL
+participant "<<domain>>\ndraft:ServiceDraft" as SER
+
+[o-> BOOT : execute
+
+activate BOOT
+BOOT -> CTRL** : create()
+
+BOOT -> BOOT : draftField(lstOp, lstField,  lstKeywords)
+
+BOOT -> CTRL : newDraft()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftField
+end ref
+CTRL --> BOOT : draft
+deactivate CTRL
+
+loop until there is no more fields to add
+BOOT -> BOOT : addField(draft, op, field, lstKeywords)
+alt if the op is title
+BOOT -> CTRL : addTitle(draft, field)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftField
+end ref
+deactivate CTRL
+else
+BOOT -> CTRL : addBriefDescription(draft, field)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftField
+end ref
+deactivate CTRL
+else
+BOOT -> CTRL : addCompleteDescription(draft, field)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftField
+end ref
+deactivate CTRL
+else
+BOOT -> CTRL : addKeywordList(draft, lstKeywords)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftField
+end ref
+deactivate CTRL
+else
+BOOT -> CTRL : addFeedback(draft, field)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftField
+end ref
+deactivate CTRL
+end
+end
+
+BOOT -> CTRL : saveServiceDraft()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftField
+end ref
+CTRL --> BOOT : draft
+deactivate CTRL
+deactivate BOOT
+
+@enduml

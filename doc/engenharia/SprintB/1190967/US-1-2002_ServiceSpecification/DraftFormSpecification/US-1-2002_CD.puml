@@ -11,7 +11,7 @@ class ServiceDraftFormSpecificationUI<<presentation>>{
 package "Application" #DDDDDD {
 class ServiceDraftSpecificationController<<application>>{
 +create()
-+getServiceDraftById(id)
++getDrafts()
 +newDraft()
 +addForm(name, formType)
 +addAttribute(name, label, description, regex, scriptPath, dataType)
@@ -127,6 +127,7 @@ package "Repository" #DDDDDD {
 
 class ServiceDraftRepository<<repository>>{
 +create()
++findAll()
 +save(serviceDraft)
 }
 

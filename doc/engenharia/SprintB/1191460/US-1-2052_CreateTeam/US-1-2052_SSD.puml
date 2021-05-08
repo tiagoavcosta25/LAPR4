@@ -15,7 +15,7 @@ deactivate SYST
 HRR-> SYST : Select's the intended team type
 activate SYST
 
-SYST --> HRR: Requests all information needed (i.e. acronym,\n designation)
+SYST --> HRR: Requests all information needed (i.e. teamId, acronym,\n designation)
 deactivate SYST
 
 HRR-> SYST : Inserts the requested information

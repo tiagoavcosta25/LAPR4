@@ -45,22 +45,23 @@ HSM -> UI : responds
 activate UI
 
 alt if the user pretends to use an existing draft
-UI -> HSM : requests the draft's id
-deactivate UI
 
-HSM -> UI : inserts said id
-activate UI
-
-UI -> CTRL : getServiceDraftById(id)
+UI -> CTRL : getDrafts()
 activate CTRL
 
-CTRL -> SR : getServiceDraftById(id)
+CTRL -> SR : findAll()
 activate SR
-SR --> CTRL : serviceDraft
+SR --> CTRL : drafts
 deactivate SR
 
-CTRL --> UI : serviceDraft
+CTRL --> UI : drafts
 deactivate CTRL
+
+UI -> HSM : presents the draft list and asks the user to choose a draft
+deactivate UI
+
+HSM -> UI : chooses a draft
+activate UI
 
 else if the user pretends to use create a new draft
 

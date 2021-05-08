@@ -90,7 +90,7 @@ e solicita uma confirmação. O ator confirma. O sistema regista o serviço e in
 
 ###	Sequence Diagram
 
-![US-1-2002_SD.svg](US-1-2002_SD.svg)
+![US-1-2002_SD.svg](US-1-2002_SD_SaveDraft.svg)
 
 ## 3.2. Diagrama de Classes
 
