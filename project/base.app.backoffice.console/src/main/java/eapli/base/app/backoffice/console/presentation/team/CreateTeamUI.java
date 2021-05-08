@@ -25,9 +25,7 @@ public class CreateTeamUI extends AbstractUI {
             final String theTeamType = selectTeamType();
             final String acronym = Console.readLine("Acronym:");
             final String teamDescription = Console.readLine("Team Description:");
-            final Collaborator collaborator = selectCollaborator();
-            final Set<Collaborator> representation = new HashSet<>();
-            representation.add(collaborator);
+            final Set<Collaborator> representation = selectCollaborators();
             this.theController.createTeam(theTeamType, acronym, teamDescription, representation);
         } catch (final IllegalArgumentException ex) {
             System.out.println("Something went wrong");
@@ -42,6 +40,24 @@ public class CreateTeamUI extends AbstractUI {
                 new TeamTypePrinter());
         selectorTeamType.show();
         return String.valueOf(selectorTeamType.selectedElement());
+    }
+
+    private Set<Collaborator> selectCollaborators() {
+        Set<Collaborator> setCollab = new HashSet<>();
+        Collaborator collab = selectCollaborator();
+        setCollab.add(collab);
+        String decision = "";
+        while(!decision.equalsIgnoreCase("Y") || !decision.equalsIgnoreCase("N")) {
+            decision = Console.readLine("Do you wish to add another representative? (Y\\N) ");
+            if(decision.equalsIgnoreCase("Y")) {
+                collab = selectCollaborator();
+                setCollab.add(collab);
+            }
+            else if(decision.equalsIgnoreCase("N")) {
+                break;
+            }
+        }
+        return setCollab;
     }
 
     private Collaborator selectCollaborator() {
