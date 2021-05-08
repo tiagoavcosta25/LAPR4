@@ -1,8 +1,9 @@
-package eapli.base.teammanagement.application;
+package eapli.base.collaboratormanagement.application;
 
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.teammanagement.application.ListTeamService;
 import eapli.base.teammanagement.domain.Team;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
@@ -18,6 +19,11 @@ public class AddCollabToTeamController {
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
     private final ListTeamService m_oListTeamService = new ListTeamService();
     private final CollaboratorRepository m_oCollabRepo = PersistenceContext.repositories().collaborators();
+    private final ListCollaboratorService m_oListCollaboratorService = new ListCollaboratorService();
+
+    public Iterable<Collaborator> getCollaborators() {
+        return m_oListCollaboratorService.allCollaborators();
+    }
 
     public Iterable<Team> getTeams() {
         return this.m_oListTeamService.getTeams();

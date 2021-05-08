@@ -1,5 +1,6 @@
 package eapli.base.app.backoffice.console.presentation.team;
 
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.teammanagement.application.ListTeamController;
 import eapli.base.teammanagement.domain.Team;
 import eapli.framework.presentation.console.AbstractListUI;
@@ -11,6 +12,16 @@ import eapli.framework.visitor.Visitor;
 @SuppressWarnings({ "squid:S106" })
 public class ListTeamsUI extends AbstractListUI<Team> {
     private final ListTeamController theController = new ListTeamController();
+    private Collaborator m_oCollab;
+
+    public ListTeamsUI() {
+        //Casual constructor
+        m_oCollab = null;
+    }
+
+    public ListTeamsUI(Collaborator oCollab) {
+        this.m_oCollab = oCollab;
+    }
 
     @Override
     public String headline() {
@@ -24,7 +35,9 @@ public class ListTeamsUI extends AbstractListUI<Team> {
 
     @Override
     protected Iterable<Team> elements() {
-        return theController.getTeams();
+        if(this.m_oCollab == null)
+            return theController.getTeams();
+        return this.m_oCollab.teams();
     }
 
     @Override

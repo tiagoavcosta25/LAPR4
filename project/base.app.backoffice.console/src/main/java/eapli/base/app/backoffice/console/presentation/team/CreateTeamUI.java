@@ -1,11 +1,8 @@
 package eapli.base.app.backoffice.console.presentation.team;
 
-import eapli.base.collaboratormanagement.application.ListCollaboratorService;
 import eapli.base.collaboratormanagement.domain.Collaborator;
-import eapli.base.teammanagement.application.ListTeamTypeService;
 import eapli.base.teammanagement.application.TeamCreatorController;
 import eapli.base.teammanagement.domain.TeamType;
-import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;

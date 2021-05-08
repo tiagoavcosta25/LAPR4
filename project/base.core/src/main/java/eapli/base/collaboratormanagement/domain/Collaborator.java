@@ -103,10 +103,16 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     public SystemUser user(){return this.m_oSystemUser;}
     public Set<Team> teams(){return this.m_setTeams;}
     public void addTeam(Team oTeam) {
-        this.m_setTeams.add(oTeam);
+        if(!oTeam.representation().contains(this) && !this.m_setTeams.contains(oTeam))
+            this.m_setTeams.add(oTeam);
+        else
+            throw new IllegalArgumentException("Collaborator is already a representative of the team or in the team!");
     }
     public void removeTeam(Team oTeam) {
-        this.m_setTeams.remove(oTeam);
+        if(this.m_setTeams.contains(oTeam))
+            this.m_setTeams.remove(oTeam);
+        else
+            throw new IllegalArgumentException("Collaborator does not belong to the team and cannot be removed!");
     }
 
 
