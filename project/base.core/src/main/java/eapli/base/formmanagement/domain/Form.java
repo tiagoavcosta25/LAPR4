@@ -52,15 +52,15 @@ public class Form implements AggregateRoot<Long> {
     @Enumerated(EnumType.STRING)
     private FormType m_oFormType;
 
-    @ElementCollection()
-    private List<Attribute> m_lstAttributes;
+    /*@ElementCollection()
+    private List<Attribute> m_lstAttributes;*/
 
     public Form(final FormName oName, final FormType oFormType, final List<Attribute> lstAttributes) {
         if (oName == null || oFormType == null || lstAttributes.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oName = oName;
-        this.m_lstAttributes = lstAttributes;
+        //this.m_lstAttributes = lstAttributes;
         this.m_oFormType = oFormType;
     }
 
@@ -71,9 +71,9 @@ public class Form implements AggregateRoot<Long> {
     public FormName name() {
         return this.m_oName;
     }
-    public List<Attribute> attributes() {
+    /*public List<Attribute> attributes() {
         return this.m_lstAttributes;
-    }
+    }*/
     public FormType type() {
         return this.m_oFormType;
     }

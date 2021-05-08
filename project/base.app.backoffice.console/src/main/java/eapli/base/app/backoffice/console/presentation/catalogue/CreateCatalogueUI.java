@@ -1,6 +1,6 @@
 package eapli.base.app.backoffice.console.presentation.catalogue;
 
-import eapli.base.app.backoffice.console.presentation.service.PrintList;
+import eapli.base.app.backoffice.console.presentation.utils.PrintList;
 import eapli.base.app.backoffice.console.presentation.team.CollaboratorPrinter;
 import eapli.base.app.backoffice.console.presentation.team.TeamPrinter;
 import eapli.base.app.backoffice.console.presentation.team.TeamTypePrinter;

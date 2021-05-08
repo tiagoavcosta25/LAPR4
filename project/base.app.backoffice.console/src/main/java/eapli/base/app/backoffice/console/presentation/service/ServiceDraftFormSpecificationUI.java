@@ -56,9 +56,9 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
                 this.theController.saveForm();
             } while (!blFlag);
 
-            oServiceDraft = this.theController.addFormsToDraft();
+            this.theController.addFormsToDraft();
 
-            strOp = Console.readLine("Confirm the following Service Draft(Y/N) >\n\n%s" + oServiceDraft.toString() + "\n\n");
+            strOp = Console.readLine("Confirm the changes made on the Draft (Y/N) >");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.saveServiceDraft();

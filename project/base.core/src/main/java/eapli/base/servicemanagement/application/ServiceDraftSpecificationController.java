@@ -99,8 +99,8 @@ public class ServiceDraftSpecificationController {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.formBuilder = this.formBuilder.withAttributeList(this.m_lstAttributes);
         Form oForm = this.formBuilder.build();
-        this.m_lstForms.add(oForm);
         oForm = this.formRepo.save(oForm);
+        this.m_lstForms.add(oForm);
         return oForm;
     }
 
