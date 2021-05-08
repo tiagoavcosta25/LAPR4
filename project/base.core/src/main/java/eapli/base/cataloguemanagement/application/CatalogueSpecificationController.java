@@ -30,6 +30,23 @@ public class CatalogueSpecificationController {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
         return m_oCollaboratorRepo.findAll();
     }
+
+    public Collaborator getCollaboratorById(Long lngID) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        return this.m_oCollaboratorRepo.findByID(CollaboratorMechanographicNumber.valueOf(lngID)).get();
+    }
+
+    public Iterable<Team> getTeams() {
+        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
+        return m_oTeamRepo.findAll();
+    }
+
+    public Team getTeamById(Long lngID) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        return this.m_oTeamRepo.findByID(lngID).get();
+    }
+
+    
     public Catalogue createCatalog(String strTitle, String strBriefDescription, String strCompleteDescription, Collaborator strCollaborator, Set<Team> setAccess) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
         final CatalogueBuilder catalogueBuilder = new CatalogueBuilder();
