@@ -35,7 +35,7 @@ import java.util.List;
  */
 
 @Entity
-public class Form implements AggregateRoot<FormID> {
+public class Form implements AggregateRoot<Long> {
 
     @Version
     private Long version;
@@ -43,7 +43,7 @@ public class Form implements AggregateRoot<FormID> {
     @Id
     @GeneratedValue
     @Column(name = "formID")
-    private FormID m_oID;
+    private Long m_oID;
 
     @Embedded
     @Column(name = "name")
@@ -96,12 +96,12 @@ public class Form implements AggregateRoot<FormID> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public FormID id() {
+    public Long id() {
         return identity();
     }
 
     @Override
-    public FormID identity() {
+    public Long identity() {
         return this.m_oID;
     }
 }

@@ -147,12 +147,12 @@ public class ServiceTest extends TestCase {
     }
 
     public void testId() {
-        ServiceID real = s.id();
+        Long real = s.id();
         assertNull(real);
     }
 
     public void testIdentity() {
-        ServiceID real = s.identity();
+        Long real = s.identity();
         assertNull(real);
     }
 }

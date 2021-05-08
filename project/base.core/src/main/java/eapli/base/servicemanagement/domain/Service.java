@@ -38,7 +38,7 @@ import java.util.List;
  */
 
 @Entity
-public class Service implements AggregateRoot<ServiceID> {
+public class Service implements AggregateRoot<Long> {
 
     @Version
     private Long version;
@@ -46,7 +46,7 @@ public class Service implements AggregateRoot<ServiceID> {
     @Id
     @GeneratedValue
     @Column(name = "serviceID")
-    private ServiceID m_oID;
+    private Long m_lngID;
 
     @JsonProperty
     @Column(name = "title")
@@ -134,12 +134,12 @@ public class Service implements AggregateRoot<ServiceID> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public ServiceID id() {
+    public Long id() {
         return identity();
     }
 
     @Override
-    public ServiceID identity() {
-        return this.m_oID;
+    public Long identity() {
+        return this.m_lngID;
     }
 }

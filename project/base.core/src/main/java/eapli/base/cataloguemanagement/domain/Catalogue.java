@@ -2,11 +2,9 @@ package eapli.base.cataloguemanagement.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.base.collaboratormanagement.domain.Collaborator;
-import eapli.base.servicemanagement.domain.ServiceID;
 import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
-import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
 import java.util.Set;

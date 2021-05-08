@@ -84,13 +84,13 @@ public class AttributeTest extends TestCase {
 
     @Test
     public void testId() {
-        AttributeID real = a.id();
+        Long real = a.id();
         assertNull(real);
     }
 
     @Test
     public void testIdentity() {
-        AttributeID real = a.identity();
+        Long real = a.identity();
         assertNull(real);
     }
 }
