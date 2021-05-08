@@ -32,7 +32,7 @@ public class ServiceDraftFormBootstrapper implements Action {
                 new ArrayList<>(Arrays.asList("Product ID", "Customer Name Email")),
                 new ArrayList<>(Arrays.asList("ID of the product", "Email referring to the customer")),
                 new ArrayList<>(Arrays.asList("[0-9]+", "[a-zA-Z]+[0-9]*@[a-z].[a-z]")),
-                new ArrayList<>(Arrays.asList("/scripts/script1.java", "/scripts/script2.java")),
+                new ArrayList<>(Arrays.asList("D:/folder/script1.bat", "C:/folder2/script2.bat")),
                 new ArrayList<>(Arrays.asList(DataType.INTEGER, DataType.STRING)));
         return true;
     }
@@ -43,12 +43,12 @@ public class ServiceDraftFormBootstrapper implements Action {
         ServiceDraft oServiceDraft = null;
         try {
             if(lngDraftId != -1) {
-                oServiceDraft = this.m_oCtrl.getServiceDraftById(lngDraftId);
+                //oServiceDraft = this.m_oCtrl.getServiceDraftById(lngDraftId); TODO
             } else {
                 oServiceDraft = this.m_oCtrl.newDraft();
             }
 
-            this.m_oCtrl.addForm(strFormName, oFormType.toString());
+            this.m_oCtrl.addForm(oServiceDraft, strFormName, oFormType.toString());
 
             for(int i = 0; i < intNumAttributes; i++){
                 this.m_oCtrl.addAttribute(lstNames.get(i), lstLabels.get(i), lstDescriptions.get(i), lstRegex.get(i),

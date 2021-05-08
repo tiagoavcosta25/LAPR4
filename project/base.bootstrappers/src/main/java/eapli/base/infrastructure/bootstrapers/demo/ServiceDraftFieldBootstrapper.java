@@ -54,13 +54,13 @@ public class ServiceDraftFieldBootstrapper implements Action {
     private ServiceDraft draftField(final Long lngDraftId, Integer intOp, String strField, List<String> lstKeywords) {
         ServiceDraft oServiceDraft = null;
         try {
-            if(lngDraftId != -1) {
-                oServiceDraft = this.m_oCtrl.getServiceDraftById(lngDraftId);
+            if(lngDraftId == -1l) {
+                //oServiceDraft = this.m_oCtrl.getServiceDraftById(lngDraftId); TODO
             } else {
                 oServiceDraft = this.m_oCtrl.newDraft();
             }
 
-            addField(intOp, strField, lstKeywords);
+            addField(oServiceDraft, intOp, strField, lstKeywords);
 
             oServiceDraft = this.m_oCtrl.saveServiceDraft();
         } catch (final ConcurrencyException | IntegrityViolationException e) {
@@ -69,23 +69,23 @@ public class ServiceDraftFieldBootstrapper implements Action {
         return oServiceDraft;
     }
 
-    private void addField(Integer intOp, String strField, List<String> lstKeywords){
+    private void addField(ServiceDraft oServiceDraft, Integer intOp, String strField, List<String> lstKeywords){
         switch (intOp)
         {
             case 1:
-                this.m_oCtrl.addTitle(strField);
+                this.m_oCtrl.addTitle(oServiceDraft, strField);
                 break;
             case 2:
-                this.m_oCtrl.addBriefDescription(strField);
+                this.m_oCtrl.addBriefDescription(oServiceDraft, strField);
                 break;
             case 3:
-                this.m_oCtrl.addCompleteDescription(strField);
+                this.m_oCtrl.addCompleteDescription(oServiceDraft, strField);
                 break;
             case 4:
-                this.m_oCtrl.addKeywordList(lstKeywords);
+                this.m_oCtrl.addKeywordList(oServiceDraft, lstKeywords);
                 break;
             case 5:
-                this.m_oCtrl.addFeedback(Double.parseDouble(strField));
+                this.m_oCtrl.addFeedback(oServiceDraft, Double.parseDouble(strField));
                 break;
             default:
                 throw new IllegalArgumentException();

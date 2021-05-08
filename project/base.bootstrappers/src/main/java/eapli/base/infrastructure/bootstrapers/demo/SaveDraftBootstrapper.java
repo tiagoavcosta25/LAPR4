@@ -42,7 +42,7 @@ public class SaveDraftBootstrapper implements Action {
     private Service saveDraft(final Long lngDraftId, final Long lngCatalogueId) {
         Service oService = null;
         try {
-            this.m_oCtrl.getServiceDraftById(lngDraftId);
+            //this.m_oCtrl.getServiceDraftById(lngDraftId); TODO
             Catalogue oCatalogue = this.m_oCtrl.getCatalogueById(lngCatalogueId);
             oService = this.m_oCtrl.saveService(oCatalogue);
         } catch (final ConcurrencyException | IntegrityViolationException e) {
