@@ -5,18 +5,15 @@ import eapli.base.servicemanagement.domain.ServiceBuilder;
 import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.model.DomainFactory;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class CatalogueBuilder implements DomainFactory<Catalogue> {
 
     private CatalogueTitle m_oCatalogueTitle;
-
     private CatalogueBriefDescription m_oCatalogueBriefDescription;
-
     private CatalogueCompleteDescription m_oCatalogueCompleteDescription;
-
     private Collaborator m_oCollaborator;
-
     private Set<Team> m_setAccess;
 
 
@@ -45,7 +42,8 @@ public class CatalogueBuilder implements DomainFactory<Catalogue> {
 
 
     public CatalogueBuilder withAccess(Set<Team> setAccess) {
-        this.m_setAccess = setAccess;
+        Set<Team> setTemp = new HashSet<>(setAccess);
+        this.m_setAccess = setTemp;
         return this;
     }
 

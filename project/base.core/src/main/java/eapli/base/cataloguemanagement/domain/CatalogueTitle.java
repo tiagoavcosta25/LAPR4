@@ -1,8 +1,8 @@
 package eapli.base.cataloguemanagement.domain;
-        import eapli.base.collaboratormanagement.domain.CollaboratorCompleteName;
-        import eapli.framework.domain.model.ValueObject;
-        import eapli.framework.strings.util.StringPredicates;
-        import javax.persistence.Embeddable;
+import eapli.base.collaboratormanagement.domain.CollaboratorCompleteName;
+import eapli.framework.domain.model.ValueObject;
+import eapli.framework.strings.util.StringPredicates;
+import javax.persistence.Embeddable;
 
 /**
  *
@@ -12,14 +12,15 @@ package eapli.base.cataloguemanagement.domain;
 @Embeddable
 public class CatalogueTitle implements ValueObject, Comparable<CatalogueTitle> {
 
-
+    private static final long serialVersionUID = 1L;
+    private static final Integer m_intMaxLength = 50;
 
     private String m_strTitle;
 
     public CatalogueTitle(final String strTitle) {
-        if (StringPredicates.isNullOrEmpty(strTitle)) {
+        if (StringPredicates.isNullOrEmpty(strTitle) || !(strTitle.length() < m_intMaxLength)) {
             throw new IllegalArgumentException(
-                    "Catalogue´s title can't be null nor empty.");
+                    "Catalogue´s title can't be null, empty or have more than 50 characters.");
         }
 
         this.m_strTitle = strTitle;
@@ -38,11 +39,11 @@ public class CatalogueTitle implements ValueObject, Comparable<CatalogueTitle> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof eapli.base.cataloguemanagement.domain.CatalogueTitle)) {
+        if (!(o instanceof CatalogueTitle)) {
             return false;
         }
 
-        final eapli.base.cataloguemanagement.domain.CatalogueTitle that = (eapli.base.cataloguemanagement.domain.CatalogueTitle) o;
+        final CatalogueTitle that = (CatalogueTitle) o;
         return this.m_strTitle.equals(that.m_strTitle);
     }
 
@@ -57,7 +58,7 @@ public class CatalogueTitle implements ValueObject, Comparable<CatalogueTitle> {
     }
 
     @Override
-    public int compareTo(final eapli.base.cataloguemanagement.domain.CatalogueTitle arg0) {
+    public int compareTo(final CatalogueTitle arg0) {
         return m_strTitle.compareTo(arg0.m_strTitle);
     }
 }

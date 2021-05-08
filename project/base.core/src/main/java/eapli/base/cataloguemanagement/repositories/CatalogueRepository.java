@@ -1,7 +1,6 @@
 package eapli.base.cataloguemanagement.repositories;
 
 import eapli.base.cataloguemanagement.domain.Catalogue;
-import eapli.base.cataloguemanagement.domain.CatalogueID;
 import eapli.framework.domain.repositories.DomainRepository;
 
 import java.util.List;
