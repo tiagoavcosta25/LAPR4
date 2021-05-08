@@ -2,7 +2,6 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
 import eapli.base.cataloguemanagement.domain.Catalogue;
-import eapli.base.cataloguemanagement.domain.CatalogueID;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
@@ -24,14 +23,14 @@ class JpaCatalogueRepository
 
     public JpaCatalogueRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "catalogueID");
+                "m_oID");
     }
 
     @Override
-    public Optional<Catalogue> findById(Long lngID) {
+    public Optional<Catalogue> findById(Long oID) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("catalogueID", lngID);
-        return matchOne("e.id=:catalogueID", params);
+        params.put("m_oID", oID);
+        return matchOne("e.id=:m_oID", params);
     }
 
     @Override
