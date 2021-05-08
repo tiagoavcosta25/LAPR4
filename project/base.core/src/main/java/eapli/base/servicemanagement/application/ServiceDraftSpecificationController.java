@@ -50,10 +50,9 @@ public class ServiceDraftSpecificationController {
     private List<Form> m_lstForms = new ArrayList<>();
     private ServiceDraft m_oServiceDraft = new ServiceDraft();
 
-    public ServiceDraft getServiceDraftById(Long lngID) {
+    public Iterable<ServiceDraft> getDrafts() {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        this.m_oServiceDraft = this.draftRepo.findByID(lngID).get();
-        return this.m_oServiceDraft;
+        return this.draftRepo.findAll();
     }
 
     public ServiceDraft newDraft() {
@@ -67,7 +66,8 @@ public class ServiceDraftSpecificationController {
         return Arrays.asList(FormType.values());
     }
 
-    public void addForm(String strName, String strType) {
+    public void addForm(ServiceDraft oServiceDraft, String strName, String strType) {
+        this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.formBuilder = this.formBuilder.withName(strName);
         this.formBuilder = this.formBuilder.withType(strType);
@@ -113,27 +113,32 @@ public class ServiceDraftSpecificationController {
         return this.draftRepo.save(this.m_oServiceDraft);
     }
 
-    public void addKeywordList(List<String> keywordList) {
+    public void addKeywordList(ServiceDraft oServiceDraft, List<String> keywordList) {
+        this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setKeywordList(keywordList);
     }
 
-    public void addTitle(String strTitle) {
+    public void addTitle(ServiceDraft oServiceDraft, String strTitle) {
+        this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setTitle(strTitle);
     }
 
-    public void addBriefDescription(String strBriefDescription) {
+    public void addBriefDescription(ServiceDraft oServiceDraft, String strBriefDescription) {
+        this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setBriefDescription(strBriefDescription);
     }
 
-    public void addCompleteDescription(String strCompleteDescription) {
+    public void addCompleteDescription(ServiceDraft oServiceDraft, String strCompleteDescription) {
+        this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setCompleteDescription(strCompleteDescription);
     }
 
-    public void addFeedback(Double dblFeedback) {
+    public void addFeedback(ServiceDraft oServiceDraft, Double dblFeedback) {
+        this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setFeedback(dblFeedback);
     }

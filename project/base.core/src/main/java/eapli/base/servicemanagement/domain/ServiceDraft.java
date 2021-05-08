@@ -43,34 +43,34 @@ public class ServiceDraft implements AggregateRoot<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "serviceDraftID")
     private Long m_lngID;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
     @Basic
-    @Column(name = "title")
+    @Column(name = "serviceDraftTitle")
     private String m_strTitle;
 
     @Basic
-    @Column(name = "briefDescription")
+    @Column(name = "serviceDraftBriefDescription")
     private String m_strBriefDescription;
 
     @Basic
-    @Column(name = "completeDescription")
+    @Column(name = "serviceDraftCompleteDescription")
     private String m_strCompleteDescription;
 
     @Basic
-    @Column(name = "feedback")
+    @Column(name = "serviceDraftFeedback")
     private Double m_dblFeedback;
 
     @ElementCollection
-    @Column(name = "keywords")
+    @Column(name = "serviceDraftKeywords")
     private List<String> m_lstKeywords;
 
     @OneToMany()
-    @Column(name = "forms")
+    @Column(name = "serviceDraftForms")
     private List<Form> m_lstForms;
 
     public ServiceDraft(final String strTitle, final String strBriefDescription, final String strCompleteDescription,
@@ -168,5 +168,10 @@ public class ServiceDraft implements AggregateRoot<Long> {
     @Override
     public Long identity() {
         return this.m_lngID;
+    }
+
+    @Override
+    public String toString() {
+        return "Draft Title: " + m_strTitle + " | Description: " + m_strBriefDescription;
     }
 }

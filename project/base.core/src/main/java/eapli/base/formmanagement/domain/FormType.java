@@ -5,11 +5,17 @@
  */
 package eapli.base.formmanagement.domain;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
 public enum FormType {
-    SERVICE, MANUAL_TASK;
+    SERVICE("Service"), MANUAL_TASK("Manual Task");
+
+    private String m_strDescription;
+
+    FormType(String strDescription) {
+        this.m_strDescription = strDescription;
+    }
+
+    FormType() {
+    }
 
     public static FormType stringToFormType(String strType) {
         if(strType.compareToIgnoreCase("Service") == 0){

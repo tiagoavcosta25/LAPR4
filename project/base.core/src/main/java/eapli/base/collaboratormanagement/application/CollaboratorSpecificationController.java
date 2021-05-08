@@ -50,7 +50,7 @@ public class CollaboratorSpecificationController {
     private List<Collaborator> m_lstCollaborators = new ArrayList<>();
     private String m_strEmail, m_strFirstName, m_strLastName;
 
-    public Collaborator addCollaborator(String strEmail, String strFirstName, String strLastName,
+    public void addCollaborator(String strEmail, String strFirstName, String strLastName,
                                         String strCompleteName, Long lngMechanographicNumber, String strAddress,
                                         String strPhoneCode, Double dblPhoneNumber, LocalDate dtBirthDate) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
@@ -64,9 +64,6 @@ public class CollaboratorSpecificationController {
         this.m_strEmail = strEmail;
         this.m_strFirstName = strFirstName;
         this.m_strLastName = strLastName;
-
-        Collaborator oCollaborator = this.m_oCollaboratorBuilder.build();
-        return oCollaborator;
     }
 
     public Role[] getRoleList() {
@@ -76,7 +73,7 @@ public class CollaboratorSpecificationController {
     public void addRoles(Set<Role> lstRoles) {
         String strRawPassword = m_oRandomRawPassword.toString();
         UserManagementService oUserService = AuthzRegistry.userService();
-        String strUsername = this.m_strEmail.substring(0, this.m_strEmail.indexOf("@") - 1);
+        String strUsername = this.m_strEmail.substring(0, this.m_strEmail.indexOf("@"));
         SystemUser oSystemUser = oUserService.registerNewUser(strUsername, strRawPassword, m_strFirstName,
                 m_strLastName, m_strEmail, lstRoles);
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withSystemUser(oSystemUser);

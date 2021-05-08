@@ -49,13 +49,10 @@ public class SaveDraftController {
     private ServiceBuilder serviceBuilder = new ServiceBuilder();
     private ServiceDraft m_oServiceDraft = new ServiceDraft();
 
-    public ServiceDraft getServiceDraftById(Long lngID) {
+    public Iterable<ServiceDraft> getDrafts() {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        this.m_oServiceDraft = this.draftRepo.findByID(lngID).get();
-        return this.m_oServiceDraft;
+        return this.draftRepo.findAll();
     }
-
-
     public Iterable<Catalogue> getCatalogues() {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         return this.catalogueRepo.findAll();
