@@ -11,7 +11,7 @@ class SaveDraftUI<<presentation>>{
 package "Application" #DDDDDD {
 class SaveDraftController<<application>>{
 +create()
-+getServiceDraftById(id)
++getDrafts()
 +getCatalogues()
 +saveService(serviceDraft)
 }
@@ -108,12 +108,12 @@ class ServiceRepository<<repository>>{
 
 class ServiceDraftRepository<<repository>>{
 +create()
-+getServiceDraftById(id)
++findAll()
 }
 
 class CatalogueRepository<<repository>>{
 +create()
-+all()
++findAll()
 }
 
 interface ServiceRepositoryInterface{

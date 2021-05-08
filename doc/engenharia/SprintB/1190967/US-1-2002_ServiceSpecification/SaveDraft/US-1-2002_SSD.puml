@@ -10,10 +10,10 @@ activate HSM
 HSM -> SYST : initiates the request to save in a service draft
 activate SYST
 
-SYST -> HSM : requests the draft's id
+SYST -> HSM : presents the draft list and asks the user to choose a draft
 deactivate SYST
 
-HSM -> SYST : inserts said id
+HSM -> SYST : chooses a draft
 activate SYST
 
 SYST -> HSM : shows the catalogue list and request the user to choose one

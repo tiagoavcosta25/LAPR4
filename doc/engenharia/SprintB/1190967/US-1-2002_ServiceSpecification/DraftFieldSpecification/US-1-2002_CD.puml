@@ -11,7 +11,7 @@ class ServiceDraftFieldSpecificationUI<<presentation>>{
 package "Application" #DDDDDD {
 class ServiceDraftSpecificationController<<application>>{
 +create()
-+getServiceDraftById(id)
++getDrafts()
 +newDraft()
 +addTitle()
 +addBriefDescription(briefDescription)
@@ -62,6 +62,7 @@ class RepositoryFactory<<factory>>{
 package "Repository" #DDDDDD {
 class ServiceDraftRepository<<repository>>{
 +create()
++findAll()
 +save(serviceDraft)
 }
 
