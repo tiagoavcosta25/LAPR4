@@ -44,17 +44,19 @@ public class CollaboratorSpecificationUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         try{
-            final String strEmail = Console.readLine("Email");
-            final String strFirstName = Console.readLine("First Name");
-            final String strLastName = Console.readLine("Last Name");
-            final String strCompleteName = Console.readLine("Complete Name");
-            final String strMechanographicNumber = Console.readLine("Mechanographic Number");
-            final String strAddress = Console.readLine("Address");
-            final String strPhoneCode = Console.readLine("Phone Code");
-            final String strPhoneNumber = Console.readLine("Phone Number");
-            final String strBirthDate = Console.readLine("Birth Date (dd/MM/yyyy)");
+            final String strEmail = Console.readLine("Email >");
+            final String strFirstName = Console.readLine("First Name >");
+            final String strLastName = Console.readLine("Last Name >");
+            final String strCompleteName = Console.readLine("Complete Name >");
+            final String strMechanographicNumber = Console.readLine("Mechanographic Number >");
+            final String strAddress = Console.readLine("Address >");
+            final String strPhoneCode = Console.readLine("Phone Code >");
+            final String strPhoneNumber = Console.readLine("Phone Number >");
+            final Integer intYear = Integer.parseInt(Console.readLine("Birth Date (year) >"));
+            final Integer intMonth = Integer.parseInt(Console.readLine("Birth Date (month) >"));
+            final Integer intDay = Integer.parseInt(Console.readLine("Birth Date (day) >"));
 
-            final LocalDate dtBirthDate = LocalDate.parse(strBirthDate);
+            final LocalDate dtBirthDate = LocalDate.of(intYear, intMonth, intDay);
 
             this.theController.addCollaborator(strEmail, strFirstName, strLastName,
                     strCompleteName, Long.parseLong(strMechanographicNumber), strAddress, strPhoneCode,
@@ -71,11 +73,11 @@ public class CollaboratorSpecificationUI extends AbstractUI {
             this.theController.addManager(oManager);
 
 
-            String strOp = Console.readLine("Confirm the creation of this Collaborator (Y/N):\n");
+            String strOp = Console.readLine("Confirm the creation of this Collaborator (Y/N) >");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 Collaborator oCollaborator = this.theController.saveCollaborator();
-                System.out.printf("Operation Successful. The Following Collaborator was created successfully: \n\n%s", oCollaborator.toString());
+                System.out.printf("Operation Successful. The Following Collaborator was created successfully > %s\n\n", oCollaborator.shortName());
             } else{
                 System.out.println("Operation Cancelled.");
             }
