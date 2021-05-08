@@ -7,7 +7,7 @@ O grupo de trabalho é constituído pelo estudantes identificados na tabela segu
 | Aluno Nr.	   | Nome do Aluno			    |
 |--------------|------------------------------|
 | **[1190967](/docs/SprintB/1190967/)**  | Pedro Santos                |
-|              | 						        |
+| **[1191460](/docs/SprintB/1191460/)**  | Tiago Costa                |
 |              | 						        |
 |              | 						        |
 |              | 						        |
