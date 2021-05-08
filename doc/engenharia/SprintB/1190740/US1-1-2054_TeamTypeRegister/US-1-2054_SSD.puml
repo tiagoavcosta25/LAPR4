@@ -1,0 +1,27 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Human Resource Representative" as HRR
+participant ":System" as SYST
+
+activate HRR
+HRR -> SYST : initiates the request to register a team type
+
+activate SYST
+SYST --> HRR : requests all the required information \n (i.e. identifier, description, color)
+deactivate SYST
+
+HRR -> SYST : inserts the requested information
+
+activate SYST
+SYST --> HRR : validates, presents the information and asks for confirmation
+deactivate SYST
+
+HRR -> SYST : confirms
+
+activate SYST
+SYST --> HRR : informs on the success of the operation
+deactivate SYST
+deactivate HRR
+@enduml
