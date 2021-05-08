@@ -16,19 +16,13 @@ GSH-> SYST : Inserts the requested information
 activate SYST
 
 activate SYST
-loop until user command
+
     SYST --> GSH: Shows colaborator's list
     deactivate SYST
 
     GSH-> SYST : Select's the collaborator
     activate SYST
 
-    SYST --> GSH: Asks if the user wants to add more responsible colaborator's
-    deactivate SYST
-
-    GSH-> SYST : Responds
-    activate SYST
-end
 loop until user command
     SYST --> GSH: Shows team's list
     deactivate SYST
