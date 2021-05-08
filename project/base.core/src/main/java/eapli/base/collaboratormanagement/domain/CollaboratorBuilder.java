@@ -2,6 +2,8 @@ package eapli.base.collaboratormanagement.domain;
 
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -24,7 +26,7 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
         return this;
     }
 
-    public CollaboratorBuilder withBirthDate(Date dtBirthDate) {
+    public CollaboratorBuilder withBirthDate(LocalDate dtBirthDate) {
         this.m_oBirthDate = CollaboratorBirthDate.valueOf(dtBirthDate);
         return this;
     }

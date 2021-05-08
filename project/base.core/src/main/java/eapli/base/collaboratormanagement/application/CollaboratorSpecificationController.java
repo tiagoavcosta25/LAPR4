@@ -34,6 +34,7 @@ import eapli.framework.infrastructure.authz.domain.model.RandomRawPassword;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -51,7 +52,7 @@ public class CollaboratorSpecificationController {
 
     public Collaborator addCollaborator(String strEmail, String strFirstName, String strLastName,
                                         String strCompleteName, Long lngMechanographicNumber, String strAddress,
-                                        String strPhoneCode, Double dblPhoneNumber, Date dtBirthDate) {
+                                        String strPhoneCode, Double dblPhoneNumber, LocalDate dtBirthDate) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withShortName(strFirstName, strLastName);
@@ -100,7 +101,7 @@ public class CollaboratorSpecificationController {
     public boolean importHistoricalTransactions(String strEmail, String strFirstName, String strLastName,
                                                 String strCompleteName, Long lngMechanographicNumber,
                                                 String strAddress, String strPhoneCode, Double dblPhoneNumber,
-                                                Date dtBirthDate, Long lngManager, Set<Role> lstRoles) {
+                                                LocalDate dtBirthDate, Long lngManager, Set<Role> lstRoles) {
 
         try {
 
