@@ -11,6 +11,16 @@ participant "<<domain>>\nteam:Team" as TEAM
 activate BOOT
 BOOT -> CTRL** : create()
 
+BOOT -> BOOT : createTeam(teamType, acronym,\nteamDescription, collaboratorsID)
+
+BOOT -> CTRL : getCollaborators()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2052_SD
+end ref
+CTRL --> BOOT : collaborators
+deactivate CTRL
+
 BOOT -> CTRL : createTeam(teamType, acronym,\nteamDescription, collaboratorsID)
 activate CTRL
 ref over CTRL

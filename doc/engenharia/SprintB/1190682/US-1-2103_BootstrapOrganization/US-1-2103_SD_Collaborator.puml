@@ -11,13 +11,38 @@ participant "<<domain>>\ncolab:Collaborator" as COLAB
 activate BOOT
 BOOT -> CTRL** : create()
 
-BOOT -> CTRL : specifyCollaborator(email, firstName, lastName,\ncompleteName, mechanographicNumber, address,\nphoneCode, phoneNumber, birthDate, roles,\nmanagerMecNumber)
+BOOT -> BOOT : specifyCollaborator(email, firstName, lastName,\ncompleteName, mechanographicNumber, address,\nphoneCode, phoneNumber, birthDate, roles,\nmanagerMecNumber)
+
+BOOT -> CTRL : addCollaborator(email, firstName, lastName,\ncompleteName, mechanographicNumber,\naddress, phoneCode, phoneNumber, birthDate)
 activate CTRL
 ref over CTRL
 Code Sequence similar to US-1-2051_SD
 end ref
 CTRL --> BOOT : collaborator
 deactivate CTRL
+
+BOOT -> CTRL : addRoles(roles)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2051_SD
+end ref
+deactivate CTRL
+
+BOOT -> CTRL : addManager(manager)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2051_SD
+end ref
+deactivate CTRL
+
+BOOT -> CTRL : saveCollaborator()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2051_SD
+end ref
+CTRL --> BOOT : collaborator
+deactivate CTRL
+
 deactivate BOOT
 
 @enduml
