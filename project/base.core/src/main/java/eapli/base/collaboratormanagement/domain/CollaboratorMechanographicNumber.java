@@ -8,6 +8,7 @@ package eapli.base.collaboratormanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -19,6 +20,7 @@ public class CollaboratorMechanographicNumber implements ValueObject, Comparable
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "mechanographicNumber")
     private Long m_lngMechanographicNumber;
 
     public CollaboratorMechanographicNumber(final long lngMechanographicNumber) {
