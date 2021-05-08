@@ -84,7 +84,7 @@ public class MainMenu extends AbstractUI {
     private static final int LIST_COLLABORATORS_OPTION = 1;
     private static final int COLLABORATORS_SPECIFY = 2;
     private static final int ADD_COLLABORATOR_TO_TEAM_OPTION = 3;
-    private static final int REMOVE_COLLABORATOR_FROM_TEAM_OPTION = 3;
+    private static final int REMOVE_COLLABORATOR_FROM_TEAM_OPTION = 4;
 
     // TEAMS
     private static final int LIST_TEAMS_OPTION = 1;
