@@ -5,23 +5,13 @@
  */
 package eapli.base.infrastructure.bootstrapers.demo;
 
-import eapli.base.clientusermanagement.application.AcceptRefuseSignupFactory;
-import eapli.base.clientusermanagement.application.AcceptRefuseSignupRequestController;
-import eapli.base.clientusermanagement.domain.SignupRequest;
-import eapli.base.infrastructure.bootstrapers.TestDataConstants;
-import eapli.base.myclientuser.application.SignupController;
-import eapli.base.servicemanagement.application.SaveDraftController;
 import eapli.base.servicemanagement.application.ServiceDraftSpecificationController;
-import eapli.base.servicemanagement.domain.Keyword;
-import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.domain.ServiceDraft;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
-import eapli.framework.io.util.Console;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,29 +28,27 @@ public class ServiceDraftFieldBootstrapper implements Action {
 
     @Override
     public boolean execute() {
-        draftField(-1l, 1, "Mouse Repair", null);
-        draftField(1l, 2, "Repairing a Mouse Product", null);
-        draftField(1l, 2, "Finding the problem on a product, mainly a mouse, that the customer has", null);
-        draftField(1l, 4, null, new ArrayList<>(Arrays.asList("Repair", "Customer Service", "Approval")));
-        draftField(1l, 5, "48", null);
-        draftField(-1l, 1, "Internet Problems", null);
-        draftField(2l, 2, "Fixing Internet Problems", null);
-        draftField(2l, 2, "Fixing Internet Problems that arise", null);
-        draftField(2l, 4, null, new ArrayList<>(Arrays.asList("Fix", "Internet")));
-        draftField(2l, 5, "24", null);
+        List<Integer> lstOp = new ArrayList<>(Arrays.asList(1,2,3,4,5));
+        List<String> lstField = new ArrayList<>(Arrays.asList("Mouse Repair", "Repairing a Mouse Product",
+                "Finding the problem on a product, mainly a mouse, that the customer has", "", "48"));
+        List<String> lstKeywords = new ArrayList<>(Arrays.asList("Repair", "Customer Service", "Approval"));
+        draftField(5, lstOp, lstField, lstKeywords);
+
+        List<String> lstField2 = new ArrayList<>(Arrays.asList("Internet Problems", "Fixing Internet Problems",
+                "Fixing Internet Problems that arise", "", "24"));
+        List<String> lstKeywords2 = new ArrayList<>(Arrays.asList("Fix", "Internet"));
+        draftField(5, lstOp, lstField2, lstKeywords2);
         return true;
     }
 
-    private ServiceDraft draftField(final Long lngDraftId, Integer intOp, String strField, List<String> lstKeywords) {
+    private ServiceDraft draftField(Integer intLength,  List<Integer> lstOp,  List<String> lstField,  List<String> lstKeywords) {
         ServiceDraft oServiceDraft = null;
         try {
-            if(lngDraftId == -1l) {
-                //oServiceDraft = this.m_oCtrl.getServiceDraftById(lngDraftId); TODO
-            } else {
-                oServiceDraft = this.m_oCtrl.newDraft();
-            }
+            oServiceDraft = this.m_oCtrl.newDraft();
 
-            addField(oServiceDraft, intOp, strField, lstKeywords);
+            for(int i = 0; i < intLength; i++){
+                addField(oServiceDraft, lstOp.get(i), lstField.get(i), lstKeywords);
+            }
 
             oServiceDraft = this.m_oCtrl.saveServiceDraft();
         } catch (final ConcurrencyException | IntegrityViolationException e) {

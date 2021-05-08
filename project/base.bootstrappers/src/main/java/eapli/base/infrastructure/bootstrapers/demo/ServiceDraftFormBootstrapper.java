@@ -28,25 +28,29 @@ public class ServiceDraftFormBootstrapper implements Action {
 
     @Override
     public boolean execute() {
-        draftForm(1l, "Mouse Repair Form", FormType.SERVICE, 2, new ArrayList<>(Arrays.asList("Product_ID", "Customer_Name_Email")),
+        draftForm("Repair Form", FormType.SERVICE, 2, new ArrayList<>(Arrays.asList("ProductID", "CustomerNameEmail")),
                 new ArrayList<>(Arrays.asList("Product ID", "Customer Name Email")),
                 new ArrayList<>(Arrays.asList("ID of the product", "Email referring to the customer")),
                 new ArrayList<>(Arrays.asList("[0-9]+", "[a-zA-Z]+[0-9]*@[a-z].[a-z]")),
-                new ArrayList<>(Arrays.asList("D:/folder/script1.bat", "C:/folder2/script2.bat")),
+                new ArrayList<>(Arrays.asList("D:/folder1/script1.bat", "C:/folder2/script2.bat")),
                 new ArrayList<>(Arrays.asList(DataType.INTEGER, DataType.STRING)));
+
+        draftForm("Network Form", FormType.SERVICE, 2, new ArrayList<>(Arrays.asList("IPAddress", "VLANID")),
+                new ArrayList<>(Arrays.asList("IP Address", "VLAN ID")),
+                new ArrayList<>(Arrays.asList("Address of the end node with problems", "Identification of the Virtual LAN")),
+                new ArrayList<>(Arrays.asList("[0-9.]+", "[0-9]+")),
+                new ArrayList<>(Arrays.asList("D:/folder3/script3.bat", "C:/folder4/script4.bat")),
+                new ArrayList<>(Arrays.asList(DataType.STRING, DataType.INTEGER)));
         return true;
     }
 
-    private ServiceDraft draftForm(final Long lngDraftId, String strFormName, FormType oFormType, Integer intNumAttributes,
+    private ServiceDraft draftForm(String strFormName, FormType oFormType, Integer intNumAttributes,
                                     List<String> lstNames, List<String> lstLabels, List<String> lstDescriptions, List<String> lstRegex,
                                     List<String> lstScripts, List<DataType> lstDataType) {
         ServiceDraft oServiceDraft = null;
         try {
-            if(lngDraftId != -1) {
-                //oServiceDraft = this.m_oCtrl.getServiceDraftById(lngDraftId); TODO
-            } else {
-                oServiceDraft = this.m_oCtrl.newDraft();
-            }
+            oServiceDraft = this.m_oCtrl.getDrafts().iterator().next();
+
 
             this.m_oCtrl.addForm(oServiceDraft, strFormName, oFormType.toString());
 

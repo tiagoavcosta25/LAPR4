@@ -4,6 +4,7 @@ import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
+import eapli.base.formmanagement.repositories.AttributeRepository;
 import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
@@ -111,6 +112,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	@Override
 	public TeamRepository teams() {
 		return teams(null);
+	}
+
+	@Override
+	public AttributeRepository attributes(TransactionalContext autoTx) {
+		return null;
+	}
+
+	@Override
+	public AttributeRepository attributes() {
+		return attributes(null);
 	}
 
 	@Override

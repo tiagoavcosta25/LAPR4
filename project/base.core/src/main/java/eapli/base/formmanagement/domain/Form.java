@@ -49,8 +49,6 @@ public class Form implements AggregateRoot<Long> {
     @Column(name = "formName")
     private FormName m_oName;
 
-    @Embedded
-    @Column(name = "formType")
     @Enumerated(EnumType.STRING)
     private FormType m_oFormType;
 

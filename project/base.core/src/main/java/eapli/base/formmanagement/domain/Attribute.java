@@ -48,27 +48,27 @@ public class Attribute implements AggregateRoot<Long> {
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
      */
     @Embedded
-    @Column(name = "name")
+    @Column(name = "attributeName")
     private AttributeName m_oName;
 
     @Embedded
-    @Column(name = "label")
+    @Column(name = "attributeLabel")
     private AttributeLabel m_oLabel;
 
     @Embedded
-    @Column(name = "description")
+    @Column(name = "attributeDescription")
     private AttributeDescription m_oDescription;
 
     @Embedded
-    @Column(name = "regex")
+    @Column(name = "attributeRegex")
     private AttributeRegex m_oRegex;
 
     @Embedded
-    @Column(name = "scriptPath")
+    @Column(name = "attributeScriptPath")
     private AttributeScript m_oScript;
 
-    @Embedded
-    @Column(name = "dataType")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "attributeDataType")
     private DataType m_oDataType;
 
     public Attribute(final AttributeName oName, final AttributeLabel oLabel, final AttributeDescription oDescription,

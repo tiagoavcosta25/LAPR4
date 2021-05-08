@@ -1,5 +1,6 @@
 package eapli.base.cataloguemanagement.domain;
 
+import eapli.base.collaboratormanagement.domain.CollaboratorCompleteName;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 import javax.persistence.Embeddable;
@@ -11,13 +12,13 @@ import javax.persistence.Embeddable;
 public class CatalogueBriefDescription implements ValueObject, Comparable<eapli.base.cataloguemanagement.domain.CatalogueBriefDescription> {
 
     private static final long serialVersionUID = 1L;
-
+    private static final Integer m_intMaxLength = 40;
     private String m_strBriefDescription;
 
-    public CatalogueBriefDescription(final String strBriefDescription) {
-        if (StringPredicates.isNullOrEmpty(strBriefDescription)) {
+    public CatalogueBriefDescription(final String strBriefDescription  ) {
+        if (StringPredicates.isNullOrEmpty(strBriefDescription)|| !(strBriefDescription.length() < m_intMaxLength)) {
             throw new IllegalArgumentException(
-                    "Brief Description can't be null nor empty.");
+                    "Brief Description can't be null nor empty, or have more then 80 characters.");
         }
         // expression
         this.m_strBriefDescription = strBriefDescription;
@@ -27,8 +28,10 @@ public class CatalogueBriefDescription implements ValueObject, Comparable<eapli.
         // for ORM
     }
 
-    public static eapli.base.cataloguemanagement.domain.CatalogueBriefDescription valueOf(final String strBriefDescription) {
-        return new eapli.base.cataloguemanagement.domain.CatalogueBriefDescription(strBriefDescription);
+
+
+    public static CatalogueBriefDescription valueOf(final String strBriefDescription) {
+        return new CatalogueBriefDescription(strBriefDescription);
     }
 
     @Override
@@ -36,11 +39,11 @@ public class CatalogueBriefDescription implements ValueObject, Comparable<eapli.
         if (this == o) {
             return true;
         }
-        if (!(o instanceof eapli.base.cataloguemanagement.domain.CatalogueBriefDescription)) {
+        if (!(o instanceof CatalogueBriefDescription)) {
             return false;
         }
 
-        final eapli.base.cataloguemanagement.domain.CatalogueBriefDescription that = (eapli.base.cataloguemanagement.domain.CatalogueBriefDescription) o;
+        final CatalogueBriefDescription that = (CatalogueBriefDescription) o;
         return this.m_strBriefDescription.equals(that.m_strBriefDescription);
     }
 

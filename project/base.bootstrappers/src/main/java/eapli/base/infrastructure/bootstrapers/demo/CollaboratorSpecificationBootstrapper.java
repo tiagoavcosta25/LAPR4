@@ -5,13 +5,9 @@
  */
 package eapli.base.infrastructure.bootstrapers.demo;
 
-import eapli.base.cataloguemanagement.domain.Catalogue;
-import eapli.base.cataloguemanagement.domain.CatalogueID;
 import eapli.base.collaboratormanagement.application.CollaboratorSpecificationController;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.domain.CollaboratorMechanographicNumber;
-import eapli.base.servicemanagement.application.SaveDraftController;
-import eapli.base.servicemanagement.domain.Service;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -21,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,7 +47,7 @@ public class CollaboratorSpecificationBootstrapper implements Action {
         setRoles.add(BaseRoles.COMMERCIAL_DIR);
         specifyCollaborator("walker@company.com", "Tony", "Walker", "Tony Steven Walker",
                 564821l, "Bleecker Street, Number 117", "", 955123682d, LocalDate.of(1989, 11, 11),
-                setRoles, null);
+                setRoles, 987654l);
         return true;
     }
 

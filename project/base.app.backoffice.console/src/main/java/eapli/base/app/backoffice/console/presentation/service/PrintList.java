@@ -68,22 +68,24 @@ public class PrintList {
 
     public static <T> List<T> chooseMultiple(Iterable<T> itElements, String strHeader, String strElementName) {
         try{
-            Integer i = 0;
             List<T> lstTemp = new ArrayList<>();
-            System.out.printf("\n---------------------------------\n%s\n---------------------------------\n\n", strHeader);
-            for(T t : itElements){
-                System.out.printf("[%d] %s\n", i, t.toString());
-                lstTemp.add(t);
-            }
-
-            Integer intOp;
-            i = 1;
+            Integer intOp, j = 1;
             List<T> lstReturn = new ArrayList<>();
-
             do{
-                intOp = Integer.parseInt(Console.readLine("\n\n\n [" + i + " x]Select " + strElementName + " Number >"));
-                i++;
+                Integer i = 1;
+                System.out.printf("\n---------------------------------\n%s\n---------------------------------\n\n", strHeader);
+                for(T t : itElements){
+                    System.out.printf("[%d] %s\n", i, t.toString());
+                    i++;
+                    lstTemp.add(t);
+                }
+                intOp = Integer.parseInt(Console.readLine("\n\n[" + j + " x] Select " + strElementName + " Number >"));
+                j++;
+                if(intOp == 0){
+                    break;
+                }
                 lstReturn.add(lstTemp.get(intOp - 1));
+                lstTemp.remove(intOp - 1);
             } while(intOp != 0);
 
             return lstReturn;

@@ -19,12 +19,12 @@ class JpaFormRepository
         implements FormRepository {
 
     public JpaFormRepository(TransactionalContext autoTx) {
-        super(autoTx, "m_oID");
+        super(autoTx, "formID");
     }
 
     public JpaFormRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "m_oID");
+                "formID");
     }
 
     @Override

@@ -18,7 +18,7 @@ import javax.persistence.Embeddable;
 public class Keyword implements ValueObject, Comparable<Keyword> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "[a-zA-Z]+";
+    private static final String m_strRegex = "[a-zA-Z ]+";
 
     private String m_strKeyword;
 

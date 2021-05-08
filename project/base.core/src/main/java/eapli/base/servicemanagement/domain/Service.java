@@ -49,20 +49,19 @@ public class Service implements AggregateRoot<Long> {
     private Long m_lngID;
 
     @JsonProperty
-    @Column(name = "title")
+    @Column(name = "serviceTitle")
     private ServiceTitle m_oTitle;
     
     @Embedded
-    @Column(name = "briefDescription")
+    @Column(name = "serviceBriefDescription")
     private ServiceBriefDescription m_oBriefDescription;
 
     @Embedded
-    @Column(name = "completeDescription")
+    @Column(name = "serviceCompleteDescription")
     private ServiceCompleteDescription m_oCompleteDescription;
 
     @Embedded
-    @Column(name = "feedback")
-    @JoinColumn(name="keywordID")
+    @Column(name = "serviceFeedback")
     private Feedback m_oFeedback;
 
     @ManyToOne
@@ -75,13 +74,16 @@ public class Service implements AggregateRoot<Long> {
     private List<Keyword> m_lstKeywords;
 
     @OneToMany()
-    @Column(name = "forms")
-    @JoinColumn(name="formID")
+    @JoinTable(
+            name = "service_form",
+            joinColumns = @JoinColumn(name = "serviceID"),
+            inverseJoinColumns = @JoinColumn(name = "formID")
+    )
     private List<Form> m_lstForms;
 
     public Service(final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
-                   final Feedback oFeedback, Catalogue oCatalogue, final List<Keyword> lstKeywords, final List<Form> lstForms) {
-        if (oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || oCatalogue == null || lstKeywords.isEmpty() || lstForms.isEmpty()) {
+                   final Feedback oFeedback, Catalogue oCatalogue, final List<Keyword> lstKeywords, final List<Form> lstForms) { // TODO: Meter oCatalogue == null quando os catalogos estiverem funcionais e lstForms.isEmpty
+        if (oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || lstKeywords.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oTitle = oTitle;

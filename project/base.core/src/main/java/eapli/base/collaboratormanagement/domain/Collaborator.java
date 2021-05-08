@@ -2,7 +2,6 @@ package eapli.base.collaboratormanagement.domain;
 
 import javax.persistence.*;
 
-import eapli.base.cataloguemanagement.domain.CatalogueID;
 import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
@@ -34,6 +33,7 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     private SystemUser m_oSystemUser;
 
     @OneToOne
+    @JoinColumn(name="manager")
     private Collaborator m_oManager;
 
     @Embedded

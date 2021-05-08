@@ -18,7 +18,7 @@ import javax.persistence.Embeddable;
 public class AttributeName implements ValueObject, Comparable<AttributeName> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "[a-zA-Z]{1,50}";
+    private static final String m_strRegex = "[a-zA-Z0-9 ]{1,50}";
 
     private String m_strName;
 

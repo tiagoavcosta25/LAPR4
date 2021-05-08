@@ -1,5 +1,6 @@
 package eapli.base.teammanagement.application;
 
+import eapli.base.collaboratormanagement.application.ListCollaboratorService;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -22,26 +23,25 @@ import java.util.Set;
 public class TeamCreatorController {
 
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
-    private final CollaboratorRepository m_oCollaboratorRepo = PersistenceContext.repositories().collaborators();
     private final TeamRepository m_oTeamRepo = PersistenceContext.repositories().teams();
-
-    public Iterable<TeamType> getTeamTypes() {
-        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
-        return Arrays.asList(TeamType.values());
-    }
+    private final ListTeamTypeService listTeamTypeService = new ListTeamTypeService();
+    private final ListCollaboratorService listCollaboratorService = new ListCollaboratorService();
 
     public Iterable<Collaborator> getCollaborators() {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
-        return m_oCollaboratorRepo.findAll();
+        return listCollaboratorService.allCollaborators();
     }
 
-    public Team createTeam(String enumTeamType, String oAcronym, String oTeamDescription,
+    public Team createTeam(String oTeamID, String enumTeamType, String oAcronym, String oTeamDescription,
                            Set<Collaborator> setRepresentation) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
         final TeamBuilder teamBuilder = new TeamBuilder();
-        teamBuilder.withTeamType(enumTeamType).withAcronym(oAcronym).withTeamDescription(oTeamDescription)
+        teamBuilder.withTeamID(oTeamID).withTeamType(enumTeamType).withAcronym(oAcronym).withTeamDescription(oTeamDescription)
                 .withRepresentation(setRepresentation);
         return m_oTeamRepo.save(teamBuilder.build());
     }
 
+    public Iterable<TeamType> getTeamTypes() {
+        return this.listTeamTypeService.getTeamTypes();
+    }
 }

@@ -46,11 +46,11 @@ public class SaveDraftUI extends AbstractUI {
             Iterable<Catalogue> itCatalogues = this.theController.getCatalogues();
             Catalogue oCatalogue = PrintList.chooseOne(itCatalogues, "Choose a Catalogue for this Service", "Catalogue");
 
-            String strOp = Console.readLine("Confirm the creation of the following Service (Y/N):\n\n%s\n" +
+            String strOp = Console.readLine("Confirm the creation of the following Service (Y/N) > " +
                     oServiceDraft.toString());
 
             if(strOp.compareToIgnoreCase("Y") == 0){
-                this.theController.saveService(oCatalogue);
+                this.theController.saveService(oServiceDraft, oCatalogue);
                 System.out.printf("Operation Successful.");
             } else{
                 System.out.println("Operation Cancelled.");

@@ -26,7 +26,6 @@ public class CatalogueSpecificationController {
     private CatalogueBuilder m_oCatalogueBuilder = new CatalogueBuilder();
     private final TeamRepository m_oTeamRepo = PersistenceContext.repositories().teams();
 
-
     public Iterable<Collaborator> getCollaborators() {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
         return m_oCollaboratorRepo.findAll();
@@ -47,10 +46,6 @@ public class CatalogueSpecificationController {
         return this.m_oTeamRepo.findByID(lngID).get();
     }
 
-    public Catalogue getCatalogueById(Long lngID) {
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        return this.m_oCatalogueRepo.findByID(lngID).get();
-    }
     
     public Catalogue createCatalog(String strTitle, String strBriefDescription, String strCompleteDescription, Collaborator strCollaborator, Set<Team> setAccess) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);

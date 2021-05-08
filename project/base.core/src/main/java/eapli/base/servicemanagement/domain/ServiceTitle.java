@@ -18,7 +18,7 @@ import javax.persistence.Embeddable;
 public class ServiceTitle implements ValueObject, Comparable<ServiceTitle> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "[a-zA-Z]{1,20}";
+    private static final String m_strRegex = "[a-zA-Z0-9 ]{1,20}";
 
     private String m_strTitle;
 

@@ -1,6 +1,5 @@
 package eapli.base.teammanagement.domain;
 
-import eapli.base.cataloguemanagement.domain.CatalogueID;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
@@ -14,17 +13,16 @@ import java.util.Set;
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
 @Entity
-public class Team implements AggregateRoot<Long> {
+public class Team implements AggregateRoot<TeamID> {
 
     private static final long serialVersionUID = 1L;
 
     @Version
     private Long version;
 
-    @Id
-    @GeneratedValue
+    @EmbeddedId
     @Column(name = "teamID")
-    private Long m_oID;
+    private TeamID m_oID;
 
     @Enumerated(EnumType.STRING)
     private TeamType m_enumTeamType;
@@ -43,9 +41,10 @@ public class Team implements AggregateRoot<Long> {
     )
     private Set<Collaborator> m_setRepresentation;
 
-    public Team(TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
+    public Team(TeamID oTeamID, TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
                 Set<Collaborator> setRepresentation) {
-        Preconditions.noneNull(oAcronym, oTeamDescription, enumTeamType, setRepresentation);
+        Preconditions.noneNull(oTeamID, oAcronym, oTeamDescription, enumTeamType, setRepresentation);
+        this.m_oID = oTeamID;
         this.m_enumTeamType = enumTeamType;
         this.m_oAcronym = oAcronym;
         this.m_oTeamDescription = oTeamDescription;
@@ -83,31 +82,31 @@ public class Team implements AggregateRoot<Long> {
     }
 
     @Override
-    public Long identity() {
+    public TeamID identity() {
         return this.m_oID;
     }
 
-    public Long id() {
+    public TeamID id() {
         return this.identity();
     }
 
     public Acronym acronym() {
-        return this.acronym();
+        return this.m_oAcronym;
     }
 
     public TeamDescription teamDescription() {
-        return this.teamDescription();
+        return this.m_oTeamDescription;
     }
 
     public TeamType teamType() {
-        return this.teamType();
+        return this.m_enumTeamType;
     }
 
     public Set<Collaborator> representation() {
         return this.m_setRepresentation;
     }
 
-    public boolean hasID(Long lngID) {
-        return this.m_oID.equals(lngID);
+    public boolean hasID(TeamID oID) {
+        return this.m_oID.equals(oID);
     }
 }

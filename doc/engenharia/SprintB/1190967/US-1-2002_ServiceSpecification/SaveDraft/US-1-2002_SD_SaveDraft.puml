@@ -1,0 +1,163 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Help Desk Services Manager" as HSM
+
+participant "<<presentation>>\nSaveDraftUI" as UI
+participant "<<application>>\nSaveDraftController" as CTRL
+database "<<repository>>\nServiceDraftRepository" as SDR
+database "<<repository>>\nCatalogueRepository" as CR
+participant "<<domain>>\nServiceDraft" as SD
+participant "<<builder>>\nServiceBuilder" as SBD
+participant "<<domain>>\nService" as S
+database "<<repository>>\nServiceRepository" as SR
+participant "<<persistence>>\nPersistenceContext" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+participant "<<domain>>\nTitle" as T
+participant "<<domain>>\nBriefDescription" as DB
+participant "<<domain>>\nCompleteDescription" as DC
+participant "<<domain>>\nKeyword" as KW
+participant "<<domain>>\nFeedback" as FB
+participant "<<domain>>\nCatalogue" as C
+participant "<<domain>>\nFormName" as FM
+participant "<<domain>>\nFormType" as FT
+participant "<<domain>>\nAttributeName" as AN
+participant "<<domain>>\nAttributeLabel" as AL
+participant "<<domain>>\nAttributeDescription" as AD
+participant "<<domain>>\nAttributeRegex" as AR
+participant "<<domain>>\nAttributeScript" as ASC
+participant "<<domain>>\nDataType" as TD
+
+activate HSM
+
+HSM -> UI : initiates the request to save in a service draft
+activate UI
+
+UI -> CTRL** : create
+
+ref over CTRL
+  US-1-2002_SD_Repo
+end ref
+
+
+UI -> CTRL : getDrafts()
+activate CTRL
+
+CTRL -> SR : findAll()
+activate SR
+SR --> CTRL : drafts
+deactivate SR
+
+CTRL --> UI : drafts
+deactivate CTRL
+
+UI -> HSM : presents the draft list and asks the user to choose a draft
+deactivate UI
+
+HSM -> UI : chooses a draft
+activate UI
+
+
+UI -> CTRL : getCatalogues()
+activate CTRL
+
+CTRL -> CR : all()
+activate CR
+CR --> CTRL : list
+deactivate CR
+
+CTRL --> UI : list
+deactivate CTRL
+
+UI -> HSM : shows the catalogue list and request the user to choose one
+deactivate UI
+
+HSM -> UI : selects the catalogue
+activate UI
+
+UI -> HSM : validates, presents the current \ninformation in the draft and asks for confirmation
+deactivate UI
+
+HSM -> UI : confirms
+activate UI
+
+UI -> CTRL : saveService(catalogue)
+activate CTRL
+
+CTRL -> SD : title = getTitle()
+activate SD
+deactivate SD
+
+CTRL -> SD : briefDescription = getBriefDescription()
+activate SD
+deactivate SD
+
+CTRL -> SD : completeDescription = getCompleteDescription()
+activate SD
+deactivate SD
+
+CTRL -> SD : feedback = getFeedback()
+activate SD
+deactivate SD
+
+CTRL -> SD : keywordList = getKeywordList()
+activate SD
+deactivate SD
+
+CTRL -> SD : formList = getFormList()
+activate SD
+deactivate SD
+
+CTRL -> SBD : withTitle(title)
+activate SBD
+deactivate SBD
+
+CTRL -> SBD : withBriefDescription(briefDescription)
+activate SBD
+deactivate SBD
+
+CTRL -> SBD : withCompleteDescription(completeDescription)
+activate SBD
+deactivate SBD
+
+CTRL -> SBD : withFeedback(feedback)
+activate SBD
+deactivate SBD
+
+CTRL -> SBD : withCatalogue(catalogue)
+activate SBD
+deactivate SBD
+
+CTRL -> SBD : withKeywordList(keywordList)
+activate SBD
+deactivate SBD
+
+CTRL -> SBD : withFormList(formList)
+activate SBD
+deactivate SBD
+
+CTRL -> SBD : build()
+activate SBD
+
+SBD -> S** : create(title, briefDescription, \ncompleteDescription, feedback, keywordList, formList)
+
+SBD --> CTRL : service
+deactivate SBD
+
+CTRL -> SR : save(service)
+activate SR
+SR --> CTRL : service
+deactivate SR
+
+CTRL --> UI : service
+deactivate CTRL
+
+UI -> HSM : registers the draft in the persistence\n and informs of the success of the operation
+deactivate UI
+deactivate HSM
+
+@enduml
+
+@enduml

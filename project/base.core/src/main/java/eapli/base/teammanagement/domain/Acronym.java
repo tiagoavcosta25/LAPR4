@@ -3,6 +3,7 @@ package eapli.base.teammanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -13,13 +14,16 @@ import javax.persistence.Embeddable;
 public class Acronym implements ValueObject, Comparable<Acronym> {
 
     private static final long serialVersionUID = 1L;
+    private static final String m_strRegex = "[a-z-A-Z0-9]{1,10}";
 
+    @Column(unique = true)
     private String m_strAcronym;
 
     public Acronym(final String strAcronym) {
-        if(StringPredicates.isNullOrEmpty(strAcronym)) {
+        if(StringPredicates.isNullOrEmpty(strAcronym) || !strAcronym.matches(m_strRegex)) {
             throw new IllegalArgumentException(
-                    "Acronym should neither be null nor empty.");
+                    "Acronym should neither be null, empty, nor contain characters besides letters and numbers. " +
+                            "It also should have a max of 10 characters");
         }
         this.m_strAcronym = strAcronym;
     }
