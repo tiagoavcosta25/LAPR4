@@ -22,6 +22,4 @@ public interface ServiceDraftRepository
     default Optional<ServiceDraft> findByID(Long lngID) {
         return ofIdentity(lngID);
     }
-
-    public Iterable<ServiceDraft> findAllActive();
 }

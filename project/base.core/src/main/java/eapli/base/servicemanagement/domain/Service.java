@@ -68,9 +68,8 @@ public class Service implements AggregateRoot<Long> {
     @JoinColumn(name="catalogueID")
     private Catalogue m_oCatalogue;
 
-    @ElementCollection()
-    @Column(name = "keywords")
-    @JoinColumn(name="keywordID")
+    @ElementCollection
+    @Column(name = "serviceDraftKeywords")
     private List<Keyword> m_lstKeywords;
 
     @OneToMany()

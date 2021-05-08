@@ -24,7 +24,6 @@
 package eapli.base.servicemanagement.application;
 
 import eapli.base.formmanagement.domain.*;
-import eapli.base.formmanagement.repositories.AttributeRepository;
 import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.*;
@@ -45,7 +44,6 @@ public class ServiceDraftSpecificationController {
 
     private final ServiceDraftRepository draftRepo = PersistenceContext.repositories().serviceDrafts();
     private final FormRepository formRepo = PersistenceContext.repositories().forms();
-    private final AttributeRepository attributeRepo = PersistenceContext.repositories().attributes();
     private FormBuilder formBuilder = new FormBuilder();
     private AttributeBuilder attributeBuilder = new AttributeBuilder();
     private List<Attribute> m_lstAttributes = new ArrayList<>();
@@ -91,7 +89,6 @@ public class ServiceDraftSpecificationController {
         this.attributeBuilder = this.attributeBuilder.withDataType(strDataType);
 
         Attribute oAttribute = this.attributeBuilder.build();
-        this.attributeRepo.save(oAttribute);
         this.m_lstAttributes.add(oAttribute);
         return oAttribute;
     }
@@ -101,7 +98,7 @@ public class ServiceDraftSpecificationController {
         this.formBuilder = this.formBuilder.withAttributeList(this.m_lstAttributes);
         Form oForm = this.formBuilder.build();
         this.m_lstForms.add(oForm);
-        this.formRepo.save(oForm);
+        oForm = this.formRepo.save(oForm);
         return oForm;
     }
 

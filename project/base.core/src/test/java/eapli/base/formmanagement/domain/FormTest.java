@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FormTest extends TestCase {
 
-    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:/folder/script.bin", "Integer");
+    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:/folder/script.bat", "Integer");
     public final Form f = getDummyForm("Lorem", "MANUAL_TASK", Arrays.asList(a));
 
     public static Attribute getDummyAttribute(final String strName, final String strLabel, final String strDescription,

@@ -114,14 +114,4 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	public JpaTeamRepository teams() {
 		return new JpaTeamRepository(Application.settings().getPersistenceUnitName());
 	}
-
-	@Override
-	public JpaAttributeRepository attributes(final TransactionalContext autoTx) {
-		return new JpaAttributeRepository(autoTx);
-	}
-
-	@Override
-	public JpaAttributeRepository attributes() {
-		return new JpaAttributeRepository(Application.settings().getPersistenceUnitName());
-	}
 }

@@ -23,8 +23,10 @@
  */
 package eapli.base.formmanagement.domain;
 
+import eapli.base.servicemanagement.domain.Keyword;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
+import eapli.framework.domain.model.ValueObject;
 
 import javax.persistence.*;
 
@@ -33,16 +35,8 @@ import javax.persistence.*;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 
-@Entity
-public class Attribute implements AggregateRoot<Long> {
-
-    @Version
-    private Long version;
-
-    @Id
-    @GeneratedValue
-    @Column(name = "attributeID")
-    private Long m_lngID;
+@Embeddable
+public class Attribute implements ValueObject, Comparable<Attribute>{
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -109,26 +103,17 @@ public class Attribute implements AggregateRoot<Long> {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        return DomainEntities.areEqual(this, o);
-    }
-
-    @Override
     public int hashCode() {
-        return DomainEntities.hashCode(this);
+        return this.m_oName.hashCode();
     }
 
     @Override
-    public boolean sameAs(final Object other) {
-        return DomainEntities.areEqual(this, other);
-    }
-
-    public Long id() {
-        return identity();
+    public String toString() {
+        return this.m_oName.toString();
     }
 
     @Override
-    public Long identity() {
-        return this.m_lngID;
+    public int compareTo(final Attribute arg0) {
+        return m_oName.compareTo(arg0.m_oName);
     }
 }

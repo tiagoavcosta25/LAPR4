@@ -59,6 +59,7 @@ public class ServiceDraftFormBootstrapper implements Action {
                         lstScripts.get(i), lstDataType.get(i).toString());
             }
 
+            this.m_oCtrl.saveForm();
             oServiceDraft = this.m_oCtrl.addFormsToDraft();
             this.m_oCtrl.saveServiceDraft();
         } catch (final ConcurrencyException | IntegrityViolationException e) {

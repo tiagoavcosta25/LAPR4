@@ -52,9 +52,8 @@ public class Form implements AggregateRoot<Long> {
     @Enumerated(EnumType.STRING)
     private FormType m_oFormType;
 
-    @OneToMany()
+    @ElementCollection()
     @Column(name = "attributes")
-    @JoinColumn(name="attributeID")
     private List<Attribute> m_lstAttributes;
 
     public Form(final FormName oName, final FormType oFormType, final List<Attribute> lstAttributes) {

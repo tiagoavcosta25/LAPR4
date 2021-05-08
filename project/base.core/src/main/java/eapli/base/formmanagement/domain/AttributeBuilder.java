@@ -1,11 +1,9 @@
 package eapli.base.formmanagement.domain;
 
-import eapli.framework.domain.model.DomainFactory;
-
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
-public class AttributeBuilder implements DomainFactory<Attribute> {
+public class AttributeBuilder {
 
     private AttributeName m_oName;
     private AttributeLabel m_oLabel;
@@ -44,7 +42,6 @@ public class AttributeBuilder implements DomainFactory<Attribute> {
         return this;
     }
 
-    @Override
     public Attribute build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor

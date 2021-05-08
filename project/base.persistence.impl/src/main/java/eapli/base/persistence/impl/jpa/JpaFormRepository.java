@@ -33,9 +33,4 @@ class JpaFormRepository
         params.put("formID", lngID);
         return matchOne("e.id=:formID", params);
     }
-
-    @Override
-    public Iterable<Form> findAllActive() {
-        return match("e.systemUser.active = true");
-    }
 }

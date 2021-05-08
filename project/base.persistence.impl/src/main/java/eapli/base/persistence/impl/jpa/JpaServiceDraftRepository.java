@@ -33,9 +33,4 @@ class JpaServiceDraftRepository
         params.put("serviceDraftID", oID);
         return matchOne("e.id=:serviceDraftID", params);
     }
-
-    @Override
-    public Iterable<ServiceDraft> findAllActive() {
-        return match("e.systemUser.active = true");
-    }
 }

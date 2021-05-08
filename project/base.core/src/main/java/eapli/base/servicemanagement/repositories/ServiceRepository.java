@@ -21,6 +21,4 @@ public interface ServiceRepository
     default Optional<Service> findByID(Long lngID) {
         return ofIdentity(lngID);
     }
-
-    public Iterable<Service> findAllActive();
 }

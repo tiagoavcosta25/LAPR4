@@ -21,6 +21,4 @@ public interface FormRepository
     default Optional<Form> findByID(Long lngID) {
         return ofIdentity(lngID);
     }
-
-    public Iterable<Form> findAllActive();
 }

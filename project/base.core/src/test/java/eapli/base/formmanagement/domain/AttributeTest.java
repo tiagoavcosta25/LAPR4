@@ -52,7 +52,7 @@ public class AttributeTest extends TestCase {
     @Test
     public void testScript() {
         AttributeScript real = a.script();
-        String expected = "D:/folder/script.bin";
+        String expected = "D:/folder/script.bat";
         assertEquals(real.toString(), expected);
     }
 
@@ -74,23 +74,5 @@ public class AttributeTest extends TestCase {
         int real = a.hashCode();
         int expected = a.hashCode();
         assertEquals(real, expected);
-    }
-
-    @Test
-    public void testSameAs() {
-        boolean real = a.sameAs(a);
-        assertTrue(real);
-    }
-
-    @Test
-    public void testId() {
-        Long real = a.id();
-        assertNull(real);
-    }
-
-    @Test
-    public void testIdentity() {
-        Long real = a.identity();
-        assertNull(real);
     }
 }

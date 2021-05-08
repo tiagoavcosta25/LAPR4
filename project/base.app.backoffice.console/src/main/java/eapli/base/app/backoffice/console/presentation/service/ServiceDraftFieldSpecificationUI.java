@@ -23,6 +23,7 @@
  */
 package eapli.base.app.backoffice.console.presentation.service;
 
+import eapli.base.app.backoffice.console.presentation.utils.PrintList;
 import eapli.base.servicemanagement.application.ServiceDraftSpecificationController;
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.io.util.Console;

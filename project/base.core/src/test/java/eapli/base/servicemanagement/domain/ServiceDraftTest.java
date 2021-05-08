@@ -11,7 +11,7 @@ public class ServiceDraftTest extends TestCase {
 
     public final List<String> lstKeywords = new ArrayList<>(Arrays.asList("Ipsum"));
 
-    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:/folder/script.bin", "Integer");
+    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:/folder/script.bat", "Integer");
     public final Form f = getDummyForm("Lorem", "MANUAL_TASK", Arrays.asList(a));
     public List<Form> lstForms = new ArrayList<>(Arrays.asList(f));
     public final ServiceDraft s = new ServiceDraft("Lorem", "Ipsum", "Lorem",

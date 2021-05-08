@@ -33,9 +33,4 @@ class JpaServiceRepository
         params.put("serviceID", lngID);
         return matchOne("e.id=:serviceID", params);
     }
-
-    @Override
-    public Iterable<Service> findAllActive() {
-        return match("e.systemUser.active = true");
-    }
 }

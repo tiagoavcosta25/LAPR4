@@ -41,9 +41,9 @@ public class CatalogueSpecificationController {
         return m_oTeamRepo.findAll();
     }
 
-    public Team getTeamById(Long lngID) {
+    public Team getTeamById(String strID) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        return this.m_oTeamRepo.findByID(lngID).get();
+        return this.m_oTeamRepo.findByID(TeamID.valueOf(strID)).get();
     }
 
     

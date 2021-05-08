@@ -23,12 +23,12 @@
  */
 package eapli.base.app.backoffice.console.presentation.service;
 
+import eapli.base.app.backoffice.console.presentation.utils.PrintList;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.servicemanagement.application.SaveDraftController;
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import java.util.List;
 
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt

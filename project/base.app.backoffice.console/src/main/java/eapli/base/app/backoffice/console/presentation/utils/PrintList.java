@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.app.backoffice.console.presentation.service;
+package eapli.base.app.backoffice.console.presentation.utils;
 
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.servicemanagement.domain.Service;
@@ -79,6 +79,7 @@ public class PrintList {
                     i++;
                     lstTemp.add(t);
                 }
+                System.out.printf("\n[0] Exit\n");
                 intOp = Integer.parseInt(Console.readLine("\n\n[" + j + " x] Select " + strElementName + " Number >"));
                 j++;
                 if(intOp == 0){

@@ -23,14 +23,13 @@
  */
 package eapli.base.app.backoffice.console.presentation.collaborator;
 
-import eapli.base.app.backoffice.console.presentation.service.PrintList;
+import eapli.base.app.backoffice.console.presentation.utils.PrintList;
 import eapli.base.collaboratormanagement.application.CollaboratorSpecificationController;
 import eapli.base.collaboratormanagement.domain.*;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
