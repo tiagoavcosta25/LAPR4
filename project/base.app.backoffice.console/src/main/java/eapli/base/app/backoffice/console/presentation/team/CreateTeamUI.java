@@ -18,8 +18,6 @@ import java.util.Set;
 public class CreateTeamUI extends AbstractUI {
 
     private final TeamCreatorController theController = new TeamCreatorController();
-    private final ListCollaboratorService listCollaboratorService = new ListCollaboratorService();
-    private final ListTeamTypeService listTeamTypeService = new ListTeamTypeService();
 
     @Override
     protected boolean doShow() {
@@ -39,7 +37,7 @@ public class CreateTeamUI extends AbstractUI {
 
     private String selectTeamType() {
         System.out.println("List of Team Types - Select a Team type");
-        final Iterable<TeamType> listTeamType = listTeamTypeService.getTeamTypes();
+        final Iterable<TeamType> listTeamType = theController.getTeamTypes();
         final SelectWidget<TeamType> selectorTeamType = new SelectWidget<>("Select a Team Type", listTeamType,
                 new TeamTypePrinter());
         selectorTeamType.show();
@@ -48,7 +46,7 @@ public class CreateTeamUI extends AbstractUI {
 
     private Collaborator selectCollaborator() {
         System.out.println("List of Collaborators - Select a Collaborator");
-        final Iterable<Collaborator> listCollaborator = listCollaboratorService.allCollaborators();
+        final Iterable<Collaborator> listCollaborator = theController.getCollaborators();
         final SelectWidget<Collaborator> selectorCollaborator = new SelectWidget<>("Select a Collaborator", listCollaborator,
                 new CollaboratorPrinter());
         selectorCollaborator.show();

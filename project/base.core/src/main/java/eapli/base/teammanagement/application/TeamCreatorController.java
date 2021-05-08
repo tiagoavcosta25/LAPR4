@@ -1,5 +1,6 @@
 package eapli.base.teammanagement.application;
 
+import eapli.base.collaboratormanagement.application.ListCollaboratorService;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -22,13 +23,13 @@ import java.util.Set;
 public class TeamCreatorController {
 
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
-    private final CollaboratorRepository m_oCollaboratorRepo = PersistenceContext.repositories().collaborators();
     private final TeamRepository m_oTeamRepo = PersistenceContext.repositories().teams();
     private final ListTeamTypeService listTeamTypeService = new ListTeamTypeService();
+    private final ListCollaboratorService listCollaboratorService = new ListCollaboratorService();
 
     public Iterable<Collaborator> getCollaborators() {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
-        return m_oCollaboratorRepo.findAll();
+        return listCollaboratorService.allCollaborators();
     }
 
     public Team createTeam(String enumTeamType, String oAcronym, String oTeamDescription,
