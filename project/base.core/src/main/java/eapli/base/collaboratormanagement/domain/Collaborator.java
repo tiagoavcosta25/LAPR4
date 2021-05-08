@@ -2,7 +2,6 @@ package eapli.base.collaboratormanagement.domain;
 
 import javax.persistence.*;
 
-import eapli.base.cataloguemanagement.domain.CatalogueID;
 import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
