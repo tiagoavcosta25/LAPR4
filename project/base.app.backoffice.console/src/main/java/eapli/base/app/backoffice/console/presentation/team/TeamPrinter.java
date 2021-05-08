@@ -15,7 +15,7 @@ public class TeamPrinter implements Visitor<Team> {
 
     @Override
     public void visit(final Team visitee) {
-        System.out.printf("%-20s%-20s%-30s", visitee.acronym(), visitee.teamType(),
+        System.out.printf("%-20s%-20s%-20s%-30s", visitee.id(), visitee.acronym(), visitee.teamType(),
                 visitee.teamDescription());
         printRepresentation(visitee.representation());
     }

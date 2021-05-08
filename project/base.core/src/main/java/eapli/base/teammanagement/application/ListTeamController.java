@@ -2,6 +2,7 @@ package eapli.base.teammanagement.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.teammanagement.domain.Team;
+import eapli.base.teammanagement.domain.TeamID;
 import eapli.base.teammanagement.repositories.TeamRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
@@ -25,7 +26,7 @@ public class ListTeamController {
         return this.m_oTeamRepository.findAll();
     }
 
-    public Optional<Team> findByID(final Long oID) {
+    public Optional<Team> findByID(final TeamID oID) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HR_REP, BaseRoles.ADMIN, BaseRoles.POWER_USER);
         return m_oTeamRepository.findByID(oID);
     }
