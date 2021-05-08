@@ -34,6 +34,7 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     private SystemUser m_oSystemUser;
 
     @OneToOne
+    @JoinColumn(name="mechanographicNumber")
     private Collaborator m_oManager;
 
     @Embedded

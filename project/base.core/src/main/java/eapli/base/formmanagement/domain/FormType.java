@@ -6,16 +6,7 @@
 package eapli.base.formmanagement.domain;
 
 public enum FormType {
-    SERVICE("Service"), MANUAL_TASK("Manual Task");
-
-    private String m_strDescription;
-
-    FormType(String strDescription) {
-        this.m_strDescription = strDescription;
-    }
-
-    FormType() {
-    }
+    SERVICE, MANUAL_TASK;
 
     public static FormType stringToFormType(String strType) {
         if(strType.compareToIgnoreCase("Service") == 0){
