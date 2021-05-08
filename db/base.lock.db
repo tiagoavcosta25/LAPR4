@@ -1,6 +1,14 @@
 #FileLock
+<<<<<<< HEAD
 #Sat May 08 02:15:42 WEST 2021
 server=192.168.56.1\:57351
 hostName=LAPTOP-LF13FQCM
 method=file
 id=179498b4ee02f9cd3c27676ca20a0cec2988821205b
+=======
+#Sat May 08 00:44:18 WEST 2021
+server=192.168.56.1\:58586
+hostName=Kyber
+method=file
+id=17949379baa08bd726ebe298cbe163261a38aa53f2a
+>>>>>>> 2cac2b91d30819df6c5f134d72c1281869593bc9

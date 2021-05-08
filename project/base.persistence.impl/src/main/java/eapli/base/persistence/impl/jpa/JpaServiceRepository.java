@@ -2,7 +2,6 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
 import eapli.base.servicemanagement.domain.Service;
-import eapli.base.servicemanagement.domain.ServiceID;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
@@ -16,7 +15,7 @@ import java.util.Optional;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 class JpaServiceRepository
-        extends JpaAutoTxRepository<Service, ServiceID, ServiceID>
+        extends JpaAutoTxRepository<Service, Long, Long>
         implements ServiceRepository {
 
     public JpaServiceRepository(TransactionalContext autoTx) {
@@ -29,10 +28,10 @@ class JpaServiceRepository
     }
 
     @Override
-    public Optional<Service> findById(ServiceID oID) {
+    public Optional<Service> findById(Long lngID) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("m_oID", oID);
-        return matchOne("e.id=:m_oID", params);
+        params.put("serviceID", lngID);
+        return matchOne("e.id=:serviceID", params);
     }
 
     @Override
