@@ -6,15 +6,14 @@ import junit.framework.TestCase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CollaboratorTest extends TestCase {
 
 
-    Date dtBirthDate = new SimpleDateFormat("dd/MM/yyyy").parse("1/1/2000");
-
     public final Collaborator c = getDummyCollaborator(dummyUser("dummy", BaseRoles.ADMIN), null, 919191919d,
-            "+351", dtBirthDate, "Lorem", "Ipsum", "Lorem", 123456l);
+            "+351", LocalDate.of(2000,01,01), "Lorem", "Ipsum", "Lorem", 123456l);
 
     public CollaboratorTest() throws ParseException {
     }
@@ -25,7 +24,7 @@ public class CollaboratorTest extends TestCase {
     }
 
     public static Collaborator getDummyCollaborator(final SystemUser oSystemUser, final Collaborator oManager, final Double dblPhoneNumber, final String strPhoneCode,
-                                                    final Date dtBirthDate, final String strAddress, final String strCompleteName,
+                                                    final LocalDate dtBirthDate, final String strAddress, final String strCompleteName,
                                                     final String strShortName, final Long lngMechanographicNumber) {
         CollaboratorBuilder collaboratorBuilder = new CollaboratorBuilder();
         collaboratorBuilder = collaboratorBuilder.withSystemUser(oSystemUser);
@@ -45,10 +44,10 @@ public class CollaboratorTest extends TestCase {
         assertEquals(real, expected);
     }
 
-    public void testBirthDate() throws ParseException {
+    public void testBirthDate() {
         String real = c.birthDate().toString();
-        String expected = dtBirthDate.toString();
-        assertEquals(real.toString(), expected);
+        String expected = LocalDate.of(2000,01,01).toString();
+        assertEquals(real, expected);
     }
 
     public void testAddress() {

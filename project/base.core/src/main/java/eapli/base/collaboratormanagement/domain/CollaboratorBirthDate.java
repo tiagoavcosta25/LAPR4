@@ -8,6 +8,7 @@ package eapli.base.collaboratormanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 
 import javax.persistence.Embeddable;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -19,10 +20,10 @@ public class CollaboratorBirthDate implements ValueObject, Comparable<Collaborat
 
     private static final long serialVersionUID = 1L;
 
-    private Date m_dtBirthDate;
+    private LocalDate m_dtBirthDate;
 
-    public CollaboratorBirthDate(final Date dtBirthDate) {
-        if (dtBirthDate.after(new Date())) {
+    public CollaboratorBirthDate(final LocalDate dtBirthDate) {
+        if (dtBirthDate.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException(
                     "Birth Date can't be set in the future.");
         }
@@ -34,8 +35,8 @@ public class CollaboratorBirthDate implements ValueObject, Comparable<Collaborat
         // for ORM
     }
 
-    public static CollaboratorBirthDate valueOf(final Date tmBirthDate) {
-        return new CollaboratorBirthDate(tmBirthDate);
+    public static CollaboratorBirthDate valueOf(final LocalDate dtBirthDate) {
+        return new CollaboratorBirthDate(dtBirthDate);
     }
 
     @Override

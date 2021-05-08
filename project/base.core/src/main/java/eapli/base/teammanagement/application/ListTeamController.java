@@ -27,6 +27,6 @@ public class ListTeamController {
 
     public Optional<Team> findByID(final Long oID) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HR_REP, BaseRoles.ADMIN, BaseRoles.POWER_USER);
-        return m_oTeamRepository.ofIdentity(oID);
+        return m_oTeamRepository.findByID(oID);
     }
 }
