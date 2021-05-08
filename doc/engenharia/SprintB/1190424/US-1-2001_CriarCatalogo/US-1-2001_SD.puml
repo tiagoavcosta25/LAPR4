@@ -62,8 +62,7 @@ CTRL-> CB : withcompleteDesription(completeDesription)
 activate CB
 deactivate CB
 
-CTRL-> CB : withCriteria(criteria)
-activate CB
+
 deactivate CB
 deactivate CB
 deactivate CTRL
@@ -86,19 +85,15 @@ deactivate UI
 
 
 
-loop until there is no more collaborators to add
+
 UI --> GSH: Shows collaborators list
 deactivate UI
 
 GSH-> UI : Select the intended collaborator
 activate UI
 
-UI --> GSH: Asks if the user wants to add more collaborators
-deactivate UI
 
-GSH-> UI : Responds
-activate UI
-end
+
 
 
 UI-> CTRL : addCollaborator(collaborator)
