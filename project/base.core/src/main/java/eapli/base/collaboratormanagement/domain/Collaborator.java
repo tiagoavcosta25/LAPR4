@@ -9,6 +9,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.strings.util.StringPredicates;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -76,6 +77,7 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
         this.m_oCompleteName = oCompleteName;
         this.m_oShortName = oShortName;
         this.m_oMechanographicNumber = oMechanographicNumber;
+        this.m_setTeams = new HashSet<>();
     }
 
     protected Collaborator() {
@@ -105,6 +107,13 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
         return this.m_oShortName;
     }
     public SystemUser user(){return this.m_oSystemUser;}
+    public Set<Team> teams(){return this.m_setTeams;}
+    public void addTeam(Team oTeam) {
+        this.m_setTeams.add(oTeam);
+    }
+    public void removeTeam(Team oTeam) {
+        this.m_setTeams.remove(oTeam);
+    }
 
 
     @Override
