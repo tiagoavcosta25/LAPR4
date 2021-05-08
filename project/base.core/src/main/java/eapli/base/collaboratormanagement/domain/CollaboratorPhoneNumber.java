@@ -8,6 +8,7 @@ package eapli.base.collaboratormanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -19,7 +20,10 @@ public class CollaboratorPhoneNumber implements ValueObject, Comparable<Collabor
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "phonenNumber")
     private Double m_dblPhoneNumber;
+
+    @Column(name = "phonenCode")
     private String m_strPhoneCode;
 
     public CollaboratorPhoneNumber(final Double dblPhoneNumber, String strPhoneCode) {

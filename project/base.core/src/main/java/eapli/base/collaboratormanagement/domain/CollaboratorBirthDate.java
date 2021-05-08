@@ -7,6 +7,7 @@ package eapli.base.collaboratormanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
 import java.util.Date;
@@ -20,6 +21,7 @@ public class CollaboratorBirthDate implements ValueObject, Comparable<Collaborat
 
     private static final long serialVersionUID = 1L;
 
+    @Column(name = "birthDate")
     private LocalDate m_dtBirthDate;
 
     public CollaboratorBirthDate(final LocalDate dtBirthDate) {
