@@ -1,6 +1,4 @@
 #FileLock
-#Sun May 09 07:55:36 WEST 2021
-server=192.168.56.1\:53734
-hostName=Kyber
+#Sun May 09 07:14:34 UTC 2021
 method=file
-id=1794fe8d4ea7113b7e653e7739583d19b8498a56a1a
+id=1794ffa4cf33352002face91c2d485c644a98d33ba8
