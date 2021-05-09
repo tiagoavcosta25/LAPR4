@@ -58,11 +58,13 @@ com todas as suas informações necessárias como por exemplo: email, primeiro e
 
 ## 3.1. Realização da Funcionalidade
 
+###	Sequence Diagram
+
+![US-1-2051_SD.svg](US-1-2051_SD.svg)
+
 ###	Sequence Diagram Repository
 
 ![US-1-2051_SD_Repo.svg](US-1-2051_SD_Repo.svg)
-
-###	Sequence Diagram
 
 ## 3.2. Diagrama de Classes
 
