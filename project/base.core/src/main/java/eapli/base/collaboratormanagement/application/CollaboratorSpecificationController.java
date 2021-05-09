@@ -113,8 +113,8 @@ public class CollaboratorSpecificationController {
         addCollaborator(strEmail, strFirstName, strLastName, strCompleteName, lngMechanographicNumber,
                 strAddress, strPhoneCode, dblPhoneNumber, dtBirthDate);
 
-        addManager(m_oCollaboratorRepo.findByMecanographicNumber(CollaboratorMechanographicNumber.valueOf(lngManager)).get());
         addRoles(lstRoles);
+        addManager(m_oCollaboratorRepo.findByMecanographicNumber(CollaboratorMechanographicNumber.valueOf(lngManager)).get());
 
         saveCollaborator();
 

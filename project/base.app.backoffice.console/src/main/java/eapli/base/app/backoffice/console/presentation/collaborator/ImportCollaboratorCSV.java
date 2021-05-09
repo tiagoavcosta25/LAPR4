@@ -13,16 +13,14 @@ import java.util.Set;
 
 public class ImportCollaboratorCSV {
 
-    public boolean run(String strFilePath) throws FileNotFoundException {
+    public boolean run(String strFileName) throws FileNotFoundException {
         CollaboratorSpecificationController controller = new CollaboratorSpecificationController();
         Set<Role> lstRoles = new HashSet<>();
 
-        File file = new File(strFilePath);
+        File file = new File(".\\import_files\\" + strFileName);
         Scanner scFile = new Scanner(file);
 
         String line;
-
-        line = scFile.nextLine();
 
             while (scFile.hasNextLine()) {
 
@@ -36,14 +34,15 @@ public class ImportCollaboratorCSV {
             String strAddress = line.split(";")[5].trim();
             String strPhoneCode = line.split(";")[6].trim();
             Double dblPhoneNumber = Double.parseDouble(line.split(";")[7].trim());
-            Integer intYear = Integer.parseInt(line.split("-")[8].trim());
-            Integer intMonth = Integer.parseInt(line.split("-")[9].trim());
-            Integer intDay = Integer.parseInt(line.split("-")[10].trim());
-            Long lngManager = Long.parseLong(line.split(";")[11].trim());
+            String strDate = line.split(";")[8].trim();
+            Integer intYear = Integer.parseInt(strDate.split("-")[0].trim());
+            Integer intMonth = Integer.parseInt(strDate.split("-")[1].trim());
+            Integer intDay = Integer.parseInt(strDate.split("-")[2].trim());
+            Long lngManager = Long.parseLong(line.split(";")[9].trim());
 
             final LocalDate dtBirthDate = LocalDate.of(intYear, intMonth, intDay);
 
-            for (int i = 10; i < file.length(); i++){
+            for (int i = 10; i < line.split(";").length; i++){
                 Role oRole = Role.valueOf(line.split(";")[i].trim());
                 lstRoles.add(oRole);
             }

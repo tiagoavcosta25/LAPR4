@@ -48,8 +48,8 @@ public class CollaboratorSpecificationUI extends AbstractUI {
 
             if (strOption.compareToIgnoreCase("Y") == 0) {
                 final ImportCollaboratorCSV oImport = new ImportCollaboratorCSV();
-                final String strFilePath = Console.readLine("File Path >");
-                if(oImport.run(strFilePath)){
+                final String strFileName = Console.readLine("File Name >");
+                if(oImport.run(strFileName)){
                     System.out.printf("Operation Successful. The Collaborator was imported successfully.\n\n");
                 } else {
                     System.out.printf("There was a error during the file importation.\n\n");
