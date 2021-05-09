@@ -1,25 +1,18 @@
-# US55 Especificar Colaborador
+# [US-1-2051] Collaborator Specification
 =======================================
 
 
 # 1. Requisitos
 
 
-**US55** Como Responsável de Recursos Humanos (RRH) pretendo:
+**[US-1-2051]** Como Responsável de Recursos Humanos (RRH) pretendo proceder à especificação de um novo colaborador de modo a que este possa, posteriormente, aceder e usar o sistema.
 
-- proceder à especificação de um novo colaborador de modo a que este possa, posteriormente, aceder e usar o sistema.
+- [US-1-2051] Collaborator Specification
 
+A interpretação feita deste requisito foi no sentido do Responsável de Recursos Humanos especificar um colaborador
+com todas as suas informações necessárias como por exemplo: email, primeiro e último nome, nome completo,número mecanográfico, morada, contacto e data de nascimento (implementado em [US-1-2051] Collaborator Specification).
 
-A interpretação feita deste requisito foi no sentido de ...
-
-
-### Formato Breve
-
-Envia um pedido para especificar um colaborador. Solicita toda a informação necessária para a especificação de um colaborador\n(i.e. nome curto e completo, número mecanográfico, função, morada,\n contacto, data de nascimento).
-Preenche com toda a informação solicitada. Apresenta a informação e solicita confirmação. Confirma.
-Valida e informa do sucesso da operação.
- 
-![US55_SSD](US55_SSD.svg)
+![US-1-2051_SSD](US-1-2051_SSD.svg)
 
 ### Formato Completo
 
@@ -33,7 +26,7 @@ Valida e informa do sucesso da operação.
 
 #### Pré-condições
 
-\-
+* Existir a informação de funções no sistema.
 
 #### Pós-condições
 
@@ -53,67 +46,75 @@ Valida e informa do sucesso da operação.
 
 #### Questões em aberto
 
-* O ator pode a qualquer momento pausar a especificação?
+\-
 
 # 2. Análise
 
-*Neste secção a equipa deve relatar o estudo/análise/comparação que fez com o intuito de tomar as melhores opções de design para a funcionalidade bem como aplicar diagramas/artefactos de análise adequados.*
-
-*Recomenda-se que organize este conteúdo por subsecções.*
-
 ### Parte do Modelo de Domínio Relevante para esta User Story
 
-![US55_MD](US55_MD.svg)
+![US-1-2051_MD](US-1-2051_MD.svg)
 
 # 3. Design
 
-*Nesta secção a equipa deve descrever o design adotado para satisfazer a funcionalidade. Entre outros, a equipa deve apresentar diagrama(s) de realização da funcionalidade, diagrama(s) de classes, identificação de padrões aplicados e quais foram os principais testes especificados para validar a funcionalidade.*
-
-*Para além das secções sugeridas, podem ser incluídas outras.*
-
 ## 3.1. Realização da Funcionalidade
 
-*Nesta secção deve apresentar e descrever o fluxo/sequência que permite realizar a funcionalidade.*
+###	Sequence Diagram Repository
+
+![US-1-2051_SD_Repo.svg](US-1-2051_SD_Repo.svg)
 
 ###	Sequence Diagram
 
-![US55_SD.svg](US55_SD.svg)
-
 ## 3.2. Diagrama de Classes
-
-*Nesta secção deve apresentar e descrever as principais classes envolvidas na realização da funcionalidade.*
 
 ###	Class Diagram
 
-![US55_CD.svg](US55_CD.svg)
+![US-1-2051_CD.svg](US-1-2051_CD.svg)
 
 ## 3.3. Padrões Aplicados
 
-*Nesta secção deve apresentar e explicar quais e como foram os padrões de design aplicados e as melhores práticas.*
+* DDD (Domain-Driven Design)
 
 ## 3.4. Testes 
-*Nesta secção deve sistematizar como os testes foram concebidos para permitir uma correta aferição da satisfação dos requisitos.*
 
-**Teste 1:** Verificar que não é possível criar uma instância da classe Exemplo com valores nulos.
+**Teste Exemplo:** Verificar que é possível modificar o nome completo de um claborador.
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Exemplo instance = new Exemplo(null, null);
-	}
+    public void testCompleteName() {
+        CollaboratorCompleteName real = c.completeName();
+        String expected = "Ipsum";
+        assertEquals(real.toString(), expected);
+    }
 
 # 4. Implementação
 
-*Nesta secção a equipa deve providenciar, se necessário, algumas evidências de que a implementação está em conformidade com o design efetuado. Para além disso, deve mencionar/descrever a existência de outros ficheiros (e.g. de configuração) relevantes e destacar commits relevantes;*
+![1](imgs/1190682_implementation1.PNG)  
 
-*Recomenda-se que organize este conteúdo por subsecções.*
+![2](imgs/1190682_implementation2.PNG)  
+
+![3](imgs/1190682_implementation3.PNG)  
+
+![4](imgs/1190682_implementation4.PNG)  
+
+
+## 4.2. Bootstrap
+
+* Foi também desenvolvido bootstrap com o intuito de inicializar a aplicação com alguma informação, sendo os colaboradores inicializados no mesmo.
+
+## 4.3. Commits Mais Relevantes
+
+* Analysis: b7cb00b
+* Design: 5b1789c
+* Implementation: d05b25f
+* Review: a5674c8
 
 # 5. Integração/Demonstração
 
-*Nesta secção a equipa deve descrever os esforços realizados no sentido de integrar a funcionalidade desenvolvida com as restantes funcionalidades do sistema.*
+* Foram realizados esforços constantes para que todas as implementações sejam integradas da forma mais coerente, levando a que programa se apresente coeso.
+  Isto foi possível através de imenso planeamento da equipa, reuniões e comunicação constantes.
 
 # 6. Observações
 
-*Nesta secção sugere-se que a equipa apresente uma perspetiva critica sobre o trabalho desenvolvido apontando, por exemplo, outras alternativas e ou trabalhos futuros relacionados.*
+## 6.1. Melhoramentos Futuros
 
+* Permitir ao utilizador adicionar novos tipos funções.
 
 
