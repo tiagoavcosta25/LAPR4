@@ -13,12 +13,12 @@ public class EmailSender {
             String strEmail = "From: " + strSender + "\nTo: " + strReceiver + "\n\nSubject: " + strSubject + "\n\n\n\n" + strContent;
 
             File oFile = new File(DIR + "/" + strFileName + ".txt");
-            PrintWriter oPrintWritter = new PrintWriter(oFile);
-            oPrintWritter.println(strEmail);
-            oPrintWritter.flush();
-            oPrintWritter.close();
+            PrintWriter oPrintWriter = new PrintWriter(oFile);
+            oPrintWriter.println(strEmail);
+            oPrintWriter.flush();
+            oPrintWriter.close();
         } catch (FileNotFoundException e){
-            System.out.println("Email Error!");;
+            System.out.println("Email Error!");
         }
     }
 
