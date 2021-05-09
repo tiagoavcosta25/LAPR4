@@ -172,6 +172,6 @@ public class ServiceDraft implements AggregateRoot<Long> {
 
     @Override
     public String toString() {
-        return "Draft Title: " + m_strTitle + " | Description: " + m_strBriefDescription;
+        return "Draft Title: " + m_strTitle + " | Brief Description: " + m_strBriefDescription;
     }
 }
