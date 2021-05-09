@@ -111,11 +111,16 @@ adicionar um lista de formulários a um draft e verificar se este guarda/apresen
 
 ## 4.1. Provas de Implementação
 
-![1](imgs/1190967_Implementation_1.PNG)
-![2](imgs/1190967_Implementation_2.PNG)
-![3](imgs/1190967_Implementation_3.PNG)
-![4](imgs/1190967_Implementation_4.PNG)
-![5](imgs/1190967_Implementation_5.PNG)
+![1](imgs/1190967_Implementation_1.PNG)  
+
+![2](imgs/1190967_Implementation_2.PNG)  
+
+![3](imgs/1190967_Implementation_3.PNG)  
+
+![4](imgs/1190967_Implementation_4.PNG)  
+
+![5](imgs/1190967_Implementation_5.PNG)  
+
 
 ## 4.2. Bootstrap
 
