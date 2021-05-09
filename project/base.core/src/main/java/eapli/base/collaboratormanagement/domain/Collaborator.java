@@ -17,8 +17,6 @@ import java.util.Set;
 @Entity
 public class Collaborator implements AggregateRoot<CollaboratorMechanographicNumber> {
 
-    private String m_strCollaborator;
-
     @Version
     private Long version;
 
@@ -74,15 +72,6 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
 
     protected Collaborator() {
         // for ORM only
-    }
-
-    public Collaborator(String strCollaborator) {
-        if (StringPredicates.isNullOrEmpty(strCollaborator)) {
-            throw new IllegalArgumentException(
-                    "Collaborator can't be null nor empty.");
-        }
-        // expression
-        this.m_strCollaborator = strCollaborator;
     }
 
     public CollaboratorPhoneNumber phoneNumber() {
