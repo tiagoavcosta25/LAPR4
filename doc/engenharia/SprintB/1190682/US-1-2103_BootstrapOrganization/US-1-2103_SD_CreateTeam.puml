@@ -2,7 +2,7 @@
 autonumber
 hide footbox
 
-participant "<<boostrapers>>\nTeamCreatoBootstrapper" as BOOT
+participant "<<boostrapers>>\nTeamCreatorBootstrapper" as BOOT
 participant "<<aplication>>\nTeamCreatorController" as CTRL
 participant "<<domain>>\nteam:Team" as TEAM
 
