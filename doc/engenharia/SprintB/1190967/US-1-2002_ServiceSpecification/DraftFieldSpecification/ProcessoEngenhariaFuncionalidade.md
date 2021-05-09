@@ -1,4 +1,4 @@
-# [US-1-2002] Especificar Servico
+# [US-1-2002] Service Specification
 =======================================
 
 
@@ -17,20 +17,6 @@ um novo serviço, devendo o sistema permitir que a mesma fique incompleta e seja
 A interpretação feita deste requisito foi no sentido do gestor de serviços especificar um serviço, 
 juntamente com todas as suas informações necessárias como por exemplo: código, descrição, catálogo 
 onde será disponibilizado, formulários, requer feedback.
-
-### Formato Breve
-
-O ator envia um pedido para especificar um serviço. O sistema solicita a introdução de dados (descrição breve
- e completa). O ator introduz os dados. O sistema pergunta se o serviço requer feedback. O ator seleciona se
-  pretende ou não feedback neste serviço. O sistema solicita a duração máxima permitida para o feedback.
-  O ator introduz a duração máxima. O sistema mostra a lista de catálogos e solicita
-a escolha de um catálogo. O ator escolhe o catálogo onde será disponibilizado o serviço. O sistema solicita
-a introdução de dados do formulário (código, nome, tipo). O ator introduz os dados. O sistema solicita a 
-introdução de dados (tipo de dados, regex, descrição, script, label, nome). O ator introduz os dados.
-O sistema pergunta se deseja adicionar mais atributos ao formulário em questão. O ator responde se pretende
-ou não adicionar mais atributos. O sistema pergunta se deseja adicionar mais formulários ao serviço em questão.
-O ator responde se pretende ou não adicionar mais formulários. O sistema valida, apresenta os dados do serviço 
-e solicita uma confirmação. O ator confirma. O sistema regista o serviço e informa do sucesso da operação.
 
 ![US-1-2002_SSD](US-1-2002_SSD.svg)
 
@@ -66,13 +52,9 @@ e solicita uma confirmação. O ator confirma. O sistema regista o serviço e in
 
 #### Questões em aberto
 
-* O ator pode a qualquer momento pausar a especificação?
+\-
 
 # 2. Análise
-
-*Neste secção a equipa deve relatar o estudo/análise/comparação que fez com o intuito de tomar as melhores opções de design para a funcionalidade bem como aplicar diagramas/artefactos de análise adequados.*
-
-*Recomenda-se que organize este conteúdo por subsecções.*
 
 ### Parte do Modelo de Domínio Relevante para esta User Story
 
@@ -80,17 +62,19 @@ e solicita uma confirmação. O ator confirma. O sistema regista o serviço e in
 
 # 3. Design
 
-*Nesta secção a equipa deve descrever o design adotado para satisfazer a funcionalidade. Entre outros, a equipa deve apresentar diagrama(s) de realização da funcionalidade, diagrama(s) de classes, identificação de padrões aplicados e quais foram os principais testes especificados para validar a funcionalidade.*
-
-*Para além das secções sugeridas, podem ser incluídas outras.*
-
 ## 3.1. Realização da Funcionalidade
 
 *Nesta secção deve apresentar e descrever o fluxo/sequência que permite realizar a funcionalidade.*
 
 ###	Sequence Diagram
 
-![US-1-2002_SD.svg](US-1-2002_SD_DraftField.svg)
+#### Draft Field Diagram ###
+
+![US-1-2002_SD_DraftField](US-1-2002_SD_DraftField.svg)
+
+#### Add Field Sub Diagram ###
+
+![US-1-2002_SD_AddField](US-1-2002_SD_AddField.svg)
 
 ## 3.2. Diagrama de Classes
 
@@ -102,17 +86,19 @@ e solicita uma confirmação. O ator confirma. O sistema regista o serviço e in
 
 ## 3.3. Padrões Aplicados
 
-*Nesta secção deve apresentar e explicar quais e como foram os padrões de design aplicados e as melhores práticas.*
+* DDD (Domain-Driven Design)
 
 ## 3.4. Testes 
-*Nesta secção deve sistematizar como os testes foram concebidos para permitir uma correta aferição da satisfação dos requisitos.*
 
-**Teste 1:** Verificar que não é possível criar uma instância da classe Exemplo com valores nulos.
+**Teste Exemplo:** Verificar que é possível modificar a descrição breve de um draft. Este campo não será validado com as regras de negócio devido ao facto de ser um draft. 
+Esta verificação será realizada no builder de um service. De igual forma, serão testados todos os getters e setters para cada um dos campos adicionados a um draft.
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Exemplo instance = new Exemplo(null, null);
-	}
+	public void testSetBriefDescription() {
+        s.setBriefDescription("Ipsum");
+        String real = s.getBriefDescription();
+        String expected = "Ipsum";
+        assertEquals(real, expected);
+    }
 
 # 4. Implementação
 
@@ -120,13 +106,38 @@ e solicita uma confirmação. O ator confirma. O sistema regista o serviço e in
 
 *Recomenda-se que organize este conteúdo por subsecções.*
 
+## 4.1. Provas de Implementação
+
+![1](imgs/11190967_Implementation_1.PNG)
+![2](imgs/11190967_Implementation_2.PNG)
+![3](imgs/11190967_Implementation_3.PNG)
+![4](imgs/11190967_Implementation_4.PNG)
+
+## 4.2. Bootstrap
+
+* Foi também desenvolvido bootstrap com o intuito de inicializar a aplicação com alguma informação, sendo services e service drafts inicializados no mesmo.
+
+## 4.3. Commits Mais Relevantes
+
+* Analysis: b8c23ad
+* Design: eef63dc
+* Implementation: f8c46b3
+* Review: f787981
+
+
 # 5. Integração/Demonstração
 
-*Nesta secção a equipa deve descrever os esforços realizados no sentido de integrar a funcionalidade desenvolvida com as restantes funcionalidades do sistema.*
+* Foram realizados esforços constantes para que todas as implementações sejam integradas da forma mais coerente, levando a que programa se apresente coeso. 
+Isto foi possível através de imenso planeamento da equipa, reuniões e comunicação constantes.
+
+
 
 # 6. Observações
 
-*Nesta secção sugere-se que a equipa apresente uma perspetiva critica sobre o trabalho desenvolvido apontando, por exemplo, outras alternativas e ou trabalhos futuros relacionados.*
+## 6.1. Melhoramentos Futuros
+
+* Permitir ao utilizador adicionar novos tipos de dados no atributo
+* Permitir ao utilizador adicionar novos tipos de formulario
 
 
 
