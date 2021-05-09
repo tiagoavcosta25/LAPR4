@@ -45,7 +45,7 @@ public class FormTest extends TestCase {
 
     public void testType() {
         FormType real = f.type();
-        String expected = "MANUAL_TASK";
+        String expected = "MANUALTASK";
         assertEquals(real.toString(), expected);
     }
 

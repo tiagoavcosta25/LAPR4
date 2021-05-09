@@ -23,11 +23,10 @@ public class CatalogueSpecificationController {
 
     private final CatalogueRepository m_oCatalogueRepo = PersistenceContext.repositories().catalogues();
     private final CollaboratorRepository m_oCollaboratorRepo = PersistenceContext.repositories().collaborators();
-    private CatalogueBuilder m_oCatalogueBuilder = new CatalogueBuilder();
     private final TeamRepository m_oTeamRepo = PersistenceContext.repositories().teams();
 
     public Iterable<Collaborator> getCollaborators() {
-        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
+        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         return m_oCollaboratorRepo.findAll();
     }
 
@@ -37,7 +36,7 @@ public class CatalogueSpecificationController {
     }
 
     public Iterable<Team> getTeams() {
-        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HR_REP);
+        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         return m_oTeamRepo.findAll();
     }
 
@@ -52,11 +51,6 @@ public class CatalogueSpecificationController {
         final CatalogueBuilder catalogueBuilder = new CatalogueBuilder();
         catalogueBuilder.withTitle(strTitle).withBriefDescription(strBriefDescription).withCompleteDescription(strCompleteDescription).withCollaborator(strCollaborator).withAccess(setAccess);
         return m_oCatalogueRepo.save(catalogueBuilder.build());
-    }
-    public Catalogue saveCatalogue() {
-        Catalogue oCatalogue = this.m_oCatalogueBuilder.build();
-        this.m_oCatalogueRepo.save(oCatalogue);
-        return oCatalogue;
     }
 }
 

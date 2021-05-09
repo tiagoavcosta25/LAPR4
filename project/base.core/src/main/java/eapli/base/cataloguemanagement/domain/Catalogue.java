@@ -91,4 +91,9 @@ public class Catalogue implements AggregateRoot<Long> {
     public CatalogueCompleteDescription catalogueCompleteDescription() {
         return this.m_oCatalogueCompleteDescription;
     }
+
+    @Override
+    public String toString() {
+        return "Catalogue Title: " + m_oCatalogueTitle + " | Brief Description: " + m_oCatalogueBriefDescription;
+    }
 }

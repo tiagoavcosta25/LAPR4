@@ -31,10 +31,10 @@ public class TeamCreatorBootstrapper implements Action {
     public boolean execute() {
         List<Long> setColabsID = new ArrayList<>();
         setColabsID.add(987654l);
-        createTeam("1", TeamType.TYPE_FIRE.toString(), "TM1", "Team 1", setColabsID);
+        createTeam("1", TeamType.HR.toString(), "TM1", "Team 1", setColabsID);
         setColabsID.clear();
         setColabsID.add(564821l);
-        createTeam("2", TeamType.TYPE_FIRE.toString(), "TM2", "Team 2", setColabsID);
+        createTeam("2", TeamType.SERVICES.toString(), "TM2", "Team 2", setColabsID);
         return true;
     }
 

@@ -30,13 +30,13 @@ public class CatalogueSpecificationBootstrapper implements Action {
     @Override
     public boolean execute() {
         specifyCatalogue("Repair Catalogue",
-                "Catalogue containing all the Repair Services.",
+                "Catalogue with Repair Services.",
                 "This Catalogue contains all the Repair Services presented in the app.",
                 123456l, new ArrayList<>(Arrays.asList("1")));
         specifyCatalogue("HR Catalogue",
-                "Catalogue containing all the HR Services.",
+                "Catalogue with HR Services.",
                 "This Catalogue contains all the HR Services presented in the app.",
-                654321l, new ArrayList<>(Arrays.asList("2")));
+                564821l, new ArrayList<>(Arrays.asList("2")));
         return true;
     }
 
@@ -52,7 +52,6 @@ public class CatalogueSpecificationBootstrapper implements Action {
                 setTeams.add(this.m_oCtrl.getTeamById(strId));
             }
             this.m_oCtrl.createCatalog(strTitle, strBriefDescription, strCompleteDescription, oCollaborator, setTeams);
-            oCatalogue = this.m_oCtrl.saveCatalogue();
         } catch (final ConcurrencyException | IntegrityViolationException e) {
             LOGGER.error("Error Saving the Draft.");
         }

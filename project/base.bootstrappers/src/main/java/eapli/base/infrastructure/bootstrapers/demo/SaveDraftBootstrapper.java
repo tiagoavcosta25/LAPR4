@@ -5,6 +5,7 @@
  */
 package eapli.base.infrastructure.bootstrapers.demo;
 
+import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.servicemanagement.application.SaveDraftController;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.domain.ServiceDraft;
@@ -35,8 +36,8 @@ public class SaveDraftBootstrapper implements Action {
         try {
             Iterable<ServiceDraft> itServiceDrafts = this.m_oCtrl.getDrafts();
             ServiceDraft oServiceDraft = itServiceDrafts.iterator().next();
-            //Catalogue oCatalogue = this.m_oCtrl.getCatalogueById(lngCatalogueId); //TODO
-            oService = this.m_oCtrl.saveService(oServiceDraft, null);
+            Catalogue oCatalogue = this.m_oCtrl.getCatalogues().iterator().next();
+            oService = this.m_oCtrl.saveService(oServiceDraft, oCatalogue);
         } catch (final ConcurrencyException | IntegrityViolationException e) {
             LOGGER.error("Error Saving the Draft.");
         }
