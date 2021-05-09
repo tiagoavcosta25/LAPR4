@@ -4,8 +4,8 @@ hide footbox
 
 actor "Human Resource Representative" as HRR
 
-participant "<<presentation>>\nAddCollabToTeamUI" as UI
-participant "<<aplication>>\nAddCollabToTeamController" as CTRL
+participant "<<presentation>>\nRemoveCollabFromTeamUI" as UI
+participant "<<aplication>>\nRemoveCollabFromTeamController" as CTRL
 participant "<<aplication>>\nAuthzRegistry" as AUTHR
 participant "<<aplication>>\nAuthorizationService" as AUTH
 database "<<repository>>\nCollaboratorRepository" as CR
@@ -44,7 +44,7 @@ UI --> HRR : Display collaborator's list
 
 HRR -> UI : Selects the intended collaborator
 
-UI -> CTRL : getTeams()
+UI -> CTRL : getTeamsFromCollab(collab)
 
 activate CTRL
 CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
@@ -57,27 +57,21 @@ deactivate TR
 CTRL --> UI : teamSet
 deactivate CTRL
 
-UI --> HRR : Display collaborator's team's list
+UI --> HRR : Display team's list
 
 HRR -> UI : Selects the intended Team
 
-UI -> CTRL : addCollaboratorToTeam(collab, team)
-
+UI -> CTRL : removeCollabFromTeam(collab, team)
 
 activate CTRL
-CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
-activate AUTH
-CTRL -> CR : save(collab)
-deactivate AUTH
+CTRL -> CR : removeCollabFromTeam(collab, team)
+
 activate CR
 CR --> CTRL : collab
 deactivate CR
 
-
 CTRL --> UI : collab
 deactivate CTRL
-
-
 
 UI --> HRR : Validates, presents the information and asks for confirmation
 
