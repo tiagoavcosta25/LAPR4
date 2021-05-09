@@ -33,7 +33,7 @@ public class CollaboratorSpecificationBootstrapper implements Action {
     @Override
     public boolean execute() {
         Set<Role> setRoles = new HashSet<>();
-        setRoles.add(BaseRoles.HS_MANAGER);
+        setRoles.add(BaseRoles.COMMERCIAL_DIR);
         setRoles.add(BaseRoles.ADMIN);
         specifyCollaborator("doe@company.com", "John", "Doe", "John James Doe",
                 123456l, "Doe Street, Number 123", "+351", 912345678d, LocalDate.of(2000,01,01),
@@ -44,12 +44,7 @@ public class CollaboratorSpecificationBootstrapper implements Action {
                 987654l, "Downtown Street, Number 56", "+351", 987654321d, LocalDate.of(2001, 02, 02),
                 setRoles, 123456l);
         setRoles.clear();
-        setRoles.add(BaseRoles.COMMERCIAL_DIR);
-        specifyCollaborator("walker@company.com", "Tony", "Walker", "Tony Steven Walker",
-                564821l, "Bleecker Street, Number 117", "", 955123682d, LocalDate.of(1989, 11, 11),
-                setRoles, 987654l);
-        setRoles.clear();
-        setRoles.add(BaseRoles.COMMERCIAL_DIR);
+        setRoles.add(BaseRoles.HS_MANAGER);
         specifyCollaborator("walker@company.com", "Tony", "Walker", "Tony Steven Walker",
                 564821l, "Bleecker Street, Number 117", "", 955123682d, LocalDate.of(1989, 11, 11),
                 setRoles, 987654l);

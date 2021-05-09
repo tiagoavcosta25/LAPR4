@@ -26,17 +26,14 @@ public class SaveDraftBootstrapper implements Action {
 
     @Override
     public boolean execute() {
-        saveDraft(1);
+        saveDraft();
         return true;
     }
 
-    private Service saveDraft(Integer intOp) {
+    private Service saveDraft() {
         Service oService = null;
         try {
             Iterable<ServiceDraft> itServiceDrafts = this.m_oCtrl.getDrafts();
-            for(int i = 0; i < intOp - 1; i++){
-                itServiceDrafts.iterator().next();
-            }
             ServiceDraft oServiceDraft = itServiceDrafts.iterator().next();
             //Catalogue oCatalogue = this.m_oCtrl.getCatalogueById(lngCatalogueId); //TODO
             oService = this.m_oCtrl.saveService(oServiceDraft, null);

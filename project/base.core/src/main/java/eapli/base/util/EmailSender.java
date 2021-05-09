@@ -6,17 +6,18 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 public class EmailSender {
-    private static final String DIR = "./email_log";
+    private static final String DIR = ".\\email_log";
 
     public static void send(String strSender, String strReceiver, String strSubject, String strContent, String strFileName) {
         try {
-            String strEmail = "From: " + strSender + "\nTo: " + strReceiver + "\n\nSubject: " + strSubject + "\n\n\n\n" + strContent;
+            String strEmail = "From: " + strSender + "\nTo: " + strReceiver + "\n\nSubject: " + strSubject + "\n\n" + strContent;
 
-            File oFile = new File(DIR + "/" + strFileName + ".txt");
+            File oFile = new File(DIR + "\\" + strFileName + ".txt");
             PrintWriter oPrintWriter = new PrintWriter(oFile);
             oPrintWriter.println(strEmail);
             oPrintWriter.flush();
             oPrintWriter.close();
+            System.out.println("Email Sent to " + strReceiver + "!");
         } catch (FileNotFoundException e){
             System.out.println("Email Error!");
         }

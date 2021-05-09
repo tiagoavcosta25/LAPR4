@@ -38,6 +38,16 @@ public class ServiceDraftFieldBootstrapper implements Action {
                 "Fixing Internet Problems that arise", "", "24"));
         List<String> lstKeywords2 = new ArrayList<>(Arrays.asList("Fix", "Internet"));
         draftField(5, lstOp, lstField2, lstKeywords2);
+
+        List<String> lstField3 = new ArrayList<>(Arrays.asList("Request Contract", "Ask HR to see your contract",
+                "The Human Resources Department will send the user's contract", "", "5"));
+        List<String> lstKeywords3 = new ArrayList<>(Arrays.asList("Contract", "HR"));
+        draftField(5, lstOp, lstField3, lstKeywords3);
+
+        List<String> lstField4 = new ArrayList<>(Arrays.asList("Request Vacation", "Request Vacation Days to the HR Department",
+                "Formal request to have vacation on a certain day.", "", "72"));
+        List<String> lstKeywords4 = new ArrayList<>(Arrays.asList("HR", "Vacation"));
+        draftField(5, lstOp, lstField4, lstKeywords4);
         return true;
     }
 

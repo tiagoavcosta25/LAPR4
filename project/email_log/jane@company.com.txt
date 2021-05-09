@@ -1,0 +1,8 @@
+From: info@helpdesk.pt
+To: jane@company.com
+
+Subject: Collaborator creation.
+
+Your collaborator was created with success.
+Username: jane
+Password: EjWRG0o-uVI+

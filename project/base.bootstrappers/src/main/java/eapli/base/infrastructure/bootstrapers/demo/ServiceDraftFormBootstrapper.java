@@ -35,7 +35,7 @@ public class ServiceDraftFormBootstrapper implements Action {
                 new ArrayList<>(Arrays.asList("D:/folder1/script1.bat", "C:/folder2/script2.bat")),
                 new ArrayList<>(Arrays.asList(DataType.INTEGER, DataType.STRING)));
 
-        draftForm("Network Form", FormType.SERVICE, 2, new ArrayList<>(Arrays.asList("IPAddress", "VLANID")),
+        draftForm("Network Form", FormType.MANUALTASK, 2, new ArrayList<>(Arrays.asList("IPAddress", "VLANID")),
                 new ArrayList<>(Arrays.asList("IP Address", "VLAN ID")),
                 new ArrayList<>(Arrays.asList("Address of the end node with problems", "Identification of the Virtual LAN")),
                 new ArrayList<>(Arrays.asList("[0-9.]+", "[0-9]+")),
@@ -49,7 +49,8 @@ public class ServiceDraftFormBootstrapper implements Action {
                                     List<String> lstScripts, List<DataType> lstDataType) {
         ServiceDraft oServiceDraft = null;
         try {
-            oServiceDraft = this.m_oCtrl.getDrafts().iterator().next();
+            Iterator<ServiceDraft> itServiceDrafts = this.m_oCtrl.getDrafts().iterator();
+            oServiceDraft = itServiceDrafts.next();
 
 
             this.m_oCtrl.addForm(oServiceDraft, strFormName, oFormType.toString());

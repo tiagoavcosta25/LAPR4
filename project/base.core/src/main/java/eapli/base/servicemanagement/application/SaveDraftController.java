@@ -32,6 +32,7 @@ import eapli.base.servicemanagement.domain.*;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
@@ -42,6 +43,7 @@ import java.util.List;
  *
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
+@UseCaseController
 public class SaveDraftController {
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
 

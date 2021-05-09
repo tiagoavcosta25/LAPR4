@@ -71,9 +71,11 @@ public class MainMenu extends AbstractUI {
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
 
     // SERVICES
-    private static final int SERVICES_ADD_FIELD = 1;
-    private static final int SERVICES_ADD_FORM = 2;
-    private static final int SERVICES_SAVE = 3;
+    private static final int SERVICES_LIST = 1;
+    private static final int SERVICES_DRAFT_LIST = 2;
+    private static final int SERVICES_ADD_FIELD = 3;
+    private static final int SERVICES_ADD_FORM = 4;
+    private static final int SERVICES_SAVE = 5;
 
     // CATALOGUE
     private static final int CATALOGUE_SPECIFY = 1;
@@ -203,6 +205,8 @@ public class MainMenu extends AbstractUI {
     private Menu buildServicesMenu() {
         final Menu menu = new Menu("Services >");
 
+        menu.addItem(SERVICES_LIST, "List Services", new ListServicesAction());
+        menu.addItem(SERVICES_DRAFT_LIST, "List Service Drafts", new ListServicesDraftAction());
         menu.addItem(SERVICES_ADD_FIELD, "Add/Update Service Draft (Field)", new ServiceDraftFieldSpecificationAction());
         menu.addItem(SERVICES_ADD_FORM, "Add/Update Service Draft (Form)", new ServiceDraftFormSpecificationAction());
         menu.addItem(SERVICES_SAVE, "Save Service", new SaveDraftAction());
