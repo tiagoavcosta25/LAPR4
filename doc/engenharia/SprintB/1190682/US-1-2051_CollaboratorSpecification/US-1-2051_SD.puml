@@ -94,28 +94,7 @@ end
 UI-> CTRL : addRoles(roles)
 activate CTRL
 
-CTRL-> PASS** : create
-CTRL-> PASS : toString()
-activate PASS
 
-PASS--> CTRL : password
-deactivate PASS
-
-CTRL-> AUTH : userService()
-activate AUTH
-
-AUTH --> CTRL : userService
-deactivate AUTH
-
-CTRL-> US : registerNewUser(username, password, firstName, lastName, email, roles)
-activate US
-
-US --> CTRL : systemUser
-deactivate US
-
-CTRL-> CB : withSystemUser(systemUser)
-activate CB
-deactivate CB
 deactivate CTRL
 
 UI-> CTRL : getCollaborators()
@@ -153,7 +132,28 @@ activate UI
 
 UI-> CTRL : saveCollaborator()
 activate CTRL
+CTRL-> PASS** : create
+CTRL-> PASS : toString()
+activate PASS
 
+PASS--> CTRL : password
+deactivate PASS
+
+CTRL-> AUTH : userService()
+activate AUTH
+
+AUTH --> CTRL : userService
+deactivate AUTH
+
+CTRL-> US : registerNewUser(username, password, firstName, lastName, email, roles)
+activate US
+
+US --> CTRL : systemUser
+deactivate US
+
+CTRL-> CB : withSystemUser(systemUser)
+activate CB
+deactivate CB
 CTRL-> CB : build()
 activate CB
 CB-> COLAB** : create(systemUser, manager, phoneNumber, completeName, mechanographicNumber,address, phoneNumber, birthDate)
