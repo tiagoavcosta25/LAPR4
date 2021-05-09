@@ -1,22 +1,22 @@
-# [US-1-2002] Service Specification
+# [US-1-2002] Service Specification - Draft Field
 =======================================
 
 
 # 1. Requisitos
 
-*Nesta secção a equipa deve indicar a funcionalidade desenvolvida bem como descrever a 
-sua interpretação sobre a mesma e sua correlação e/ou dependência de/com outros requisitos.*
-
 **[US-1-2002]** Como Gestor de Serviços de Helpdesk, eu pretendo proceder à especificação de 
 um novo serviço, devendo o sistema permitir que a mesma fique incompleta e seja, posteriomente, retomada.
 
-- Demo1.1. Blá Blá Blá ...
+- [US-1-2002] Service Specification - Draft Field
 
-- Demo1.2. Blá Blá Blá ...
+- [US-1-2002] Service Specification - Draft Form
 
-A interpretação feita deste requisito foi no sentido do gestor de serviços especificar um serviço, 
+- [US-1-2002] Service Specification - Save Draft
+
+A interpretação feita deste requisito foi no sentido do gestor de serviços especificar um serviço, através de um draft, 
 juntamente com todas as suas informações necessárias como por exemplo: código, descrição, catálogo 
-onde será disponibilizado, formulários, requer feedback.
+onde será disponibilizado, requer feedback e formulários (implementado em [US-1-2002] Service Specification - Draft Form)
+para que este eventualmente seja guardado como um serviço.
 
 ![US-1-2002_SSD](US-1-2002_SSD.svg)
 
@@ -28,15 +28,15 @@ onde será disponibilizado, formulários, requer feedback.
 
 #### Partes interessadas e seus interesses
 
-* **Gestor de Serviços de Helpdesk:** pretende especificar um serviço.
+* **Gestor de Serviços de Helpdesk:** pretende especificar adicionar um(uns) campo(s) a um draft de serviço.
 
 #### Pré-condições
 
-* Existir pelo menos um catálogo no sistema.
+\-
 
 #### Pós-condições
 
-* A informação da especificação do serviço é registada no sistema.
+* A informação do campo(s) adicionado(s) é guardada no draft e registada na base e dados.
 
 #### Requisitos especiais
 
@@ -64,8 +64,6 @@ onde será disponibilizado, formulários, requer feedback.
 
 ## 3.1. Realização da Funcionalidade
 
-*Nesta secção deve apresentar e descrever o fluxo/sequência que permite realizar a funcionalidade.*
-
 ###	Sequence Diagram
 
 #### Draft Field Diagram ###
@@ -77,8 +75,6 @@ onde será disponibilizado, formulários, requer feedback.
 ![US-1-2002_SD_AddField](US-1-2002_SD_AddField.svg)
 
 ## 3.2. Diagrama de Classes
-
-*Nesta secção deve apresentar e descrever as principais classes envolvidas na realização da funcionalidade.*
 
 ###	Class Diagram
 
@@ -101,10 +97,6 @@ Esta verificação será realizada no builder de um service. De igual forma, ser
     }
 
 # 4. Implementação
-
-*Nesta secção a equipa deve providenciar, se necessário, algumas evidências de que a implementação está em conformidade com o design efetuado. Para além disso, deve mencionar/descrever a existência de outros ficheiros (e.g. de configuração) relevantes e destacar commits relevantes;*
-
-*Recomenda-se que organize este conteúdo por subsecções.*
 
 ## 4.1. Provas de Implementação
 
@@ -129,8 +121,6 @@ Esta verificação será realizada no builder de um service. De igual forma, ser
 
 * Foram realizados esforços constantes para que todas as implementações sejam integradas da forma mais coerente, levando a que programa se apresente coeso. 
 Isto foi possível através de imenso planeamento da equipa, reuniões e comunicação constantes.
-
-
 
 # 6. Observações
 
