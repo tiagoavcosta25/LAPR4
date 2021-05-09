@@ -50,6 +50,8 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
                 oServiceDraft = this.theController.newDraft();
             }
 
+            if(oServiceDraft == null){this.theController.newDraft();}
+
             boolean blFlag;
             do {
                 blFlag = insertForm(oServiceDraft);
@@ -62,13 +64,13 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.saveServiceDraft();
-                System.out.printf("Service Drafted.");
+                System.out.printf("\nService Drafted.\n");
             } else{
-                System.out.println("Operation Cancelled.");
+                System.out.println("\nOperation Cancelled.\n");
             }
 
         } catch (Exception e){
-            System.out.println("Error in creating forms for a service draft.");
+            System.out.println("\nError in creating forms for a service draft.\n");
         }
 
         return false;

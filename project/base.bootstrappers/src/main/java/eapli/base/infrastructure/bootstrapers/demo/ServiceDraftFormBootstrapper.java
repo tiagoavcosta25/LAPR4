@@ -63,7 +63,7 @@ public class ServiceDraftFormBootstrapper implements Action {
             oServiceDraft = this.m_oCtrl.addFormsToDraft();
             this.m_oCtrl.saveServiceDraft();
         } catch (final ConcurrencyException | IntegrityViolationException e) {
-            LOGGER.error("Error Saving the Draft.");
+            LOGGER.error("\nError Saving the Draft.\n");
         }
         return oServiceDraft;
     }
