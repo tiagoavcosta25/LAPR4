@@ -61,17 +61,23 @@ UI --> HRR : Display collaborator's team's list
 
 HRR -> UI : Selects the intended Team
 
-UI -> CTRL : removeCollabFromTeam(collab, team)
+UI -> CTRL : addCollaboratorToTeam(collab, team)
+
 
 activate CTRL
-CTRL -> CR : removeCollabFromTeam(collab, team)
-
+CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
+activate AUTH
+CTRL -> CR : save(collab)
+deactivate AUTH
 activate CR
 CR --> CTRL : collab
 deactivate CR
 
+
 CTRL --> UI : collab
 deactivate CTRL
+
+
 
 UI --> HRR : Validates, presents the information and asks for confirmation
 
