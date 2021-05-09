@@ -42,51 +42,65 @@ public class CollaboratorSpecificationUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
-        try{
-            final String strEmail = Console.readLine("Email >");
-            final String strFirstName = Console.readLine("First Name >");
-            final String strLastName = Console.readLine("Last Name >");
-            final String strCompleteName = Console.readLine("Complete Name >");
-            final String strMechanographicNumber = Console.readLine("Mechanographic Number >");
-            final String strAddress = Console.readLine("Address >");
-            final String strPhoneCode = Console.readLine("Phone Code >");
-            final String strPhoneNumber = Console.readLine("Phone Number >");
-            final Integer intYear = Integer.parseInt(Console.readLine("Birth Date (year) >"));
-            final Integer intMonth = Integer.parseInt(Console.readLine("Birth Date (month) >"));
-            final Integer intDay = Integer.parseInt(Console.readLine("Birth Date (day) >"));
+        try {
 
-            final LocalDate dtBirthDate = LocalDate.of(intYear, intMonth, intDay);
+            String strOption = Console.readLine("Do you want to import a Collaborator from a CSV file? (Y/N) >");
 
-            this.theController.addCollaborator(strEmail, strFirstName, strLastName,
-                    strCompleteName, Long.parseLong(strMechanographicNumber), strAddress, strPhoneCode,
-                    Double.parseDouble(strPhoneNumber), dtBirthDate);
+            if (strOption.compareToIgnoreCase("Y") == 0) {
+                final ImportCollaboratorCSV oImport = new ImportCollaboratorCSV();
+                final String strFilePath = Console.readLine("File Path >");
+                if(oImport.run(strFilePath)){
+                    System.out.printf("Operation Successful. The Collaborator was imported successfully.\n\n");
+                } else {
+                    System.out.printf("There was a error during the file importation.\n\n");
+                }
+            } else {
 
-            List<Role> lstRoles = Arrays.asList(this.theController.getRoleList());
-            lstRoles = PrintList.chooseMultiple(lstRoles, "Choose a Role for this Collaborator", "Role");
-            Set<Role> setRole = new HashSet<>(lstRoles);
-            this.theController.addRoles(setRole);
+                final String strEmail = Console.readLine("Email >");
+                final String strFirstName = Console.readLine("First Name >");
+                final String strLastName = Console.readLine("Last Name >");
+                final String strCompleteName = Console.readLine("Complete Name >");
+                final String strMechanographicNumber = Console.readLine("Mechanographic Number >");
+                final String strAddress = Console.readLine("Address >");
+                final String strPhoneCode = Console.readLine("Phone Code >");
+                final String strPhoneNumber = Console.readLine("Phone Number >");
+                final Integer intYear = Integer.parseInt(Console.readLine("Birth Date (year) >"));
+                final Integer intMonth = Integer.parseInt(Console.readLine("Birth Date (month) >"));
+                final Integer intDay = Integer.parseInt(Console.readLine("Birth Date (day) >"));
+
+                final LocalDate dtBirthDate = LocalDate.of(intYear, intMonth, intDay);
+
+                this.theController.addCollaborator(strEmail, strFirstName, strLastName,
+                        strCompleteName, Long.parseLong(strMechanographicNumber), strAddress, strPhoneCode,
+                        Double.parseDouble(strPhoneNumber), dtBirthDate);
+
+                List<Role> lstRoles = Arrays.asList(this.theController.getRoleList());
+                lstRoles = PrintList.chooseMultiple(lstRoles, "Choose a Role for this Collaborator", "Role");
+                Set<Role> setRole = new HashSet<>(lstRoles);
+                this.theController.addRoles(setRole);
 
 
-            Iterable<Collaborator> lstCollaborators = this.theController.getCollaborators();
-            Collaborator oManager = PrintList.chooseOne(lstCollaborators, "Choose your Manager", "Manager");
-            this.theController.addManager(oManager);
+                Iterable<Collaborator> lstCollaborators = this.theController.getCollaborators();
+                Collaborator oManager = PrintList.chooseOne(lstCollaborators, "Choose your Manager", "Manager");
+                this.theController.addManager(oManager);
 
 
-            String strOp = Console.readLine("Confirm the creation of this Collaborator (Y/N) >");
+                String strOp = Console.readLine("Confirm the creation of this Collaborator (Y/N) >");
 
-            if(strOp.compareToIgnoreCase("Y") == 0){
-                Collaborator oCollaborator = this.theController.saveCollaborator();
-                System.out.printf("Operation Successful. The Following Collaborator was created successfully > %s\n\n", oCollaborator.shortName());
-            } else{
-                System.out.println("Operation Cancelled.");
+                if (strOp.compareToIgnoreCase("Y") == 0) {
+                    Collaborator oCollaborator = this.theController.saveCollaborator();
+                    System.out.printf("Operation Successful. The Following Collaborator was created successfully > %s\n\n", oCollaborator.shortName());
+                } else {
+                    System.out.println("Operation Cancelled.");
+                }
             }
 
-        } catch (Exception e){
-            System.out.println("Error in creating a Colaborador.");
-        }
+            } catch(Exception e){
+                System.out.println("Error in creating a Colaborador.");
+            }
 
-        return false;
-    }
+            return false;
+        }
 
     @Override
     public String headline() {
