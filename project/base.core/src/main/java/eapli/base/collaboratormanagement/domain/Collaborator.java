@@ -135,5 +135,9 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     public boolean hasMecNumber(CollaboratorMechanographicNumber oMecNumber) {
         return this.m_oMechanographicNumber.equals(oMecNumber);
     }
+    @Override
+    public String toString() {
+        return "Collaborator Mechanographic Number: " + m_oMechanographicNumber + " | Name: " + m_oShortName;
+    }
 
 }

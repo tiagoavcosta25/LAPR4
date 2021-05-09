@@ -135,4 +135,9 @@ public class Service implements AggregateRoot<Long> {
     public Long identity() {
         return this.m_lngID;
     }
+
+    @Override
+    public String toString() {
+        return "Service Title: " + m_oTitle + " | Brief Description: " + m_oBriefDescription;
+    }
 }
