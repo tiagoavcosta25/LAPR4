@@ -2,6 +2,8 @@ package eapli.base.cataloguemanagement.domain;
 import eapli.base.collaboratormanagement.domain.CollaboratorCompleteName;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
+
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -15,6 +17,7 @@ public class CatalogueTitle implements ValueObject, Comparable<CatalogueTitle> {
     private static final long serialVersionUID = 1L;
     private static final Integer m_intMaxLength = 50;
 
+    @Column(name = "title")
     private String m_strTitle;
 
     public CatalogueTitle(final String strTitle) {

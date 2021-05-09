@@ -93,14 +93,10 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 		return collaborators(null);
 	}
 
-	@Override
-	public CatalogueRepository catalogues(TransactionalContext autoTx) {
-		return null;
-	}
 
 	@Override
 	public CatalogueRepository catalogues() {
-		return catalogues(null);
+		return catalogues();
 	}
 
 	@Override
