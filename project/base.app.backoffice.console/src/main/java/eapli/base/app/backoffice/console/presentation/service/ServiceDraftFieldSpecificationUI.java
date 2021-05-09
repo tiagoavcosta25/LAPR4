@@ -52,6 +52,8 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
                 oServiceDraft = this.theController.newDraft();
             }
 
+            if(oServiceDraft == null){this.theController.newDraft();}
+
             do{
                 strOp = addField(oServiceDraft);
             } while(strOp.compareToIgnoreCase("Y") == 0);
@@ -60,12 +62,12 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 oServiceDraft = this.theController.saveServiceDraft();
-                System.out.printf("New Draft > %s\n", oServiceDraft.toString());
+                System.out.printf("\nNew Draft > %s\n", oServiceDraft.toString());
             } else{
-                System.out.println("Operation Cancelled.");
+                System.out.println("\nOperation Cancelled.\n");
             }
         } catch (Exception e){
-            System.out.println("Error in creating a service.");
+            System.out.println("\nError in creating a service.\n");
         }
 
         return false;
@@ -94,6 +96,7 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
                 do{
                     lstKeywords.add(Console.readLine("Keyword Number " + i + " >"));
                     strOp = Console.readLine("Do you want to add more keywords? (Y/N) >");
+                    i++;
                 } while(strOp.compareToIgnoreCase("Y") == 0);
                 this.theController.addKeywordList(oServiceDraft, lstKeywords);
                 break;

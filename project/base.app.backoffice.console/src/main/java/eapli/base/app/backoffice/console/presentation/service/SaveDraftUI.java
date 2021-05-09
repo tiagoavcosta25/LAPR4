@@ -43,9 +43,13 @@ public class SaveDraftUI extends AbstractUI {
             Iterable<ServiceDraft> itDrafts = this.theController.getDrafts();
             ServiceDraft oServiceDraft = PrintList.chooseOne(itDrafts, "Choose the Service Draft to Save", "Service Draft");
 
+            if(oServiceDraft == null){
+                System.out.println("\nNo Drafts to be saved.");
+                throw new IllegalArgumentException();
+            }
+
             Iterable<Catalogue> itCatalogues = this.theController.getCatalogues();
             Catalogue oCatalogue = PrintList.chooseOne(itCatalogues, "Choose a Catalogue for this Service", "Catalogue");
-
 
             String strOp = Console.readLine("Confirm the creation of the following Service (Y/N) > " +
                     oServiceDraft.toString());
