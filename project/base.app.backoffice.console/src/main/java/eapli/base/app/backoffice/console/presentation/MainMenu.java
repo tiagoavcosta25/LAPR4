@@ -23,6 +23,7 @@
  */
 package eapli.base.app.backoffice.console.presentation;
 
+import eapli.base.app.backoffice.console.presentation.catalogue.CreateCatologueAction;
 import eapli.base.app.backoffice.console.presentation.collaborator.*;
 import eapli.base.app.backoffice.console.presentation.service.SaveDraftUI;
 import eapli.base.app.backoffice.console.presentation.service.ServiceDraftFieldSpecificationUI;
@@ -230,7 +231,7 @@ public class MainMenu extends AbstractUI {
     private Menu buildCataloguesMenu() {
         final Menu menu = new Menu("Catalogue >");
 
-        menu.addItem(CATALOGUE_SPECIFY, "Specify Catalogue", new CollaboratorSpecificationUI()::show);
+        menu.addItem(CATALOGUE_SPECIFY, "Specify Catalogue", new CreateCatologueAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

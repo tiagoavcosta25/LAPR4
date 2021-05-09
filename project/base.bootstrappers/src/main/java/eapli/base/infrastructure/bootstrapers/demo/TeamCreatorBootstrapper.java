@@ -19,7 +19,7 @@ import java.util.*;
 
 /**
  *
- * @author Pedro Santos 1190967@isep.ipp.pt
+ * @author Pedro Santos 1190967@isep.ipp.pt e Jéssica Alves 1190682@isep.ipp.pt
  */
 public class TeamCreatorBootstrapper implements Action {
     private static final Logger LOGGER = LoggerFactory.getLogger(
