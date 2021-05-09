@@ -27,6 +27,7 @@ import eapli.base.collaboratormanagement.domain.*;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.base.util.EmailSender;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
@@ -91,7 +92,7 @@ public class CollaboratorSpecificationController {
     public Collaborator saveCollaborator() {
         Collaborator oCollaborator = this.m_oCollaboratorBuilder.build();
         this.m_oCollaboratorRepo.save(oCollaborator);
-        EmailSender.send(strSender, m_strEmail, "Collaborator creation.", "Your collaborator was created with success. \nYour password is "
+        EmailSender.send("info@helpdesk.pt", m_strEmail, "Collaborator creation.", "Your collaborator was created with success. \nYour password is "
                 + m_strRawPassword, m_strEmail + "_");
         return oCollaborator;
     }
