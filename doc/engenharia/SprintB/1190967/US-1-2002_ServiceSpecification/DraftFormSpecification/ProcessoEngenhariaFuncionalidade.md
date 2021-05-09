@@ -64,7 +64,7 @@ para que este eventualmente seja guardado como um serviço (implementado em [US-
 
 ###	Sequence Diagram
 
-![US-1-2002_SD](US-1-2002_SD.svg)
+![US-1-2002_SD_DraftForm](US-1-2002_SD_DraftForm.svg)
 
 ## 3.2. Diagrama de Classes
 
@@ -111,11 +111,11 @@ adicionar um lista de formulários a um draft e verificar se este guarda/apresen
 
 ## 4.1. Provas de Implementação
 
-![1](imgs/11190967_Implementation_1.PNG)
-![2](imgs/11190967_Implementation_2.PNG)
-![3](imgs/11190967_Implementation_3.PNG)
-![4](imgs/11190967_Implementation_4.PNG)
-![5](imgs/11190967_Implementation_5.PNG)
+![1](imgs/1190967_Implementation_1.PNG)
+![2](imgs/1190967_Implementation_2.PNG)
+![3](imgs/1190967_Implementation_3.PNG)
+![4](imgs/1190967_Implementation_4.PNG)
+![5](imgs/1190967_Implementation_5.PNG)
 
 ## 4.2. Bootstrap
 
