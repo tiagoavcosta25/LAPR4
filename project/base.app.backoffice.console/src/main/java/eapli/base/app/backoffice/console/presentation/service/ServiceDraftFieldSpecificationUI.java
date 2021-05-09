@@ -52,7 +52,7 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
                 oServiceDraft = this.theController.newDraft();
             }
 
-            if(oServiceDraft == null){this.theController.newDraft();}
+            if(oServiceDraft == null){throw new IllegalArgumentException();}
 
             int intOp;
             do{
@@ -63,12 +63,12 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 oServiceDraft = this.theController.saveServiceDraft();
-                System.out.printf("\nNew Draft > %s\n", oServiceDraft.toString());
+                System.out.printf("\nNew Draft > %s\n\n", oServiceDraft.toString());
             } else{
-                System.out.println("\nOperation Cancelled.\n");
+                System.out.println("\nOperation Cancelled.\n\n");
             }
         } catch (Exception e){
-            System.out.println("\nError in creating a service.\n");
+            System.out.println("\nError in creating a service.\n\n");
         }
 
         return false;

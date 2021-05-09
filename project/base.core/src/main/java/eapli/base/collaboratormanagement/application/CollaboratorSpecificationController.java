@@ -92,8 +92,8 @@ public class CollaboratorSpecificationController {
     public Collaborator saveCollaborator() {
         Collaborator oCollaborator = this.m_oCollaboratorBuilder.build();
         this.m_oCollaboratorRepo.save(oCollaborator);
-        //EmailSender.send("info@helpdesk.pt", m_strEmail, "Collaborator creation.", "Your collaborator was created with success. \nYour password is "
-                //+ m_strRawPassword, m_strEmail);
+        EmailSender.send("info@helpdesk.pt", m_strEmail, "Collaborator creation.", "Your collaborator was created with success. \nYour password is "
+                + m_strRawPassword, m_strEmail);
         return oCollaborator;
     }
 

@@ -97,11 +97,11 @@ public class MainMenu extends AbstractUI {
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
     private static final int SETTINGS_OPTION = 4;
-    private static final int COLLABORATOR_OPTION = 5;
-    private static final int TEAMS_OPTION = 6;
-    private static final int CATALOGUE_OPTION = 7;
-    private static final int SERVICES_OPTION = 8;
-    private static final int TEAM_TYPES_OPTION = 9;
+    private static final int TEAMS_OPTION = 5;
+    private static final int TEAM_TYPES_OPTION = 6;
+    private static final int COLLABORATOR_OPTION = 7;
+    private static final int CATALOGUE_OPTION = 8;
+    private static final int SERVICES_OPTION = 9;
 
     private static final String SEPARATOR_LABEL = "--------------";
 

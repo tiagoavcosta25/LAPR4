@@ -53,6 +53,7 @@ public class Form implements AggregateRoot<Long> {
     private FormType m_oFormType;
 
     @ElementCollection()
+    @CollectionTable(name = "attribute")
     private List<Attribute> m_lstAttributes;
 
     public Form(final FormName oName, final FormType oFormType, final List<Attribute> lstAttributes) {

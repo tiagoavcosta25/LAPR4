@@ -30,7 +30,6 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     private SystemUser m_oSystemUser;
 
     @OneToOne
-    @JoinColumn(name="mechanographicNumber")
     private Collaborator m_oManager;
 
     @Embedded
@@ -48,7 +47,7 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     @Embedded
     private CollaboratorShortName m_oShortName;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Team> m_setTeams;
 
 

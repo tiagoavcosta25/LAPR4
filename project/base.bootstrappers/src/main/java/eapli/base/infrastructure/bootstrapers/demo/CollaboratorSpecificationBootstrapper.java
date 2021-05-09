@@ -48,6 +48,11 @@ public class CollaboratorSpecificationBootstrapper implements Action {
         specifyCollaborator("walker@company.com", "Tony", "Walker", "Tony Steven Walker",
                 564821l, "Bleecker Street, Number 117", "", 955123682d, LocalDate.of(1989, 11, 11),
                 setRoles, 987654l);
+        setRoles.clear();
+        setRoles.add(BaseRoles.COMMERCIAL_DIR);
+        specifyCollaborator("walker@company.com", "Tony", "Walker", "Tony Steven Walker",
+                564821l, "Bleecker Street, Number 117", "", 955123682d, LocalDate.of(1989, 11, 11),
+                setRoles, 987654l);
         return true;
     }
 
