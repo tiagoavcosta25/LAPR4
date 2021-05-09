@@ -3,6 +3,8 @@ package eapli.base.cataloguemanagement.domain;
 import eapli.base.collaboratormanagement.domain.CollaboratorCompleteName;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
+
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 /**
  *
@@ -13,6 +15,8 @@ public class CatalogueBriefDescription implements ValueObject, Comparable<eapli.
 
     private static final long serialVersionUID = 1L;
     private static final Integer m_intMaxLength = 40;
+
+    @Column(name = "BriefDescription")
     private String m_strBriefDescription;
 
     public CatalogueBriefDescription(final String strBriefDescription  ) {

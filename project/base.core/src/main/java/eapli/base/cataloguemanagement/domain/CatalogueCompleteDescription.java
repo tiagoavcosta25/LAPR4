@@ -3,6 +3,7 @@ package eapli.base.cataloguemanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -10,6 +11,8 @@ public class CatalogueCompleteDescription implements ValueObject, Comparable<Cat
 
     private static final long serialVersionUID = 1L;
     private static final Integer m_intMaxLength = 80;
+
+    @Column(name = "CompleteDescription")
     private String m_strCompleteDescription;
 
     public CatalogueCompleteDescription(final String strCompleteDescription) {

@@ -12,7 +12,7 @@ import eapli.framework.visitor.Visitor;
 @SuppressWarnings({ "squid:S106" })
 public class ListTeamsUI extends AbstractListUI<Team> {
     private final ListTeamController theController = new ListTeamController();
-    private Collaborator m_oCollab;
+    private final Collaborator m_oCollab;
 
     public ListTeamsUI() {
         //Casual constructor

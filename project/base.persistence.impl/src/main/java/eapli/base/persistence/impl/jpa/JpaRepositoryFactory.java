@@ -67,13 +67,8 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public CatalogueRepository catalogues(TransactionalContext autoTx) {
-		return new JpaCatalogueRepository(autoTx);
-	}
-
-	@Override
 	public CatalogueRepository catalogues() {
-		return new JpaCatalogueRepository(Application.settings().getPersistenceUnitName());
+		return new JpaCatalogueRepository();
 	}
 
 	@Override

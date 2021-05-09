@@ -61,7 +61,6 @@ public class CreateCatalogueUI extends AbstractUI {
                 new TeamPrinter());
         selectorTeam.show();
         return selectorTeam.selectedElement();
-
     }
 
     private Set<Team> selectTeams() {

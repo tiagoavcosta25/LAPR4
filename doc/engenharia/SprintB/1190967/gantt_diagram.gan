@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2021-04-18" view-index="0" gantt-divider-location="395" resource-divider-location="300" version="3.0.3000" locale="pt_PT">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart">
+        <field id="tpd3" name="Nome" width="214" order="0"/>
+        <field id="tpd4" name="Data de início" width="89" order="1"/>
+        <field id="tpd5" name="Data de fim" width="88" order="2"/>
+        <option id="color.recent">
+            <![CDATA[#ffff00 #00ff66 #ff00cc #00ffff]]>
+        </option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nome" width="210" order="0"/>
+        <field id="1" name="Função padrão" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="US-1-2002_ServiceSpecification" color="#00ffff" meeting="false" start="2021-04-19" duration="5" complete="0" thirdDate="2021-05-10" thirdDate-constraint="0" expand="true"/>
+        <task id="3" name="US-1-2101_ServicesBootstrap" color="#00ffff" meeting="false" start="2021-04-26" duration="6" complete="0" thirdDate="2021-05-10" thirdDate-constraint="0" expand="true"/>
+        <task id="11" name="US-1-2051_CollaboratorSpecification" color="#ff00cc" meeting="false" start="2021-04-19" duration="5" complete="0" thirdDate="2021-04-19" thirdDate-constraint="0" expand="true"/>
+        <task id="4" name="US-1-2103_BootstrapOrganization" color="#00ffff" meeting="false" start="2021-05-04" duration="3" complete="0" thirdDate="2021-05-10" thirdDate-constraint="0" expand="true"/>
+        <task id="17" name="US-1-2103_BootstrapOrganization" color="#ff00cc" meeting="false" start="2021-04-26" duration="6" complete="0" thirdDate="2021-04-19" thirdDate-constraint="0" expand="true"/>
+        <task id="18" name="US-5-9001_Powerpoint" color="#ff00cc" meeting="false" start="2021-05-04" duration="3" complete="0" thirdDate="2021-04-19" thirdDate-constraint="0" expand="true"/>
+        <task id="19" name="US-1-2001_CriarCatalogo" color="#ffff00" meeting="false" start="2021-04-19" duration="5" complete="0" thirdDate="2021-04-19" thirdDate-constraint="0" expand="true"/>
+        <task id="31" name="US-1-3001_PesquisarCatalogos" color="#ffff00" meeting="false" start="2021-04-26" duration="6" complete="0" thirdDate="2021-04-19" thirdDate-constraint="0" expand="true"/>
+        <task id="21" name="US-1-2052_CreateTeam" color="#00ff66" meeting="false" start="2021-04-19" duration="5" complete="0" thirdDate="2021-04-19" thirdDate-constraint="0" expand="true"/>
+        <task id="22" name="US-1-2053_AddOrRemoveCollabFromTeam" color="#00ff66" meeting="false" start="2021-04-26" duration="6" complete="0" thirdDate="2021-04-19" thirdDate-constraint="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
