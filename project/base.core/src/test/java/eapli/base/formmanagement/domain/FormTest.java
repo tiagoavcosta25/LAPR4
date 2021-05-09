@@ -37,11 +37,11 @@ public class FormTest extends TestCase {
         assertEquals(real.toString(), expected);
     }
 
-    /*public void testAttributes() {
+    public void testAttributes() {
         List<Attribute> real = f.attributes();
         List<Attribute> expected = new ArrayList<>(Arrays.asList(a));
         assertEquals(real, expected);
-    }*/
+    }
 
     public void testType() {
         FormType real = f.type();
