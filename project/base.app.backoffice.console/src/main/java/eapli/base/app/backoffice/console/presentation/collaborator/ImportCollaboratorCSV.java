@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class ImportCollaboratorCSV {
 
-    public boolean run(String strFilePath) throws ParseException, FileNotFoundException {
+    public boolean run(String strFilePath) throws FileNotFoundException {
         CollaboratorSpecificationController controller = new CollaboratorSpecificationController();
         Set<Role> lstRoles = new HashSet<>();
 
@@ -36,8 +36,12 @@ public class ImportCollaboratorCSV {
             String strAddress = line.split(";")[5].trim();
             String strPhoneCode = line.split(";")[6].trim();
             Double dblPhoneNumber = Double.parseDouble(line.split(";")[7].trim());
-            LocalDate strBirthDate = LocalDate.parse(line.split(";")[8].trim());
-            Long lngManager = Long.parseLong(line.split(";")[9].trim());
+            Integer intYear = Integer.parseInt(line.split("-")[8].trim());
+            Integer intMonth = Integer.parseInt(line.split("-")[9].trim());
+            Integer intDay = Integer.parseInt(line.split("-")[10].trim());
+            Long lngManager = Long.parseLong(line.split(";")[11].trim());
+
+            final LocalDate dtBirthDate = LocalDate.of(intYear, intMonth, intDay);
 
             for (int i = 10; i < file.length(); i++){
                 Role oRole = Role.valueOf(line.split(";")[i].trim());
@@ -45,7 +49,7 @@ public class ImportCollaboratorCSV {
             }
 
             if (!controller.importHistoricalTransactions(strEmail, strFirstName, strLastName, strCompleteName,
-                    lngMechanographicNumber, strAddress, strPhoneCode, dblPhoneNumber, strBirthDate, lngManager,
+                    lngMechanographicNumber, strAddress, strPhoneCode, dblPhoneNumber, dtBirthDate, lngManager,
                     lstRoles)){
                 return false;
             }
