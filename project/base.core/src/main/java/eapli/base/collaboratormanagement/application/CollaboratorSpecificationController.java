@@ -52,6 +52,7 @@ public class CollaboratorSpecificationController {
     private RandomRawPassword m_oRandomRawPassword = new RandomRawPassword();
     private List<Collaborator> m_lstCollaborators = new ArrayList<>();
     private String m_strEmail, m_strFirstName, m_strLastName, m_strRawPassword, m_strUsername;
+    private Set<Role> m_setRoles;
 
     public void addCollaborator(String strEmail, String strFirstName, String strLastName,
                                         String strCompleteName, Long lngMechanographicNumber, String strAddress,
@@ -73,13 +74,8 @@ public class CollaboratorSpecificationController {
         return BaseRoles.nonUserValues();
     }
 
-    public void addRoles(Set<Role> lstRoles) {
-        this.m_strRawPassword = m_oRandomRawPassword.toString();
-        UserManagementService oUserService = AuthzRegistry.userService();
-        this.m_strUsername = this.m_strEmail.substring(0, this.m_strEmail.indexOf("@"));
-        SystemUser oSystemUser = oUserService.registerNewUser(this.m_strUsername, this.m_strRawPassword, m_strFirstName,
-                m_strLastName, m_strEmail, lstRoles);
-        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withSystemUser(oSystemUser);
+    public void addRoles(Set<Role> setRoles) {
+        this.m_setRoles = setRoles;
 
     }
 
@@ -92,6 +88,12 @@ public class CollaboratorSpecificationController {
     }
 
     public Collaborator saveCollaborator() {
+        this.m_strRawPassword = m_oRandomRawPassword.toString();
+        UserManagementService oUserService = AuthzRegistry.userService();
+        this.m_strUsername = this.m_strEmail.substring(0, this.m_strEmail.indexOf("@"));
+        SystemUser oSystemUser = oUserService.registerNewUser(this.m_strUsername, this.m_strRawPassword, m_strFirstName,
+                m_strLastName, m_strEmail, this.m_setRoles);
+        this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withSystemUser(oSystemUser);
         Collaborator oCollaborator = this.m_oCollaboratorBuilder.build();
         this.m_oCollaboratorRepo.save(oCollaborator);
         EmailSender.send("info@helpdesk.pt", m_strEmail, "Collaborator creation.", "Your collaborator was created with success.\n" +

@@ -2,15 +2,11 @@
 ===============================
 
 
-### √çndice das Funcionalidade Desenvolvidas ###
+### ÷ndice das Funcionalidade Desenvolvidas ###
 
 
 | Sprint | Funcionalidade     |
 |--------|--------------------|
-| **B**  | [US-1-2002](US-1-2002_EspecificarServico) |
-| **B**  | [USDemo2](USDemo2) |
-| **C**  | [USDemo3](USDemo3) |
-| **C**  | [USDemo3](USDemo4) |
-| **D**  | [USDemo3](USDemo5) |
-| **D**  | [USDemo3](USDemo6) |
-| **D**  | [USDemo3](USDemo7) |
+| **B**  | [US-1-2002](US-1-2002_ServiceSpecification) |
+| **B**  | [US-1-2101](US-1-2101_ServicesBootstrap) |
+| **B**  | [US-1-2103](US-1-2103_BootstrapOrganization) |

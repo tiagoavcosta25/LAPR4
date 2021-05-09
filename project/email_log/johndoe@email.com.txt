@@ -1,0 +1,8 @@
+From: info@helpdesk.pt
+To: johndoe@email.com
+
+Subject: Collaborator creation.
+
+Your collaborator was created with success.
+Username: johndoe
+Password: -NXC7l7$Rsij
