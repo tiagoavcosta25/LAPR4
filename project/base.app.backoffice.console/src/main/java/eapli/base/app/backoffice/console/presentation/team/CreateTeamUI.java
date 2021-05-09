@@ -29,7 +29,7 @@ public class CreateTeamUI extends AbstractUI {
                 System.out.println("Team needs atleast one representative!");
                 representation = selectCollaborators();
             }
-            String strOp = Console.readLine("Confirm the team with code " + id + " creation? (Y/N) " + id);
+            String strOp = Console.readLine("Confirm the team with code " + id + " creation? (Y/N) ");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.createTeam(id, theTeamType, acronym, teamDescription, representation);
