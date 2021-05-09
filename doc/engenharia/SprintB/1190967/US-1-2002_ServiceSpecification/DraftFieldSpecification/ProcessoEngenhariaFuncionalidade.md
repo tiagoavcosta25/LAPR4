@@ -16,7 +16,7 @@ um novo serviço, devendo o sistema permitir que a mesma fique incompleta e seja
 A interpretação feita deste requisito foi no sentido do gestor de serviços especificar um serviço, através de um draft, 
 juntamente com todas as suas informações necessárias como por exemplo: código, descrição, catálogo 
 onde será disponibilizado, requer feedback e formulários (implementado em [US-1-2002] Service Specification - Draft Form)
-para que este eventualmente seja guardado como um serviço.
+para que este eventualmente seja guardado como um serviço (implementado em [US-1-2002] Service Specification - Save Draft).
 
 ![US-1-2002_SSD](US-1-2002_SSD.svg)
 
@@ -100,10 +100,14 @@ Esta verificação será realizada no builder de um service. De igual forma, ser
 
 ## 4.1. Provas de Implementação
 
-![1](imgs/11190967_Implementation_1.PNG)
-![2](imgs/11190967_Implementation_2.PNG)
-![3](imgs/11190967_Implementation_3.PNG)
-![4](imgs/11190967_Implementation_4.PNG)
+![1](imgs/1190967_Implementation_1.PNG)  
+
+![2](imgs/1190967_Implementation_2.PNG)  
+
+![3](imgs/1190967_Implementation_3.PNG)  
+
+![4](imgs/1190967_Implementation_4.PNG)  
+
 
 ## 4.2. Bootstrap
 
