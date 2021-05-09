@@ -6,12 +6,12 @@
 package eapli.base.formmanagement.domain;
 
 public enum FormType {
-    SERVICE, MANUAL_TASK;
+    SERVICE, MANUALTASK;
 
     public static FormType stringToFormType(String strType) {
         if(strType.compareToIgnoreCase("Service") == 0){
             return SERVICE;
         }
-        return MANUAL_TASK;
+        return MANUALTASK;
     }
 }

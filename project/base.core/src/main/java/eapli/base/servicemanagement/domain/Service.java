@@ -68,7 +68,7 @@ public class Service implements AggregateRoot<Long> {
     @Column(name = "serviceDraftKeywords")
     private List<Keyword> m_lstKeywords;
 
-    @OneToMany()
+    @OneToMany
     @Column(name = "serviceForms")
     private List<Form> m_lstForms;
 

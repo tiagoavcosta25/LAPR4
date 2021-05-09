@@ -54,9 +54,10 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
 
             if(oServiceDraft == null){this.theController.newDraft();}
 
+            int intOp;
             do{
-                strOp = addField(oServiceDraft);
-            } while(strOp.compareToIgnoreCase("Y") == 0);
+                intOp = addField(oServiceDraft);
+            } while(intOp != 0);
 
             strOp = Console.readLine("Confirm the changes made on the Draft (Y/N) >");
 
@@ -73,11 +74,11 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
         return false;
     }
 
-    private String addField(ServiceDraft oServiceDraft) {
+    private Integer addField(ServiceDraft oServiceDraft) {
         String strOp = Console.readLine("\nMENU\n==========================================\n" +
                 "1 - Title\n2- Brief Description\n3 - Complete Description"
-                + "\n4 - Keywords\n5- Enable Feedback\n\n0 - Quit"
-                + "\nChoose a field to add/update in the draft >");
+                + "\n4 - Keywords\n5- Enable Feedback\n\n0 - Finish"
+                + "\n\nChoose a field to add/update in the draft >");
 
         switch (Integer.parseInt(strOp))
         {
@@ -93,11 +94,12 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
             case 4:
                 List<String> lstKeywords = new ArrayList<>();
                 int i = 1;
+                String strAdd;
                 do{
                     lstKeywords.add(Console.readLine("Keyword Number " + i + " >"));
-                    strOp = Console.readLine("Do you want to add more keywords? (Y/N) >");
+                    strAdd = Console.readLine("Do you want to add more keywords? (Y/N) >");
                     i++;
-                } while(strOp.compareToIgnoreCase("Y") == 0);
+                } while(strAdd.compareToIgnoreCase("Y") == 0);
                 this.theController.addKeywordList(oServiceDraft, lstKeywords);
                 break;
             case 5:
@@ -105,9 +107,9 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
                 break;
             case 0:
             default:
-                return null;
+                return 0;
         }
-        return Console.readLine("\nDo you want to add more fields to this draft? (Y/N) >");
+        return Integer.parseInt(strOp);
     }
 
     @Override

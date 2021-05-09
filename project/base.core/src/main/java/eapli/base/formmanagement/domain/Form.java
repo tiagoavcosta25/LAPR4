@@ -60,7 +60,6 @@ public class Form implements AggregateRoot<Long> {
             throw new IllegalArgumentException();
         }
         this.m_oName = oName;
-        //this.m_lstAttributes = lstAttributes;
         this.m_oFormType = oFormType;
         this.m_lstAttributes = lstAttributes;
     }

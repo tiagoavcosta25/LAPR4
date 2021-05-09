@@ -64,7 +64,7 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.saveServiceDraft();
-                System.out.printf("\nService Drafted.\n");
+                System.out.printf("\nService Drafted.\n\n");
             } else{
                 System.out.println("\nOperation Cancelled.\n");
             }
