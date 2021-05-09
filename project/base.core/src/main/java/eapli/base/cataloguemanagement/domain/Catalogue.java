@@ -9,7 +9,6 @@ import eapli.framework.domain.model.DomainEntities;
 import javax.persistence.*;
 import java.util.Set;
 
-
 @Entity
 public class Catalogue implements AggregateRoot<Long> {
 
@@ -24,27 +23,17 @@ public class Catalogue implements AggregateRoot<Long> {
     private Long m_lngID;
 
     @JsonProperty
-    @Column(name = "title")
     private CatalogueTitle m_oCatalogueTitle;
 
-    @Embedded
-    @Column(name = "BriefDescription")
     private CatalogueBriefDescription m_oCatalogueBriefDescription;
 
-    @Column(name = "CompleteDescription")
     private CatalogueCompleteDescription m_oCatalogueCompleteDescription;
 
     @OneToOne
     @JoinColumn(name = "collaboratorID")
     private Collaborator m_oCollaborator;
 
-
-    @OneToMany
-    @JoinTable(
-            name = "catalogue_team",
-            joinColumns = @JoinColumn(name = "catalogueID"),
-            inverseJoinColumns = @JoinColumn(name = "teamID")
-    )
+    @ManyToMany
     private Set<Team> m_setAccess;
 
     public Catalogue(CatalogueBriefDescription oCatalogueBriefDescription, CatalogueCompleteDescription oCatalogueCompleteDescription,
@@ -78,19 +67,28 @@ public class Catalogue implements AggregateRoot<Long> {
         return DomainEntities.areEqual(this, other);
     }
 
-
     public Long id() {
         return identity();
     }
-
 
     public Set<Team> access() {
         return this.m_setAccess;
     }
 
-
     @Override
     public Long identity() {
         return this.m_lngID;
+    }
+
+    public CatalogueTitle catalogueTitle() {
+        return this.m_oCatalogueTitle;
+    }
+
+    public CatalogueBriefDescription catalogueBriefDescription() {
+        return this.m_oCatalogueBriefDescription;
+    }
+
+    public CatalogueCompleteDescription catalogueCompleteDescription() {
+        return this.m_oCatalogueCompleteDescription;
     }
 }

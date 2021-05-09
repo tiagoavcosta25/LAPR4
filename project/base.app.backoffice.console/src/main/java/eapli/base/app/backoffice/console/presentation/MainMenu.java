@@ -23,7 +23,7 @@
  */
 package eapli.base.app.backoffice.console.presentation;
 
-import eapli.base.app.backoffice.console.presentation.catalogue.CreateCatologueAction;
+import eapli.base.app.backoffice.console.presentation.catalogue.*;
 import eapli.base.app.backoffice.console.presentation.collaborator.*;
 import eapli.base.app.backoffice.console.presentation.service.*;
 import eapli.base.app.backoffice.console.presentation.teamtype.TeamTypeRegisterAction;
@@ -79,6 +79,17 @@ public class MainMenu extends AbstractUI {
 
     // CATALOGUE
     private static final int CATALOGUE_SPECIFY = 1;
+    private static final int CATALOGUE_LIST = 2;
+    private static final int CATALOGUE_SEARCH = 3;
+
+    // CATALOGUE SEARCH
+    private static final int CATALOGUE_SEARCH_TITLE = 1;
+    private static final int CATALOGUE_SEARCH_TITLE_WORD = 2;
+    private static final int CATALOGUE_SEARCH_BRIEF_DESCRIPTION = 3;
+    private static final int CATALOGUE_SEARCH_BRIEF_DESCRIPTION_WORD = 4;
+    private static final int CATALOGUE_SEARCH_COMPLETE_DESCRIPTION = 5;
+    private static final int CATALOGUE_SEARCH_COMPLETE_DESCRIPTION_WORD = 6;
+    private static final int CATALOGUE_SEARCH_TEAMS = 7;
 
     // COLLABORATOR
     private static final int LIST_COLLABORATORS_OPTION = 1;
@@ -234,6 +245,30 @@ public class MainMenu extends AbstractUI {
         final Menu menu = new Menu("Catalogue >");
 
         menu.addItem(CATALOGUE_SPECIFY, "Specify Catalogue", new CreateCatologueAction());
+        menu.addItem(CATALOGUE_LIST, "List Catalogues", new ListCatalogueAction());
+        final Menu catalogueSearchMenu = buildCataloguesSearchMenu();
+        menu.addSubMenu(CATALOGUE_SEARCH, catalogueSearchMenu);
+        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
+
+        return menu;
+    }
+
+    private Menu buildCataloguesSearchMenu() {
+        final Menu menu = new Menu("Catalogue Search");
+
+        menu.addItem(CATALOGUE_SEARCH_TITLE, "Search for Catalogue by Title", new CatalogueSearchTitleAction());
+        menu.addItem(CATALOGUE_SEARCH_TITLE_WORD, "Search for Catalogue by Word on Title",
+                new CatalogueSearchTitleByWordAction());
+        menu.addItem(CATALOGUE_SEARCH_BRIEF_DESCRIPTION, "Search for Catalogue by Brief Description",
+                new CatalogueSearchBriefAction());
+        menu.addItem(CATALOGUE_SEARCH_BRIEF_DESCRIPTION_WORD, "Search for Catalogue by word on Brief Description",
+                new CatalogueSearchBriefByWordAction());
+        menu.addItem(CATALOGUE_SEARCH_COMPLETE_DESCRIPTION, "Search for Catalogue by Complete Description",
+                new CatalogueSearchCompleteAction());
+        menu.addItem(CATALOGUE_SEARCH_COMPLETE_DESCRIPTION_WORD, "Search for Catalogue by word on Complete Description",
+                new CatalogueSearchCompleteByWordAction());
+        menu.addItem(CATALOGUE_SEARCH_TEAMS, "Search for Catalogue by a Team",
+                new CatalogueSearchByTeamAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

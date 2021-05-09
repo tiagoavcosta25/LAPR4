@@ -128,13 +128,6 @@ public interface RepositoryFactory {
 	CollaboratorRepository collaborators();
 
 	/**
-	 *
-	 * @param autoTx the transactional context to enrol
-	 * @return
-	 */
-	CatalogueRepository catalogues(TransactionalContext autoTx);
-
-	/**
 	 * repository will be created in auto transaction mode
 	 *
 	 * @return
