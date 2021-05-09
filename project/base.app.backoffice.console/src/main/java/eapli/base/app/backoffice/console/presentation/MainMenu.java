@@ -25,9 +25,7 @@ package eapli.base.app.backoffice.console.presentation;
 
 import eapli.base.app.backoffice.console.presentation.catalogue.CreateCatologueAction;
 import eapli.base.app.backoffice.console.presentation.collaborator.*;
-import eapli.base.app.backoffice.console.presentation.service.SaveDraftUI;
-import eapli.base.app.backoffice.console.presentation.service.ServiceDraftFieldSpecificationUI;
-import eapli.base.app.backoffice.console.presentation.service.ServiceDraftFormSpecificationUI;
+import eapli.base.app.backoffice.console.presentation.service.*;
 import eapli.base.app.backoffice.console.presentation.teamtype.TeamTypeRegisterAction;
 import eapli.base.app.backoffice.console.presentation.team.CreateTeamAction;
 import eapli.base.app.backoffice.console.presentation.team.ListTeamTypeAction;
@@ -205,9 +203,9 @@ public class MainMenu extends AbstractUI {
     private Menu buildServicesMenu() {
         final Menu menu = new Menu("Services >");
 
-        menu.addItem(SERVICES_ADD_FIELD, "Add/Update Service Draft (Field)", new ServiceDraftFieldSpecificationUI()::show);
-        menu.addItem(SERVICES_ADD_FORM, "Add/Update Service Draft (Form)", new ServiceDraftFormSpecificationUI()::show);
-        menu.addItem(SERVICES_SAVE, "Save Service", new SaveDraftUI()::show);
+        menu.addItem(SERVICES_ADD_FIELD, "Add/Update Service Draft (Field)", new ServiceDraftFieldSpecificationAction());
+        menu.addItem(SERVICES_ADD_FORM, "Add/Update Service Draft (Form)", new ServiceDraftFormSpecificationAction());
+        menu.addItem(SERVICES_SAVE, "Save Service", new SaveDraftAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
