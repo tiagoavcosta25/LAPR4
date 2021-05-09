@@ -1,56 +1,35 @@
-# [US-1-2002] Especificar Servico
+# [US-1-2103] Organization Bootstrap
 =======================================
 
 
 # 1. Requisitos
 
-*Nesta secção a equipa deve indicar a funcionalidade desenvolvida bem como descrever a 
-sua interpretação sobre a mesma e sua correlação e/ou dependência de/com outros requisitos.*
+**[US-1-2103]** Como Gestor de Projeto, eu pretendo que, para efeitos de demonstração,
+o sistema contemple a possibilidade de ser inicializado (bootstrap) com alguma informação
+relativa à estrutura orgânica da organização.
 
-**[US-1-2002]** Como Gestor de Serviços de Helpdesk, eu pretendo proceder à especificação de 
-um novo serviço, devendo o sistema permitir que a mesma fique incompleta e seja, posteriomente, retomada.
+- [US-1-2103] Services Bootstrap
 
-- Demo1.1. Blá Blá Blá ...
-
-- Demo1.2. Blá Blá Blá ...
-
-A interpretação feita deste requisito foi no sentido do gestor de serviços especificar um serviço, 
-juntamente com todas as suas informações necessárias como por exemplo: código, descrição, catálogo 
-onde será disponibilizado, formulários, requer feedback.
-
-### Formato Breve
-
-O ator envia um pedido para especificar um serviço. O sistema solicita a introdução de dados (descrição breve
- e completa). O ator introduz os dados. O sistema pergunta se o serviço requer feedback. O ator seleciona se
-  pretende ou não feedback neste serviço. O sistema solicita a duração máxima permitida para o feedback.
-  O ator introduz a duração máxima. O sistema mostra a lista de catálogos e solicita
-a escolha de um catálogo. O ator escolhe o catálogo onde será disponibilizado o serviço. O sistema solicita
-a introdução de dados do formulário (código, nome, tipo). O ator introduz os dados. O sistema solicita a 
-introdução de dados (tipo de dados, regex, descrição, script, label, nome). O ator introduz os dados.
-O sistema pergunta se deseja adicionar mais atributos ao formulário em questão. O ator responde se pretende
-ou não adicionar mais atributos. O sistema pergunta se deseja adicionar mais formulários ao serviço em questão.
-O ator responde se pretende ou não adicionar mais formulários. O sistema valida, apresenta os dados do serviço 
-e solicita uma confirmação. O ator confirma. O sistema regista o serviço e informa do sucesso da operação.
-
-![US-1-2002_SSD](US-1-2002_SSD.svg)
+A interpretação feita deste requisito foi no sentido de melhorar a apresentação
+da aplicação, sendo introduzido previamente valores referentes à estrutura orgânica da organização.
 
 ### Formato Completo
 
 #### Ator principal
 
-* Gestor de Serviços de Helpdesk
+* Gestor de Projeto
 
 #### Partes interessadas e seus interesses
 
-* **Gestor de Serviços de Helpdesk:** pretende especificar um serviço.
+* **Gestor de Projeto:** pretende o sistema seja inicializado com informação
 
 #### Pré-condições
 
-* Existir pelo menos um catálogo no sistema.
+\-
 
 #### Pós-condições
 
-* A informação da especificação do serviço é registada no sistema.
+* A informação referente à estrutura orgânica da organização é registada na base e dados.
 
 #### Requisitos especiais
 
@@ -66,67 +45,55 @@ e solicita uma confirmação. O ator confirma. O sistema regista o serviço e in
 
 #### Questões em aberto
 
-* O ator pode a qualquer momento pausar a especificação?
+\-
 
-# 2. Análise
+# 2. Design
 
-*Neste secção a equipa deve relatar o estudo/análise/comparação que fez com o intuito de tomar as melhores opções de design para a funcionalidade bem como aplicar diagramas/artefactos de análise adequados.*
-
-*Recomenda-se que organize este conteúdo por subsecções.*
-
-### Parte do Modelo de Domínio Relevante para esta User Story
-
-![US-1-2002_MD](US-1-2002_MD.svg)
-
-# 3. Design
-
-*Nesta secção a equipa deve descrever o design adotado para satisfazer a funcionalidade. Entre outros, a equipa deve apresentar diagrama(s) de realização da funcionalidade, diagrama(s) de classes, identificação de padrões aplicados e quais foram os principais testes especificados para validar a funcionalidade.*
-
-*Para além das secções sugeridas, podem ser incluídas outras.*
-
-## 3.1. Realização da Funcionalidade
-
-*Nesta secção deve apresentar e descrever o fluxo/sequência que permite realizar a funcionalidade.*
+## 2.1. Realização da Funcionalidade
 
 ###	Sequence Diagram
 
-![US-1-2002_SD.svg](US-1-2002_SD_DraftField.svg)
+#### Collaborator Specification
 
-## 3.2. Diagrama de Classes
+![US-1-2103_SD_CollaboratorSpecify](US-1-2103_SD_CollaboratorSpecify.svg)
 
-*Nesta secção deve apresentar e descrever as principais classes envolvidas na realização da funcionalidade.*
+#### CreateTeam
 
-###	Class Diagram
+![US-1-2103_SD_CreateTeam](US-1-2103_SD_CreateTeam.svg)
 
-![US-1-2002_CD.svg](US-1-2002_CD.svg)
+#### Add Collaborator To Team
 
-## 3.3. Padrões Aplicados
+![US-1-2103_SD_AddCollabToTeam](US-1-2103_SD_AddCollabToTeam.svg)
 
-*Nesta secção deve apresentar e explicar quais e como foram os padrões de design aplicados e as melhores práticas.*
+## 2.2. Padrões Aplicados
 
-## 3.4. Testes 
-*Nesta secção deve sistematizar como os testes foram concebidos para permitir uma correta aferição da satisfação dos requisitos.*
+* DDD (Domain-Driven Design)
 
-**Teste 1:** Verificar que não é possível criar uma instância da classe Exemplo com valores nulos.
+# 3. Implementação
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Exemplo instance = new Exemplo(null, null);
-	}
+## 3.1. Provas de Implementação
 
-# 4. Implementação
+![1](imgs/1190682_1190967_Implementation_1.PNG)
 
-*Nesta secção a equipa deve providenciar, se necessário, algumas evidências de que a implementação está em conformidade com o design efetuado. Para além disso, deve mencionar/descrever a existência de outros ficheiros (e.g. de configuração) relevantes e destacar commits relevantes;*
 
-*Recomenda-se que organize este conteúdo por subsecções.*
+## 3.2. Commits Mais Relevantes
 
-# 5. Integração/Demonstração
+* Analysis: dcda5ef
+* Design: d77a886
+* Implementation: 8742dfd
+* Review: f3decee
 
-*Nesta secção a equipa deve descrever os esforços realizados no sentido de integrar a funcionalidade desenvolvida com as restantes funcionalidades do sistema.*
 
-# 6. Observações
+# 4. Integração/Demonstração
 
-*Nesta secção sugere-se que a equipa apresente uma perspetiva critica sobre o trabalho desenvolvido apontando, por exemplo, outras alternativas e ou trabalhos futuros relacionados.*
+* Foram realizados esforços constantes para que todas as implementações sejam integradas da forma mais coerente, levando a que programa se apresente coeso.
+  Isto foi possível através de imenso planeamento da equipa, reuniões e comunicação constantes.
+
+# 5. Observações
+
+## 5.1. Melhoramentos Futuros
+
+* Adicionar Mais Informação
 
 
 

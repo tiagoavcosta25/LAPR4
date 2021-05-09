@@ -1,0 +1,42 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<boostrapers>>\nTeamCreatoAddCollabToTeamBootstrapper" as BOOT
+participant "<<aplication>>\nAddCollabToTeamController " as CTRL
+participant "<<domain>>\nteam:Team" as TEAM
+participant "<<domain>>\ncolab:Collaborator" as COLAB
+
+[o-> BOOT : execute
+
+activate BOOT
+BOOT -> CTRL** : create()
+
+BOOT -> BOOT : addColabToTeam(mecNum, teamID)
+
+BOOT -> CTRL : getCollaborators()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2053_SD
+end ref
+CTRL --> BOOT : collaborators
+deactivate CTRL
+
+BOOT -> CTRL : getTeams()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2053_SD
+end ref
+CTRL --> BOOT : collaborators
+deactivate CTRL
+
+BOOT -> CTRL : addCollabToTeam(collaborator, team)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2053_SD
+end ref
+CTRL --> BOOT : team
+deactivate CTRL
+deactivate BOOT
+
+@enduml
