@@ -1,0 +1,35 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Utilizador" as HRR
+
+participant ":System" as SYST
+
+activate HRR
+
+HRR-> SYST : initiation of the catalog / service search process
+activate SYST
+SYST --> HRR: asks to enter search terms
+deactivate SYST
+
+HRR-> SYST : Insert search terms
+activate SYST
+SYST --> HRR: lists the catalogs found and asks to choose to see details and respective services found
+deactivate SYST
+
+HRR-> SYST : choose catalog to see details and services
+activate SYST
+
+SYST --> HRR: shows details and lists services found from the catalog and asks to choose to see details
+deactivate SYST
+
+HRR-> SYST : choose service to see details
+activate SYST
+
+SYST --> HRR:shows service details
+deactivate SYST
+
+
+
+@enduml

@@ -1,0 +1,184 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Presentation" #DDDDDD {
+class ServiceDraftFormSpecificationUI<<presentation>>{
+
+}
+}
+
+
+package "Application" #DDDDDD {
+class ServiceDraftSpecificationController<<application>>{
++create()
++getDrafts()
++newDraft()
++addForm(name, formType)
++addAttribute(name, label, description, regex, scriptPath, dataType)
++saveForm()
++addFormToDraft()
++saveServiceDraft()
+}
+
+}
+
+
+package "Domain" #DDDDDD {
+class ServiceDraft<<Entity>><<Root>>{
++create()
++setFormList(formList)
+}
+
+class Form<<Entity>><<Root>>{
++create(name, formType, attributeList)
+}
+
+class Attribute<<Entity>>{
++create(name, label, description, regex, scriptPath, dataType
+}
+
+class FormName<<Value Object>>{
++createFormName(formName)
+-validate(formName)
+}
+
+class FormType<<Value Object>>{
++createFormType(formType)
++values()
+-validate(formType)
+}
+
+class AttributeName<<Value Object>>{
++createAttributeName(attributeName)
+-validate(attributeName)
+}
+
+class AttributeLabel<<Value Object>>{
++createAtributoLabel(attributeLabel)
+-validate(attributeLabel)
+}
+
+class AttributeDescription<<Value Object>>{
++createAttributeDescription(attributeDescription)
+-validate(attributeDescription)
+}
+
+class AttributeRegex<<Value Object>>{
++createAttributeRegex(attributeRegex)
+-validate(attributeRegex)
+}
+
+class AttributeScript<<Value Object>>{
++createAttributeScript(attributeScript)
+-validate(attributeScript)
+}
+
+class DataType<<Value Object>>{
++createDataType(dataType)
++values()
+-validate(dataType)
+}
+
+package Builder #DDDDDD {
+
+class FormBuilder<<builder>>{
++create()
++withName(name)
++withFormType(formType)
++withAttributeList(attributeList)
++build()
+}
+
+class AttributeBuilder<<builder>>{
++create()
++withName(name)
++withLabel(label)
++withDescription(description)
++withRegex(regex)
++withScript(scriptPath
++withDataType(dataType)
++build()
+}
+
+}
+
+}
+
+package Persistence #DDDDDD {
+class PersistenceContext<<persistence>>{
++repositories()
+}
+
+class AppSettings<<persistence>>{
++instance()
++getRepositoryFactory()
+}
+
+package Factory #DDDDDD {
+class RepositoryFactory<<persistence>>{
++create()
++servicos()
++catalogos()
++formularios()
+}
+}
+
+package "Repository" #DDDDDD {
+
+class ServiceDraftRepository<<repository>>{
++create()
++findAll()
++save(serviceDraft)
+}
+
+class FormRepository<<repository>>{
++create()
++save(form)
+}
+
+interface ServiceDraftRepositoryInterface{
+
+}
+
+interface FormRepositoryInterface{
+
+}
+
+}
+
+
+
+ServiceDraftFormSpecificationUI ..> ServiceDraftSpecificationController
+ServiceDraftSpecificationController ..> FormBuilder
+ServiceDraftSpecificationController ..> AttributeBuilder
+ServiceDraftSpecificationController ..> PersistenceContext
+
+ServiceDraftRepository ..> ServiceDraftRepositoryInterface
+FormRepository ..> FormRepositoryInterface
+
+AppSettings -> RepositoryFactory : creates
+PersistenceContext -> AppSettings : implements
+
+RepositoryFactory "1" -> "1" ServiceDraftRepository : has
+RepositoryFactory "1" -> "1" FormRepository : has
+
+ServiceDraftRepository "1" -> "*" ServiceDraft : saves
+FormRepository "1" -> "*" Form : saves
+FormBuilder "1" -> "*" Form : builds
+AttributeBuilder "1" -> "*" Attribute : builds
+
+ServiceDraft "1" -> "*" Form : has
+
+Form "1" -> "1" FormName : has
+Form "1" -> "1" FormType : has
+Form "1" -> "1..*" Attribute : has
+
+Attribute "1" -> "1" AttributeName : has
+Attribute "1" -> "1" AttributeLabel : has
+Attribute "1" -> "1" AttributeDescription : has
+Attribute "1" -> "1" AttributeRegex : has
+Attribute "1" -> "1" AttributeScript : has
+Attribute "1" -> "1" DataType : has
+
+
+@enduml

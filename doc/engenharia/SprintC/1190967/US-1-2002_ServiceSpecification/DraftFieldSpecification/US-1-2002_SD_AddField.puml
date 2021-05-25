@@ -1,0 +1,30 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<presentation>>\nServiceDraftSpecificationUI" as UI
+participant "<<application>>\nServiceDraftSpecificationController" as CTRL
+participant "<<domain>>\nServiceDraft" as S
+participant "<<domain>>\nTitle" as T
+participant "<<domain>>\nBriefDescription" as DB
+participant "<<domain>>\nCompleteDescription" as DC
+participant "<<domain>>\nKeyword" as KW
+participant "<<domain>>\nFeedback" as FB
+participant "<<domain>>\nIcon" as IC
+
+activate UI
+
+UI -> CTRL : addXX(xx)
+activate CTRL
+
+CTRL --> S : setXX(xx)
+activate S
+deactivate S
+
+CTRL --> UI : serviceDraft
+deactivate CTRL
+deactivate UI
+
+@enduml
+
+@enduml

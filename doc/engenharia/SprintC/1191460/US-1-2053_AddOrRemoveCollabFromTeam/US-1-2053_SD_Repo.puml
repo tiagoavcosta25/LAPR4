@@ -1,0 +1,39 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<application>>\nXXController" as CTRL
+participant "<<persistence>>\nPersistanceContext" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+database "<<repository>>\nXXRepository" as R
+
+activate CTRL
+
+CTRL -> PC : repositories()
+activate PC
+
+PC -> AS : instance()
+activate AS
+deactivate AS
+
+PC -> AS : getRepositoryFactory()
+activate AS
+
+AS -> RF** : create
+AS --> PC : factory
+deactivate AS
+
+PC --> CTRL : factory
+deactivate PC
+
+CTRL -> RF : XXs()
+activate RF
+
+RF -> R** : create
+RF --> CTRL : xxRepository
+deactivate RF
+
+deactivate CTRL
+
+@enduml

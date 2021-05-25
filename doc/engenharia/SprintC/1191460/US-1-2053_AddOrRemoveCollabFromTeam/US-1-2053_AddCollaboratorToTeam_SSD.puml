@@ -1,0 +1,35 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Human Resource Representative" as HRR
+
+participant ":System" as SYST
+
+activate HRR
+HRR-> SYST : Iniciates the request to add a collaborator to a team
+activate SYST
+
+SYST --> HRR: Shows collaborator's list
+deactivate SYST
+
+HRR-> SYST : Select's the intended collaborator
+activate SYST
+
+SYST --> HRR: Shows team's list
+deactivate SYST
+
+HRR-> SYST : Select's the intended team
+activate SYST
+
+SYST --> HRR: Validates, presents the information and asks for confirmation
+deactivate SYST
+
+HRR-> SYST : Confirms
+activate SYST
+SYST --> HRR: Informs of the success of the operation
+deactivate SYST
+
+deactivate HRR
+
+@enduml
