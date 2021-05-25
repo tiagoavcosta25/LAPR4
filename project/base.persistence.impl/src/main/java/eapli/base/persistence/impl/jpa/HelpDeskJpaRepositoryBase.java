@@ -1,6 +1,6 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.Application;
+import eapli.base.util.Application;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaTransactionalRepository;
 
 /**

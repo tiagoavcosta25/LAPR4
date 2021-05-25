@@ -1,6 +1,6 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.Application;
+import eapli.base.util.Application;
 import eapli.base.clientusermanagement.domain.SignupRequest;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.framework.domain.repositories.TransactionalContext;

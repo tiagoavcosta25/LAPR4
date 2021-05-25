@@ -1,22 +1,15 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.Application;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.cataloguemanagement.domain.CatalogueBriefDescription;
 import eapli.base.cataloguemanagement.domain.CatalogueCompleteDescription;
 import eapli.base.cataloguemanagement.domain.CatalogueTitle;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
-import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.teammanagement.domain.Team;
-import eapli.framework.domain.repositories.TransactionalContext;
-import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
-import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 
 class JpaCatalogueRepository

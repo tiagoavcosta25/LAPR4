@@ -1,4 +1,4 @@
-package eapli.base;
+package eapli.base.util;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

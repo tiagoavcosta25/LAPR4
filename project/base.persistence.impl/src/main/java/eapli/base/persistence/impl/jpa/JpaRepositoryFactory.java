@@ -1,9 +1,8 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.Application;
+import eapli.base.util.Application;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
-import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.teamtypemanagement.repositories.TeamTypeRepository;
 import eapli.framework.domain.repositories.TransactionalContext;

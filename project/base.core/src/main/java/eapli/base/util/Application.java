@@ -1,7 +1,7 @@
 /**
  *
  */
-package eapli.base;
+package eapli.base.util;
 
 /**
  * A "global" static class with the application registry of well known objects

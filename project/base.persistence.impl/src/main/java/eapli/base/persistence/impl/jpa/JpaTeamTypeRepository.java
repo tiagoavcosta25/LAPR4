@@ -1,6 +1,6 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.Application;
+import eapli.base.util.Application;
 import eapli.base.teamtypemanagement.domain.TeamType;
 import eapli.base.teamtypemanagement.domain.TeamTypeId;
 import eapli.base.teamtypemanagement.repositories.TeamTypeRepository;

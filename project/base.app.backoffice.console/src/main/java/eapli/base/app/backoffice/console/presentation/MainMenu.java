@@ -31,7 +31,7 @@ import eapli.base.app.backoffice.console.presentation.team.CreateTeamAction;
 import eapli.base.app.backoffice.console.presentation.team.ListTeamTypeAction;
 import eapli.base.app.backoffice.console.presentation.team.ListTeamsAction;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
-import eapli.base.Application;
+import eapli.base.util.Application;
 import eapli.base.app.backoffice.console.presentation.authz.AddUserUI;
 import eapli.base.app.backoffice.console.presentation.authz.DeactivateUserAction;
 import eapli.base.app.backoffice.console.presentation.authz.ListUsersAction;
