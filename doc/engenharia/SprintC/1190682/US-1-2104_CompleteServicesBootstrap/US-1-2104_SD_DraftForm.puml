@@ -1,0 +1,59 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<boostrapers>>\nServiceDraftFormBootstrapper" as BOOT
+participant "<<aplication>>\nServiceDraftSpecificationController" as CTRL
+participant "<<domain>>\ndraft:ServiceDraft" as SER
+
+[o-> BOOT : execute
+
+activate BOOT
+BOOT -> CTRL** : create()
+
+BOOT -> BOOT : draftForm(formName, formType, \nlstNames, lstLabels, lstDescriptions, lstRegex, \nlstScripts, lstDataType)
+
+BOOT -> CTRL : getDrafts()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftForm
+end ref
+CTRL --> BOOT : drafts
+deactivate CTRL
+
+BOOT -> CTRL : addForm(draft, formName, formType)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftForm
+end ref
+CTRL --> BOOT : form
+deactivate CTRL
+
+loop until there is no more forms to add
+BOOT -> CTRL : addAttribute(name, label, \ndescription, regex, script, dataType)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftForm
+end ref
+CTRL --> BOOT : attribute
+deactivate CTRL
+end
+
+BOOT -> CTRL : addFormsToDraft()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftForm
+end ref
+CTRL --> BOOT : draft
+deactivate CTRL
+
+BOOT -> CTRL : saveServiceDraft()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftForm
+end ref
+CTRL --> BOOT : draft
+deactivate CTRL
+deactivate BOOT
+
+@enduml
