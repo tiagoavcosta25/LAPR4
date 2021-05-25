@@ -27,7 +27,7 @@ participant "<<domain>>\nAttributeScript" as ASC
 
 activate HSM
 
-HSM -> UI : initiates the request to add/update a field in a service draft
+HSM -> UI : initiates the request to add/update a form in a service draft
 activate UI
 
 UI -> CTRL** : create
@@ -79,25 +79,7 @@ deactivate UI
 HSM -> UI : inserts the form's name
 activate UI
 
-UI -> CTRL : showFormTypes()
-activate CTRL
-
-CTRL -> FT : values()
-activate FT
-
-FT --> CTRL : formTypes
-deactivate FT
-
-CTRL --> UI : formTypes
-deactivate CTRL
-
-UI -> HSM : presents the available form types
-deactivate UI
-
-HSM -> UI : selects a form type
-activate UI
-
-UI -> CTRL : addForm(name, formType)
+UI -> CTRL : addForm(name)
 activate CTRL
 
 CTRL -> FBD** : create
