@@ -7,13 +7,17 @@ actor "Help Desk Services Manager" as HSM
 participant "<<presentation>>\nServiceDraftTaskSpecificationUI" as UI
 participant "<<application>>\nServiceDraftSpecificationController" as CTRL
 database "<<repository>>\nServiceDraftRepository" as SR
+participant "<<domain>>\napprovalTask:\nManualTask" as AMT
+participant "<<domain>>\nmanualTask:\nManualTask" as MT
+participant "<<domain>>\nautoTask:\nAutomaticTask" as AT
+participant "<<domain>>\nTask" as T
+participant "<<domain>>\nServiceDraft" as S
 participant "<<builder>>\nFormBuilder" as FBD
 participant "<<domain>>\nDataType" as DT
 participant "<<builder>>\nAttributeBuilder" as ABD
 participant "<<domain>>\nAttribute" as A
 participant "<<domain>>\nForm" as F
 database "<<repository>>\nFormRepository" as FR
-participant "<<domain>>\nServiceDraft" as S
 participant "<<persistence>>\nPersistenceContext" as PC
 participant "<<persistence>>\nAppSettings" as AS
 participant "<<factory>>\nRepositoryFactory" as RF
@@ -78,6 +82,23 @@ deactivate UI
 
 HSM -> UI : inserts the task's description
 activate UI
+
+UI -> CTRL : addApprovalTask(description)
+activate CTRL
+
+CTRL --> AMT** : create(description)
+activate AMT
+AMT --> T** : create(description)
+deactivate AMT
+deactivate CTRL
+
+UI -> CTRL : addApprovalTaskToDraft()
+activate CTRL
+
+CTRL -> S : setApprovalTask(approvalTask)
+activate S
+deactivate S
+deactivate CTRL
 end
 
 UI -> HSM : requests the user to insert the resolution task's description
@@ -98,13 +119,47 @@ ref over UI
     US-1-2002_SD_CreateForm
 end ref
 
+UI -> CTRL : newManualTask(description, form)
+activate CTRL
+
+CTRL -> MT** : create(description, form)
+activate MT
+MT --> T : create(description)
+activate T
+deactivate T
+deactivate MT
+deactivate CTRL
+
 else if the user pretends to add an automatic task
 UI -> HSM : requests the user to insert the task's script's path
 deactivate UI
 
 HSM -> UI : inserts the task's script's path
 activate UI
+
+UI -> CTRL : newAutoTask(description, scriptPath)
+activate CTRL
+
+CTRL -> AT** : create(description, scriptPath)
+activate AT
+AT --> T : create(description)
+activate T
+deactivate T
+deactivate AT
+deactivate CTRL
 end
+
+UI -> CTRL : addTaskToDraft()
+activate CTRL
+
+CTRL -> S : setTask(task)
+activate S
+
+S --> CTRL : serviceDraft
+deactivate S
+
+CTRL --> UI : serviceDraft
+deactivate CTRL
 
 UI -> HSM : validates, presents the current \ninformation in the draft and asks for confirmation
 deactivate UI
