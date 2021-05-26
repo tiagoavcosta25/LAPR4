@@ -50,9 +50,9 @@ public class SaveDraftController {
     private final ServiceRepository serviceRepo = PersistenceContext.repositories().services();
     private final ServiceDraftRepository draftRepo = PersistenceContext.repositories().serviceDrafts();
     private final CatalogueRepository catalogueRepo = PersistenceContext.repositories().catalogues();
-    private final FormRepository formRepo = PersistenceContext.repositories().forms();
     private ServiceBuilder serviceBuilder = new ServiceBuilder();
     private ServiceDraft m_oServiceDraft = new ServiceDraft();
+    private SaveDraftService m_oSaveDraftService = new SaveDraftService();
 
     public Iterable<ServiceDraft> getDrafts() {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
@@ -66,24 +66,8 @@ public class SaveDraftController {
     public Service saveService(ServiceDraft oServiceDraft, Catalogue oCatalogue) {
         this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        String strTitle = this.m_oServiceDraft.getTitle();
-        String strBriefDescription = this.m_oServiceDraft.getBriefDescription();
-        String strCompleteDescription = this.m_oServiceDraft.getCompleteDescription();
-        Double dblFeedback = this.m_oServiceDraft.getFeedback();
-        List<String> keywordList  = this.m_oServiceDraft.getKeywordList();
-        List<Form> formList  = this.m_oServiceDraft.getFormList();
 
-        this.serviceBuilder = this.serviceBuilder.withTitle(strTitle);
-        this.serviceBuilder = this.serviceBuilder.withBriefDescription(strBriefDescription);
-        this.serviceBuilder = this.serviceBuilder.withCompleteDescription(strCompleteDescription);
-        this.serviceBuilder = this.serviceBuilder.withFeedback(dblFeedback);
-        this.serviceBuilder = this.serviceBuilder.withCatalogue(oCatalogue);
-        this.serviceBuilder = this.serviceBuilder.withKeywordList(keywordList);
-        List<Form> formPersisted = new ArrayList<>();
-        for(Form f : formList){
-            formPersisted.add(this.formRepo.save(f));
-        }
-        this.serviceBuilder = this.serviceBuilder.withFormList(formPersisted);
+        this.serviceBuilder = this.m_oSaveDraftService.buildService(this.serviceBuilder, this.m_oServiceDraft, oCatalogue);
         this.draftRepo.delete(this.m_oServiceDraft);
         Service oService = this.serviceRepo.save(this.serviceBuilder.build());
         return oService;

@@ -24,9 +24,16 @@
 package eapli.base.servicemanagement.application;
 
 import eapli.base.cataloguemanagement.domain.Catalogue;
+import eapli.base.formmanagement.domain.Form;
+import eapli.base.formmanagement.repositories.FormRepository;
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.Service;
+import eapli.base.servicemanagement.domain.ServiceBuilder;
 import eapli.base.servicemanagement.domain.ServiceDraft;
 import eapli.framework.application.ApplicationService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -35,7 +42,19 @@ import eapli.framework.application.ApplicationService;
 @ApplicationService
 public class SaveDraftService {
 
-    public void saveService(ServiceDraft oServiceDraft, Catalogue oCatalogue) {
+    private final FormRepository formRepo = PersistenceContext.repositories().forms();
 
+    public ServiceBuilder buildService(ServiceBuilder oServiceBuilder, ServiceDraft oServiceDraft, Catalogue oCatalogue) {
+        oServiceBuilder = oServiceBuilder.withTitle(oServiceDraft.getTitle());
+        oServiceBuilder = oServiceBuilder.withBriefDescription(oServiceDraft.getBriefDescription());
+        oServiceBuilder = oServiceBuilder.withCompleteDescription(oServiceDraft.getCompleteDescription());
+        oServiceBuilder = oServiceBuilder.withFeedback(oServiceDraft.getFeedback());
+        oServiceBuilder = oServiceBuilder.withCatalogue(oCatalogue);
+        oServiceBuilder = oServiceBuilder.withKeywordList(oServiceDraft.getKeywordList());
+        List<Form> formPersisted = new ArrayList<>();
+        for(Form f : oServiceDraft.getFormList()){
+            formPersisted.add(this.formRepo.save(f));
+        }
+        return oServiceBuilder.withFormList(formPersisted);
     }
 }
