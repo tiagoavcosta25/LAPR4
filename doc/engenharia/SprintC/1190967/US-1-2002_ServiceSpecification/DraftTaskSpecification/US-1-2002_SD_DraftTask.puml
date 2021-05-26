@@ -12,6 +12,7 @@ participant "<<domain>>\nmanualTask:\nManualTask" as MT
 participant "<<domain>>\nautoTask:\nAutomaticTask" as AT
 participant "<<domain>>\nTask" as T
 participant "<<domain>>\nServiceDraft" as S
+database "<<repository>>\nTaskRepository" as TR
 participant "<<builder>>\nFormBuilder" as FBD
 participant "<<domain>>\nDataType" as DT
 participant "<<builder>>\nAttributeBuilder" as ABD
@@ -99,6 +100,19 @@ CTRL -> S : setApprovalTask(approvalTask)
 activate S
 deactivate S
 deactivate CTRL
+
+UI -> CTRL : saveApprovalTask()
+activate CTRL
+
+CTRL -> CTRL : saveTask(approvalTask)
+
+CTRL -> TR : save(task)
+activate TR
+TR --> CTRL : task
+deactivate TR
+
+CTRL --> UI : task
+deactivate CTRL
 end
 
 UI -> HSM : requests the user to insert the resolution task's description
@@ -128,6 +142,15 @@ MT --> T : create(description)
 activate T
 deactivate T
 deactivate MT
+
+CTRL -> CTRL : saveTask(manualTask)
+
+CTRL -> TR : save(manualTask)
+activate TR
+TR --> CTRL : manualTask
+deactivate TR
+
+CTRL --> UI : manualTask
 deactivate CTRL
 
 else if the user pretends to add an automatic task
@@ -146,6 +169,16 @@ AT --> T : create(description)
 activate T
 deactivate T
 deactivate AT
+
+CTRL -> CTRL : saveTask(autoTask)
+
+CTRL -> TR : save(autoTask)
+activate TR
+TR --> CTRL : autoTask
+deactivate TR
+
+CTRL --> UI : autoTask
+deactivate CTRL
 deactivate CTRL
 end
 
