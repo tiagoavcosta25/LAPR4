@@ -41,9 +41,8 @@ public class ManualTask extends Task{
     @Column(name = "manualTaskForm")
     private Form m_oForm;
 
-    public ManualTask(final TaskDescription oDescription, final TaskStatus oTaskStatus, final TaskPriority oTaskPriority,
-                      final TaskResult oTaskResult, Form oForm) {
-        super(oDescription, oTaskStatus, oTaskPriority, oTaskResult);
+    public ManualTask(final TaskDescription oDescription, final TaskPriority oTaskPriority, Form oForm) {
+        super(oDescription, oTaskPriority);
         if (oForm == null) {
             throw new IllegalArgumentException();
         }

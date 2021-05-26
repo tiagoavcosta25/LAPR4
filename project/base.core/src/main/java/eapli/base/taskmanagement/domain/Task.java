@@ -62,15 +62,14 @@ public abstract class Task implements AggregateRoot<Long> {
     @JoinColumn(name="m_oMechanographicNumber")
     private Collaborator m_oCollaborator;
 
-    public Task(final TaskDescription oDescription, final TaskStatus oTaskStatus, final TaskPriority oTaskPriority,
-                final TaskResult oTaskResult) {
-        if (oDescription == null || oTaskStatus == null || oTaskPriority == null || oTaskResult == null) {
+    public Task(final TaskDescription oDescription, final TaskPriority oTaskPriority) {
+        if (oDescription == null || oTaskPriority == null) {
             throw new IllegalArgumentException();
         }
         this.m_oDescription = oDescription;
-        this.m_oTaskStatus = oTaskStatus;
+        this.m_oTaskStatus = TaskStatus.PENDING;
         this.m_oTaskPriority = oTaskPriority;
-        this.m_oTaskResult = oTaskResult;
+        this.m_oTaskResult = TaskResult.NO_RESULT;
     }
 
     protected Task() {

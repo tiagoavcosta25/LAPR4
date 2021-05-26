@@ -41,9 +41,8 @@ public class AutomaticTask extends Task{
     @Embedded
     private AutomaticTaskScript m_oScript;
 
-    public AutomaticTask(final TaskDescription oDescription, final TaskStatus oTaskStatus, final TaskPriority oTaskPriority,
-                         final TaskResult oTaskResult, AutomaticTaskScript oScript) {
-        super(oDescription, oTaskStatus, oTaskPriority, oTaskResult);
+    public AutomaticTask(final TaskDescription oDescription, final TaskPriority oTaskPriority, AutomaticTaskScript oScript) {
+        super(oDescription, oTaskPriority);
         if (oScript == null) {
             throw new IllegalArgumentException();
         }

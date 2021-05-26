@@ -24,6 +24,8 @@
 package eapli.base.servicemanagement.domain;
 
 import eapli.base.formmanagement.domain.Form;
+import eapli.base.taskmanagement.domain.ManualTask;
+import eapli.base.taskmanagement.domain.Task;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
@@ -72,6 +74,14 @@ public class ServiceDraft implements AggregateRoot<Long> {
     @OneToMany()
     @Column(name = "serviceDraftForms")
     private List<Form> m_lstForms;
+
+    @OneToOne()
+    @Column(name = "approvalTask")
+    private ManualTask m_oApprovalTask;
+
+    @OneToOne()
+    @Column(name = "resolutionTask")
+    private Task m_oResolutionTask;
 
     public ServiceDraft(final String strTitle, final String strBriefDescription, final String strCompleteDescription,
                         final Double dblFeedback, final List<String> lstKeywords, final List<Form> lstForms) {
@@ -134,16 +144,24 @@ public class ServiceDraft implements AggregateRoot<Long> {
         this.m_strCompleteDescription = m_strCompleteDescription;
     }
 
-    public void setFeedback(Double m_dblFeedback) {
-        this.m_dblFeedback = m_dblFeedback;
+    public void setFeedback(Double dblFeedback) {
+        this.m_dblFeedback = dblFeedback;
     }
 
-    public void setKeywordList(List<String> m_lstKeywords) {
-        this.m_lstKeywords = m_lstKeywords;
+    public void setKeywordList(List<String> lstKeywords) {
+        this.m_lstKeywords = lstKeywords;
     }
 
-    public void setFormList(List<Form> m_lstForms) {
-        this.m_lstForms = m_lstForms;
+    public void setFormList(List<Form> lstForms) {
+        this.m_lstForms = lstForms;
+    }
+
+    public void setApprovalTask(ManualTask oApprovalTask) {
+        this.m_oApprovalTask = oApprovalTask;
+    }
+
+    public void setResolutionTask(Task oTask) {
+        this.m_oResolutionTask = oTask;
     }
 
     @Override

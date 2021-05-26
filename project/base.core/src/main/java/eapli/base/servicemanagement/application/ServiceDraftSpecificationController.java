@@ -28,6 +28,8 @@ import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.*;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
+import eapli.base.taskmanagement.domain.*;
+import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -47,11 +49,14 @@ public class ServiceDraftSpecificationController {
 
     private final ServiceDraftRepository draftRepo = PersistenceContext.repositories().serviceDrafts();
     private final FormRepository formRepo = PersistenceContext.repositories().forms();
+    private final TaskRepository taskRepo = PersistenceContext.repositories().tasks();
     private FormBuilder formBuilder = new FormBuilder();
-    private AttributeBuilder attributeBuilder = new AttributeBuilder();
     private List<Attribute> m_lstAttributes = new ArrayList<>();
     private List<Form> m_lstForms = new ArrayList<>();
     private ServiceDraft m_oServiceDraft = new ServiceDraft();
+    private ManualTask m_oApprovalTask;
+    private Task m_oResolutionTask;
+    private ServiceDraftSpecificationService m_oServiceDraftSpecificationService = new ServiceDraftSpecificationService();
 
     public Iterable<ServiceDraft> getDrafts() {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
@@ -84,14 +89,7 @@ public class ServiceDraftSpecificationController {
     public Attribute addAttribute(String strName, String strLabel, String strDescription,
                                   String strRegex, String strScript, String strDataType) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        this.attributeBuilder = this.attributeBuilder.withName(strName);
-        this.attributeBuilder = this.attributeBuilder.withLabel(strLabel);
-        this.attributeBuilder = this.attributeBuilder.withDescription(strDescription);
-        this.attributeBuilder = this.attributeBuilder.withRegex(strRegex);
-        this.attributeBuilder = this.attributeBuilder.withScript(strScript);
-        this.attributeBuilder = this.attributeBuilder.withDataType(strDataType);
-
-        Attribute oAttribute = this.attributeBuilder.build();
+        Attribute oAttribute = this.m_oServiceDraftSpecificationService.addAttribute(strName, strLabel, strDescription, strRegex, strScript, strDataType);
         this.m_lstAttributes.add(oAttribute);
         return oAttribute;
     }
@@ -117,32 +115,76 @@ public class ServiceDraftSpecificationController {
     }
 
     public void addKeywordList(ServiceDraft oServiceDraft, List<String> keywordList) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setKeywordList(keywordList);
     }
 
     public void addTitle(ServiceDraft oServiceDraft, String strTitle) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setTitle(strTitle);
     }
 
     public void addBriefDescription(ServiceDraft oServiceDraft, String strBriefDescription) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setBriefDescription(strBriefDescription);
     }
 
     public void addCompleteDescription(ServiceDraft oServiceDraft, String strCompleteDescription) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setCompleteDescription(strCompleteDescription);
     }
 
     public void addFeedback(ServiceDraft oServiceDraft, Double dblFeedback) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setFeedback(dblFeedback);
+    }
+
+    public void addApprovalTask(String strDescription) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        this.m_oApprovalTask = this.m_oServiceDraftSpecificationService.addApprovalTask(strDescription);
+    }
+
+    public void addApprovalTaskToDraft() {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        this.m_oServiceDraft.setApprovalTask(this.m_oApprovalTask);
+    }
+
+    public void saveApprovalTask() {
+        this.saveTask(this.m_oApprovalTask);
+    }
+
+    public Task saveTask(Task oTask) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        oTask = this.taskRepo.save(oTask);
+        return oTask;
+    }
+
+    public Task newManualTask(String strDescription, String strPriority, Form oForm) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        this.m_oResolutionTask = new ManualTask(new TaskDescription(strDescription), TaskPriority.stringToTaskPriority(strPriority), oForm);
+        return this.m_oResolutionTask;
+    }
+
+    public Task newAutoTask(String strDescription, String strPriority, String strScriptPath) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        this.m_oResolutionTask = new AutomaticTask(new TaskDescription(strDescription), TaskPriority.stringToTaskPriority(strPriority),
+                new AutomaticTaskScript(strScriptPath));
+        return this.m_oResolutionTask;
+    }
+
+    public ServiceDraft addTaskToDraft() {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        this.m_oServiceDraft.setResolutionTask(this.m_oResolutionTask);
+        return this.m_oServiceDraft;
     }
 }

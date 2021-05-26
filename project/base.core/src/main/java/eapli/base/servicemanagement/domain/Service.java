@@ -26,6 +26,8 @@ package eapli.base.servicemanagement.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.formmanagement.domain.*;
+import eapli.base.taskmanagement.domain.ManualTask;
+import eapli.base.taskmanagement.domain.Task;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
@@ -72,6 +74,14 @@ public class Service implements AggregateRoot<Long> {
     @Column(name = "serviceForms")
     private List<Form> m_lstForms;
 
+    @OneToOne()
+    @Column(name = "approvalTask")
+    private ManualTask m_oApprovalTask;
+
+    @OneToOne()
+    @Column(name = "resolutionTask")
+    private Task m_oResolutionTask;
+
     public Service(final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
                    final Feedback oFeedback, Catalogue oCatalogue, final List<Keyword> lstKeywords, final List<Form> lstForms) {
         if (oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || oCatalogue == null || lstKeywords.isEmpty()) {
@@ -110,6 +120,12 @@ public class Service implements AggregateRoot<Long> {
     }
     public List<Form> forms() {
         return this.m_lstForms;
+    }
+    public ManualTask approvalTask() {
+        return this.m_oApprovalTask;
+    }
+    public Task resolutionTask() {
+        return this.m_oResolutionTask;
     }
 
     @Override
