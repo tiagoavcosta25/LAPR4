@@ -23,14 +23,11 @@
  */
 package eapli.base.taskmanagement.domain;
 
-import eapli.base.formmanagement.domain.Attribute;
-import eapli.base.formmanagement.domain.FormName;
-import eapli.base.formmanagement.domain.FormType;
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  *
@@ -61,6 +58,10 @@ public abstract class Task implements AggregateRoot<Long> {
     @Enumerated(EnumType.STRING)
     private TaskResult m_oTaskResult;
 
+    @OneToOne
+    @JoinColumn(name="m_oMechanographicNumber")
+    private Collaborator m_oCollaborator;
+
     public Task(final TaskDescription oDescription, final TaskStatus oTaskStatus, final TaskPriority oTaskPriority,
                 final TaskResult oTaskResult) {
         if (oDescription == null || oTaskStatus == null || oTaskPriority == null || oTaskResult == null) {
@@ -90,6 +91,14 @@ public abstract class Task implements AggregateRoot<Long> {
 
     public TaskResult result() {
         return this.m_oTaskResult;
+    }
+
+    public Collaborator collaborator() {
+        return this.m_oCollaborator;
+    }
+
+    public void setCollaborator(Collaborator oCollaborator) {
+        this.m_oCollaborator = oCollaborator;
     }
 
     @Override
