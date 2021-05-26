@@ -7,10 +7,8 @@
 
 | Sprint | Funcionalidade     |
 |--------|--------------------|
-| **B**  | [LAPR4-76](US74_CriarCatálogo) |
-| **B**  | [USDemo2](USDemo2) |
-| **C**  | [USDemo3](USDemo3) |
-| **C**  | [USDemo3](USDemo4) |
-| **D**  | [USDemo3](USDemo5) |
-| **D**  | [USDemo3](USDemo6) |
-| **D**  | [USDemo3](USDemo7) |
+| **B**  | [US-1-2001](US-1-2001_catalogueSpecification) |
+| **B**  | [US-1-3001](US-1-3001_SearchCtaloguesAndServices)
+| **C**  | [US-1-1005]
+| **C**  | [US-1-3022]
+| **C**  | [US-1-4001]
