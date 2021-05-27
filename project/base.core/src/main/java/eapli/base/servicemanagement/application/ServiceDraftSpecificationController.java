@@ -152,10 +152,6 @@ public class ServiceDraftSpecificationController {
     public void addApprovalTask(String strDescription) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oApprovalTask = this.m_oServiceDraftSpecificationService.addApprovalTask(strDescription);
-    }
-
-    public void addApprovalTaskToDraft() {
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setApprovalTask(this.m_oApprovalTask);
     }
 
@@ -186,5 +182,10 @@ public class ServiceDraftSpecificationController {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setResolutionTask(this.m_oResolutionTask);
         return this.m_oServiceDraft;
+    }
+
+    public List<TaskPriority> showTaskPriorities() {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        return Arrays.asList(TaskPriority.values());
     }
 }

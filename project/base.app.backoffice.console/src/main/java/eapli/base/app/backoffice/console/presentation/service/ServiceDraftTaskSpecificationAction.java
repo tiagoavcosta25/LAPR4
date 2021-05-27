@@ -5,9 +5,9 @@ import eapli.framework.actions.Action;
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
-public class ServiceDraftFormSpecificationAction implements Action {
+public class ServiceDraftTaskSpecificationAction implements Action {
     @Override
     public boolean execute() {
-        return new ServiceDraftFormSpecificationUI().show();
+        return new ServiceDraftTaskSpecificationUI().show();
     }
 }
