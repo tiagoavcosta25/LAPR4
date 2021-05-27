@@ -11,15 +11,9 @@ package "Application" #DDDDDD {
     class ConsultAssignedPendingTasksController<<application>>{
         + create()
         + getTasksOfCollaborator(collaborator)
-        + getTasksOfCollaboratorByPriority(collaborator, priority)
-        + getTasksOfCollaboratorBeforeFinishDate(collaborator, finishDate)
-    }
-
-    class OrderAssignedPendingTasksController<<application>>{
-        + create()
-        + orderTasksOfCollaboratorByPriority(tasks)
-        + orderTasksOfCollaboratorByReversePriority(tasks)
-        + orderTasksOfCollaboratorByReverseFinishDate(tasks)
+        + getTasksOfCollaborator(collaborator, filterBy)
+        + getTasksOfCollaborator(collaborator, orderBy)
+        + getTasksOfCollaborator(collaborator, filterBy, orderBy)
     }
 }
 
@@ -63,6 +57,12 @@ package "Domain" #DDDDDD {
         - attributeList
         + create(name, formType, attributeList)
     }
+
+    enum TaskFilterFields<<enum>> {
+    }
+
+    enum TaskOrderFields<<enum>> {
+    }
 }
 
 package Persistence #DDDDDD {
@@ -89,6 +89,10 @@ package "Repository" #DDDDDD {
     class TaskRepository<<repository>>{
         +create()
         +findAll()
+        +getTasksOfCollaborator(collaborator)
+        +getTasksOfCollaborator(collaborator, filterBy)
+        +getTasksOfCollaborator(collaborator, orderBy)
+        +getTasksOfCollaborator(collaborator, filterBy, orderBy)
         +save(Task)
     }
 
@@ -99,7 +103,6 @@ package "Repository" #DDDDDD {
 
 
 ConsultAssignedPendingTasksUI ..> ConsultAssignedPendingTasksController
-ConsultAssignedPendingTasksUI ..> OrderAssignedPendingTasksController
 ConsultAssignedPendingTasksController ..> PersistenceContext
 
 TaskRepository ..> TaskRepositoryInterface
