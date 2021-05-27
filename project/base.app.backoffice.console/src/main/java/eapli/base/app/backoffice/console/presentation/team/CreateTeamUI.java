@@ -39,7 +39,7 @@ public class CreateTeamUI extends AbstractUI {
                 System.out.println("Operation Cancelled.");
             }
         } catch (final Exception ex) {
-            System.out.println("Error while creating a team.");
+            System.out.println("Error while creating a team. " + ex.getMessage());
         }
         return false;
     }

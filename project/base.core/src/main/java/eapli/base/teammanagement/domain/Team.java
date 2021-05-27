@@ -30,7 +30,7 @@ public class Team implements AggregateRoot<TeamID> {
 
     private TeamDescription m_oTeamDescription;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Collaborator> m_setRepresentation;
 
     public Team(TeamID oTeamID, TeamType enumTeamType, Acronym oAcronym, TeamDescription oTeamDescription,
