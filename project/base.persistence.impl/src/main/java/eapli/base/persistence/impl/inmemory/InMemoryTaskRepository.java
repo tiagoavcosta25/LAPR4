@@ -4,6 +4,7 @@ import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.domain.Task;
 import eapli.base.taskmanagement.domain.TaskFilterFields;
+import eapli.base.taskmanagement.domain.TaskOrderFields;
 import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
@@ -35,6 +36,12 @@ public class InMemoryTaskRepository
     //TODO: Finish method getTasksOfCollaborator (filter)
     @Override
     public Iterable<ManualTask> getTasksOfCollaborator(Collaborator oCollaborator, TaskFilterFields enumFilterBy) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    //TODO: Finish method getTasksOfCollaborator (order)
+    @Override
+    public Iterable<ManualTask> getTasksOfCollaborator(Collaborator oCollaborator, TaskOrderFields enumOrderBy) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -4,6 +4,7 @@ import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.domain.Task;
 import eapli.base.taskmanagement.domain.TaskFilterFields;
+import eapli.base.taskmanagement.domain.TaskOrderFields;
 import eapli.framework.domain.repositories.DomainRepository;
 
 import java.util.Optional;
@@ -28,6 +29,8 @@ public interface TaskRepository
     public Iterable<ManualTask> getTasksOfCollaborator(final Collaborator oCollaborator);
 
     public Iterable<ManualTask> getTasksOfCollaborator(final Collaborator oCollaborator, TaskFilterFields enumFilterBy);
+
+    public Iterable<ManualTask> getTasksOfCollaborator(final Collaborator oCollaborator, TaskOrderFields enumOrderBy);
 
 
 }
