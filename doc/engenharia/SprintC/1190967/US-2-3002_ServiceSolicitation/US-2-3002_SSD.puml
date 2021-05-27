@@ -25,7 +25,7 @@ activate SYST
 SYST -> US : requests the user to submit the required information (urgency, limitDate)
 deactivate SYST
 
-US -> SYST : enters the information
+US -> SYST : inserts the information
 activate SYST
 
 loop until the user doesnt have more files to attach
@@ -46,7 +46,7 @@ activate SYST
 end
 end
 
-SYST -> US : validates, presents the current \ninformation in the draft and asks for confirmation
+SYST -> US : validates, presents the current \ninformation in the ticket and asks for confirmation
 deactivate SYST
 
 US -> SYST : confirms
