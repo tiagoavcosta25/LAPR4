@@ -101,7 +101,6 @@ package "Repository" #DDDDDD {
 ConsultAssignedPendingTasksUI ..> ConsultAssignedPendingTasksController
 ConsultAssignedPendingTasksUI ..> OrderAssignedPendingTasksController
 ConsultAssignedPendingTasksController ..> PersistenceContext
-OrderAssignedPendingTasksController ..> ManualTask
 
 TaskRepository ..> TaskRepositoryInterface
 
