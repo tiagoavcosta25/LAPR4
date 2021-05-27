@@ -19,6 +19,9 @@
     <class>eapli.base.teamtypemanagement.domain.TeamType</class>
     <class>eapli.base.cataloguemanagement.domain.Catalogue</class>
     <class>eapli.base.collaboratormanagement.domain.Collaborator</class>
+    <class>eapli.base.taskmanagement.domain.Task</class>
+    <class>eapli.base.taskmanagement.domain.ManualTask</class>
+    <class>eapli.base.taskmanagement.domain.AutomaticTask</class>
 
     <properties>
       <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/../db/base"/>-->
