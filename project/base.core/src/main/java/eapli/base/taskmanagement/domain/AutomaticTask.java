@@ -25,10 +25,7 @@ package eapli.base.taskmanagement.domain;
 
 import eapli.base.formmanagement.domain.Form;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  *
@@ -36,6 +33,7 @@ import javax.persistence.OneToOne;
  */
 
 @Entity
+@DiscriminatorValue("AUTO")
 public class AutomaticTask extends Task{
 
     @Embedded
