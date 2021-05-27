@@ -36,7 +36,7 @@ end
 SYST -> HSM : requests the user to insert the resolution task's description
 deactivate SYST
 
-HSM -> SYST : inserts the resolution task's description
+HSM -> SYST : inserts the resolution task's description and priority
 activate SYST
 
 SYST -> HSM : requests the user to insert the resolution task's type
