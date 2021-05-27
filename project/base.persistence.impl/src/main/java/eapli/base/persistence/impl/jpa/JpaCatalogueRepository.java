@@ -6,6 +6,7 @@ import eapli.base.cataloguemanagement.domain.CatalogueCompleteDescription;
 import eapli.base.cataloguemanagement.domain.CatalogueTitle;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.teammanagement.domain.Team;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import javax.persistence.TypedQuery;
 import java.util.HashMap;
@@ -74,6 +75,15 @@ class JpaCatalogueRepository
                 "SELECT e FROM Catalogue e JOIN e.m_setAccess t WHERE t.m_oID = :description",
                 Catalogue.class);
         q.setParameter("description", oTeam.identity());
+        return q.getResultList();
+    }
+
+    @Override
+    public Iterable<Catalogue> findByUser(SystemUser oUser) {
+        final TypedQuery<Catalogue> q = entityManager().createQuery(
+                "SELECT e FROM Catalogue e WHERE e.m_oCollaborator = :username",
+                Catalogue.class);
+        q.setParameter("username", oUser.identity());
         return q.getResultList();
     }
 

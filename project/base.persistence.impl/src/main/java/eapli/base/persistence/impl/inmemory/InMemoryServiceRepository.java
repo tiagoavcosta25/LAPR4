@@ -1,5 +1,6 @@
 package eapli.base.persistence.impl.inmemory;
 
+import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
@@ -21,5 +22,10 @@ public class InMemoryServiceRepository
     @Override
     public Optional<Service> findByID(Long number) {
         return Optional.of(data().get(number));
+    }
+
+    @Override
+    public Iterable<Service> findByCatalogue(Catalogue oCatalogue) {
+        return match(e -> e.catalogue().equals(oCatalogue));
     }
 }
