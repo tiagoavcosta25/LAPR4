@@ -75,7 +75,8 @@ public class MainMenu extends AbstractUI {
     private static final int SERVICES_DRAFT_LIST = 2;
     private static final int SERVICES_ADD_FIELD = 3;
     private static final int SERVICES_ADD_FORM = 4;
-    private static final int SERVICES_SAVE = 5;
+    private static final int SERVICES_ADD_TASK = 5;
+    private static final int SERVICES_SAVE = 6;
 
     // CATALOGUE
     private static final int CATALOGUE_SPECIFY = 1;
@@ -220,6 +221,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(SERVICES_DRAFT_LIST, "List Service Drafts", new ListServicesDraftAction());
         menu.addItem(SERVICES_ADD_FIELD, "Add/Update Service Draft (Field)", new ServiceDraftFieldSpecificationAction());
         menu.addItem(SERVICES_ADD_FORM, "Add/Update Service Draft (Form)", new ServiceDraftFormSpecificationAction());
+        menu.addItem(SERVICES_ADD_TASK, "Add/Update Service Draft (Task)", new ServiceDraftTaskSpecificationAction());
         menu.addItem(SERVICES_SAVE, "Save Service", new SaveDraftAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
