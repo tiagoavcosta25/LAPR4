@@ -35,7 +35,7 @@ class JpaServiceRepository
     @Override
     public Iterable<Service> findByCatalogue(Catalogue oCatalogue) {
         final TypedQuery<Service> q = entityManager().createQuery(
-                "SELECT e FROM Service e WHERE e.m_oCatalogue = :catalogueID",
+                "SELECT e FROM Service e WHERE e.m_oCatalogue.m_lngID = :catalogueID",
                 Service.class);
         q.setParameter("catalogueID", oCatalogue.identity());
         return q.getResultList();

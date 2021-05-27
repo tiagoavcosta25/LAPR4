@@ -2,6 +2,7 @@ package eapli.base.servicesolicitationmanagement.application;
 
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
+import eapli.base.formmanagement.domain.DataType;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
@@ -11,6 +12,9 @@ import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,6 +26,8 @@ public class ServiceSolicitationController {
     private final TicketRepository m_oTicketRepo = PersistenceContext.repositories().tickets();
     private final CatalogueRepository m_oCatRepo = PersistenceContext.repositories().catalogues();
     private final ServiceRepository m_oServRepo = PersistenceContext.repositories().services();
+    private final List<TicketResponse> m_lstResponses = new ArrayList<>();
+    private final List<TicketFile> m_lstFiles = new ArrayList<>();
 
     public Iterable<Catalogue> getCataloguesByUser(){
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
@@ -33,13 +39,25 @@ public class ServiceSolicitationController {
         return m_oServRepo.findByCatalogue(oCatalogue);
     }
 
-    public TicketResponse addResponse(String strResponse){
-        return new TicketResponse(strResponse);
+    public List<TicketUrgency> showUrgencies() {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        return Arrays.asList(TicketUrgency.values());
     }
 
-    public Ticket addTicket(Service oService, TicketUrgency oUrgency, TicketLimitDate dtLimitDate,
-                            List<TicketResponse> ltsResponses, List<TicketFile> ltsFiles){
-        return new Ticket(oUrgency, dtLimitDate,ltsResponses, ltsFiles, oService);
+    public TicketResponse addResponse(String strResponse){
+        TicketResponse oResponse = new TicketResponse(strResponse);
+        this.m_lstResponses.add(oResponse);
+        return oResponse;
+    }
+
+    public TicketFile addFile(String strFile){
+        TicketFile oFile = new TicketFile(strFile);
+        this.m_lstFiles.add(oFile);
+        return oFile;
+    }
+
+    public Ticket addTicket(Service oService, String strUrgency, LocalDate dtLimitDate){
+        return new Ticket(TicketUrgency.stringToTicketUrgency(strUrgency), new TicketLimitDate(dtLimitDate), this.m_lstResponses, this.m_lstFiles, oService);
     }
 
     public Ticket saveTicket(Ticket oTicket){
