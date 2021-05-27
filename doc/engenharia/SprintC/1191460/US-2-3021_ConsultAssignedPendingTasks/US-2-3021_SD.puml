@@ -107,10 +107,10 @@ alt if user didnt pretend to filter or order the search
     CTRL -> TR : getTasksOfCollaborator(collaborator, filterBy, orderBy)
 end
 
-TR --> CTRL : pendingTaskSet
+TR --> CTRL : pendingTaskList
 
 deactivate TR
-CTRL --> UI : pendingTaskSet
+CTRL --> UI : pendingTaskList
 deactivate CTRL
 
 UI --> USER : Displays user's pending task list
