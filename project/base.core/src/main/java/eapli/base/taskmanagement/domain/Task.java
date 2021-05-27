@@ -35,7 +35,8 @@ import javax.persistence.*;
  */
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="DISC")
 public abstract class Task implements AggregateRoot<Long> {
 
     @Version
