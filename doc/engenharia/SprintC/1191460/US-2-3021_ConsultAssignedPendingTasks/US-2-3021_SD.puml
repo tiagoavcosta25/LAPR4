@@ -115,6 +115,6 @@ deactivate CTRL
 
 UI --> USER : Displays user's pending task list
 deactivate UI
-deactivate SYST
+deactivate USER
 
 @enduml
