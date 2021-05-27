@@ -14,8 +14,8 @@ participant "<<domain>>\nautoTask:\nAutomaticTask" as AT
 participant "<<domain>>\nTask" as T
 participant "<<domain>>\nServiceDraft" as S
 database "<<repository>>\nTaskRepository" as TR
-participant "<<domain>>\nTaskDescription" as TD
 participant "<<domain>>\nTaskPriority" as TP
+participant "<<domain>>\nTaskDescription" as TD
 participant "<<domain>>\nTaskResult" as TR
 participant "<<domain>>\nTaskStatus" as TD
 participant "<<domain>>\nAutomaticTaskScript" as ATS
@@ -110,21 +110,29 @@ deactivate SRV
 CTRL -> S : setApprovalTask(approvalTask)
 activate S
 deactivate S
-deactivate CTRL
 
-UI -> CTRL : saveApprovalTask()
-activate CTRL
+CTRL -> CTRL : saveManualTask(approvalTask)
 
-CTRL -> CTRL : saveTask(approvalTask)
-
-CTRL -> TR : save(task)
+CTRL -> TR : save(approvalTask)
 activate TR
-TR --> CTRL : task
+TR --> CTRL : approvalTask
 deactivate TR
 
-CTRL --> UI : task
+CTRL --> UI : approvalTask
 deactivate CTRL
 end
+
+UI -> CTRL : showTaskPriorities()
+activate CTRL
+
+CTRL -> TP : values()
+activate TP
+
+TP --> CTRL : taskPriorities
+deactivate TP
+
+CTRL --> UI : taskPriorities
+deactivate CTRL
 
 UI -> HSM : requests the user to insert the resolution task's description
 deactivate UI
@@ -154,7 +162,7 @@ activate T
 deactivate T
 deactivate MT
 
-CTRL -> CTRL : saveTask(manualTask)
+CTRL -> CTRL : saveManualTask(manualTask)
 
 CTRL -> TR : save(manualTask)
 activate TR
@@ -181,7 +189,7 @@ activate T
 deactivate T
 deactivate AT
 
-CTRL -> CTRL : saveTask(autoTask)
+CTRL -> CTRL : saveAutomaticTask(autoTask)
 
 CTRL -> TR : save(autoTask)
 activate TR
@@ -193,7 +201,7 @@ deactivate CTRL
 deactivate CTRL
 end
 
-UI -> CTRL : addTaskToDraft()
+UI -> CTRL : adTPaskToDraft()
 activate CTRL
 
 CTRL -> S : setTask(task)

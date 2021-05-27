@@ -151,31 +151,40 @@ public class ServiceDraftSpecificationController {
 
     public void addApprovalTask(String strDescription) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        this.m_oApprovalTask = this.m_oServiceDraftSpecificationService.addApprovalTask(strDescription);
+        Form oForm = this.m_oServiceDraftSpecificationService.generateApprovalForm();
+        oForm = this.formRepo.save(oForm);
+        this.m_oApprovalTask = this.m_oServiceDraftSpecificationService.addApprovalTask(strDescription, oForm);
         this.m_oServiceDraft.setApprovalTask(this.m_oApprovalTask);
+        this.saveManualTask(this.m_oApprovalTask);
     }
 
-    public void saveApprovalTask() {
-        this.saveTask(this.m_oApprovalTask);
-    }
-
-    public Task saveTask(Task oTask) {
+    public ManualTask saveManualTask(ManualTask oManualTask) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        oTask = this.taskRepo.save(oTask);
-        return oTask;
+        oManualTask = this.taskRepo.save(oManualTask);
+        return oManualTask;
     }
 
-    public Task newManualTask(String strDescription, String strPriority, Form oForm) {
+    public AutomaticTask saveAutomaticTask(AutomaticTask oAutomaticTask) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        this.m_oResolutionTask = new ManualTask(new TaskDescription(strDescription), TaskPriority.stringToTaskPriority(strPriority), oForm);
-        return this.m_oResolutionTask;
+        oAutomaticTask = this.taskRepo.save(oAutomaticTask);
+        return oAutomaticTask;
     }
 
-    public Task newAutoTask(String strDescription, String strPriority, String strScriptPath) {
+    public ManualTask newManualTask(String strDescription, String strPriority, Form oForm) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        this.m_oResolutionTask = new AutomaticTask(new TaskDescription(strDescription), TaskPriority.stringToTaskPriority(strPriority),
+        ManualTask oManualTask = new ManualTask(new TaskDescription(strDescription), TaskPriority.stringToTaskPriority(strPriority), oForm);
+        oManualTask = this.saveManualTask(oManualTask);
+        this.m_oResolutionTask = oManualTask;
+        return oManualTask;
+    }
+
+    public AutomaticTask newAutoTask(String strDescription, String strPriority, String strScriptPath) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        AutomaticTask oAutomaticTask = new AutomaticTask(new TaskDescription(strDescription), TaskPriority.stringToTaskPriority(strPriority),
                 new AutomaticTaskScript(strScriptPath));
-        return this.m_oResolutionTask;
+        oAutomaticTask = this.saveAutomaticTask(oAutomaticTask);
+        this.m_oResolutionTask = oAutomaticTask;
+        return oAutomaticTask;
     }
 
     public ServiceDraft addTaskToDraft() {

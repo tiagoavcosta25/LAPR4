@@ -29,6 +29,8 @@ import eapli.base.formmanagement.domain.Form;
 import eapli.base.formmanagement.domain.FormType;
 import eapli.base.servicemanagement.application.ServiceDraftSpecificationController;
 import eapli.base.servicemanagement.domain.ServiceDraft;
+import eapli.base.taskmanagement.domain.ManualTask;
+import eapli.base.taskmanagement.domain.Task;
 import eapli.base.taskmanagement.domain.TaskPriority;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
@@ -64,7 +66,6 @@ public class ServiceDraftTaskSpecificationUI extends AbstractUI {
             if(strOp.compareToIgnoreCase("Y") == 0){
                 String strApprovalDescription = Console.readLine("Task Description? >");
                 this.theController.addApprovalTask(strApprovalDescription);
-                this.theController.saveApprovalTask();
             }
 
             List<String> lstTaskTypes = new ArrayList<>(Arrays.asList("Manual Task", "Automatic Task"));
@@ -102,8 +103,7 @@ public class ServiceDraftTaskSpecificationUI extends AbstractUI {
     }
     private void insertForm(ServiceDraft oServiceDraft) {
         final String strFormName = Console.readLine("Form Name >");
-        FormType oFormType = PrintList.chooseOne(this.theController.showFormTypes(), "Choose a Form Type for this Form", "Form Type");
-        this.theController.addForm(oServiceDraft, strFormName.trim(), oFormType.toString());
+        this.theController.addForm(oServiceDraft, strFormName.trim(), FormType.MANUALTASK.toString());
         boolean blFlag;
         do {
             blFlag = insertAttribute();

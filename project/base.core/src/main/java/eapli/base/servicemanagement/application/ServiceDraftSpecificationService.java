@@ -51,8 +51,8 @@ public class ServiceDraftSpecificationService {
     private final String APPROVAL_SCRIPT = "D:/folder3/script3.bat";
     private final String APPROVAL_DATA = "STRING";
 
-    public ManualTask addApprovalTask(String strDescription) {
-        return new ManualTask(new TaskDescription(strDescription), TaskPriority.HIGH, generateApprovalForm());
+    public ManualTask addApprovalTask(String strDescription, Form oForm) {
+        return new ManualTask(new TaskDescription(strDescription), TaskPriority.HIGH, oForm);
     }
 
     public Form generateApprovalForm() {

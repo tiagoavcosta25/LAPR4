@@ -33,7 +33,6 @@ import javax.persistence.*;
  */
 
 @Entity
-@DiscriminatorValue("AUTO")
 public class AutomaticTask extends Task{
 
     @Embedded
