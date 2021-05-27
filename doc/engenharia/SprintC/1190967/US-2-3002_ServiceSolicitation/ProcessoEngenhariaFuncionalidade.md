@@ -16,7 +16,7 @@ um novo serviço, devendo o sistema permitir que a mesma fique incompleta e seja
 A interpretação feita deste requisito foi no sentido do gestor de serviços adicionar um formulário a um draft de serviço, 
 para que este eventualmente seja guardado como um serviço (implementado em [US-1-2002] Service Specification - Save Draft).
 
-![US-1-2002_SSD](US-1-2002_SSD.svg)
+![US-1-2002_SSD](US-2-3002_SSD.svg)
 
 ### Formato Completo
 
@@ -56,7 +56,7 @@ para que este eventualmente seja guardado como um serviço (implementado em [US-
 
 ### Parte do Modelo de Domínio Relevante para esta User Story
 
-![US-1-2002_MD](US-1-2002_MD.svg)
+![US-1-2002_MD](US-2-3002_MD.svg)
 
 # 3. Design
 
@@ -70,7 +70,7 @@ para que este eventualmente seja guardado como um serviço (implementado em [US-
 
 ###	Class Diagram
 
-![US-1-2002_CD.svg](US-1-2002_CD.svg)
+![US-1-2002_CD.svg](US-2-3002_CD.svg)
 
 ## 3.3. Padrões Aplicados
 

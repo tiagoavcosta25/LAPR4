@@ -2,31 +2,28 @@
 skinparam classAttributeIconSize 0
 
 package "Presentation" #DDDDDD {
-class ServiceDraftFormSpecificationUI<<presentation>>{
+class ServiceSolicitationUI<<presentation>>{
 
 }
 }
 
 
 package "Application" #DDDDDD {
-class ServiceDraftSpecificationController<<application>>{
+class ServiceSolicitationController<<application>>{
 +create()
-+getDrafts()
-+newDraft()
-+addForm(name, formType)
-+addAttribute(name, label, description, regex, scriptPath, dataType)
-+saveForm()
-+addFormToDraft()
-+saveServiceDraft()
++getCataloguesByUser()
++getServicesByCatalogue(oCatalogue)
++addResponse(response)
++addTicket(service, urgency, \nlimitDate, lstFiles)
++saveTicket(ticket)
 }
 
 }
 
 
 package "Domain" #DDDDDD {
-class ServiceDraft<<Entity>><<Root>>{
+class Service<<Entity>><<Root>>{
 +create()
-+setFormList(formList)
 }
 
 class Form<<Entity>><<Root>>{
@@ -37,71 +34,33 @@ class Attribute<<Entity>>{
 +create(name, label, description, regex, scriptPath, dataType
 }
 
-class FormName<<Value Object>>{
-+createFormName(formName)
--validate(formName)
-}
-
-class FormType<<Value Object>>{
-+createFormType(formType)
-+values()
--validate(formType)
-}
-
-class AttributeName<<Value Object>>{
-+createAttributeName(attributeName)
--validate(attributeName)
-}
-
-class AttributeLabel<<Value Object>>{
-+createAtributoLabel(attributeLabel)
--validate(attributeLabel)
-}
-
-class AttributeDescription<<Value Object>>{
-+createAttributeDescription(attributeDescription)
--validate(attributeDescription)
-}
-
-class AttributeRegex<<Value Object>>{
-+createAttributeRegex(attributeRegex)
--validate(attributeRegex)
-}
-
-class AttributeScript<<Value Object>>{
-+createAttributeScript(attributeScript)
--validate(attributeScript)
-}
-
-class DataType<<Value Object>>{
-+createDataType(dataType)
-+values()
--validate(dataType)
-}
-
-package Builder #DDDDDD {
-
-class FormBuilder<<builder>>{
+class Catalogue<<Entity>><<Root>>{
 +create()
-+withName(name)
-+withFormType(formType)
-+withAttributeList(attributeList)
-+build()
 }
 
-class AttributeBuilder<<builder>>{
-+create()
-+withName(name)
-+withLabel(label)
-+withDescription(description)
-+withRegex(regex)
-+withScript(scriptPath
-+withDataType(dataType)
-+build()
+class Ticket<<Entity>><<Root>>{
++create(service, urgency, limitDate, lstFiles, lstResponses)
 }
 
+class TicketUrgency<<Value Object>>{
++createFormName(ticketUrgency)
+-validate(ticketUrgency)
 }
 
+class TicketLimitDate<<Value Object>>{
++createFormName(ticketLimitDate)
+-validate(ticketLimitDate)
+}
+
+class TicketFile<<Value Object>>{
++createFormName(ticketFile)
+-validate(ticketFile)
+}
+
+class TicketResponse<<Value Object>>{
++createFormName(ticketResponse)
+-validate(ticketResponse)
+}
 }
 
 package Persistence #DDDDDD {
@@ -125,22 +84,30 @@ class RepositoryFactory<<persistence>>{
 
 package "Repository" #DDDDDD {
 
-class ServiceDraftRepository<<repository>>{
+class ServiceRepository<<repository>>{
 +create()
-+findAll()
-+save(serviceDraft)
++findByCatalogue(oCatalogue)
 }
 
-class FormRepository<<repository>>{
+class TicketRepository<<repository>>{
 +create()
-+save(form)
++save(ticket)
 }
 
-interface ServiceDraftRepositoryInterface{
+class CatalogueRepository<<repository>>{
++create()
++findByUser(user)
+}
+
+interface CatalogueRepositoryInterface{
 
 }
 
-interface FormRepositoryInterface{
+interface TicketRepositoryInterface{
+
+}
+
+interface ServiceRepositoryInterface{
 
 }
 
@@ -148,37 +115,32 @@ interface FormRepositoryInterface{
 
 
 
-ServiceDraftFormSpecificationUI ..> ServiceDraftSpecificationController
-ServiceDraftSpecificationController ..> FormBuilder
-ServiceDraftSpecificationController ..> AttributeBuilder
-ServiceDraftSpecificationController ..> PersistenceContext
+ServiceSolicitationUI ..> ServiceSolicitationController
+ServiceSolicitationController ..> PersistenceContext
 
-ServiceDraftRepository ..> ServiceDraftRepositoryInterface
-FormRepository ..> FormRepositoryInterface
+ServiceRepository ..> ServiceRepositoryInterface
+TicketRepository ..> TicketRepositoryInterface
+CatalogueRepository ..> CatalogueRepositoryInterface
 
 AppSettings -> RepositoryFactory : creates
 PersistenceContext -> AppSettings : implements
 
-RepositoryFactory "1" -> "1" ServiceDraftRepository : has
-RepositoryFactory "1" -> "1" FormRepository : has
+RepositoryFactory "1" -> "1" ServiceRepository : has
+RepositoryFactory "1" -> "1" TicketRepository : has
+RepositoryFactory "1" -> "1" CatalogueRepository : has
 
-ServiceDraftRepository "1" -> "*" ServiceDraft : saves
-FormRepository "1" -> "*" Form : saves
-FormBuilder "1" -> "*" Form : builds
-AttributeBuilder "1" -> "*" Attribute : builds
+ServiceRepository "1" -> "*" Service : saves
+TicketRepository "1" -> "*" Ticket : saves
+CatalogueRepository "1" -> "*" Catalogue : saves
 
-ServiceDraft "1" -> "*" Form : has
-
-Form "1" -> "1" FormName : has
-Form "1" -> "1" FormType : has
+Catalogue "1" -> "*" Service : has
+Service "1" -> "*" Form : has
 Form "1" -> "1..*" Attribute : has
 
-Attribute "1" -> "1" AttributeName : has
-Attribute "1" -> "1" AttributeLabel : has
-Attribute "1" -> "1" AttributeDescription : has
-Attribute "1" -> "1" AttributeRegex : has
-Attribute "1" -> "1" AttributeScript : has
-Attribute "1" -> "1" DataType : has
-
+Ticket "1" -> "1..*" Service : has
+Ticket "1" -> "1..*" TicketUrgency : has
+Ticket "1" -> "1..*" TicketLimitDate : has
+Ticket "1" -> "1..*" TicketFile : has
+Ticket "1" -> "1..*" TicketResponse : has
 
 @enduml
