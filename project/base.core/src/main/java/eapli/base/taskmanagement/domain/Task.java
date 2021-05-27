@@ -58,9 +58,9 @@ public abstract class Task implements AggregateRoot<Long> {
     @Enumerated(EnumType.STRING)
     private TaskResult m_oTaskResult;
 
-    /*@OneToOne
-    @JoinColumn(name="TaskResponsible")
-    private Collaborator m_oCollaborator;*/
+    @OneToOne
+    @JoinColumn(name="m_oMechanographicNumber")
+    private Collaborator m_oCollaborator;
 
     public Task(final TaskDescription oDescription, final TaskPriority oTaskPriority) {
         if (oDescription == null || oTaskPriority == null) {
@@ -92,13 +92,13 @@ public abstract class Task implements AggregateRoot<Long> {
         return this.m_oTaskResult;
     }
 
-    /*public Collaborator collaborator() {
+    public Collaborator collaborator() {
         return this.m_oCollaborator;
     }
 
     public void assignCollaborator(Collaborator oCollaborator) {
         this.m_oCollaborator = oCollaborator;
-    }*/
+    }
 
     @Override
     public boolean equals(final Object o) {
