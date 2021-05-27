@@ -32,5 +32,6 @@ public interface TaskRepository
 
     public Iterable<ManualTask> getTasksOfCollaborator(final Collaborator oCollaborator, TaskOrderFields enumOrderBy);
 
-
+    public Iterable<ManualTask> getTasksOfCollaborator(final Collaborator oCollaborator, TaskFilterFields enumFilterBy,
+                                                       TaskOrderFields enumOrderBy);
 }

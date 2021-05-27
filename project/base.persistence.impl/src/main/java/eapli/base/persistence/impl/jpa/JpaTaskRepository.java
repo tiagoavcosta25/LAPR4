@@ -54,4 +54,11 @@ class JpaTaskRepository
     public Iterable<ManualTask> getTasksOfCollaborator(Collaborator oCollaborator, TaskOrderFields enumOrderBy) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    //TODO: Finish method getTasksOfCollaborator (filter and order)
+    @Override
+    public Iterable<ManualTask> getTasksOfCollaborator(Collaborator oCollaborator, TaskFilterFields enumFilterBy, TaskOrderFields enumOrderBy) {
+        throw new UnsupportedOperationException("Not supported yet.");
+
+    }
 }
