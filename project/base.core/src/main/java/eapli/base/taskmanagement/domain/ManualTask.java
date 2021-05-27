@@ -35,7 +35,6 @@ import javax.persistence.*;
  */
 
 @Entity
-@DiscriminatorValue("MAN")
 public class ManualTask extends Task{
 
     @OneToOne()
