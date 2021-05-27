@@ -12,6 +12,7 @@ import java.util.Optional;
 /**
  *
  * @author Pedro Santos 1190967@isep.ipp.pt
+ * @author Tiago Costa 1191460@isep.ipp.pt
  */
 public interface TaskRepository
         extends DomainRepository<Long, Task> {
