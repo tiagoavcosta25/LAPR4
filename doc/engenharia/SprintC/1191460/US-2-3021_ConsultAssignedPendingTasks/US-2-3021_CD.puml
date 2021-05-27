@@ -58,7 +58,10 @@ package "Domain" #DDDDDD {
         + create(name, formType, attributeList)
     }
 
-    enum TaskFOFields<<enum>> {
+    enum TaskFilterFields<<enum>> {
+    }
+
+    enum TaskOrderFields<<enum>> {
     }
 }
 
