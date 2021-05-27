@@ -48,7 +48,7 @@ public class ServiceDraftSpecificationService {
     private final String APPROVAL_LABEL = "Approval";
     private final String APPROVAL_DESC = "Did this service get approved or rejected";
     private final String APPROVAL_REGEX = "Approval|Rejected";
-    private final String APPROVAL_SCRIPT = "";
+    private final String APPROVAL_SCRIPT = "D:/folder3/script3.bat";
     private final String APPROVAL_DATA = "STRING";
 
     public ManualTask addApprovalTask(String strDescription) {
