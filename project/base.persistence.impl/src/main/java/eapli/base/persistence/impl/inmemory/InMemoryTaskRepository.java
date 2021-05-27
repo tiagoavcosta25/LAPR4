@@ -1,5 +1,7 @@
 package eapli.base.persistence.impl.inmemory;
 
+import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.domain.Task;
 import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
@@ -21,5 +23,11 @@ public class InMemoryTaskRepository
     @Override
     public Optional<Task> findById(Long number) {
         return Optional.of(data().get(number));
+    }
+
+    //TODO: Finish method
+    @Override
+    public Iterable<ManualTask> getTasksOfCollaborator(Collaborator oCollaborator) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

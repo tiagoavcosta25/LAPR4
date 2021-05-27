@@ -1,5 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
+import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.domain.Task;
 import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.base.util.Application;
@@ -32,5 +34,11 @@ class JpaTaskRepository
         final Map<String, Object> params = new HashMap<>();
         params.put("taskID", lngID);
         return matchOne("e.id=:taskID", params);
+    }
+
+    //TODO: Finish method
+    @Override
+    public Iterable<ManualTask> getTasksOfCollaborator(Collaborator oCollaborator) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

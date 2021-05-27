@@ -1,6 +1,7 @@
 package eapli.base.taskmanagement.repositories;
 
-import eapli.base.formmanagement.domain.Form;
+import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.domain.Task;
 import eapli.framework.domain.repositories.DomainRepository;
 
@@ -22,4 +23,7 @@ public interface TaskRepository
     default Optional<Task> findByID(Long lngID) {
         return ofIdentity(lngID);
     }
+
+    public Iterable<ManualTask> getTasksOfCollaborator(final Collaborator oCollaborator);
+
 }
