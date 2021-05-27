@@ -79,6 +79,10 @@ deactivate UI
 
 US -> UI : attaches a file
 activate UI
+
+UI -> CTRL : addFile(file)
+activate CTRL
+deactivate CTRL
 end
 
 loop until there are no more forms to answer
@@ -95,10 +99,10 @@ deactivate CTRL
 end
 end
 
-UI -> CTRL : addTicket(service, urgency, \nlimitDate, lstFiles)
+UI -> CTRL : addTicket(service, urgency, limitDate)
 activate CTRL
 
-CTRL -> T** : create(service, urgency, limitDate, lstFiles, lstResponses)
+CTRL -> T** : create(urgency, limitDate, lstResponses, lstFiles, service)
 
 CTRL --> UI : ticket
 deactivate CTRL
