@@ -7,12 +7,18 @@ actor "Help Desk Services Manager" as HSM
 participant "<<presentation>>\nServiceDraftTaskSpecificationUI" as UI
 participant "<<application>>\nServiceDraftSpecificationController" as CTRL
 database "<<repository>>\nServiceDraftRepository" as SR
+participant "<<application>>\nServiceDraftSpecificationService" as SRV
 participant "<<domain>>\napprovalTask:\nManualTask" as AMT
 participant "<<domain>>\nmanualTask:\nManualTask" as MT
 participant "<<domain>>\nautoTask:\nAutomaticTask" as AT
 participant "<<domain>>\nTask" as T
 participant "<<domain>>\nServiceDraft" as S
 database "<<repository>>\nTaskRepository" as TR
+participant "<<domain>>\nTaskDescription" as TD
+participant "<<domain>>\nTaskPriority" as TP
+participant "<<domain>>\nTaskResult" as TR
+participant "<<domain>>\nTaskStatus" as TD
+participant "<<domain>>\nAutomaticTaskScript" as ATS
 participant "<<builder>>\nFormBuilder" as FBD
 participant "<<domain>>\nDataType" as DT
 participant "<<builder>>\nAttributeBuilder" as ABD
@@ -37,6 +43,8 @@ activate UI
 
 UI -> CTRL** : create
 activate CTRL
+
+CTRL -> SRV** : create
 
 ref over CTRL
   US-1-2002_SD_Repo
@@ -87,14 +95,17 @@ activate UI
 UI -> CTRL : addApprovalTask(description)
 activate CTRL
 
-CTRL --> AMT** : create(description)
-activate AMT
-AMT --> T** : create(description)
-deactivate AMT
-deactivate CTRL
+CTRL -> SRV : addApprovalTask(description)
+activate SRV
 
-UI -> CTRL : addApprovalTaskToDraft()
-activate CTRL
+SRV -> SRV : generateApprovalForm()
+SRV -> SRV : addAttribute()
+
+SRV --> AMT** : create(description, priority, form)
+activate AMT
+AMT --> T** : create(description, priority)
+deactivate AMT
+deactivate SRV
 
 CTRL -> S : setApprovalTask(approvalTask)
 activate S
@@ -118,7 +129,7 @@ end
 UI -> HSM : requests the user to insert the resolution task's description
 deactivate UI
 
-HSM -> UI : inserts the resolution task's description
+HSM -> UI : inserts the resolution task's description and priority
 activate UI
 
 UI -> HSM : requests the user to insert the resolution task's type
@@ -133,12 +144,12 @@ ref over UI
     US-1-2002_SD_CreateForm
 end ref
 
-UI -> CTRL : newManualTask(description, form)
+UI -> CTRL : newManualTask(description, priority, form)
 activate CTRL
 
-CTRL -> MT** : create(description, form)
+CTRL -> MT** : create(description, priority, form)
 activate MT
-MT --> T : create(description)
+MT --> T : create(description, priority)
 activate T
 deactivate T
 deactivate MT
@@ -160,12 +171,12 @@ deactivate UI
 HSM -> UI : inserts the task's script's path
 activate UI
 
-UI -> CTRL : newAutoTask(description, scriptPath)
+UI -> CTRL : newAutoTask(description, priority, scriptPath)
 activate CTRL
 
-CTRL -> AT** : create(description, scriptPath)
+CTRL -> AT** : create(description, priority, scriptPath)
 activate AT
-AT --> T : create(description)
+AT --> T : create(description, priority)
 activate T
 deactivate T
 deactivate AT
