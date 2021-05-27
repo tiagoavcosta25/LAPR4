@@ -24,16 +24,23 @@
 package eapli.base.app.backoffice.console.presentation.service;
 
 import eapli.base.app.backoffice.console.presentation.utils.PrintList;
-import eapli.base.formmanagement.domain.*;
+import eapli.base.formmanagement.domain.DataType;
+import eapli.base.formmanagement.domain.Form;
+import eapli.base.formmanagement.domain.FormType;
 import eapli.base.servicemanagement.application.ServiceDraftSpecificationController;
-import eapli.base.servicemanagement.domain.*;
+import eapli.base.servicemanagement.domain.ServiceDraft;
+import eapli.base.taskmanagement.domain.TaskPriority;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
-public class ServiceDraftFormSpecificationUI extends AbstractUI {
+public class ServiceDraftTaskSpecificationUI extends AbstractUI {
 
     private final ServiceDraftSpecificationController theController = new ServiceDraftSpecificationController();
 
@@ -52,13 +59,31 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
 
             if(oServiceDraft == null){this.theController.newDraft();}
 
-            boolean blFlag;
-            do {
-                blFlag = insertForm(oServiceDraft);
-                this.theController.saveForm();
-            } while (!blFlag);
+            strOp = Console.readLine("Do you want this service to have approval? (Y/N) >");
 
-            this.theController.addFormsToDraft();
+            if(strOp.compareToIgnoreCase("Y") == 0){
+                String strApprovalDescription = Console.readLine("Task Description? >");
+                this.theController.addApprovalTask(strApprovalDescription);
+                this.theController.saveApprovalTask();
+            }
+
+            List<String> lstTaskTypes = new ArrayList<>(Arrays.asList("Manual Task", "Automatic Task"));
+            strOp = PrintList.chooseOne(lstTaskTypes, "Choose the Service Draft to Save", "Service Draft");
+
+            String strDescription = Console.readLine("Task Description? >");
+
+            TaskPriority oTaskPriority = PrintList.chooseOne(this.theController.showTaskPriorities(), "Choose a Priority for this Task", "Task Priority");
+
+            if(strOp.compareToIgnoreCase("Manual Task") == 0){
+                insertForm(oServiceDraft);
+                Form oForm = this.theController.saveForm();
+                this.theController.newManualTask(strDescription, oTaskPriority.toString(), oForm);
+            } else{
+                String strScript = Console.readLine("Automatic Task Script? >");
+                this.theController.newAutoTask(strDescription, oTaskPriority.toString(), strScript);
+            }
+
+            this.theController.addTaskToDraft();
 
             strOp = Console.readLine("Confirm the changes made on the Draft (Y/N) >");
 
@@ -70,12 +95,12 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
             }
 
         } catch (Exception e){
-            System.out.println("\nError in creating forms for a service draft.\n");
+            System.out.println("\nError in adding tasks to a service draft.\n");
         }
 
         return false;
     }
-    private boolean insertForm(ServiceDraft oServiceDraft) {
+    private void insertForm(ServiceDraft oServiceDraft) {
         final String strFormName = Console.readLine("Form Name >");
         FormType oFormType = PrintList.chooseOne(this.theController.showFormTypes(), "Choose a Form Type for this Form", "Form Type");
         this.theController.addForm(oServiceDraft, strFormName.trim(), oFormType.toString());
@@ -83,8 +108,6 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
         do {
             blFlag = insertAttribute();
         } while (!blFlag);
-        String strOp = Console.readLine("Do you want to add another form to this service? (Y/N) >");
-        return strOp.compareToIgnoreCase("N") == 0;
     }
 
     private boolean insertAttribute() {
@@ -103,9 +126,8 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
         return strOp.compareToIgnoreCase("N") == 0;
     }
 
-
     @Override
     public String headline() {
-        return "Service Draft Form Specification";
+        return "Service Draft Task Specification";
     }
 }
