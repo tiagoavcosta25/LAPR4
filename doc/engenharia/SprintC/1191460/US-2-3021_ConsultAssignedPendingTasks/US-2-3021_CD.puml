@@ -89,6 +89,10 @@ package "Repository" #DDDDDD {
     class TaskRepository<<repository>>{
         +create()
         +findAll()
+        +getTasksOfCollaborator(collaborator)
+        +getTasksOfCollaborator(collaborator, filterBy)
+        +getTasksOfCollaborator(collaborator, orderBy)
+        +getTasksOfCollaborator(collaborator, filterBy, orderBy)
         +save(Task)
     }
 
