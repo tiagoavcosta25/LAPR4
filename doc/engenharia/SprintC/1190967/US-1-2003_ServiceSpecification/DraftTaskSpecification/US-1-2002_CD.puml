@@ -2,7 +2,7 @@
 skinparam classAttributeIconSize 0
 
 package "Presentation" #DDDDDD {
-class ServiceDraftFormSpecificationUI<<presentation>>{
+class ServiceDraftTaskSpecificationUI<<presentation>>{
 
 }
 }
@@ -13,11 +13,19 @@ class ServiceDraftSpecificationController<<application>>{
 +create()
 +getDrafts()
 +newDraft()
-+addForm(name, formType)
-+addAttribute(name, label, description, regex, scriptPath, dataType)
-+saveForm()
-+addFormToDraft()
++addApprovalTask(description)
++saveApprovalTask()
++newManualTask(description, form)
++newAutoTask(description, scriptPath)
++addTaskToDraft()
 +saveServiceDraft()
+}
+
+class ServiceDraftSpecificationService<<application>>{
++create()
++addApprovalTask(description)
++generateApprovalForm()
++addAttribute()
 }
 
 }
@@ -26,15 +34,57 @@ class ServiceDraftSpecificationController<<application>>{
 package "Domain" #DDDDDD {
 class ServiceDraft<<Entity>><<Root>>{
 +create()
-+setFormList(formList)
++setApprovalTask(approvalTask)
+}
+
+class Task<<Entity>><<Root>>{
++create(description, priority)
+}
+
+class ManualTask<<Entity>>{
++create(description, priority, form)
+}
+
+class AutomaticTask<<Entity>>{
++create(description, priority, scriptPath)
 }
 
 class Form<<Entity>><<Root>>{
 +create(name, formType, attributeList)
 }
 
-class Attribute<<Entity>>{
+class Attribute<<Value Object>>{
 +create(name, label, description, regex, scriptPath, dataType
+}
+
+class TaskDescription<<Value Object>>{
++createFormType(taskDescription)
++values()
+-validate(taskDescription)
+}
+
+class TaskResult<<Value Object>>{
++createFormType(taskResult)
++values()
+-validate(taskResult)
+}
+
+class TaskStatus<<Value Object>>{
++createFormType(taskStatus)
++values()
+-validate(taskStatus)
+}
+
+class TaskPriority<<Value Object>>{
++createFormType(taskPriority)
++values()
+-validate(taskPriority)
+}
+
+class AutomaticTaskScript<<Value Object>>{
++createFormType(automaticTaskScript)
++values()
+-validate(automaticTaskScript)
 }
 
 class FormName<<Value Object>>{
@@ -120,6 +170,7 @@ class RepositoryFactory<<persistence>>{
 +servicos()
 +catalogos()
 +formularios()
++tasks()
 }
 }
 
@@ -136,6 +187,15 @@ class FormRepository<<repository>>{
 +save(form)
 }
 
+class TaskRepository<<repository>>{
++create()
++save(task)
+}
+
+interface TaskRepositoryInterface{
+
+}
+
 interface ServiceDraftRepositoryInterface{
 
 }
@@ -148,10 +208,11 @@ interface FormRepositoryInterface{
 
 
 
-ServiceDraftFormSpecificationUI ..> ServiceDraftSpecificationController
+ServiceDraftTaskSpecificationUI ..> ServiceDraftSpecificationController
 ServiceDraftSpecificationController ..> FormBuilder
 ServiceDraftSpecificationController ..> AttributeBuilder
 ServiceDraftSpecificationController ..> PersistenceContext
+ServiceDraftSpecificationController ..> ServiceDraftSpecificationService
 
 ServiceDraftRepository ..> ServiceDraftRepositoryInterface
 FormRepository ..> FormRepositoryInterface
@@ -164,6 +225,7 @@ RepositoryFactory "1" -> "1" FormRepository : has
 
 ServiceDraftRepository "1" -> "*" ServiceDraft : saves
 FormRepository "1" -> "*" Form : saves
+TaskRepository "1" -> "*" Task : saves
 FormBuilder "1" -> "*" Form : builds
 AttributeBuilder "1" -> "*" Attribute : builds
 
@@ -180,5 +242,15 @@ Attribute "1" -> "1" AttributeRegex : has
 Attribute "1" -> "1" AttributeScript : has
 Attribute "1" -> "1" DataType : has
 
+
+ManualTask -|> Task : is a
+AutomaticTask -|> Task : is a
+
+Task "1" -> "1" TaskDescription : has
+Task "1" -> "1" TaskPriority : has
+Task "1" -> "1" TaskResult : has
+Task "1" -> "1" TaskStatus : has
+ManualTask "1" -> "1" Form : has
+AutomaticTask "1" -> "1" AutomaticTaskScript : has
 
 @enduml
