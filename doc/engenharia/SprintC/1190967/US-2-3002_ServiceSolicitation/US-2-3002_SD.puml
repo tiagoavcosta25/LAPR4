@@ -2,37 +2,29 @@
 autonumber
 hide footbox
 
-actor "Help Desk Services Manager" as HSM
+actor "User" as US
 
-participant "<<presentation>>\nServiceDraftTaskSpecificationUI" as UI
-participant "<<application>>\nServiceDraftSpecificationController" as CTRL
-database "<<repository>>\nServiceDraftRepository" as SR
-participant "<<domain>>\napprovalTask:\nManualTask" as AMT
-participant "<<domain>>\nmanualTask:\nManualTask" as MT
-participant "<<domain>>\nautoTask:\nAutomaticTask" as AT
-participant "<<domain>>\nTask" as T
-participant "<<domain>>\nServiceDraft" as S
-database "<<repository>>\nTaskRepository" as TR
-participant "<<builder>>\nFormBuilder" as FBD
-participant "<<domain>>\nDataType" as DT
-participant "<<builder>>\nAttributeBuilder" as ABD
-participant "<<domain>>\nAttribute" as A
-participant "<<domain>>\nForm" as F
-database "<<repository>>\nFormRepository" as FR
+participant "<<presentation>>\nServiceSolicitationUI" as UI
+participant "<<application>>\nServiceSolicitationController" as CTRL
+database "<<repository>>\nCatalogueRepository" as CR
+database "<<repository>>\nServiceRepository" as SR
+participant "<<domain>>\nTicket" as T
+database "<<repository>>\nTicketRepository" as TR
 participant "<<persistence>>\nPersistenceContext" as PC
 participant "<<persistence>>\nAppSettings" as AS
 participant "<<factory>>\nRepositoryFactory" as RF
-participant "<<domain>>\nFormName" as FM
-participant "<<domain>>\nFormType" as FT
-participant "<<domain>>\nAttributeName" as AN
-participant "<<domain>>\nAttributeLabel" as AL
-participant "<<domain>>\nAttributeDescription" as AD
-participant "<<domain>>\nAttributeRegex" as AR
-participant "<<domain>>\nAttributeScript" as ASC
+participant "<<domain>>\nCatalogue" as C
+participant "<<domain>>\nService" as S
+participant "<<domain>>\nTicketUrgency" as TU
+participant "<<domain>>\nTicketLimitDate" as TD
+participant "<<domain>>\nTicketFile" as TF
+participant "<<domain>>\nTicketResponse" as TRS
+participant "<<domain>>\nAttribute" as A
+participant "<<domain>>\nForm" as F
 
-activate HSM
+activate US
 
-HSM -> UI : initiates the request to add/update tasks in a service draft
+US -> UI : initiates a service solicitation request (ticket)
 activate UI
 
 UI -> CTRL** : create
@@ -42,177 +34,98 @@ ref over CTRL
   US-1-2002_SD_Repo
 end ref
 
-UI -> HSM : asks if the user pretends to use an existing draft
+UI -> CTRL : getCataloguesByUser()
+
+CTRL -> CR : findByUser(user)
+activate CR
+CR --> CTRL : catalogues
+deactivate CR
+
+CTRL --> UI : catalogues
 deactivate CTRL
+
+UI -> US : shows the catalogues available to the user
 deactivate UI
 
-HSM -> UI : responds
+US -> UI : chooses a catalogue
 activate UI
 
-alt if the user pretends to use an existing draft
-
-UI -> CTRL : getDrafts()
+UI -> CTRL : getServicesByCatalogue(oCatalogue)
 activate CTRL
 
-CTRL -> SR : findAll()
+CTRL -> SR : findByCatalogue(oCatalogue)
 activate SR
-SR --> CTRL : drafts
+SR --> CTRL : services
 deactivate SR
 
-CTRL --> UI : drafts
+CTRL --> UI : services
 deactivate CTRL
 
-UI -> HSM : presents the draft list and asks the user to choose a draft
+UI -> US : shows the services in that catalogue
 deactivate UI
 
-HSM -> UI : chooses a draft
+US -> UI : chooses a service
 activate UI
 
-else if the user pretends to use create a new draft
+UI -> US : requests the user to submit the required information (urgency, limitDate)
+deactivate UI
 
-UI -> CTRL : newDraft()
-activate CTRL
+US -> UI : inserts the information
+activate UI
 
-CTRL --> S** : create
-deactivate CTRL
+loop until the user doesnt have more files to attach
+UI -> US : asks the user to attach a file
+deactivate UI
+
+US -> UI : attaches a file
+activate UI
 end
 
-alt if the user wants to add an approval task to the draft
-UI -> HSM : requests the user to insert the approval task's description
+loop until there are no more forms to answer
+loop until there are no more attributes in the form
+UI -> US : requests the input for a form's attribute
 deactivate UI
 
-HSM -> UI : inserts the task's description
+US -> UI : answers
 activate UI
 
-UI -> CTRL : addApprovalTask(description)
+UI -> CTRL : addResponse(response)
 activate CTRL
-
-CTRL --> AMT** : create(description)
-activate AMT
-AMT --> T** : create(description)
-deactivate AMT
-deactivate CTRL
-
-UI -> CTRL : addApprovalTaskToDraft()
-activate CTRL
-
-CTRL -> S : setApprovalTask(approvalTask)
-activate S
-deactivate S
-deactivate CTRL
-
-UI -> CTRL : saveApprovalTask()
-activate CTRL
-
-CTRL -> CTRL : saveTask(approvalTask)
-
-CTRL -> TR : save(task)
-activate TR
-TR --> CTRL : task
-deactivate TR
-
-CTRL --> UI : task
 deactivate CTRL
 end
-
-UI -> HSM : requests the user to insert the resolution task's description
-deactivate UI
-
-HSM -> UI : inserts the resolution task's description
-activate UI
-
-UI -> HSM : requests the user to insert the resolution task's type
-deactivate UI
-
-HSM -> UI : inserts the resolution task's type
-activate UI
-
-alt if the user pretends to add a manual task
-
-ref over UI
-    US-1-2002_SD_CreateForm
-end ref
-
-UI -> CTRL : newManualTask(description, form)
-activate CTRL
-
-CTRL -> MT** : create(description, form)
-activate MT
-MT --> T : create(description)
-activate T
-deactivate T
-deactivate MT
-
-CTRL -> CTRL : saveTask(manualTask)
-
-CTRL -> TR : save(manualTask)
-activate TR
-TR --> CTRL : manualTask
-deactivate TR
-
-CTRL --> UI : manualTask
-deactivate CTRL
-
-else if the user pretends to add an automatic task
-UI -> HSM : requests the user to insert the task's script's path
-deactivate UI
-
-HSM -> UI : inserts the task's script's path
-activate UI
-
-UI -> CTRL : newAutoTask(description, scriptPath)
-activate CTRL
-
-CTRL -> AT** : create(description, scriptPath)
-activate AT
-AT --> T : create(description)
-activate T
-deactivate T
-deactivate AT
-
-CTRL -> CTRL : saveTask(autoTask)
-
-CTRL -> TR : save(autoTask)
-activate TR
-TR --> CTRL : autoTask
-deactivate TR
-
-CTRL --> UI : autoTask
-deactivate CTRL
-deactivate CTRL
 end
 
-UI -> CTRL : addTaskToDraft()
+UI -> CTRL : addTicket(service, urgency, \nlimitDate, lstFiles)
 activate CTRL
 
-CTRL -> S : setTask(task)
-activate S
+CTRL -> T** : create(service, urgency, limitDate, lstFiles, lstResponses)
 
-S --> CTRL : serviceDraft
-deactivate S
+CR --> CTRL : ticket
+deactivate CR
 
-CTRL --> UI : serviceDraft
+CTRL --> UI : ticket
 deactivate CTRL
 
-UI -> HSM : validates, presents the current \ninformation in the draft and asks for confirmation
+UI -> US : validates, presents the current \ninformation in the ticket and asks for confirmation
 deactivate UI
 
-HSM -> UI : confirms
+US -> UI : confirms
 activate UI
 
-UI -> CTRL : saveServiceDraft()
+UI -> CTRL : saveTicket(ticket)
 activate CTRL
 
-CTRL -> SR : save(serviceDraft)
-activate SR
-SR --> CTRL : serviceDraft
-deactivate SR
+CTRL -> TR : save(ticket)
+activate TR
+TR --> CTRL : ticket
+deactivate TR
 
-CTRL --> UI : serviceDraft
+CTRL --> UI : ticket
 deactivate CTRL
 
-UI -> HSM : registers the draft in the persistence\n and informs of the success of the operation
+UI -> US : registers the ticket in the persistence\n and informs of the success of the operation
 deactivate UI
-deactivate HSM
+deactivate US
 
 @enduml
+
