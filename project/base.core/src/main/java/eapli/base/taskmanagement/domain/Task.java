@@ -96,7 +96,7 @@ public abstract class Task implements AggregateRoot<Long> {
         return this.m_oCollaborator;
     }
 
-    public void setCollaborator(Collaborator oCollaborator) {
+    public void assignCollaborator(Collaborator oCollaborator) {
         this.m_oCollaborator = oCollaborator;
     }*/
 
