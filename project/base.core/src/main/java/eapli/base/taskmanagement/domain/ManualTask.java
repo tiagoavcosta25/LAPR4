@@ -35,10 +35,11 @@ import javax.persistence.*;
  */
 
 @Entity
+@DiscriminatorValue("MAN")
 public class ManualTask extends Task{
 
     @OneToOne()
-    @Column(name = "manualTaskForm")
+    @JoinColumn(name = "formID")
     private Form m_oForm;
 
     public ManualTask(final TaskDescription oDescription, final TaskPriority oTaskPriority, Form oForm) {
