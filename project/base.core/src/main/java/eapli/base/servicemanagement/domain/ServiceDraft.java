@@ -76,11 +76,11 @@ public class ServiceDraft implements AggregateRoot<Long> {
     private List<Form> m_lstForms;
 
     @OneToOne()
-    @Column(name = "approvalTask")
+    @JoinColumn(name = "serviceDraftApprovalTask")
     private ManualTask m_oApprovalTask;
 
     @OneToOne()
-    @Column(name = "resolutionTask")
+    @JoinColumn(name = "serviceDraftResolutionTask")
     private Task m_oResolutionTask;
 
     public ServiceDraft(final String strTitle, final String strBriefDescription, final String strCompleteDescription,
