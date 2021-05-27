@@ -100,9 +100,6 @@ activate CTRL
 
 CTRL -> T** : create(service, urgency, limitDate, lstFiles, lstResponses)
 
-CR --> CTRL : ticket
-deactivate CR
-
 CTRL --> UI : ticket
 deactivate CTRL
 
