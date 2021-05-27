@@ -52,7 +52,7 @@ public class SaveDraftUI extends AbstractUI {
             Catalogue oCatalogue = PrintList.chooseOne(itCatalogues, "Choose a Catalogue for this Service", "Catalogue");
 
             String strOp = Console.readLine("Confirm the creation of the following Service (Y/N) > " +
-                    oServiceDraft.toString());
+                    oServiceDraft);
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.saveService(oServiceDraft, oCatalogue);

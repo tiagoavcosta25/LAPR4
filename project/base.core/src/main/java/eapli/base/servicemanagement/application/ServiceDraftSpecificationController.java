@@ -149,13 +149,18 @@ public class ServiceDraftSpecificationController {
         this.m_oServiceDraft.setFeedback(dblFeedback);
     }
 
+    public void chooseDraft(ServiceDraft oServiceDraft) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        this.m_oServiceDraft = oServiceDraft;
+    }
+
     public void addApprovalTask(String strDescription) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         Form oForm = this.m_oServiceDraftSpecificationService.generateApprovalForm();
         oForm = this.formRepo.save(oForm);
         this.m_oApprovalTask = this.m_oServiceDraftSpecificationService.addApprovalTask(strDescription, oForm);
+        this.m_oApprovalTask = this.saveManualTask(this.m_oApprovalTask);
         this.m_oServiceDraft.setApprovalTask(this.m_oApprovalTask);
-        this.saveManualTask(this.m_oApprovalTask);
     }
 
     public ManualTask saveManualTask(ManualTask oManualTask) {
