@@ -11,7 +11,7 @@ import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
-import eapli.base.servicesolicitationmanagement.repository.TicketRepository;
+import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.base.teammanagement.repositories.TeamRepository;
 import eapli.base.teamtypemanagement.repositories.TeamTypeRepository;

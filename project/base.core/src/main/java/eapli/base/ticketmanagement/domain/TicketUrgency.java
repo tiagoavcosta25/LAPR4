@@ -1,4 +1,4 @@
-package eapli.base.servicesolicitationmanagement.domain;
+package eapli.base.ticketmanagement.domain;
 
 public enum TicketUrgency {
     LOW, MEDIUM, HIGH;

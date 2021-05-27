@@ -1,6 +1,5 @@
-package eapli.base.app.backoffice.console.presentation.servicesolicitation;
+package eapli.base.app.backoffice.console.presentation.ticket;
 
-import eapli.base.app.backoffice.console.presentation.service.ServiceDraftTaskSpecificationUI;
 import eapli.framework.actions.Action;
 
 /**
