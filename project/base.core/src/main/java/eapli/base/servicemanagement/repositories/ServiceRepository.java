@@ -1,5 +1,6 @@
 package eapli.base.servicemanagement.repositories;
 
+import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.framework.domain.repositories.DomainRepository;
 
@@ -21,4 +22,6 @@ public interface ServiceRepository
     default Optional<Service> findByID(Long lngID) {
         return ofIdentity(lngID);
     }
+
+    public Iterable<Service> findByCatalogue(Catalogue oCatalogue);
 }

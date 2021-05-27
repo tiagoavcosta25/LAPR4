@@ -51,6 +51,8 @@ public class SaveDraftService {
         oServiceBuilder = oServiceBuilder.withFeedback(oServiceDraft.getFeedback());
         oServiceBuilder = oServiceBuilder.withCatalogue(oCatalogue);
         oServiceBuilder = oServiceBuilder.withKeywordList(oServiceDraft.getKeywordList());
+        oServiceBuilder = oServiceBuilder.withApprovalTask(oServiceDraft.getApprovalTask());
+        oServiceBuilder = oServiceBuilder.withResolutionTask(oServiceDraft.getResolutionTask());
         List<Form> formPersisted = new ArrayList<>();
         for(Form f : oServiceDraft.getFormList()){
             formPersisted.add(this.formRepo.save(f));

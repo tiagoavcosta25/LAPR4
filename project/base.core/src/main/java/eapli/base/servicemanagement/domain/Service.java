@@ -83,8 +83,8 @@ public class Service implements AggregateRoot<Long> {
     private Task m_oResolutionTask;
 
     public Service(final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
-                   final Feedback oFeedback, Catalogue oCatalogue, final List<Keyword> lstKeywords, final List<Form> lstForms) {
-        if (oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || oCatalogue == null || lstKeywords.isEmpty()) {
+                   final Feedback oFeedback, Catalogue oCatalogue, final List<Keyword> lstKeywords, final List<Form> lstForms, ManualTask oApprovalTask, Task oResolutionTask) {
+        if (oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || oCatalogue == null || lstKeywords.isEmpty() || oResolutionTask == null) {
             throw new IllegalArgumentException();
         }
         this.m_oTitle = oTitle;
@@ -94,6 +94,8 @@ public class Service implements AggregateRoot<Long> {
         this.m_oCatalogue = oCatalogue;
         this.m_lstKeywords = lstKeywords;
         this.m_lstForms = lstForms;
+        this.m_oApprovalTask = oApprovalTask;
+        this.m_oResolutionTask = oResolutionTask;
     }
 
     protected Service() {

@@ -1,5 +1,6 @@
 package eapli.base.persistence.impl.jpa;
 
+import eapli.base.servicesolicitationmanagement.repository.TicketRepository;
 import eapli.base.util.Application;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
@@ -81,13 +82,8 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public JpaServiceRepository services(final TransactionalContext autoTx) {
-		return new JpaServiceRepository(autoTx);
-	}
-
-	@Override
 	public JpaServiceRepository services() {
-		return new JpaServiceRepository(Application.settings().getPersistenceUnitName());
+		return new JpaServiceRepository();
 	}
 
 	@Override
@@ -128,5 +124,15 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public JpaTeamTypeRepository teamTypes() {
 		return new JpaTeamTypeRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public TicketRepository tickets(final TransactionalContext autoTx) {
+		return new JpaTicketRepository(autoTx);
+	}
+
+	@Override
+	public JpaTicketRepository tickets() {
+		return new JpaTicketRepository(Application.settings().getPersistenceUnitName());
 	}
 }

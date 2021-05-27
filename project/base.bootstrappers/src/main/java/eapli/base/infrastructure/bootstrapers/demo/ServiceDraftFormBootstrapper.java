@@ -28,14 +28,14 @@ public class ServiceDraftFormBootstrapper implements Action {
 
     @Override
     public boolean execute() {
-        draftForm("Repair Form", FormType.SERVICE, 2, new ArrayList<>(Arrays.asList("ProductID", "CustomerNameEmail")),
+        draftForm("Repair Form", 2, new ArrayList<>(Arrays.asList("ProductID", "CustomerNameEmail")),
                 new ArrayList<>(Arrays.asList("Product ID", "Customer Name Email")),
                 new ArrayList<>(Arrays.asList("ID of the product", "Email referring to the customer")),
                 new ArrayList<>(Arrays.asList("[0-9]+", "[a-zA-Z]+[0-9]*@[a-z].[a-z]")),
                 new ArrayList<>(Arrays.asList("D:/folder1/script1.bat", "C:/folder2/script2.bat")),
                 new ArrayList<>(Arrays.asList(DataType.INTEGER, DataType.STRING)));
 
-        draftForm("Network Form", FormType.MANUALTASK, 2, new ArrayList<>(Arrays.asList("IPAddress", "VLANID")),
+        draftForm("Network Form", 2, new ArrayList<>(Arrays.asList("IPAddress", "VLANID")),
                 new ArrayList<>(Arrays.asList("IP Address", "VLAN ID")),
                 new ArrayList<>(Arrays.asList("Address of the end node with problems", "Identification of the Virtual LAN")),
                 new ArrayList<>(Arrays.asList("[0-9.]+", "[0-9]+")),
@@ -44,7 +44,7 @@ public class ServiceDraftFormBootstrapper implements Action {
         return true;
     }
 
-    private ServiceDraft draftForm(String strFormName, FormType oFormType, Integer intNumAttributes,
+    private ServiceDraft draftForm(String strFormName, Integer intNumAttributes,
                                     List<String> lstNames, List<String> lstLabels, List<String> lstDescriptions, List<String> lstRegex,
                                     List<String> lstScripts, List<DataType> lstDataType) {
         ServiceDraft oServiceDraft = null;
@@ -53,7 +53,7 @@ public class ServiceDraftFormBootstrapper implements Action {
             oServiceDraft = itServiceDrafts.next();
 
 
-            this.m_oCtrl.addForm(oServiceDraft, strFormName, oFormType.toString());
+            this.m_oCtrl.addForm(oServiceDraft, strFormName, FormType.SERVICE.toString());
 
             for(int i = 0; i < intNumAttributes; i++){
                 this.m_oCtrl.addAttribute(lstNames.get(i), lstLabels.get(i), lstDescriptions.get(i), lstRegex.get(i),

@@ -61,6 +61,8 @@ public class ServiceDraftTaskSpecificationUI extends AbstractUI {
 
             if(oServiceDraft == null){this.theController.newDraft();}
 
+            this.theController.chooseDraft(oServiceDraft);
+
             strOp = Console.readLine("Do you want this service to have approval? (Y/N) >");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
@@ -69,7 +71,7 @@ public class ServiceDraftTaskSpecificationUI extends AbstractUI {
             }
 
             List<String> lstTaskTypes = new ArrayList<>(Arrays.asList("Manual Task", "Automatic Task"));
-            strOp = PrintList.chooseOne(lstTaskTypes, "Choose the Service Draft to Save", "Service Draft");
+            strOp = PrintList.chooseOne(lstTaskTypes, "Choose the Type of Task for the Resolution Task", "Service Draft");
 
             String strDescription = Console.readLine("Task Description? >");
 

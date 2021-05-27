@@ -6,9 +6,7 @@ import eapli.base.cataloguemanagement.domain.CatalogueCompleteDescription;
 import eapli.base.cataloguemanagement.domain.CatalogueTitle;
 import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.repositories.DomainRepository;
-
-import java.util.List;
-import java.util.Optional;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 public interface CatalogueRepository
         extends DomainRepository<Long, Catalogue> {
@@ -26,4 +24,6 @@ public interface CatalogueRepository
     public Iterable<Catalogue> findByWordCompleteDescription(final CatalogueCompleteDescription oCatalogueCompleteDescription);
 
     public Iterable<Catalogue> findByTeam(final Team oTeam);
+
+    public Iterable<Catalogue> findByUser(final SystemUser oUser);
 }

@@ -128,6 +128,14 @@ public class ServiceDraft implements AggregateRoot<Long> {
         return m_lstForms;
     }
 
+    public ManualTask getApprovalTask() {
+        return m_oApprovalTask;
+    }
+
+    public Task getResolutionTask() {
+        return m_oResolutionTask;
+    }
+
     public void setID(Long m_lngID) {
         this.m_lngID = m_lngID;
     }

@@ -11,6 +11,7 @@ import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
+import eapli.base.servicesolicitationmanagement.repository.TicketRepository;
 import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.base.teammanagement.repositories.TeamRepository;
 import eapli.base.teamtypemanagement.repositories.TeamTypeRepository;
@@ -72,12 +73,6 @@ public interface RepositoryFactory {
 	 */
 	SignupRequestRepository signupRequests();
 
-	/**
-	 *
-	 * @param autoTx the transactional context to enrol
-	 * @return
-	 */
-	ServiceRepository services(TransactionalContext autoTx);
 
 	/**
 	 * repository will be created in auto transaction mode
@@ -162,6 +157,20 @@ public interface RepositoryFactory {
 	 * @return
 	 */
 	TeamRepository teams();
+
+	/**
+	 *
+	 * @param autoTx the transactional context to enrol
+	 * @return
+	 */
+	TicketRepository tickets(TransactionalContext autoTx);
+
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	TicketRepository tickets();
 
 	TeamTypeRepository teamTypes(TransactionalContext autoTx);
 	TeamTypeRepository teamTypes();

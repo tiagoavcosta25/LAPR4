@@ -51,7 +51,8 @@ public class BaseDemoBootstrapper implements Action {
         // declare bootstrap actions
         final Action[] actions = { new BackofficeUsersBootstrapper(),
                 new ClientUserBootstrapper(), new CollaboratorSpecificationBootstrapper(), new TeamCreatorBootstrapper(),
-                new AddCollabToTeamBootstrapper(), new CatalogueSpecificationBootstrapper(), new ServiceDraftFieldBootstrapper(), new ServiceDraftFormBootstrapper(), new SaveDraftBootstrapper()}; //TODO: adicionar catalogue
+                new AddCollabToTeamBootstrapper(), new CatalogueSpecificationBootstrapper(), new ServiceDraftFieldBootstrapper(),
+                new ServiceDraftFormBootstrapper(), new ServiceDraftTaskBootstrapper(), new SaveDraftBootstrapper()};
 
         authenticateForBootstrapping();
 
