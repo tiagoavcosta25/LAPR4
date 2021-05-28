@@ -12,13 +12,6 @@ public class SDP2021 {
     
     private static final String VERSION="SDP2021/1.0";
 
-    private static final int TEST = 0;
-    private static final int END = 1;
-    private static final int ROGER = 2;
-    private static final int HTTP_REQUEST = 3;
-    private static final int HTTP_RESPONSE = 4;
-    private static final int SEGMENT = 255;
-
     static private String readHeaderLine(DataInputStream in, int length) throws IOException {
         String ret="";
         int val;
