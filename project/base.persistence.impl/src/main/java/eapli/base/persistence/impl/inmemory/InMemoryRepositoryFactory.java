@@ -1,5 +1,6 @@
 package eapli.base.persistence.impl.inmemory;
 
+import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
@@ -78,6 +79,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	@Override
 	public FormRepository forms() {
 		return forms(null);
+	}
+
+	@Override
+	public ActivityFluxRepository fluxes() {
+		return fluxes(null);
+	}
+
+	@Override
+	public ActivityFluxRepository fluxes(TransactionalContext autoTx) {
+		return null;
 	}
 
 	@Override
