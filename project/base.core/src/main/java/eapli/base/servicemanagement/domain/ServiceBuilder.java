@@ -1,5 +1,6 @@
 package eapli.base.servicemanagement.domain;
 
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.formmanagement.domain.*;
 import eapli.base.taskmanagement.domain.ManualTask;
@@ -22,8 +23,7 @@ public class ServiceBuilder implements DomainFactory<Service> {
     private Catalogue m_oCatalogue;
     private List<Keyword> m_lstKeywords;
     private List<Form> m_lstForms;
-    private ManualTask m_oApprovalTask;
-    private Task m_oResolutionTask;
+    private ActivityFlux m_oActivityFlux;
 
     public ServiceBuilder withTitle(String strTitle) {
         this.m_oTitle = ServiceTitle.valueOf(strTitle);
@@ -64,13 +64,8 @@ public class ServiceBuilder implements DomainFactory<Service> {
         return this;
     }
 
-    public ServiceBuilder withApprovalTask(ManualTask oManualTask) {
-        this.m_oApprovalTask = oManualTask;
-        return this;
-    }
-
-    public ServiceBuilder withResolutionTask(Task oTask) {
-        this.m_oResolutionTask = oTask;
+    public ServiceBuilder withActivityFlux(ActivityFlux oActivityFlux) {
+        this.m_oActivityFlux = oActivityFlux;
         return this;
     }
 
@@ -78,6 +73,6 @@ public class ServiceBuilder implements DomainFactory<Service> {
     public Service build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new Service(this.m_oTitle, this.m_oBriefDescription, this.m_oCompleteDescription ,this.m_oFeedback, this.m_oCatalogue, this.m_lstKeywords, this.m_lstForms, this.m_oApprovalTask, this.m_oResolutionTask);
+        return new Service(this.m_oTitle, this.m_oBriefDescription, this.m_oCompleteDescription ,this.m_oFeedback, this.m_oCatalogue, this.m_lstKeywords, this.m_lstForms, this.m_oActivityFlux);
     }
 }

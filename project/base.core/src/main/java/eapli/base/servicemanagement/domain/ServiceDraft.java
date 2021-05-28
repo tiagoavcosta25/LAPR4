@@ -23,9 +23,8 @@
  */
 package eapli.base.servicemanagement.domain;
 
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.formmanagement.domain.Form;
-import eapli.base.taskmanagement.domain.ManualTask;
-import eapli.base.taskmanagement.domain.Task;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
@@ -75,13 +74,9 @@ public class ServiceDraft implements AggregateRoot<Long> {
     @Column(name = "serviceDraftForms")
     private List<Form> m_lstForms;
 
-    @OneToOne()
-    @JoinColumn(name = "serviceDraftApprovalTask")
-    private ManualTask m_oApprovalTask;
-
-    @OneToOne()
-    @JoinColumn(name = "serviceDraftResolutionTask")
-    private Task m_oResolutionTask;
+    @ManyToOne
+    @JoinColumn(name="fluxID")
+    private ActivityFlux m_oActivityFlux;
 
     public ServiceDraft(final String strTitle, final String strBriefDescription, final String strCompleteDescription,
                         final Double dblFeedback, final List<String> lstKeywords, final List<Form> lstForms) {
@@ -128,12 +123,8 @@ public class ServiceDraft implements AggregateRoot<Long> {
         return m_lstForms;
     }
 
-    public ManualTask getApprovalTask() {
-        return m_oApprovalTask;
-    }
-
-    public Task getResolutionTask() {
-        return m_oResolutionTask;
+    public ActivityFlux getActivityFlux() {
+        return m_oActivityFlux;
     }
 
     public void setID(Long m_lngID) {
@@ -164,12 +155,8 @@ public class ServiceDraft implements AggregateRoot<Long> {
         this.m_lstForms = lstForms;
     }
 
-    public void setApprovalTask(ManualTask oApprovalTask) {
-        this.m_oApprovalTask = oApprovalTask;
-    }
-
-    public void setResolutionTask(Task oTask) {
-        this.m_oResolutionTask = oTask;
+    public void setActivityFlux(ActivityFlux oActivityFlux) {
+        this.m_oActivityFlux = oActivityFlux;
     }
 
     @Override
