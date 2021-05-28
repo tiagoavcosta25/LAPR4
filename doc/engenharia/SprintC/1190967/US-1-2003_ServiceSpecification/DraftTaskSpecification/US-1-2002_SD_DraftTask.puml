@@ -15,6 +15,9 @@ participant "<<domain>>\nTask" as T
 participant "<<domain>>\nServiceDraft" as S
 database "<<repository>>\nTaskRepository" as TR
 participant "<<domain>>\nTaskPriority" as TP
+database "<<repository>>\nFormRepository" as FR
+participant "<<domain>>\nActivityFlux" as AF
+database "<<repository>>\nActivityFluxRepository" as AR2
 participant "<<domain>>\nTaskDescription" as TD
 participant "<<domain>>\nTaskResult" as TR
 participant "<<domain>>\nTaskStatus" as TD
@@ -24,7 +27,6 @@ participant "<<domain>>\nDataType" as DT
 participant "<<builder>>\nAttributeBuilder" as ABD
 participant "<<domain>>\nAttribute" as A
 participant "<<domain>>\nForm" as F
-database "<<repository>>\nFormRepository" as FR
 participant "<<persistence>>\nPersistenceContext" as PC
 participant "<<persistence>>\nAppSettings" as AS
 participant "<<factory>>\nRepositoryFactory" as RF
@@ -95,21 +97,25 @@ activate UI
 UI -> CTRL : addApprovalTask(description)
 activate CTRL
 
-CTRL -> SRV : addApprovalTask(description)
+CTRL -> SRV : form = generateApprovalForm()
 activate SRV
 
-SRV -> SRV : generateApprovalForm()
 SRV -> SRV : addAttribute()
+deactivate SRV
+
+CTRL -> FR : save(form)
+activate FR
+FR --> CTRL : form
+deactivate FR
+
+CTRL -> SRV : approvalTask = addApprovalTask(description, form)
+activate SRV
 
 SRV --> AMT** : create(description, priority, form)
 activate AMT
 AMT --> T** : create(description, priority)
 deactivate AMT
 deactivate SRV
-
-CTRL -> S : setApprovalTask(approvalTask)
-activate S
-deactivate S
 
 CTRL -> CTRL : saveManualTask(approvalTask)
 
@@ -201,10 +207,21 @@ deactivate CTRL
 deactivate CTRL
 end
 
-UI -> CTRL : adTPaskToDraft()
+UI -> CTRL : addTaskToDraft()
 activate CTRL
 
-CTRL -> S : setTask(task)
+CTRL -> SRV : flux = createActivityFlux(flag, approvalTask, resolutionTask)
+activate SRV
+
+SRV -> AF** : create(lstTasks)
+deactivate SRV
+
+CTRL -> AR2 : save(flux)
+activate AR2
+AR2 --> CTRL : flux
+deactivate AR2
+
+CTRL -> S : setActivityFlux(flux)
 activate S
 
 S --> CTRL : serviceDraft
