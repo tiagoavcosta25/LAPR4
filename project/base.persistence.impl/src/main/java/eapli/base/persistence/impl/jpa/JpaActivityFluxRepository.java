@@ -1,8 +1,10 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.util.Application;
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
+import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
 import eapli.base.formmanagement.domain.Form;
 import eapli.base.formmanagement.repositories.FormRepository;
+import eapli.base.util.Application;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
@@ -14,23 +16,23 @@ import java.util.Optional;
  *
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
-class JpaFormRepository
-        extends JpaAutoTxRepository<Form, Long, Long>
-        implements FormRepository {
+class JpaActivityFluxRepository
+        extends JpaAutoTxRepository<ActivityFlux, Long, Long>
+        implements ActivityFluxRepository {
 
-    public JpaFormRepository(TransactionalContext autoTx) {
-        super(autoTx, "formID");
+    public JpaActivityFluxRepository(TransactionalContext autoTx) {
+        super(autoTx, "fluxID");
     }
 
-    public JpaFormRepository(String puname) {
+    public JpaActivityFluxRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
                 "formID");
     }
 
     @Override
-    public Optional<Form> findById(Long lngID) {
+    public Optional<ActivityFlux> findById(Long lngID) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("formID", lngID);
-        return matchOne("e.id=:formID", params);
+        params.put("fluxID", lngID);
+        return matchOne("e.id=:fluxID", params);
     }
 }

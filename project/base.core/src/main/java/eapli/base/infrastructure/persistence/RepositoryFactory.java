@@ -3,6 +3,7 @@
  */
 package eapli.base.infrastructure.persistence;
 
+import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 
@@ -108,6 +109,20 @@ public interface RepositoryFactory {
 	 * @return
 	 */
 	FormRepository forms();
+
+	/**
+	 *
+	 * @param autoTx the transactional context to enrol
+	 * @return
+	 */
+	ActivityFluxRepository fluxes(TransactionalContext autoTx);
+
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	ActivityFluxRepository fluxes();
 
 	/**
 	 *

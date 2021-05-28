@@ -67,6 +67,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
+	public JpaActivityFluxRepository fluxes(final TransactionalContext autoTx) {
+		return new JpaActivityFluxRepository(autoTx);
+	}
+
+	@Override
+	public JpaActivityFluxRepository fluxes() {
+		return new JpaActivityFluxRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
 	public JpaTaskRepository tasks(final TransactionalContext autoTx) {
 		return new JpaTaskRepository(autoTx);
 	}
