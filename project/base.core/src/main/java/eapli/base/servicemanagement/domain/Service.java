@@ -24,6 +24,7 @@
 package eapli.base.servicemanagement.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.formmanagement.domain.*;
 import eapli.base.taskmanagement.domain.ManualTask;
@@ -74,17 +75,13 @@ public class Service implements AggregateRoot<Long> {
     @Column(name = "serviceForms")
     private List<Form> m_lstForms;
 
-    @OneToOne()
-    @JoinColumn(name = "serviceApprovalTask")
-    private ManualTask m_oApprovalTask;
-
-    @OneToOne()
-    @JoinColumn(name = "serviceResolutionTask")
-    private Task m_oResolutionTask;
+    @ManyToOne
+    @JoinColumn(name="fluxID")
+    private ActivityFlux m_oActivityFlux;
 
     public Service(final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
-                   final Feedback oFeedback, Catalogue oCatalogue, final List<Keyword> lstKeywords, final List<Form> lstForms, ManualTask oApprovalTask, Task oResolutionTask) {
-        if (oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || oCatalogue == null || lstKeywords.isEmpty() || oResolutionTask == null) {
+                   final Feedback oFeedback, Catalogue oCatalogue, final List<Keyword> lstKeywords, final List<Form> lstForms, ActivityFlux oActivityFlux) {
+        if (oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || oCatalogue == null || lstKeywords.isEmpty() || oActivityFlux == null) {
             throw new IllegalArgumentException();
         }
         this.m_oTitle = oTitle;
@@ -94,8 +91,7 @@ public class Service implements AggregateRoot<Long> {
         this.m_oCatalogue = oCatalogue;
         this.m_lstKeywords = lstKeywords;
         this.m_lstForms = lstForms;
-        this.m_oApprovalTask = oApprovalTask;
-        this.m_oResolutionTask = oResolutionTask;
+        this.m_oActivityFlux = oActivityFlux;
     }
 
     protected Service() {
@@ -123,11 +119,8 @@ public class Service implements AggregateRoot<Long> {
     public List<Form> forms() {
         return this.m_lstForms;
     }
-    public ManualTask approvalTask() {
-        return this.m_oApprovalTask;
-    }
-    public Task resolutionTask() {
-        return this.m_oResolutionTask;
+    public ActivityFlux flux() {
+        return this.m_oActivityFlux;
     }
 
     @Override
