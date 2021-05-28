@@ -5,6 +5,10 @@
  */
 package eapli.base.net;
 
+/**
+ * @author Pedro Santos (1190967@isep.ipp.pt)
+ */
+
 public enum SDP2021Code {
 
         /**

@@ -4,15 +4,14 @@ import java.io.*;
 
 
 /**
- *
  * @author Pedro Santos (1190967@isep.ipp.pt)
  */
 
 public class SDP2021 {
     
-    private static final String VERSION="SDP2021/1.0";
+    private static final int VERSION = 2;
 
-    static private String readHeaderLine(DataInputStream in, int length) throws IOException {
+    static private String read(DataInputStream in, int length) throws IOException {
         String ret="";
         int val;
         for(int i = 0; i < length; i++) {
@@ -22,8 +21,8 @@ public class SDP2021 {
         return ret;
     }
     
-    static private void writeHeaderLine(DataOutputStream out, String line, int code) throws IOException {
-        out.write(VERSION.getBytes()); out.write(code); out.write(line.length());
+    static private void write(DataOutputStream out, String line, int code) throws IOException {
+        out.write(VERSION); out.write(code); out.write(line.length());
         out.write(line.getBytes(), 0, line.length());
     }
     
@@ -48,15 +47,16 @@ public class SDP2021 {
         if (num_bytes == 0) {
             data = null;
         } else {
-            data = readHeaderLine(in, num_bytes);
+            data = read(in, num_bytes);
         }
 
     }
     
     public SDP2021() {
-        version=null;
+        version=VERSION;
         code=null;
         num_bytes=null;
+        data=null;
         }
     
     
@@ -66,13 +66,14 @@ public class SDP2021 {
     
     
 	public boolean send(DataOutputStream out, String strData) throws IOException {
-        writeHeaderLine(out, strData, code);
+        write(out, strData, code);
         return true;
     }
     
     
     public int getVersion() { return version; }
     public int getCode() { return code; }
+    public String getData() { return data; }
 
 
 } // CLASS END
