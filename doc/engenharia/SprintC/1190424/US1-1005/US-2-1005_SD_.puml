@@ -1,3 +1,5 @@
+
+
 @startuml
 autonumber
 hide footbox
@@ -12,7 +14,7 @@ database "<<repository>>\nTaskRepository" as TR
 participant "<<persistence>>\nPersistenceContext"
 participant "<<persistence>>\nAppSettings"
 participant "<<factory>>\nRepositoryFactory"
-participant "<<domain>>\nTask"
+participant "<<domain>>\nTask" as T
 participant "<<domain>>\nManualTask" as MT
 participant "<<domain>>\nTaskDescription"
 participant "<<domain>>\nTaskStatus"
@@ -49,19 +51,27 @@ CTRL -->UI : Tasks Pendants
 UI -> UI: doShow()
 
 UI --> USER: show list of tasks pendants
-
+deactivate CTRL
 deactivate UI
 USER->UI: Chooses an taks to assign to himself
 activate UI
 UI -> CTRL: task = selectTask(choice)
-CTRL -> MT:  findByID(choice)
-activate MT
-deactivate MT
+activate CTRL
+CTRL -> T:  findByID(choice)
+activate T
+deactivate T
 CTRL -->UI: chosenActivity
 
 UI --> USER: Requests confirmation
+deactivate CTRL
 deactivate UI
 USER -> UI: confirms
 activate UI
+ UI-> CTRL: setCollaboratorOnActivity(task, collab)
+ activate CTRL
+  CTRL -> MT: assignCollaborator(collab)
+ activate MT
+ deactivate MT
+ UI-->USER : Assigns this activity to this user and informs him
 
 @enduml
