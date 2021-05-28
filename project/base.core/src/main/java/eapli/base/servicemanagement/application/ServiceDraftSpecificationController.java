@@ -23,6 +23,8 @@
  */
 package eapli.base.servicemanagement.application;
 
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
+import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
 import eapli.base.formmanagement.domain.*;
 import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -50,12 +52,14 @@ public class ServiceDraftSpecificationController {
     private final ServiceDraftRepository draftRepo = PersistenceContext.repositories().serviceDrafts();
     private final FormRepository formRepo = PersistenceContext.repositories().forms();
     private final TaskRepository taskRepo = PersistenceContext.repositories().tasks();
+    private final ActivityFluxRepository fluxRepo = PersistenceContext.repositories().fluxes();
     private FormBuilder formBuilder = new FormBuilder();
     private List<Attribute> m_lstAttributes = new ArrayList<>();
     private List<Form> m_lstForms = new ArrayList<>();
     private ServiceDraft m_oServiceDraft = new ServiceDraft();
     private ManualTask m_oApprovalTask;
     private Task m_oResolutionTask;
+    private Boolean m_blnApprovalFlag = false;
     private ServiceDraftSpecificationService m_oServiceDraftSpecificationService = new ServiceDraftSpecificationService();
 
     public Iterable<ServiceDraft> getDrafts() {
@@ -160,7 +164,7 @@ public class ServiceDraftSpecificationController {
         oForm = this.formRepo.save(oForm);
         this.m_oApprovalTask = this.m_oServiceDraftSpecificationService.addApprovalTask(strDescription, oForm);
         this.m_oApprovalTask = this.saveManualTask(this.m_oApprovalTask);
-        this.m_oServiceDraft.setApprovalTask(this.m_oApprovalTask);
+        this.m_blnApprovalFlag = true;
     }
 
     public ManualTask saveManualTask(ManualTask oManualTask) {
@@ -194,7 +198,9 @@ public class ServiceDraftSpecificationController {
 
     public ServiceDraft addTaskToDraft() {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        this.m_oServiceDraft.setResolutionTask(this.m_oResolutionTask);
+        ActivityFlux oActivityFlux = this.m_oServiceDraftSpecificationService.createActivityFlux(this.m_blnApprovalFlag, this.m_oApprovalTask, this.m_oResolutionTask);
+        oActivityFlux = this.fluxRepo.save(oActivityFlux);
+        this.m_oServiceDraft.setActivityFlux(oActivityFlux);
         return this.m_oServiceDraft;
     }
 

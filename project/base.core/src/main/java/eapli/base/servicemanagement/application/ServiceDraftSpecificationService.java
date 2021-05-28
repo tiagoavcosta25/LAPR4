@@ -23,8 +23,11 @@
  */
 package eapli.base.servicemanagement.application;
 
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.formmanagement.domain.*;
+import eapli.base.servicemanagement.domain.ServiceDraft;
 import eapli.base.taskmanagement.domain.ManualTask;
+import eapli.base.taskmanagement.domain.Task;
 import eapli.base.taskmanagement.domain.TaskDescription;
 import eapli.base.taskmanagement.domain.TaskPriority;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -72,5 +75,15 @@ public class ServiceDraftSpecificationService {
         this.attributeBuilder = this.attributeBuilder.withDataType(strDataType);
 
         return this.attributeBuilder.build();
+    }
+
+    public ActivityFlux createActivityFlux(Boolean blnApprovalFlag, ManualTask oApprovalTask, Task oResolutionTask) {
+        List<Task> lstFlux = new ArrayList<>();
+        if(blnApprovalFlag){
+            lstFlux.add(oApprovalTask);
+        }
+        lstFlux.add(oResolutionTask);
+
+        return new ActivityFlux(lstFlux);
     }
 }
