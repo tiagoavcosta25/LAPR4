@@ -23,6 +23,7 @@
  */
 package eapli.base.taskmanagement.domain;
 
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.formmanagement.domain.*;
 import eapli.framework.domain.model.ValueObject;
 import org.aspectj.apache.bcel.generic.FieldOrMethod;
@@ -41,6 +42,10 @@ public class ManualTask extends Task{
     @JoinColumn(name = "formID")
     private Form m_oForm;
 
+    @OneToOne
+    @JoinColumn(name="m_oMechanographicNumber")
+    private Collaborator m_oCollaborator;
+
     public ManualTask(final TaskDescription oDescription, final TaskPriority oTaskPriority, Form oForm) {
         super(oDescription, oTaskPriority);
         if (oForm == null) {
@@ -55,6 +60,14 @@ public class ManualTask extends Task{
 
     public Form form() {
         return this.m_oForm;
+    }
+
+    public Collaborator collaborator() {
+        return this.m_oCollaborator;
+    }
+
+    public void assignCollaborator(Collaborator oCollaborator) {
+        this.m_oCollaborator = oCollaborator;
     }
 
     @Override
