@@ -1,7 +1,7 @@
 
-P1=HttpServerAjaxVoting
+P1=HttpServerAjaxDashboard
 C2=HTTPmessage
-C3=HttpAjaxVotingRequest
+C3=HttpAjaxDashboardRequest
 P2=DemoConsumer
 
 all: $(P1).class $(P2).class

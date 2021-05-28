@@ -1,12 +1,7 @@
-package eapli.base.net;
+package eapli.base.net.dashboard;
 
 import java.io.*;
 
-
-/**
- *
- * @author Pedro Santos (1190967@isep.ipp.pt)
- */
 
 public class HTTPmessage {
     
