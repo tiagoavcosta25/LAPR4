@@ -57,8 +57,7 @@ public class ActivityFlowClient {
     }
 
     private void sendPacketExecution(String strMessage, int intCode) {
-        SDP2021 sdp2021Packet = new SDP2021();
-        sdp2021Packet.setCode(intCode);
+        SDP2021 sdp2021Packet = new SDP2021(intCode);
         try {
             sdp2021Packet.send(out, strMessage);
         } catch (IOException e) {
