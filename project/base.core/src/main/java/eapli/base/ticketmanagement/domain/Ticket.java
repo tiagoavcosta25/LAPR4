@@ -1,8 +1,5 @@
-package eapli.base.servicesolicitationmanagement.domain;
+package eapli.base.ticketmanagement.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import eapli.base.collaboratormanagement.domain.Collaborator;
-import eapli.base.formmanagement.domain.Attribute;
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
@@ -30,22 +27,16 @@ public class Ticket implements AggregateRoot<Long> {
     @Embedded
     private TicketLimitDate m_oLimitDate;
 
-    @Embedded
-    private TicketFile m_oFile;
-
-    @Embedded
-    private TicketResponse m_oResponse;
-
     @ManyToOne
     @JoinColumn(name="ServiceID")
     private Service m_oService;
 
     @ElementCollection()
-    @CollectionTable(name = "file")
+    @CollectionTable(name = "ticketFiles")
     private List<TicketFile> m_lstFiles;
 
     @ElementCollection()
-    @CollectionTable(name = "file")
+    @CollectionTable(name = "ticketResponses")
     private List<TicketResponse> m_lstResponses;
 
     public Ticket(final TicketUrgency oUrgency, final TicketLimitDate oLimitDate, final List<TicketResponse> lstResponse,
@@ -70,11 +61,11 @@ public class Ticket implements AggregateRoot<Long> {
     public TicketLimitDate limitDate() {
         return this.m_oLimitDate;
     }
-    public TicketFile file() {
-        return this.m_oFile;
+    public List<TicketResponse> responses() {
+        return this.m_lstResponses;
     }
-    public TicketResponse response() {
-        return this.m_oResponse;
+    public List<TicketFile> files() {
+        return this.m_lstFiles;
     }
     public Service service() {
         return this.m_oService;

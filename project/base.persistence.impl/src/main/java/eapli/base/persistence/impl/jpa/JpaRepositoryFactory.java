@@ -1,6 +1,6 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.servicesolicitationmanagement.repository.TicketRepository;
+import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.util.Application;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;

@@ -26,6 +26,7 @@ package eapli.base.app.backoffice.console.presentation;
 import eapli.base.app.backoffice.console.presentation.catalogue.*;
 import eapli.base.app.backoffice.console.presentation.collaborator.*;
 import eapli.base.app.backoffice.console.presentation.service.*;
+import eapli.base.app.backoffice.console.presentation.ticket.ServiceSolicitationAction;
 import eapli.base.app.backoffice.console.presentation.teamtype.TeamTypeRegisterAction;
 import eapli.base.app.backoffice.console.presentation.team.CreateTeamAction;
 import eapli.base.app.backoffice.console.presentation.team.ListTeamTypeAction;
@@ -77,6 +78,7 @@ public class MainMenu extends AbstractUI {
     private static final int SERVICES_ADD_FORM = 4;
     private static final int SERVICES_ADD_TASK = 5;
     private static final int SERVICES_SAVE = 6;
+    private static final int SERVICES_SOLICITATION = 7;
 
     // CATALOGUE
     private static final int CATALOGUE_SPECIFY = 1;
@@ -223,6 +225,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(SERVICES_ADD_FORM, "Add/Update Service Draft (Form)", new ServiceDraftFormSpecificationAction());
         menu.addItem(SERVICES_ADD_TASK, "Add/Update Service Draft (Task)", new ServiceDraftTaskSpecificationAction());
         menu.addItem(SERVICES_SAVE, "Save Service", new SaveDraftAction());
+        menu.addItem(SERVICES_SOLICITATION, "Save Solicitation", new ServiceSolicitationAction());
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

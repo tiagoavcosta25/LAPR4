@@ -1,15 +1,16 @@
-package eapli.base.app.backoffice.console.presentation.servicesolicitation;
+package eapli.base.app.backoffice.console.presentation.ticket;
 
 import eapli.base.app.backoffice.console.presentation.utils.PrintList;
 import eapli.base.cataloguemanagement.domain.Catalogue;
+import eapli.base.formmanagement.domain.Attribute;
+import eapli.base.formmanagement.domain.Form;
 import eapli.base.servicemanagement.domain.Service;
-import eapli.base.servicesolicitationmanagement.application.ServiceSolicitationController;
-import eapli.base.servicesolicitationmanagement.domain.*;
+import eapli.base.ticketmanagement.application.ServiceSolicitationController;
+import eapli.base.ticketmanagement.domain.*;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.time.LocalDate;
-import java.util.*;
 
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
@@ -27,33 +28,33 @@ public class ServiceSolicitationUI extends AbstractUI {
             Iterable<Service> itServices = this.theController.getServicesByCatalogue(oCatalogue);
             Service oService = PrintList.chooseOne(itServices, "Choose a Service", "Service");
 
-            final String strUrgency = Console.readLine("Urgency >");
+            TicketUrgency oTicketUrgency = PrintList.chooseOne(this.theController.showUrgencies(), "Choose a Urgency for this Ticket", "Urgency");
+            final Integer intYear = Integer.parseInt(Console.readLine("Limit Date (year) >"));
             final Integer intMonth = Integer.parseInt(Console.readLine("Limit Date (month) >"));
             final Integer intDay = Integer.parseInt(Console.readLine("Limit Date (day) >"));
 
-            final LocalDate dtLimitDate = LocalDate.of(LocalDate.now().getYear(), intMonth, intDay);
+            final LocalDate dtLimitDate = LocalDate.of(intYear, intMonth, intDay);
 
             String strOp;
-            List<TicketFile> lstFiles = new ArrayList<>();
 
             do {
                 final String strFile = Console.readLine("File >");
-                lstFiles.add(TicketFile.valueOf(strFile));
+                this.theController.addFile(strFile);
                 strOp = Console.readLine("Do you want to add more files? (Y/N) >");
             } while (strOp.compareToIgnoreCase("Y") == 0);
 
-            List<TicketResponse> lstResponses = new ArrayList<>();
+            for(Form f : oService.forms()) {
+                System.out.printf("\nForm: %s\n\n------------------------------------------------\n\n", f.name().toString());
+                for(Attribute a : f.attributes()) {
+                    String strQuestion = a.label() + " >";
+                    theController.addResponse(Console.readLine(strQuestion));
+                }
+                System.out.printf("\n\n------------------------------------------------\n\n");
+            }
 
-            do {
-                final String strResponse = Console.readLine("Response >");
-                //theController.addResponse(strResponse);
-                lstResponses.add(TicketResponse.valueOf(strResponse));
-                strOp = Console.readLine("Do you want to add more responses? (Y/N) >");
-            } while (strOp.compareToIgnoreCase("Y") == 0);
 
-
-            Ticket oTicket = this.theController.addTicket(oService, TicketUrgency.stringToTicketUrgency(strUrgency),
-                    TicketLimitDate.valueOf(dtLimitDate), lstResponses, lstFiles);
+            Ticket oTicket = this.theController.addTicket(oService, oTicketUrgency.toString(),
+                    dtLimitDate);
 
             strOp = Console.readLine("Confirm the creation of this ticket (Y/N) >");
 
