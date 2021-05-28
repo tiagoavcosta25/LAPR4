@@ -9,7 +9,7 @@ import java.io.*;
 
 public class SDP2021 {
     
-    private static final int VERSION = 2;
+    private static final int VERSION = 3;
 
     static private String read(DataInputStream in, int length) throws IOException {
         String ret="";
@@ -52,11 +52,11 @@ public class SDP2021 {
 
     }
     
-    public SDP2021() {
-        version=VERSION;
-        code=null;
-        num_bytes=null;
-        data=null;
+    public SDP2021(int intCode) {
+        version = VERSION;
+        code = intCode;
+        num_bytes = null;
+        data = null;
         }
     
     
