@@ -1,0 +1,67 @@
+@startuml
+autonumber
+hide footbox
+
+actor "User" as USER
+
+participant "<<presentation>>\nConsultPendingTasksUI" as UI
+participant "<<aplication>>\nConsultPendingTasksController" as CTRL
+participant "<<aplication>>\nAuthzRegistry" as AUTHR
+participant "<<aplication>>\nAuthorizationService" as AUTH
+database "<<repository>>\nTaskRepository" as TR
+participant "<<persistence>>\nPersistenceContext"
+participant "<<persistence>>\nAppSettings"
+participant "<<factory>>\nRepositoryFactory"
+participant "<<domain>>\nTask"
+participant "<<domain>>\nManualTask" as MT
+participant "<<domain>>\nTaskDescription"
+participant "<<domain>>\nTaskStatus"
+participant "<<domain>>\nTaskPriority"
+participant "<<domain>>\nTaskResult"
+participant "<<domain>>\nCollaborator"
+participant "<<domain>>\nForm"
+
+activate USER
+USER -> UI : Initiates the request to check the pending tasks
+
+activate UI
+UI -> CTRL** : create()
+
+activate CTRL
+ref over CTRL
+US-1-1005_SD_Repo
+end ref
+
+CTRL -> AUTHR : m_oAuthz = authorizationService()
+activate AUTHR
+deactivate CTRL
+deactivate AUTHR
+
+UI -> CTRL :TasksPendantsNonAssigned
+activate CTRL
+activate TR
+CTRL -> TR :findAllTasksPendantsNonAssigned(team)
+
+TR -->CTRL: Tasks Pendants
+deactivate TR
+CTRL -->UI : Tasks Pendants
+
+UI -> UI: doShow()
+
+UI --> USER: show list of tasks pendants
+
+deactivate UI
+USER->UI: Chooses an taks to assign to himself
+activate UI
+UI -> CTRL: task = selectTask(choice)
+CTRL -> MT:  findByID(choice)
+activate MT
+deactivate MT
+CTRL -->UI: chosenActivity
+
+UI --> USER: Requests confirmation
+deactivate UI
+USER -> UI: confirms
+activate UI
+
+@enduml
