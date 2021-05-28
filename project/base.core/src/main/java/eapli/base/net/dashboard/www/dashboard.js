@@ -23,6 +23,4 @@ function refreshPendingTasks() {
   	request.open("GET", "/tasks", true);
 	request.timeout = 5000;
   	request.send();
-	}
-	
-
+}

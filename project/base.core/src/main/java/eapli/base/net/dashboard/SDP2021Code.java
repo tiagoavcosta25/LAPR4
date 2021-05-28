@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.base.net;
+package eapli.base.net.dashboard;
 
 public enum SDP2021Code {
     SERVICE, MANUALTASK;
