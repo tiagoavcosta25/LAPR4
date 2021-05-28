@@ -1,4 +1,4 @@
-package eapli.base.net.dashboard;
+package eapli.base.net;
 
 import java.io.*;
 
