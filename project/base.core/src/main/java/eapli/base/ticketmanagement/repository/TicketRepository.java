@@ -1,7 +1,6 @@
-package eapli.base.servicesolicitationmanagement.repository;
+package eapli.base.ticketmanagement.repository;
 
-import eapli.base.servicemanagement.domain.Service;
-import eapli.base.servicesolicitationmanagement.domain.Ticket;
+import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.framework.domain.repositories.DomainRepository;
 
 import java.util.Optional;

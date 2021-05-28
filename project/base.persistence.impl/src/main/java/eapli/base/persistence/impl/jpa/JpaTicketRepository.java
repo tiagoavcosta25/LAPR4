@@ -1,9 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.formmanagement.domain.Form;
-import eapli.base.formmanagement.repositories.FormRepository;
-import eapli.base.servicesolicitationmanagement.domain.Ticket;
-import eapli.base.servicesolicitationmanagement.repository.TicketRepository;
+import eapli.base.ticketmanagement.domain.Ticket;
+import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.util.Application;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;

@@ -1,13 +1,12 @@
-package eapli.base.servicesolicitationmanagement.application;
+package eapli.base.ticketmanagement.application;
 
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
-import eapli.base.formmanagement.domain.DataType;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
-import eapli.base.servicesolicitationmanagement.domain.*;
-import eapli.base.servicesolicitationmanagement.repository.TicketRepository;
+import eapli.base.ticketmanagement.domain.*;
+import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;

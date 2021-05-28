@@ -1,4 +1,4 @@
-package eapli.base.servicesolicitationmanagement.domain;
+package eapli.base.ticketmanagement.domain;
 
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.domain.model.AggregateRoot;

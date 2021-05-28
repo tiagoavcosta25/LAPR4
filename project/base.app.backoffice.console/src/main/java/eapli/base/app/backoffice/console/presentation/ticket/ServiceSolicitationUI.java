@@ -1,18 +1,16 @@
-package eapli.base.app.backoffice.console.presentation.servicesolicitation;
+package eapli.base.app.backoffice.console.presentation.ticket;
 
 import eapli.base.app.backoffice.console.presentation.utils.PrintList;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.formmanagement.domain.Attribute;
-import eapli.base.formmanagement.domain.DataType;
 import eapli.base.formmanagement.domain.Form;
 import eapli.base.servicemanagement.domain.Service;
-import eapli.base.servicesolicitationmanagement.application.ServiceSolicitationController;
-import eapli.base.servicesolicitationmanagement.domain.*;
+import eapli.base.ticketmanagement.application.ServiceSolicitationController;
+import eapli.base.ticketmanagement.domain.*;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.time.LocalDate;
-import java.util.*;
 
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
