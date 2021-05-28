@@ -10,6 +10,8 @@ import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
