@@ -45,7 +45,7 @@ class TCPExecutorThread implements Runnable {
             sOut = new DataOutputStream(s.getOutputStream());
             sIn = new DataInputStream(s.getInputStream());
             SDP2021 request = new SDP2021(sIn);
-            SDP2021 response = new SDP2021();
+            SDP2021 response = new SDP2021(SDP2021Code.AUTOTASK_RESPONSE.getCode());
 
             if(request.getCode() == SDP2021Code.END.getCode()){
                 response.setCode(SDP2021Code.ROGER.getCode());
