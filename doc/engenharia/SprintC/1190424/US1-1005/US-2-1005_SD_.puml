@@ -6,8 +6,8 @@ hide footbox
 
 actor "User" as USER
 
-participant "<<presentation>>\nConsultPendingTasksUI" as UI
-participant "<<aplication>>\nConsultPendingTasksController" as CTRL
+participant "<<presentation>>\nAssignPendingTasksUI" as UI
+participant "<<aplication>>\nAssignPendingTasksController" as CTRL
 participant "<<aplication>>\nAuthzRegistry" as AUTHR
 participant "<<aplication>>\nAuthorizationService" as AUTH
 database "<<repository>>\nTaskRepository" as TR
