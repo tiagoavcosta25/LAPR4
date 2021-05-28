@@ -20,7 +20,7 @@ function refreshPendingTasks() {
             setTimeout(pendingTasks, 5000);
         };
         
-  	request.open("GET", "/tasks", true);
+  	request.open("GET", "/dashboard_info", true);
 	request.timeout = 5000;
   	request.send();
 }
