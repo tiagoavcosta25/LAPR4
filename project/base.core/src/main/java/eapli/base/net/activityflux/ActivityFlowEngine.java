@@ -56,8 +56,7 @@ public class ActivityFlowEngine {
                 SDP2021 sdp2021Packet = new SDP2021(in);
                 System.out.println("DATA " + sdp2021Packet.getData());
 
-                SDP2021 sdp2021Packet2 = new SDP2021();
-                sdp2021Packet2.setCode(4);
+                SDP2021 sdp2021Packet2 = new SDP2021(4);
                 sdp2021Packet2.send(out, "DEU");
 
                 in.close();
