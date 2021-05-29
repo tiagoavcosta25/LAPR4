@@ -14,6 +14,10 @@ public class ActivityFlowClient {
     private DataOutputStream out;
     private DataInputStream in;
 
+    public static void main(String[] args) {
+        System.out.println(retrieveInformation("Teste", 6).getData());
+    }
+
     public static SDP2021 retrieveInformation(String strMessage, int intCode) {
         ActivityFlowClient client1 = new ActivityFlowClient();
         client1.startConnection("127.0.0.1", 32507);
@@ -72,6 +76,6 @@ public class ActivityFlowClient {
         } catch (IOException e) {
             System.out.println("Could not catch packet!");
         }
-            return sdp2021Packet;
+        return sdp2021Packet;
     }
 }
