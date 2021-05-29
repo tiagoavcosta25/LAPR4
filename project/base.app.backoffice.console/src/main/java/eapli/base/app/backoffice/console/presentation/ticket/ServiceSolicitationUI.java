@@ -50,9 +50,11 @@ public class ServiceSolicitationUI extends AbstractUI {
                 System.out.printf("\nForm: %s\n\n------------------------------------------------\n\n", f.name().toString());
                 for(Attribute a : f.attributes()) {
                     String strQuestion = a.label() + " >";
-                    theController.addResponse(Console.readLine(strQuestion));
+                    String strResponse = Console.readLine(strQuestion);
+                    theController.addResponse(strResponse);
                 }
                 System.out.printf("\n\n------------------------------------------------\n\n");
+                theController.createResponse(f);
             }
 
 
