@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package net.activityflux;
+package base.server.fluxmotor;
 
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
@@ -11,7 +11,7 @@ import eapli.base.usermanagement.domain.BasePasswordPolicy;
 
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
-import net.activityflux.domain.ActivityFlowEngine;
+import base.server.fluxmotor.domain.ActivityFlowEngine;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

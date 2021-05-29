@@ -38,12 +38,12 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 
-	<logger name="net.activityflux" level="debug"
+	<logger name="base.server.fluxmotor" level="debug"
 			additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 
-	<logger name="net.activityflux" level="trace"
+	<logger name="base.server.fluxmotor" level="trace"
 			additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>

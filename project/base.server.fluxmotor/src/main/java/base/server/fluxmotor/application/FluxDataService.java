@@ -1,4 +1,4 @@
-package net.activityflux.application;
+package base.server.fluxmotor.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.net.activityflux.repositories.DataRepository;

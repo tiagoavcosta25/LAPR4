@@ -1,9 +1,9 @@
-package net.activityflux.domain;
+package base.server.fluxmotor.domain;
 
 import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
 import javafx.util.Pair;
-import net.activityflux.application.ActivityFlowController;
+import base.server.fluxmotor.application.ActivityFlowController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
