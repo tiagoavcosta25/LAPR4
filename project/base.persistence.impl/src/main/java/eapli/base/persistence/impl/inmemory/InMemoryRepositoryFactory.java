@@ -8,6 +8,7 @@ import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
+import eapli.base.net.activityflux.repositories.DataRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
@@ -150,6 +151,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	@Override
 	public SignupRequestRepository signupRequests(final TransactionalContext tx) {
 		return new InMemorySignupRequestRepository();
+	}
+
+	@Override
+	public DataRepository data() {
+		return data();
 	}
 
 
