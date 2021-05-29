@@ -91,6 +91,7 @@ public class CollaboratorSpecificationController {
         this.m_strRawPassword = m_oRandomRawPassword.toString();
         UserManagementService oUserService = AuthzRegistry.userService();
         this.m_strUsername = this.m_strEmail.substring(0, this.m_strEmail.indexOf("@"));
+        this.m_setRoles.add(BaseRoles.COLLABORATOR);
         SystemUser oSystemUser = oUserService.registerNewUser(this.m_strUsername, this.m_strRawPassword, m_strFirstName,
                 m_strLastName, m_strEmail, this.m_setRoles);
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withSystemUser(oSystemUser);
