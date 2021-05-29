@@ -1,4 +1,4 @@
-package eapli.base.net.dashboard;
+package eapli.base.app.user.console.net.dashboard;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -9,25 +9,21 @@ import java.net.Socket;
  * @author Pedro Santos (1190967@isep.ipp.pt)
  */
 public class HttpServerAjaxDashboard {
-    static private final String BASE_FOLDER = "www";
+    static private final String BASE_FOLDER = "D:\\Escola\\Uni\\_Year-02\\LAPR4\\ProjetoIntegrador\\project\\base.app.user.console\\src\\main\\java\\eapli\\base\\app\\user\\console\\net\\dashboard\\www";
     static private ServerSocket sock;
 
-    public static void main(String args[]) throws Exception {
+    public static void main(Integer intPort) throws Exception {
         Socket cliSock;
-
-        if(args.length!=1) {
-            System.out.println("Local port number required at the command line.");
-            System.exit(1);
-        }
         
         accessesCounter = 0;
-        
+
         try {
-            sock = new ServerSocket(Integer.parseInt(args[0]));
+            sock = new ServerSocket(intPort);
         } catch(IOException ex) {
-                System.out.println("Server failed to open local port " + args[0]);
+                System.out.println("Server failed to open local port " + intPort);
                 System.exit(1);
         }
+        System.out.println("Server initialized...");
 
         while(true) {
                 cliSock = sock.accept();
@@ -45,10 +41,10 @@ public class HttpServerAjaxDashboard {
     private static synchronized void incAccessesCounter() { accessesCounter++; }
     
     public static synchronized String getPendingTasksInHTML(int pendingCounter, int overdueCounter, int closeCounter, int highCounter, int mediumCounter, int lowCounter) {
-        String textHtml = "<hr><p>HTTP server accesses counter: " + accessesCounter + "</p><p>Pending Tasks: " + pendingCounter
-                + "</p><p>Overdue Tasks (Tasks that over the limit date): " + overdueCounter + "</p><p>Tasks With Less Than 1h Left: " + closeCounter
-                + "</p><p>Pending Tasks (High Urgency): " + highCounter + "</p><p>Pending Tasks (Medium Urgency): " + mediumCounter +
-                "</p><p>Pending Tasks (Low Urgency): " + lowCounter + "</p><hr>";
+        String textHtml = "<hr><p><b>HTTP server accesses counter:</b> " + accessesCounter + "</p><p><b>Pending Tasks:</b> " + pendingCounter
+                + "</p><p><b>Overdue Tasks (Tasks that over the limit date):</b> " + overdueCounter + "</p><p><b>Tasks With Less Than 1h Left:</b> " + closeCounter
+                + "</p><p><b>Pending Tasks (High Urgency):</b> " + highCounter + "</p><p><b>Pending Tasks (Medium Urgency):</b> " + mediumCounter +
+                "</p><p><b>Pending Tasks (Low Urgency):</b> " + lowCounter + "</p><hr>";
         return textHtml;
     }
 }
