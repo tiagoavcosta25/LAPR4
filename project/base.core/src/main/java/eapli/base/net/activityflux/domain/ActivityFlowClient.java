@@ -1,4 +1,4 @@
-package eapli.base.net.activityflux;
+package eapli.base.net.activityflux.domain;
 
 import eapli.base.net.SDP2021;
 
