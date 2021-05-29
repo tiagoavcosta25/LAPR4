@@ -17,15 +17,15 @@ class JpaDataRepository extends HelpDeskJpaRepositoryBase<Service, Long, Long>
     }
 
     @Override
-    public int numberOfPendingActivities(Long oMecanographicNumber) {
-        final TypedQuery<Integer> q = entityManager().createQuery(
+    public Long numberOfPendingActivities(Long oMecanographicNumber) {
+        final TypedQuery<Long> q = entityManager().createQuery(
                 "Select count(DISTINCT lst.id) from ActivityFlux a join a.m_lstFlux lst " +
                         "inner join Task t on t.id = lst.id " +
                         "inner join ManualTask mt on mt.id = t.id " +
                         "inner join Service s on s.m_oActivityFlux.id = a.id " +
                         "inner join Ticket tt on s.id = tt.m_oService.id " +
-                        "where mt.m_oCollaborator.m_oMechanographicNumber = :mec and t.m_oTaskStatus = 'PENDING'",
-                int.class);
+                        "where mt.m_oCollaborator.m_oMechanographicNumber.m_lngMechanographicNumber = :mec and t.m_oTaskStatus = 'PENDING'",
+                Long.class);
         q.setParameter("mec", oMecanographicNumber);
         return q.getSingleResult();
     }
