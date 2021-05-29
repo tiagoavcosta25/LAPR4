@@ -23,16 +23,13 @@
  */
 package eapli.base.ticketmanagement.domain;
 
-import eapli.base.cataloguemanagement.domain.Catalogue;
+import eapli.base.formmanagement.domain.Attribute;
 import eapli.base.formmanagement.domain.Form;
-import eapli.base.taskmanagement.domain.TaskDescription;
-import eapli.base.taskmanagement.domain.TaskPriority;
-import eapli.base.taskmanagement.domain.TaskResult;
-import eapli.base.taskmanagement.domain.TaskStatus;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
 import javax.persistence.*;
+import java.util.Map;
 
 /**
  *
@@ -41,7 +38,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public abstract class Response implements AggregateRoot<Long> {
+public abstract class FormResponse implements AggregateRoot<Long> {
 
     @Version
     private Long version;
@@ -55,37 +52,32 @@ public abstract class Response implements AggregateRoot<Long> {
     @JoinColumn(name="formID")
     private Form m_oForm;
 
+    @ElementCollection
+    @Column(name = "responses")
+    private Map<Attribute, Response> m_mapResponses;
 
 
-    public Response(final TaskDescription oDescription, final TaskPriority oTaskPriority) {
-        if (oDescription == null || oTaskPriority == null) {
+    public FormResponse(final Form oForm, final Map<Attribute, Response> mapResponses) {
+        if (oForm == null || mapResponses == null) {
             throw new IllegalArgumentException();
         }
-        this.m_oDescription = oDescription;
-        this.m_oTaskStatus = TaskStatus.PENDING;
-        this.m_oTaskPriority = oTaskPriority;
-        this.m_oTaskResult = TaskResult.NO_RESULT;
+        this.m_oForm = oForm;
+        this.m_mapResponses = mapResponses;
     }
 
-    protected Response() {
+    protected FormResponse() {
         // for ORM only
     }
 
-    public TaskDescription description() {
-        return this.m_oDescription;
+    public Form form() {
+        return this.m_oForm;
     }
 
-    public TaskStatus status() {
-        return this.m_oTaskStatus;
+    public Map<Attribute, Response> responses() {
+        return this.m_mapResponses;
     }
 
-    public TaskPriority priority() {
-        return this.m_oTaskPriority;
-    }
-
-    public TaskResult result() {
-        return this.m_oTaskResult;
-    }
+    public void addResponse(Attribute oAttribute, Response oResponse){ this.m_mapResponses.put(oAttribute, oResponse);}
 
     @Override
     public boolean equals(final Object o) {
