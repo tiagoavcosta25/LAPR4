@@ -39,9 +39,6 @@ import javax.persistence.*;
 @Embeddable
 public class Attribute implements ValueObject, Comparable<Attribute>{
 
-    /**
-     * cascade = CascadeType.NONE as the systemUser is part of another aggregate
-     */
     @Embedded
     private AttributeName m_oName;
 

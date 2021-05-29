@@ -31,7 +31,7 @@ public class ServiceDraftFormBootstrapper implements Action {
         draftForm("Repair Form", 2, new ArrayList<>(Arrays.asList("ProductID", "CustomerNameEmail")),
                 new ArrayList<>(Arrays.asList("Product ID", "Customer Name Email")),
                 new ArrayList<>(Arrays.asList("ID of the product", "Email referring to the customer")),
-                new ArrayList<>(Arrays.asList("[0-9]+", "[a-zA-Z]+[0-9]*@[a-z].[a-z]")),
+                new ArrayList<>(Arrays.asList("[0-9]+", "[a-zA-Z]+[0-9]*@[a-z]+.[a-z]+")),
                 new ArrayList<>(Arrays.asList("D:/folder1/script1.bat", "C:/folder2/script2.bat")),
                 new ArrayList<>(Arrays.asList(DataType.INTEGER, DataType.STRING)));
 
