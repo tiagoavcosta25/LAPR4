@@ -1,4 +1,4 @@
-package eapli.base.net.activityflux.application;
+package net.activityflux.application;
 
 import eapli.framework.application.UseCaseController;
 
@@ -12,7 +12,7 @@ public class ActivityFlowController {
 
     //TODO: Remove Mock
     public String prepareFluxData(String oMecanographicNumber) {
-        return m_oFluxDataService.prepareFluxDataMock(oMecanographicNumber);
+        return m_oFluxDataService.prepareFluxData(oMecanographicNumber);
     }
 
 }
