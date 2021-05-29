@@ -8,13 +8,13 @@ public interface DataRepository
 
     public int numberOfPendingActivities(Long oMecanographicNumber);
 
-    public int numberOfExpiredActivities();
+    public int numberOfExpiredActivities(Long oMecanographicNumber);
 
-    public int numberOfNearExpiredActivities();
+    public int numberOfNearExpiredActivities(Long oMecanographicNumber);
 
-    public int numberOfLowPriorityActivities();
+    public int numberOfLowPriorityActivities(Long oMecanographicNumber);
 
-    public int numberOfMediumPriorityActivities();
+    public int numberOfMediumPriorityActivities(Long oMecanographicNumber);
 
-    public int numberOfHighPriorityActivities();
+    public int numberOfHighPriorityActivities(Long oMecanographicNumber);
 }

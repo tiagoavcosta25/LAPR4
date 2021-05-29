@@ -1,20 +1,9 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.cataloguemanagement.domain.Catalogue;
-import eapli.base.cataloguemanagement.domain.CatalogueBriefDescription;
-import eapli.base.cataloguemanagement.domain.CatalogueCompleteDescription;
-import eapli.base.cataloguemanagement.domain.CatalogueTitle;
 import eapli.base.net.activityflux.repositories.DataRepository;
 import eapli.base.servicemanagement.domain.Service;
-import eapli.base.teammanagement.domain.Team;
-import eapli.base.util.Application;
-import eapli.framework.domain.repositories.TransactionalContext;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
-import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import javax.persistence.TypedQuery;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
@@ -42,27 +31,27 @@ class JpaDataRepository extends HelpDeskJpaRepositoryBase<Service, Long, Long>
     }
 
     @Override
-    public int numberOfExpiredActivities() {
+    public int numberOfExpiredActivities(Long oMecanographicNumber) {
         return 0;
     }
 
     @Override
-    public int numberOfNearExpiredActivities() {
+    public int numberOfNearExpiredActivities(Long oMecanographicNumber) {
         return 0;
     }
 
     @Override
-    public int numberOfLowPriorityActivities() {
+    public int numberOfLowPriorityActivities(Long oMecanographicNumber) {
         return 0;
     }
 
     @Override
-    public int numberOfMediumPriorityActivities() {
+    public int numberOfMediumPriorityActivities(Long oMecanographicNumber) {
         return 0;
     }
 
     @Override
-    public int numberOfHighPriorityActivities() {
+    public int numberOfHighPriorityActivities(Long oMecanographicNumber) {
         return 0;
     }
 
