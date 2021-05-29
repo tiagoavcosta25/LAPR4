@@ -1,4 +1,4 @@
-package net.activityflux.application;
+package base.server.fluxmotor.application;
 
 import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
