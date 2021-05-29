@@ -10,14 +10,12 @@ import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 @Embeddable
-public class TicketResponse implements ValueObject, Comparable<TicketResponse> {
+public class Response implements ValueObject, Comparable<Response> {
 
     private static final long serialVersionUID = 1L;
     private static final Integer m_intMaxLength = 40;
@@ -25,7 +23,7 @@ public class TicketResponse implements ValueObject, Comparable<TicketResponse> {
     @Column(name = "ticketResponse")
     private String m_strResponse;
 
-    public TicketResponse(final String strResponse) {
+    public Response(final String strResponse) {
         if (StringPredicates.isNullOrEmpty(strResponse) || !(strResponse.length() < m_intMaxLength)) {
             throw new IllegalArgumentException(
                     "Response should not be null, empty nor have more than 40 characters");
@@ -34,12 +32,12 @@ public class TicketResponse implements ValueObject, Comparable<TicketResponse> {
         this.m_strResponse = strResponse;
     }
 
-    protected TicketResponse() {
+    protected Response() {
         // for ORM
     }
 
-    public static TicketResponse valueOf(final String strResponse) {
-        return new TicketResponse(strResponse);
+    public static Response valueOf(final String strResponse) {
+        return new Response(strResponse);
     }
 
     @Override
@@ -47,11 +45,11 @@ public class TicketResponse implements ValueObject, Comparable<TicketResponse> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof TicketResponse)) {
+        if (!(o instanceof Response)) {
             return false;
         }
 
-        final TicketResponse that = (TicketResponse) o;
+        final Response that = (Response) o;
         return this.m_strResponse.equals(that.m_strResponse);
     }
 
@@ -66,7 +64,7 @@ public class TicketResponse implements ValueObject, Comparable<TicketResponse> {
     }
 
     @Override
-    public int compareTo(final TicketResponse arg0) {
+    public int compareTo(final Response arg0) {
         return m_strResponse.compareTo(arg0.m_strResponse);
     }
 }
