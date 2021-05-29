@@ -5,66 +5,89 @@
  */
 package eapli.base.ticketmanagement.domain;
 
+import eapli.base.formmanagement.domain.Attribute;
+import eapli.base.formmanagement.domain.Form;
+import eapli.base.servicemanagement.domain.Service;
+import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
  */
-@Embeddable
-public class Response implements ValueObject, Comparable<Response> {
+@Entity
+public class Response implements  AggregateRoot<Long> {
 
-    private static final long serialVersionUID = 1L;
-    private static final Integer m_intMaxLength = 40;
+    @Version
+    private Long version;
 
-    @Column(name = "ticketResponse")
-    private String m_strResponse;
+    @Id
+    @GeneratedValue
+    @Column(name = "responseID")
+    private Long m_lngID;
 
-    public Response(final String strResponse) {
-        if (StringPredicates.isNullOrEmpty(strResponse) || !(strResponse.length() < m_intMaxLength)) {
+    @ManyToOne
+    @JoinColumn(name="formID")
+    private Form m_oForm;
+
+    @ElementCollection()
+    @CollectionTable(name = "response_list")
+    private List<String> m_lstResponses;
+
+    public Response(final Form oForm, List<String> lstResponses) {
+        if (oForm == null || lstResponses.isEmpty()) {
             throw new IllegalArgumentException(
-                    "Response should not be null, empty nor have more than 40 characters");
+                    "Forms and Responses should not be null nor empty");
         }
+
+        int c = 0;
+        for(Attribute a : oForm.attributes()){
+                if(!a.validate(lstResponses.get(c))){
+                    throw new IllegalArgumentException(
+                            "Invalid Attribute Response");
+                }
+                c++;
+        }
+
         // expression
-        this.m_strResponse = strResponse;
+        this.m_oForm = oForm;
+        this.m_lstResponses = lstResponses;
     }
 
     protected Response() {
         // for ORM
     }
 
-    public static Response valueOf(final String strResponse) {
-        return new Response(strResponse);
-    }
-
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Response)) {
-            return false;
-        }
-
-        final Response that = (Response) o;
-        return this.m_strResponse.equals(that.m_strResponse);
+        return DomainEntities.areEqual(this, o);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strResponse.hashCode();
+        return DomainEntities.hashCode(this);
+    }
+
+    @Override
+    public boolean sameAs(final Object other) {
+        return DomainEntities.areEqual(this, other);
+    }
+
+    public Long id() {
+        return identity();
+    }
+
+    @Override
+    public Long identity() {
+        return this.m_lngID;
     }
 
     @Override
     public String toString() {
-        return this.m_strResponse;
-    }
-
-    @Override
-    public int compareTo(final Response arg0) {
-        return m_strResponse.compareTo(arg0.m_strResponse);
+        return this.m_oForm.toString();
     }
 }
