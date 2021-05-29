@@ -1,4 +1,4 @@
-package net.activityflux.application;
+package base.server.fluxmotor.application;
 
 import eapli.framework.application.UseCaseController;
 
