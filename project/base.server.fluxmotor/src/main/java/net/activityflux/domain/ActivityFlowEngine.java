@@ -1,8 +1,12 @@
-package eapli.base.net.activityflux.domain;
+package net.activityflux.domain;
 
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
-import eapli.base.net.activityflux.application.ActivityFlowController;
+import eapli.base.usermanagement.domain.BasePasswordPolicy;
+import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
+import net.activityflux.application.ActivityFlowController;
 import javafx.util.Pair;
 
 import java.io.*;
@@ -17,11 +21,9 @@ public class ActivityFlowEngine implements Runnable{
 
     @Override
     public void run() {
-        ActivityFlowEngine server=new ActivityFlowEngine();
-        server.start(32507);
-    }
-
-    public static void main(String[] args) {
+        System.out.println("Server started!");
+        AuthzRegistry.configure(PersistenceContext.repositories().users(),
+                new BasePasswordPolicy(), new PlainTextEncoder());
         ActivityFlowEngine server=new ActivityFlowEngine();
         server.start(32507);
     }
