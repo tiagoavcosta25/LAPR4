@@ -15,7 +15,7 @@ public class ActivityFlowClient {
     private DataInputStream in;
 
     public static void main(String[] args) {
-        System.out.println(retrieveInformation("Teste", 6).getData());
+        System.out.println(retrieveInformation("123456", 6).getData());
     }
 
     public static SDP2021 retrieveInformation(String strMessage, int intCode) {
