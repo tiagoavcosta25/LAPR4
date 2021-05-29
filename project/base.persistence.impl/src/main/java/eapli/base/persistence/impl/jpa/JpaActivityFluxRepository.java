@@ -26,7 +26,7 @@ class JpaActivityFluxRepository
 
     public JpaActivityFluxRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "formID");
+                "fluxID");
     }
 
     @Override

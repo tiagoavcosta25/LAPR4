@@ -1,9 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
-import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
-import eapli.base.formmanagement.domain.Form;
-import eapli.base.formmanagement.repositories.FormRepository;
+import eapli.base.ticketmanagement.domain.Response;
+import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.base.util.Application;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
@@ -16,23 +14,23 @@ import java.util.Optional;
  *
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
-class JpaActivityFluxRepository
-        extends JpaAutoTxRepository<ActivityFlux, Long, Long>
-        implements ActivityFluxRepository {
+class JpaResponseRepository
+        extends JpaAutoTxRepository<Response, Long, Long>
+        implements ResponseRepository {
 
-    public JpaActivityFluxRepository(TransactionalContext autoTx) {
-        super(autoTx, "fluxID");
+    public JpaResponseRepository(TransactionalContext autoTx) {
+        super(autoTx, "responseID");
     }
 
-    public JpaActivityFluxRepository(String puname) {
+    public JpaResponseRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "formID");
+                "responseID");
     }
 
     @Override
-    public Optional<ActivityFlux> findById(Long lngID) {
+    public Optional<Response> findById(Long lngID) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("fluxID", lngID);
-        return matchOne("e.id=:fluxID", params);
+        params.put("responseID", lngID);
+        return matchOne("e.id=:responseID", params);
     }
 }
