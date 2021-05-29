@@ -11,6 +11,7 @@ import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.net.activityflux.repositories.DataRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
+import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.base.teammanagement.repositories.TeamRepository;
@@ -89,6 +90,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public ActivityFluxRepository fluxes(TransactionalContext autoTx) {
+		return null;
+	}
+
+	@Override
+	public ResponseRepository responses() {
+		return responses(null);
+	}
+
+	@Override
+	public ResponseRepository responses(TransactionalContext autoTx) {
 		return null;
 	}
 
