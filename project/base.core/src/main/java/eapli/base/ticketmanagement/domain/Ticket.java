@@ -38,19 +38,18 @@ public class Ticket implements AggregateRoot<Long> {
     @CollectionTable(name = "ticketFiles")
     private List<TicketFile> m_lstFiles;
 
-    @ElementCollection()
-    @CollectionTable(name = "ticketResponses")
-    private List<TicketResponse> m_lstResponses;
+    @OneToMany
+    private List<Response> m_lstResponse;
 
     public Ticket(final TicketUrgency oUrgency, final TicketLimitDate oLimitDate, final TicketCreationDate oCreationDate,
-                  final List<TicketResponse> lstResponse, final List<TicketFile> lstFiles, final Service oService) {
+                  final List<Response> lstResponse, final List<TicketFile> lstFiles, final Service oService) {
         if (oUrgency == null || oLimitDate == null || oCreationDate == null || lstFiles == null || oService == null) {
             throw new IllegalArgumentException();
         }
         this.m_oUrgency = oUrgency;
         this.m_oLimitDate = oLimitDate;
         this.m_oCreationDate = oCreationDate;
-        this.m_lstResponses = lstResponse;
+        this.m_lstResponse = lstResponse;
         this.m_lstFiles = lstFiles;
         this.m_oService = oService;
     }
@@ -68,8 +67,8 @@ public class Ticket implements AggregateRoot<Long> {
     public TicketCreationDate creationDate() {
         return this.m_oCreationDate;
     }
-    public List<TicketResponse> responses() {
-        return this.m_lstResponses;
+    public List<Response> responses() {
+        return this.m_lstResponse;
     }
     public List<TicketFile> files() {
         return this.m_lstFiles;
