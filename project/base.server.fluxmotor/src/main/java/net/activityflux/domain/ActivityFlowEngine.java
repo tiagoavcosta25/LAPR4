@@ -8,46 +8,36 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import net.activityflux.application.ActivityFlowController;
 import javafx.util.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class ActivityFlowEngine implements Runnable{
-    private ServerSocket serverSocket;
+public class ActivityFlowEngine{
+    private static final Logger LOGGER = LogManager.getLogger(ActivityFlowEngine.class);
 
-    @Override
-    public void run() {
-        System.out.println("Server started!");
-        AuthzRegistry.configure(PersistenceContext.repositories().users(),
-                new BasePasswordPolicy(), new PlainTextEncoder());
-        ActivityFlowEngine server=new ActivityFlowEngine();
-        server.start(32507);
+    public void start(final int port, final boolean blocking) {
+        if (blocking) {
+            listen(port);
+        } else {
+            new Thread(() -> listen(port)).start();
+        }
     }
 
-    public void start(int port) {
-        try {
-            serverSocket = new ServerSocket(port);
-        } catch (IOException e) {
-            System.out.println("Failed to open server socket");
-        }
-        while (true) {
-            try {
-                new ActivityFlowClientHandler(serverSocket.accept()).start();
-            } catch (IOException e) {
-                System.out.println("Failed to accept server socket and start new Thread");
+    private void listen(final int port) {
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            while (true) {
+                final Socket clientSocket = serverSocket.accept();
+                new ActivityFlowClientHandler(clientSocket).start();
             }
-        }
-    }
-
-    public void stop() {
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            System.out.println("IOException");
+        } catch (final IOException e) {
+            LOGGER.error(e);
         }
     }
 
@@ -60,26 +50,30 @@ public class ActivityFlowEngine implements Runnable{
         }
 
         public void run() {
-            System.out.println("New client with ip: " + clientSocket.getInetAddress().getHostAddress());
-            try {
-                DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
-                DataInputStream in = new DataInputStream(clientSocket.getInputStream());
+            final InetAddress clientIP = clientSocket.getInetAddress();
+            LOGGER.debug("Acepted connection from {}:{}", clientIP.getHostAddress(), clientSocket.getPort());
+            try(DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
+                 DataInputStream in = new DataInputStream(clientSocket.getInputStream())){
 
-                SDP2021 sdp2021Packet = new SDP2021(in);
+                SDP2021 sdp2021PacketReceived = new SDP2021(in);
 
-                System.out.println("Packet received with message: " + sdp2021Packet.getData());
+                LOGGER.trace("Received message:----\n{}\n----", sdp2021PacketReceived.getData());
 
-                Pair<Integer, String> dataForPacket = handleRequest(sdp2021Packet);
+                Pair<Integer, String> dataForPacket = handleRequest(sdp2021PacketReceived);
 
-                SDP2021 sdp2021Packet2 = new SDP2021(dataForPacket.getKey());
-                sdp2021Packet2.send(out, dataForPacket.getValue());
+                SDP2021 sdp2021Packet2Sent = new SDP2021(dataForPacket.getKey());
+                sdp2021Packet2Sent.send(out, dataForPacket.getValue());
+                LOGGER.trace("Sent message:----\n{}\n----", sdp2021Packet2Sent.getData());
 
-                in.close();
-                out.close();
                 clientSocket.close();
-                System.out.println("Connection closed");
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    clientSocket.close();
+                } catch (final IOException e) {
+                    LOGGER.error("While closing the client socket", e);
+                }
             }
         }
 
