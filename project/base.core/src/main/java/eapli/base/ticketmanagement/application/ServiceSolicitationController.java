@@ -12,6 +12,7 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,8 +56,9 @@ public class ServiceSolicitationController {
         return oFile;
     }
 
-    public Ticket addTicket(Service oService, String strUrgency, LocalDate dtLimitDate){
-        return new Ticket(TicketUrgency.stringToTicketUrgency(strUrgency), new TicketLimitDate(dtLimitDate), this.m_lstResponses, this.m_lstFiles, oService);
+    public Ticket addTicket(Service oService, String strUrgency, LocalDateTime dtLimitDate, LocalDateTime dtCreationDate){
+        return new Ticket(TicketUrgency.stringToTicketUrgency(strUrgency),
+                new TicketLimitDate(dtLimitDate), new TicketCreationDate(dtCreationDate) ,this.m_lstResponses, this.m_lstFiles, oService);
     }
 
     public Ticket saveTicket(Ticket oTicket){
