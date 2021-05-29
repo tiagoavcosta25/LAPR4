@@ -27,6 +27,9 @@ public class Ticket implements AggregateRoot<Long> {
     @Embedded
     private TicketLimitDate m_oLimitDate;
 
+    @Embedded
+    private TicketCreationDate m_oCreationDate;
+
     @ManyToOne
     @JoinColumn(name="ServiceID")
     private Service m_oService;
@@ -39,13 +42,14 @@ public class Ticket implements AggregateRoot<Long> {
     @CollectionTable(name = "ticketResponses")
     private List<TicketResponse> m_lstResponses;
 
-    public Ticket(final TicketUrgency oUrgency, final TicketLimitDate oLimitDate, final List<TicketResponse> lstResponse,
-                  final List<TicketFile> lstFiles, final Service oService) {
-        if (oUrgency == null || oLimitDate == null || lstFiles == null || oService == null) {
+    public Ticket(final TicketUrgency oUrgency, final TicketLimitDate oLimitDate, final TicketCreationDate oCreationDate,
+                  final List<TicketResponse> lstResponse, final List<TicketFile> lstFiles, final Service oService) {
+        if (oUrgency == null || oLimitDate == null || oCreationDate == null || lstFiles == null || oService == null) {
             throw new IllegalArgumentException();
         }
         this.m_oUrgency = oUrgency;
         this.m_oLimitDate = oLimitDate;
+        this.m_oCreationDate = oCreationDate;
         this.m_lstResponses = lstResponse;
         this.m_lstFiles = lstFiles;
         this.m_oService = oService;
@@ -60,6 +64,9 @@ public class Ticket implements AggregateRoot<Long> {
     }
     public TicketLimitDate limitDate() {
         return this.m_oLimitDate;
+    }
+    public TicketCreationDate creationDate() {
+        return this.m_oCreationDate;
     }
     public List<TicketResponse> responses() {
         return this.m_lstResponses;
