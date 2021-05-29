@@ -5,6 +5,7 @@ import eapli.framework.domain.model.ValueObject;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Embeddable
 public class TicketLimitDate implements ValueObject, Comparable<TicketLimitDate> {
@@ -12,22 +13,22 @@ public class TicketLimitDate implements ValueObject, Comparable<TicketLimitDate>
         private static final long serialVersionUID = 1L;
 
         @Column(name = "limitDate")
-        private LocalDate m_dtLimitDate;
+        private LocalDateTime m_dtLimitDate;
 
-    public TicketLimitDate(final LocalDate dtBirthDate) {
-            if (dtBirthDate.isBefore(LocalDate.now())) {
+    public TicketLimitDate(final LocalDateTime dtLimitDate) {
+            if (dtLimitDate.isBefore(LocalDateTime.now())) {
                 throw new IllegalArgumentException(
                         "Limit Date can't be set in the past.");
             }
             // expression
-            this.m_dtLimitDate = dtBirthDate;
+            this.m_dtLimitDate = dtLimitDate;
         }
 
     protected TicketLimitDate() {
             // for ORM
         }
 
-        public static TicketLimitDate valueOf(final LocalDate dtLimitDate) {
+        public static TicketLimitDate valueOf(final LocalDateTime dtLimitDate) {
             return new TicketLimitDate(dtLimitDate);
         }
 

@@ -1,5 +1,6 @@
 package eapli.base.persistence.impl.jpa;
 
+import eapli.base.net.activityflux.repositories.DataRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.util.Application;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
@@ -139,6 +140,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public TicketRepository tickets(final TransactionalContext autoTx) {
 		return new JpaTicketRepository(autoTx);
+	}
+
+	@Override
+	public DataRepository data() {
+		return new JpaDataRepository();
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package eapli.base.net.activityflux;
+package eapli.base.net.activityflux.domain;
 
 import eapli.base.net.SDP2021;
 
@@ -13,6 +13,10 @@ public class ActivityFlowClient {
     private Socket clientSocket;
     private DataOutputStream out;
     private DataInputStream in;
+
+    public static void main(String[] args) {
+        System.out.println(retrieveInformation("Teste", 6).getData());
+    }
 
     public static SDP2021 retrieveInformation(String strMessage, int intCode) {
         ActivityFlowClient client1 = new ActivityFlowClient();
@@ -72,6 +76,6 @@ public class ActivityFlowClient {
         } catch (IOException e) {
             System.out.println("Could not catch packet!");
         }
-            return sdp2021Packet;
+        return sdp2021Packet;
     }
 }
