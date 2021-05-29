@@ -11,6 +11,7 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
@@ -32,8 +33,10 @@ public class ServiceSolicitationUI extends AbstractUI {
             final Integer intYear = Integer.parseInt(Console.readLine("Limit Date (year) >"));
             final Integer intMonth = Integer.parseInt(Console.readLine("Limit Date (month) >"));
             final Integer intDay = Integer.parseInt(Console.readLine("Limit Date (day) >"));
+            final Integer intHour = Integer.parseInt(Console.readLine("Limit Date (hour) >"));
+            final Integer intMinute = Integer.parseInt(Console.readLine("Limit Date (minute) >"));
 
-            final LocalDate dtLimitDate = LocalDate.of(intYear, intMonth, intDay);
+            final LocalDateTime dtLimitDate = LocalDateTime.of(intYear, intMonth, intDay, intHour, intMinute);
 
             String strOp;
 
@@ -54,7 +57,7 @@ public class ServiceSolicitationUI extends AbstractUI {
 
 
             Ticket oTicket = this.theController.addTicket(oService, oTicketUrgency.toString(),
-                    dtLimitDate);
+                    dtLimitDate, LocalDateTime.now());
 
             strOp = Console.readLine("Confirm the creation of this ticket (Y/N) >");
 
