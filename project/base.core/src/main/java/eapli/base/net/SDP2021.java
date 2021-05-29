@@ -12,13 +12,13 @@ public class SDP2021 {
     private static final int VERSION = 3;
 
     static private String read(DataInputStream in, int length) throws IOException {
-        String ret="";
+        StringBuilder ret= new StringBuilder();
         int val;
         for(int i = 0; i < length; i++) {
             val=in.read();
-            ret=ret+(char)val;
+            ret.append((char) val);
         }
-        return ret;
+        return ret.toString();
     }
     
     static private void write(DataOutputStream out, String line, int code) throws IOException {
@@ -29,15 +29,15 @@ public class SDP2021 {
     
     //// NON-STATIC (INSTANCE) ELEMENTS
     
-    private Integer version;
+    private final Integer version;
     private Integer code;
     private Integer num_bytes;
     private String data;
     
     /**
      * Creates a new SDP2021 by receiving it from an DataInputStream
-     * @param in 
-     * @throws IOException
+     * @param in DataInputStream variable
+     * @throws IOException exception
      */
     public SDP2021(DataInputStream in) throws IOException {
         version = in.read();
@@ -66,6 +66,8 @@ public class SDP2021 {
     
     
 	public boolean send(DataOutputStream out, String strData) throws IOException {
+        this.data = strData;
+        this.num_bytes = strData.length();
         write(out, strData, code);
         return true;
     }
