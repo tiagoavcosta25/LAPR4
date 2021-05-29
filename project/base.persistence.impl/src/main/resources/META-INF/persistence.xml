@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence">
   <persistence-unit name="eapli.base">
-      <!--
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    -->
+    <!--
+  <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+  -->
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
     <class>eapli.framework.infrastructure.authz.domain.model.SystemUser</class>
@@ -23,12 +23,13 @@
     <class>eapli.base.taskmanagement.domain.ManualTask</class>
     <class>eapli.base.taskmanagement.domain.AutomaticTask</class>
     <class>eapli.base.ticketmanagement.domain.Ticket</class>
+    <class>eapli.base.ticketmanagement.domain.Response</class>
     <class>eapli.base.activityfluxmanagement.domain.ActivityFlux</class>
 
     <properties>
       <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/../db/base"/>-->
 
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://vsgate-s2.dei.isep.ipp.pt:10357/db/data;MV_STORE=FALSE;AUTO_SERVER=true;"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://vsgate-s2.dei.isep.ipp.pt:10357/db/data;MV_STORE=FALSE;AUTO_SERVER=true;"/>
 
       <property name="javax.persistence.jdbc.user" value="lisa"/>
       <property name="javax.persistence.jdbc.password" value="lapr4nota20grupolisa"/>
