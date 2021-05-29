@@ -97,6 +97,14 @@ public class Attribute implements ValueObject, Comparable<Attribute>{
         return this.m_oDataType;
     }
 
+
+    public boolean validate(String strResponse) {
+        if(strResponse.matches(m_oRegex.toString())){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public int hashCode() {
         return this.m_oName.hashCode();
