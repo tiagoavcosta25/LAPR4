@@ -2,10 +2,12 @@ package eapli.base.ticketmanagement.application;
 
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
+import eapli.base.formmanagement.domain.Form;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.base.ticketmanagement.domain.*;
+import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -26,7 +28,9 @@ public class ServiceSolicitationController {
     private final TicketRepository m_oTicketRepo = PersistenceContext.repositories().tickets();
     private final CatalogueRepository m_oCatRepo = PersistenceContext.repositories().catalogues();
     private final ServiceRepository m_oServRepo = PersistenceContext.repositories().services();
-    private final List<TicketResponse> m_lstResponses = new ArrayList<>();
+    private final ResponseRepository m_oRespRepo = PersistenceContext.repositories().responses();
+    private final List<String> m_lstAnswer = new ArrayList<>();
+    private final List<Response> m_lstResponses = new ArrayList<>();
     private final List<TicketFile> m_lstFiles = new ArrayList<>();
 
     public Iterable<Catalogue> getCataloguesByUser(){
@@ -44,9 +48,17 @@ public class ServiceSolicitationController {
         return Arrays.asList(TicketUrgency.values());
     }
 
-    public TicketResponse addResponse(String strResponse){
-        TicketResponse oResponse = new TicketResponse(strResponse);
+    public String addResponse(String strResponse){
+        this.m_lstAnswer.add(strResponse);
+        return strResponse;
+    }
+
+    public Response createResponse(Form oForm){
+        List<String> lstResp = new ArrayList<>(this.m_lstAnswer);
+        Response oResponse = new Response(oForm, lstResp);
+        oResponse = this.m_oRespRepo.save(oResponse);
         this.m_lstResponses.add(oResponse);
+        this.m_lstAnswer.clear();
         return oResponse;
     }
 
@@ -57,8 +69,9 @@ public class ServiceSolicitationController {
     }
 
     public Ticket addTicket(Service oService, String strUrgency, LocalDateTime dtLimitDate, LocalDateTime dtCreationDate){
+
         return new Ticket(TicketUrgency.stringToTicketUrgency(strUrgency),
-                new TicketLimitDate(dtLimitDate), new TicketCreationDate(dtCreationDate) ,this.m_lstResponses, this.m_lstFiles, oService);
+                new TicketLimitDate(dtLimitDate), new TicketCreationDate(dtCreationDate), this.m_lstResponses, this.m_lstFiles, oService);
     }
 
     public Ticket saveTicket(Ticket oTicket){
