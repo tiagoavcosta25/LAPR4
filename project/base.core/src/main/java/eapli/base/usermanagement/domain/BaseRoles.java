@@ -45,6 +45,8 @@ public final class BaseRoles {
 
     public static final Role POWER_USER = Role.valueOf("POWER_USER");
 
+    public static final Role COLLABORATOR = Role.valueOf("COLLABORATOR");
+
     /**
      * get available role types for adding new users
      *
@@ -55,6 +57,6 @@ public final class BaseRoles {
     }
 
     public boolean isCollaborator(final Role role) {
-        return role != CLIENT_USER;
+        return role == COLLABORATOR;
     }
 }

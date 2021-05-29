@@ -1,5 +1,6 @@
 package eapli.base.app.user.console;
 
+import eapli.base.app.user.console.net.dashboard.HttpServerAjaxDashboard;
 import eapli.base.app.user.console.presentation.FrontMenu;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
@@ -18,7 +19,7 @@ public final class BaseUserApp {
     private BaseUserApp() {
     }
 
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws Exception {
         System.out.println("=====================================");
         System.out.println("Base User App");
         System.out.println("(C) 2016 - 2019");

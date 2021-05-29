@@ -24,6 +24,7 @@
 package eapli.base.app.user.console.presentation;
 
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
+import eapli.base.app.user.console.net.dashboard.HttpServerAjaxDashboard;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -62,12 +63,20 @@ class MainMenu extends ClientUserBaseUI {
     // SETTINGS
     private static final int SET_USER_ALERT_LIMIT_OPTION = 1;
 
+    // HTTP SERVER
+    private static final int HTTP_SERVER_PORT = 8000;
+
     private final AuthorizationService authz =
             AuthzRegistry.authorizationService();
 
     @Override
     public boolean show() {
         drawFormTitle();
+        try {
+            HttpServerAjaxDashboard.main(HTTP_SERVER_PORT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return doShow();
     }
 
