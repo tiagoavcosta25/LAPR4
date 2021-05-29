@@ -20,7 +20,7 @@ public class ActivityFlowClient {
 
     public static SDP2021 retrieveInformation(String strMessage, int intCode) {
         ActivityFlowClient client1 = new ActivityFlowClient();
-        client1.startConnection("127.0.0.1", 32507);
+        client1.startConnection("10.9.20.133", 32507);
         client1.sendPacketExecution(strMessage, intCode);
         SDP2021 sdp2021Packet = client1.receivePacketExecution();
         try {
