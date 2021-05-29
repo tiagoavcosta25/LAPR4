@@ -1,6 +1,5 @@
-package eapli.base.net.dashboard;
+package eapli.base.app.user.console.net.dashboard;
 
-import eapli.base.net.SDP2021Code;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 import java.io.*;
@@ -34,7 +33,7 @@ public class HttpAjaxDashboardRequest extends Thread {
 				if(request.getURI().equals("/dashboard_info")) {
 
 					String strUsername = AuthzRegistry.authorizationService().session().get().authenticatedUser().username().toString();
-
+					System.out.println(strUsername);
 					// SDP2021 = Criar o Cliente(strUsername, SDP2021Code.INFO_REQUEST)
 					// String strMessage = client.getMessage();
 
@@ -74,9 +73,15 @@ public class HttpAjaxDashboardRequest extends Thread {
 				response.send(outS);
 			}
 
-        } catch(IOException ex) { System.out.println("Thread error when reading request"); }
-		try { sock.close();}
-		catch(IOException ex) { System.out.println("CLOSE IOException"); }
+        } catch(IOException ex) {
+			System.out.println("Thread error when reading request");
+		}
+
+		try {
+			sock.close();
+		}
+		catch(IOException ex) {
+			System.out.println("CLOSE IOException"); }
 		}
 	}
 
