@@ -31,7 +31,7 @@ public class ActivityFlowClient {
         return sdp2021Packet;
     }
 
-    public void startConnection(String ip, int port) {
+    private void startConnection(String ip, int port) {
         try {
             clientSocket = new Socket(ip, port);
         } catch (IOException e) {
@@ -47,7 +47,7 @@ public class ActivityFlowClient {
         }
     }
 
-    public void stopConnection() throws IOException {
+    private void stopConnection() throws IOException {
         in.close();
         out.close();
         clientSocket.close();
