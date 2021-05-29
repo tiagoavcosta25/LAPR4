@@ -20,7 +20,7 @@ public class ActivityFlowClient {
 
     public static SDP2021 retrieveInformation(String strMessage, int intCode) {
         ActivityFlowClient client1 = new ActivityFlowClient();
-        client1.startConnection("10.9.20.133", 32507);
+        client1.startConnection("127.0.0.1", 32507); //10.9.20.133
         client1.sendPacketExecution(strMessage, intCode);
         SDP2021 sdp2021Packet = client1.receivePacketExecution();
         try {
@@ -47,13 +47,6 @@ public class ActivityFlowClient {
         }
     }
 
-    /*
-    public String sendMessage(String msg) throws IOException {
-        out.writeChars(msg);
-        return in.readUTF();
-    }
-    */
-
     public void stopConnection() throws IOException {
         in.close();
         out.close();
@@ -73,6 +66,9 @@ public class ActivityFlowClient {
         SDP2021 sdp2021Packet = null;
         try {
             sdp2021Packet = new SDP2021(in);
+            System.out.println("data: " + sdp2021Packet.getData());
+            System.out.println("code: " + sdp2021Packet.getCode());
+            System.out.println("version: " + sdp2021Packet.getVersion());
         } catch (IOException e) {
             System.out.println("Could not catch packet!");
         }
