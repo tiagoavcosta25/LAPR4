@@ -6,7 +6,7 @@ import eapli.framework.domain.repositories.DomainRepository;
 public interface DataRepository
         extends DomainRepository<Long, Service> {
 
-    public Long numberOfPendingActivities(Long oMecanographicNumber);
+    public int numberOfPendingActivities(Long oMecanographicNumber);
 
     public int numberOfExpiredActivities();
 
