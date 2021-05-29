@@ -17,6 +17,7 @@ participant "<<domain>>\nCatalogue" as C
 participant "<<domain>>\nService" as S
 participant "<<domain>>\nTicketUrgency" as TU
 participant "<<domain>>\nTicketLimitDate" as TD
+participant "<<domain>>\nTicketCreationDate" as TC
 participant "<<domain>>\nTicketFile" as TF
 participant "<<domain>>\nTicketResponse" as TRS
 participant "<<domain>>\nAttribute" as A
@@ -99,10 +100,10 @@ deactivate CTRL
 end
 end
 
-UI -> CTRL : addTicket(service, urgency, limitDate)
+UI -> CTRL : addTicket(service, urgency, limitDate, creationDate)
 activate CTRL
 
-CTRL -> T** : create(urgency, limitDate, lstResponses, lstFiles, service)
+CTRL -> T** : create(urgency, limitDate, creationDate, lstResponses, lstFiles, service)
 
 CTRL --> UI : ticket
 deactivate CTRL
