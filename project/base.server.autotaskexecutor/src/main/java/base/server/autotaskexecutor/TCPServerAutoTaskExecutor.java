@@ -2,6 +2,7 @@ package base.server.autotaskexecutor;
 
 import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
+import eapli.base.taskmanagement.application.ExecuteAutomaticTaskController;
 import javafx.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,10 +55,6 @@ public class TCPServerAutoTaskExecutor {
                 SDP2021 request;
                 SDP2021 response;
 
-                clientIP=s.getInetAddress();
-                System.out.println("New client connection from " + clientIP.getHostAddress() +
-                        ", port number " + s.getPort());
-
                 while((request = new SDP2021(sIn)).getCode() != SDP2021Code.END.getCode()) {
 
                     if(request.getCode() != SDP2021Code.AUTOTASK_REQUEST.getCode()){
@@ -66,9 +63,8 @@ public class TCPServerAutoTaskExecutor {
 
                         System.out.println("Executing Automatic Task...");
 
-                        String strScript = request.getData();
-
-                        boolean blnTaskSuccessful = true; // Mock (Simulation Automatic Task Execution)
+                        ExecuteAutomaticTaskController autoTaskController = new ExecuteAutomaticTaskController();
+                        boolean blnTaskSuccessful = autoTaskController.executeAutomaticTaskMock(request.getData());
 
                         if(blnTaskSuccessful){
                             response = new SDP2021(SDP2021Code.AUTOTASK_RESPONSE_SUCCESS.getCode());
