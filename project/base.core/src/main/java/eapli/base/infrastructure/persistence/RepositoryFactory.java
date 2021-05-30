@@ -13,6 +13,7 @@ import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
+import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.taskmanagement.repositories.TaskRepository;
@@ -200,4 +201,18 @@ public interface RepositoryFactory {
 	TeamTypeRepository teamTypes();
 
 	DataRepository data();
+
+	/**
+	 *
+	 * @param autoTx the transactional context to enrol
+	 * @return
+	 */
+	ManualTaskRepository manualEx(TransactionalContext autoTx);
+
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	ManualTaskRepository manualEx();
 }
