@@ -1,9 +1,11 @@
 package eapli.base.taskmanagement.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.domain.TaskFilterFields;
 import eapli.base.taskmanagement.domain.TaskOrderFields;
 import eapli.base.taskmanagement.repositories.TaskRepository;
+import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -26,5 +28,22 @@ public class ConsultAssignedPendingTasksController {
 
     public Iterable<TaskOrderFields> getTaskOrderFields() {
         return listTaskOrderFieldsService.getTaskOrderFields();
+    }
+
+    public Iterable<ManualTask> getTasksOfCollaborator() {
+        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
+        return null;
+    }
+
+    public Iterable<ManualTask> getTasksOfCollaborator(TaskFilterFields filterBy) {
+return null;
+    }
+
+    public Iterable<ManualTask> getTasksOfCollaborator(TaskOrderFields orderBy) {
+return null;
+    }
+
+    public Iterable<ManualTask> getTasksOfCollaborator(TaskFilterFields filterBy, TaskOrderFields orderBy) {
+return null;
     }
 }
