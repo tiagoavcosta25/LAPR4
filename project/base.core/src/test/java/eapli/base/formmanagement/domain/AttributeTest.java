@@ -1,78 +1,156 @@
 package eapli.base.formmanagement.domain;
 
-import junit.framework.TestCase;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class AttributeTest extends TestCase {
-
-    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:/folder/script.bat", "Integer");
-
-    public static Attribute getDummyAttribute(final String strName, final String strLabel, final String strDescription,
-                                           final String strRegex, final String strScript, final String strDataType) {
-        AttributeBuilder attributeBuilder = new AttributeBuilder();
-        attributeBuilder = attributeBuilder.withName(strName);
-        attributeBuilder = attributeBuilder.withLabel(strLabel);
-        attributeBuilder = attributeBuilder.withDescription(strDescription);
-        attributeBuilder = attributeBuilder.withRegex(strRegex);
-        attributeBuilder = attributeBuilder.withScript(strScript);
-        attributeBuilder = attributeBuilder.withDataType(strDataType);
-        return attributeBuilder.build();
-    }
+public class AttributeTest {
 
     @Test
-    public void testName() {
-        AttributeName real = a.name();
-        String expected = "Lorem";
-        assertEquals(real.toString(), expected);
+    public void ensureCanBuildFormWithEverything() {
+        new AttributeBuilder().withName("Name").withLabel("Label").withDescription("Description")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
     }
 
-    @Test
-    public void testLabel() {
-        AttributeLabel real = a.label();
-        String expected = "Ipsum";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithoutName() {
+        new AttributeBuilder().withLabel("Label").withDescription("Description")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
     }
 
-    @Test
-    public void testDescription() {
-        AttributeDescription real = a.description();
-        String expected = "Lorem";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithoutLabel() {
+        new AttributeBuilder().withName("Name").withDescription("Description")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
     }
 
-    @Test
-    public void testRegex() {
-        AttributeRegex real = a.regex();
-        String expected = "Ipsum";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithoutDescription() {
+        new AttributeBuilder().withName("Name").withLabel("Label")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
     }
 
-    @Test
-    public void testScript() {
-        AttributeScript real = a.script();
-        String expected = "D:/folder/script.bat";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithoutRegex() {
+        new AttributeBuilder().withName("Name").withLabel("Label").withDescription("Description")
+                .withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
     }
 
-    @Test
-    public void testDataType() {
-        DataType real = a.dataType();
-        String expected = "INTEGER";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithoutScript() {
+        new AttributeBuilder().withName("Name").withLabel("Label").withDescription("Description")
+                .withRegex("[0-9]+").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
     }
 
-    @Test
-    public void testTestEquals() {
-        boolean real = a.equals(a);
-        assertTrue(real);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithoutDataType() {
+        new AttributeBuilder().withName("Name").withLabel("Label").withDescription("Description")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").build();
+        assertTrue(true);
     }
 
-    @Test
-    public void testTestHashCode() {
-        int real = a.hashCode();
-        int expected = a.hashCode();
-        assertEquals(real, expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithEmptyName() {
+        new AttributeBuilder().withName("").withLabel("Label").withDescription("Description")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithEmptyLabel() {
+        new AttributeBuilder().withName("Name").withLabel("").withDescription("Description")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithEmptyDescription() {
+        new AttributeBuilder().withName("Name").withLabel("Label").withDescription("")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithEmptyRegex() {
+        new AttributeBuilder().withName("Name").withLabel("Label").withDescription("Description")
+                .withRegex("").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithEmptyScript() {
+        new AttributeBuilder().withName("Name").withLabel("Label").withDescription("Description")
+                .withRegex("[0-9]+").withScript("").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithNullName() {
+        new AttributeBuilder().withName(null).withLabel("Label").withDescription("Description")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithNullLabel() {
+        new AttributeBuilder().withName("Name").withLabel(null).withDescription("Description")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithNullDescription() {
+        new AttributeBuilder().withName("Name").withLabel("Label").withDescription(null)
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithNullRegex() {
+        new AttributeBuilder().withName("Name").withLabel("Label").withDescription("Description")
+                .withRegex(null).withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithNullScript() {
+        new AttributeBuilder().withName("Name").withLabel("Label").withDescription("Description")
+                .withRegex("[0-9]+").withScript(null).withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithInvalidName() {
+        new AttributeBuilder().withName("***####").withLabel("Label").withDescription("Description")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithInvalidNameV2() {
+        new AttributeBuilder().withName("Loooooooooooooooooooooooooooooooooooooong Nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeee").withLabel("Label").withDescription("Description")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithInvalidLabel() {
+        new AttributeBuilder().withName("Name").withLabel("***///////").withDescription("Description")
+                .withRegex("[0-9]+").withScript("D:/folder3/script3.bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildFormWithInvalidScript() {
+        new AttributeBuilder().withName("Name").withLabel("Label").withDescription("Description")
+                .withRegex("[0-9]+").withScript("script3bat").withDataType(DataType.STRING.toString()).build();
+        assertTrue(true);
     }
 }
