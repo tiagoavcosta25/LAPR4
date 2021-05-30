@@ -1,4 +1,4 @@
-package eapli.base.app.backoffice.console.presentation.ticket;
+package eapli.base.app.user.console.presentation.ticket;
 
 import eapli.framework.actions.Action;
 
