@@ -4,6 +4,8 @@ import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.taskmanagement.domain.ManualTask;
+import eapli.base.taskmanagement.domain.ManualTaskExecution;
+import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.base.ticketmanagement.domain.Response;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -19,6 +21,7 @@ public class ExecuteManualTaskController {
 
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
     private final TaskRepository taskRepo = PersistenceContext.repositories().tasks();
+    private final ManualTaskRepository mTaskRepo = PersistenceContext.repositories().manualEx();
 
     public Iterable<ManualTask> getUserPendingTasks(ActivityFlux af) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
@@ -30,11 +33,11 @@ public class ExecuteManualTaskController {
         return this.taskRepo.getActivityFlux(m_oAuthz.session().get().authenticatedUser().username());
     }
 
-    public ManualTask executeTask(ManualTask task, Response response) {
+    public ManualTaskExecution executeTask(ManualTask task, Response response) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
-        task.setExecuting();
-        task.executeTask(response);
-        return this.taskRepo.save(task);
+        ManualTaskExecution mt = new ManualTaskExecution(task);
+        mt.executeTask(response);
+        return this.mTaskRepo.save(mt);
     }
 
 }
