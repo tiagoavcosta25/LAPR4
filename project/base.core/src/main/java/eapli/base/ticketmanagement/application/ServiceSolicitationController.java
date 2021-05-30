@@ -34,17 +34,17 @@ public class ServiceSolicitationController {
     private final List<TicketFile> m_lstFiles = new ArrayList<>();
 
     public Iterable<Catalogue> getCataloguesByUser(){
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER, BaseRoles.COLLABORATOR);
         return m_oCatRepo.findByUser(this.m_oAuthz.session().get().authenticatedUser());
     }
 
     public Iterable<Service> getServicesByCatalogue(Catalogue oCatalogue){
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER, BaseRoles.COLLABORATOR);
         return m_oServRepo.findByCatalogue(oCatalogue);
     }
 
     public List<TicketUrgency> showUrgencies() {
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER, BaseRoles.COLLABORATOR);
         return Arrays.asList(TicketUrgency.values());
     }
 
