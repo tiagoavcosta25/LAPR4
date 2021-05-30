@@ -19,11 +19,9 @@ public class ActivityFlowClient {
     private Socket clientSocket;
     private DataOutputStream out;
     private DataInputStream in;
-    private int connectionAttempts;
 
     public ActivityFlowClient() {
         startConnection(); //10.9.20.133 ip server
-        connectionAttempts = 0;
     }
 
     public SDP2021 retrieveInformation(String strMessage, int intCode) {
@@ -34,21 +32,10 @@ public class ActivityFlowClient {
     private void startConnection() {
         try {
             clientSocket = new Socket(SERVER_IP, TCP_PORT);
-        } catch (IOException e) {
-            LOGGER.error("Failed to establish TCP Connection");
-            if(connectionAttempts < 3) {
-                LOGGER.info("Attempt {} to connect", connectionAttempts + 1);
-                connectionAttempts++;
-                try {
-                startConnection();
-                    out = new DataOutputStream(clientSocket.getOutputStream());
-                    in = new DataInputStream(clientSocket.getInputStream());
-                } catch (Exception ef) {
-                    //LOGGER.error("Error connecting");
-                }
-            } else {
-                LOGGER.info("Could not connect");
-            }
+            out = new DataOutputStream(clientSocket.getOutputStream());
+            in = new DataInputStream(clientSocket.getInputStream());
+        } catch (Exception e) {
+            //LOGGER.error("Failed to establish TCP Connection");
         }
     }
 
@@ -62,8 +49,8 @@ public class ActivityFlowClient {
         SDP2021 sdp2021Packet = new SDP2021(intCode);
         try {
             sdp2021Packet.send(out, strMessage);
-        } catch (IOException e) {
-            LOGGER.error("Could not send packet!");
+        } catch (Exception e) {
+            //LOGGER.error("Could not send packet!");
             startConnection();
         }
     }
@@ -72,8 +59,8 @@ public class ActivityFlowClient {
         SDP2021 sdp2021Packet = null;
         try {
             sdp2021Packet = new SDP2021(in);
-        } catch (IOException e) {
-            LOGGER.error("Could not catch data!");
+        } catch (Exception e) {
+            //LOGGER.error("Could not catch data!");
             startConnection();
         }
         return sdp2021Packet;
