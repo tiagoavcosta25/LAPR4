@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates and open the template
  * in the editor.
  */
-package eapli.base.taskmanagement.domain;
+package eapli.base.servicemanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -18,30 +16,29 @@ import javax.persistence.Embeddable;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-@Access(AccessType.FIELD)
-public class AutomaticTaskScript implements ValueObject, Comparable<AutomaticTaskScript> {
+public class ServiceIcon implements ValueObject, Comparable<ServiceIcon> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "([a-zA-Z]:)?(/[a-zA-Z0-9_.-]+)+/[a-zA-Z0-9_.-]+.bat";
+    private static final String m_strRegex = "([a-zA-Z]:)?(/[a-zA-Z0-9_.-]+)+/[a-zA-Z0-9_.-]+.png";
 
-    @Column(name = "automaticTaskScriptPath")
-    private String m_strScriptPath;
+    @Column(name = "serviceIconPath")
+    private String m_strIconPath;
 
-    public AutomaticTaskScript(final String strScriptPath) {
-        if (StringPredicates.isNullOrEmpty(strScriptPath) || !strScriptPath.matches(m_strRegex)) {
+    public ServiceIcon(final String strIconPath) {
+        if (StringPredicates.isNullOrEmpty(strIconPath) || !strIconPath.matches(m_strRegex)) {
             throw new IllegalArgumentException(
-                    "Attribute Script should neither be null nor empty and be a valid file path");
+                    "Service Icon should neither be null nor empty and be a valid file path");
         }
         // expression
-        this.m_strScriptPath = strScriptPath;
+        this.m_strIconPath = strIconPath;
     }
 
-    protected AutomaticTaskScript() {
+    protected ServiceIcon() {
         // for ORM
     }
 
-    public static AutomaticTaskScript valueOf(final String strScriptPath) {
-        return new AutomaticTaskScript(strScriptPath);
+    public static ServiceIcon valueOf(final String strIconPath) {
+        return new ServiceIcon(strIconPath);
     }
 
     @Override
@@ -49,26 +46,26 @@ public class AutomaticTaskScript implements ValueObject, Comparable<AutomaticTas
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AutomaticTaskScript)) {
+        if (!(o instanceof ServiceIcon)) {
             return false;
         }
 
-        final AutomaticTaskScript that = (AutomaticTaskScript) o;
-        return this.m_strScriptPath.equals(that.m_strScriptPath);
+        final ServiceIcon that = (ServiceIcon) o;
+        return this.m_strIconPath.equals(that.m_strIconPath);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strScriptPath.hashCode();
+        return this.m_strIconPath.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strScriptPath;
+        return this.m_strIconPath;
     }
 
     @Override
-    public int compareTo(final AutomaticTaskScript arg0) {
-        return m_strScriptPath.compareTo(arg0.m_strScriptPath);
+    public int compareTo(final ServiceIcon arg0) {
+        return m_strIconPath.compareTo(arg0.m_strIconPath);
     }
 }
