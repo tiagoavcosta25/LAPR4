@@ -39,9 +39,9 @@ public class Response implements  AggregateRoot<Long> {
     private List<String> m_lstResponses;
 
     public Response(final Form oForm, List<String> lstResponses) {
-        if (oForm == null || lstResponses.isEmpty()) {
+        if (oForm == null || lstResponses == null || lstResponses.isEmpty() || (oForm.attributes().size() != lstResponses.size())) {
             throw new IllegalArgumentException(
-                    "Forms and Responses should not be null nor empty");
+                    "Forms and Responses should not be null nor empty, nor have more/less responses than attributes");
         }
 
         int c = 0;

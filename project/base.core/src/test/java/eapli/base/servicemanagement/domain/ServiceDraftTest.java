@@ -1,161 +1,94 @@
 package eapli.base.servicemanagement.domain;
 
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
+import eapli.base.cataloguemanagement.domain.Catalogue;
+import eapli.base.cataloguemanagement.domain.CatalogueBriefDescription;
+import eapli.base.cataloguemanagement.domain.CatalogueCompleteDescription;
+import eapli.base.cataloguemanagement.domain.CatalogueTitle;
+import eapli.base.collaboratormanagement.domain.*;
 import eapli.base.formmanagement.domain.*;
-import junit.framework.TestCase;
+import eapli.base.taskmanagement.domain.AutomaticTask;
+import eapli.base.taskmanagement.domain.AutomaticTaskScript;
+import eapli.base.taskmanagement.domain.TaskDescription;
+import eapli.base.taskmanagement.domain.TaskPriority;
+import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
-public class ServiceDraftTest extends TestCase {
+import static org.junit.Assert.assertTrue;
 
-    public final List<String> lstKeywords = new ArrayList<>(Arrays.asList("Ipsum"));
+public class ServiceDraftTest {
 
-    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:/folder/script.bat", "Integer");
-    public final Form f = getDummyForm("Lorem", "MANUAL_TASK", Arrays.asList(a));
-    public List<Form> lstForms = new ArrayList<>(Arrays.asList(f));
-    public final ServiceDraft s = new ServiceDraft("Lorem", "Ipsum", "Lorem",
-            1d, lstKeywords, lstForms);
+    @Test
+    public void ensureCanBuildServiceDraftWithEverything() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
 
-    public static Attribute getDummyAttribute(final String strName, final String strLabel, final String strDescription,
-                                              final String strRegex, final String strScript, final String strDataType) {
-        AttributeBuilder attributeBuilder = new AttributeBuilder();
-        attributeBuilder = attributeBuilder.withName(strName);
-        attributeBuilder = attributeBuilder.withLabel(strLabel);
-        attributeBuilder = attributeBuilder.withDescription(strDescription);
-        attributeBuilder = attributeBuilder.withRegex(strRegex);
-        attributeBuilder = attributeBuilder.withScript(strScript);
-        attributeBuilder = attributeBuilder.withDataType(strDataType);
-        return attributeBuilder.build();
+        final ServiceDraft subject = new ServiceDraft("Title", "Brief Description",
+                "Complete Description", 24d, new ArrayList<>(Arrays.asList("Keyword")), new ArrayList<>(Arrays.asList(oForm)));
+        assertTrue(subject != null);
     }
 
-    public static Form getDummyForm(final String oName, final String oFormType, final List<Attribute> lstAttributes) {
-        FormBuilder formBuilder = new FormBuilder();
-        formBuilder = formBuilder.withName(oName);
-        formBuilder = formBuilder.withType(oFormType);
-        formBuilder = formBuilder.withAttributeList(lstAttributes);
-        return formBuilder.build();
+    @Test
+    public void ensureCanBuildServiceDraftWithNothing() {
+        final ServiceDraft subject = new ServiceDraft("", "",
+                "", null, null, null);
+        assertTrue(subject != null);
     }
 
-    public void testGetID() {
-        s.setID(1l);
-        Long real = s.getID();
-        Long expected = 1l;
-        assertEquals(real, expected);
+    @Test
+    public void ensureCanBuildServiceDraftWithOnlyTitle() {
+        final ServiceDraft subject = new ServiceDraft("Title", "",
+                "", null, null, null);
+        assertTrue(subject != null);
     }
 
-    public void testGetTitle() {
-        String real = s.getTitle();
-        String expected = "Lorem";
-        assertEquals(real, expected);
+    @Test
+    public void ensureCanBuildServiceDraftWithOnlyBriefDescription() {
+        final ServiceDraft subject = new ServiceDraft("", "Brief Description",
+                "", null, null, null);
+        assertTrue(subject != null);
     }
 
-    public void testGetBriefDescription() {
-        String real = s.getBriefDescription();
-        String expected = "Ipsum";
-        assertEquals(real, expected);
+    @Test
+    public void ensureCanBuildServiceDraftWithOnlyCompleteDescription() {
+        final ServiceDraft subject = new ServiceDraft("", "",
+                "Complete Description", null, null, null);
+        assertTrue(subject != null);
     }
 
-    public void testGetCompleteDescription() {
-        String real = s.getCompleteDescription();
-        String expected = "Lorem";
-        assertEquals(real, expected);
+    @Test
+    public void ensureCanBuildServiceDraftWithOnlyFeedback() {
+        final ServiceDraft subject = new ServiceDraft("", "",
+                "", 1d, null, null);
+        assertTrue(subject != null);
     }
 
-    public void testGetFeedback() {
-        Double real = s.getFeedback();
-        Double expected = 1d;
-        assertEquals(real, expected);
+    @Test
+    public void ensureCanBuildServiceDraftWithNegativeFeedback() {
+        final ServiceDraft subject = new ServiceDraft("", "",
+                "", -1d, null, null);
+        assertTrue(subject != null);
     }
 
-    public void testGetKeywordList() {
-        List<String> real = s.getKeywordList();
-        List<String> expected = lstKeywords;
-        assertEquals(real, expected);
+    @Test
+    public void ensureCanBuildServiceDraftWithOnlyKeywords() {
+        final ServiceDraft subject = new ServiceDraft("", "",
+                "", -1d, new ArrayList<>(Arrays.asList("Keyword")), null);
+        assertTrue(subject != null);
     }
 
-    public void testGetFormList() {
-        Form real = s.getFormList().get(0);
-        Form expected = f;
-        assertEquals(real, expected);
-    }
+    @Test
+    public void ensureCanBuildServiceDraftWithOnlyForms() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
 
-    public void testSetID() {
-        s.setID(1l);
-        Long real = s.getID();
-        Long expected = 1l;
-        assertEquals(real, expected);
-    }
-
-    public void testSetTitle() {
-        s.setTitle("Lorem");
-        String real = s.getTitle();
-        String expected = "Lorem";
-        assertEquals(real, expected);
-    }
-
-    public void testSetBriefDescription() {
-        s.setBriefDescription("Ipsum");
-        String real = s.getBriefDescription();
-        String expected = "Ipsum";
-        assertEquals(real, expected);
-    }
-
-    public void testSetCompleteDescription() {
-        s.setCompleteDescription("Lorem");
-        String real = s.getCompleteDescription();
-        String expected = "Lorem";
-        assertEquals(real, expected);
-    }
-
-    public void testSetFeedback() {
-        s.setFeedback(1d);
-        Double real = s.getFeedback();
-        Double expected = 1d;
-        assertEquals(real, expected);
-    }
-
-    public void testSetKeywordList() {
-        s.setKeywordList(lstKeywords);
-        List<String> real = s.getKeywordList();
-        List<String> expected = lstKeywords;
-        assertEquals(real, expected);
-    }
-
-    public void testSetFormList() {
-        s.setFormList(lstForms);
-        List<Form> real = s.getFormList();
-        List<Form> expected = lstForms;
-        assertEquals(real, expected);
-    }
-
-    public void testTestEquals() {
-        boolean real = s.equals(s);
-        assertTrue(real);
-    }
-
-    public void testTestHashCode() {
-        int real = s.hashCode();
-        int expected = s.hashCode();
-        assertEquals(real, expected);
-    }
-
-    public void testSameAs() {
-        boolean real = s.sameAs(s);
-        assertTrue(real);
-    }
-
-    public void testId() {
-        s.setID(1l);
-        Long real = s.id();
-        Long expected = 1l;
-        assertEquals(real, expected);
-    }
-
-    public void testIdentity() {
-        s.setID(1l);
-        Long real = s.identity();
-        Long expected = 1l;
-        assertEquals(real, expected);
+        final ServiceDraft subject = new ServiceDraft("", "",
+                "", -1d, null, new ArrayList<>(Arrays.asList(oForm)));
+        assertTrue(subject != null);
     }
 }

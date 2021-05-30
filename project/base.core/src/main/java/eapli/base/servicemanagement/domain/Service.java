@@ -81,7 +81,7 @@ public class Service implements AggregateRoot<Long> {
 
     public Service(final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
                    final Feedback oFeedback, Catalogue oCatalogue, final List<Keyword> lstKeywords, final List<Form> lstForms, ActivityFlux oActivityFlux) {
-        if (oTitle == null || oBriefDescription == null || oCompleteDescription == null || oFeedback == null || oCatalogue == null || lstKeywords.isEmpty() || oActivityFlux == null) {
+        if (oTitle == null || oBriefDescription == null || oCompleteDescription == null || oCatalogue == null || lstKeywords == null || lstForms == null || lstKeywords.isEmpty()  || lstForms.isEmpty() || oActivityFlux == null) {
             throw new IllegalArgumentException();
         }
         this.m_oTitle = oTitle;

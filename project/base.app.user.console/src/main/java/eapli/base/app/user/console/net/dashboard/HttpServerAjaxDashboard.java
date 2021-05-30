@@ -1,8 +1,11 @@
 package eapli.base.app.user.console.net.dashboard;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  *
@@ -22,6 +25,15 @@ public class HttpServerAjaxDashboard extends Thread {
         } catch(IOException ex) {
                 System.out.println("Server failed to open local port " + intPort);
                 System.exit(1);
+        }
+
+        Desktop desktop = java.awt.Desktop.getDesktop();
+        try {
+            URI oURL = new URI(
+                    "http://127.0.0.1:8000/");
+            desktop.browse(oURL);
+        } catch (URISyntaxException e) {
+            System.out.println("Error Opening the Browser");
         }
 
         while(true) {

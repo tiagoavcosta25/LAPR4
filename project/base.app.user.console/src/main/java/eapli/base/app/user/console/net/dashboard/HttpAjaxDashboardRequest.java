@@ -1,6 +1,9 @@
 package eapli.base.app.user.console.net.dashboard;
 
+import eapli.base.net.SDP2021;
+import eapli.base.net.SDP2021Code;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import java.util.concurrent.ThreadLocalRandom;
 
 import java.io.*;
 import java.net.Socket;
@@ -33,11 +36,22 @@ public class HttpAjaxDashboardRequest extends Thread {
 				if(request.getURI().equals("/dashboard_info")) {
 
 					String strUsername = AuthzRegistry.authorizationService().session().get().authenticatedUser().username().toString();
-					System.out.println(strUsername);
-					// SDP2021 = Criar o Cliente(strUsername, SDP2021Code.INFO_REQUEST)
-					// String strMessage = client.getMessage();
 
-					String strMessage = "6;5;4;3;2;1";
+					ActivityFlowClient oActivityFlow = new ActivityFlowClient();
+					SDP2021 oProtocol = oActivityFlow.retrieveInformation(strUsername, SDP2021Code.INFO_REQUEST.getCode());
+					//oActivityFlow.stopConnection();
+					String strMessage = oProtocol.getData();
+
+					/*int random1 = ThreadLocalRandom.current().nextInt(0, 10);
+					int random2 = ThreadLocalRandom.current().nextInt(0, 10);
+					int random3 = ThreadLocalRandom.current().nextInt(0, 10);
+					int random4 = ThreadLocalRandom.current().nextInt(0, 10);
+					int random5 = ThreadLocalRandom.current().nextInt(0, 10);
+					int random6 = ThreadLocalRandom.current().nextInt(0, 10);
+
+					String strMessage = random1 + ";" + random2 + ";" + random3 + ";" + random4 + ";" + random5 + ";" + random6;
+					*/
+
 					int[] arrayCounter = new int[6];
 
 					for(int i = 0; i < 6; i++){
