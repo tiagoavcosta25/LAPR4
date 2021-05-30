@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 @SuppressWarnings("squid:S106")
 public final class RunExecutor {
 
-    private static final int BOOKING_PORT = 9999;
+    private static final int BOOKING_PORT = 32507;
     private static final Logger LOGGER = LogManager.getLogger(RunExecutor.class);
 
     /**

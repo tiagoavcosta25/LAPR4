@@ -77,6 +77,6 @@ public class ManualTask extends Task{
 
     @Override
     public String toString() {
-        return super.toString() + this.m_oForm.toString();
+        return "Manual Task #" + this.id() + ": " + this.description() + " | Form: " + this.m_oForm.name();
     }
 }
