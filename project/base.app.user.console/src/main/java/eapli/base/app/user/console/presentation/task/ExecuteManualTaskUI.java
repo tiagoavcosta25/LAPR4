@@ -30,9 +30,12 @@ public class ExecuteManualTaskUI extends AbstractUI {
             final ManualTask manualTask = selectManualTask(af);
             int id = Math.toIntExact(manualTask.identity());
             List<String> responses = new ArrayList<>();
+            System.out.println();
             System.out.println("Complete the form:");
+            System.out.println();
             for(Attribute attr : manualTask.form().attributes()) {
-                responses.add(Console.readLine(attr.label().toString()));
+                responses.add(Console.readLine(attr.label().toString() + " >"));
+                System.out.println();
             }
             Response rp = new Response(manualTask.form(), responses);
             String strOp = Console.readLine("Confirm the execution of task with code " + id + "? (Y/N) ");
@@ -51,6 +54,7 @@ public class ExecuteManualTaskUI extends AbstractUI {
     }
 
     private ManualTask selectManualTask(ActivityFlux af) {
+        System.out.println();
         System.out.println("List of Pending Manual Tasks - Select a Manual Task");
         final Iterable<ManualTask> listTasks = theController.getUserPendingTasks(af);
         if(!listTasks.iterator().hasNext())
@@ -62,11 +66,12 @@ public class ExecuteManualTaskUI extends AbstractUI {
     }
 
     private ActivityFlux selectActivityFlux() {
+        System.out.println();
         System.out.println("List of Activity Flux - Select an Activity Flux");
         final Iterable<Service> listActivityFlux = theController.getUserActivityFlux();
         if(!listActivityFlux.iterator().hasNext())
             throw new IllegalArgumentException("No Pending Tasks avaiable!");
-        final SelectWidget<Service> selectorActivityFlux = new SelectWidget<>("Select a Manual Task", listActivityFlux,
+        final SelectWidget<Service> selectorActivityFlux = new SelectWidget<>("Select an Activity Flow", listActivityFlux,
                 new ActivityFluxPrinter());
         selectorActivityFlux.show();
         return selectorActivityFlux.selectedElement().flux();
