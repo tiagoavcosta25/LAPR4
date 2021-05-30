@@ -46,6 +46,7 @@ public class SaveDraftService {
 
     public ServiceBuilder buildService(ServiceBuilder oServiceBuilder, ServiceDraft oServiceDraft, Catalogue oCatalogue) {
         oServiceBuilder = oServiceBuilder.withTitle(oServiceDraft.getTitle());
+        oServiceBuilder = oServiceBuilder.withIcon(oServiceDraft.getIcon());
         oServiceBuilder = oServiceBuilder.withBriefDescription(oServiceDraft.getBriefDescription());
         oServiceBuilder = oServiceBuilder.withCompleteDescription(oServiceDraft.getCompleteDescription());
         oServiceBuilder = oServiceBuilder.withFeedback(oServiceDraft.getFeedback());

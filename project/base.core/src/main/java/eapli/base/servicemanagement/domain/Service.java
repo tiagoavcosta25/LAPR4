@@ -53,6 +53,9 @@ public class Service implements AggregateRoot<Long> {
 
     @JsonProperty
     private ServiceTitle m_oTitle;
+
+    @Embedded
+    private ServiceIcon m_oIcon;
     
     @Embedded
     private ServiceBriefDescription m_oBriefDescription;
@@ -79,12 +82,13 @@ public class Service implements AggregateRoot<Long> {
     @JoinColumn(name="fluxID")
     private ActivityFlux m_oActivityFlux;
 
-    public Service(final ServiceTitle oTitle, final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
+    public Service(final ServiceTitle oTitle, final ServiceIcon oIcon,final ServiceBriefDescription oBriefDescription, final ServiceCompleteDescription oCompleteDescription,
                    final Feedback oFeedback, Catalogue oCatalogue, final List<Keyword> lstKeywords, final List<Form> lstForms, ActivityFlux oActivityFlux) {
-        if (oTitle == null || oBriefDescription == null || oCompleteDescription == null || oCatalogue == null || lstKeywords == null || lstForms == null || lstKeywords.isEmpty()  || lstForms.isEmpty() || oActivityFlux == null) {
+        if (oTitle == null || oIcon == null || oBriefDescription == null || oCompleteDescription == null || oCatalogue == null || lstKeywords == null || lstForms == null || lstKeywords.isEmpty()  || lstForms.isEmpty() || oActivityFlux == null) {
             throw new IllegalArgumentException();
         }
         this.m_oTitle = oTitle;
+        this.m_oIcon = oIcon;
         this.m_oBriefDescription = oBriefDescription;
         this.m_oCompleteDescription = oCompleteDescription;
         this.m_oFeedback = oFeedback;
@@ -100,6 +104,9 @@ public class Service implements AggregateRoot<Long> {
 
     public ServiceTitle title() {
         return this.m_oTitle;
+    }
+    public ServiceIcon icon() {
+        return this.m_oIcon;
     }
     public ServiceBriefDescription briefDescription() {
         return this.m_oBriefDescription;

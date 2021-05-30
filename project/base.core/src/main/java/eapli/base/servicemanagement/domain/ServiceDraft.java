@@ -55,6 +55,10 @@ public class ServiceDraft implements AggregateRoot<Long> {
     private String m_strTitle;
 
     @Basic
+    @Column(name = "serviceDraftIcon")
+    private String m_strIcon;
+
+    @Basic
     @Column(name = "serviceDraftBriefDescription")
     private String m_strBriefDescription;
 
@@ -78,9 +82,10 @@ public class ServiceDraft implements AggregateRoot<Long> {
     @JoinColumn(name="fluxID")
     private ActivityFlux m_oActivityFlux;
 
-    public ServiceDraft(final String strTitle, final String strBriefDescription, final String strCompleteDescription,
+    public ServiceDraft(final String strTitle, final String strIcon, final String strBriefDescription, final String strCompleteDescription,
                         final Double dblFeedback, final List<String> lstKeywords, final List<Form> lstForms) {
         this.m_strTitle = strTitle;
+        this.m_strIcon = strIcon;
         this.m_strBriefDescription = strBriefDescription;
         this.m_strCompleteDescription = strCompleteDescription;
         this.m_dblFeedback = dblFeedback;
@@ -98,6 +103,10 @@ public class ServiceDraft implements AggregateRoot<Long> {
 
     public String getTitle() {
         return m_strTitle;
+    }
+
+    public String getIcon() {
+        return m_strIcon;
     }
 
     public String getBriefDescription() {
@@ -130,6 +139,10 @@ public class ServiceDraft implements AggregateRoot<Long> {
 
     public void setTitle(String m_strTitle) {
         this.m_strTitle = m_strTitle;
+    }
+
+    public void setIcon(String m_strIcon) {
+        this.m_strIcon = m_strIcon;
     }
 
     public void setBriefDescription(String m_strBriefDescription) {

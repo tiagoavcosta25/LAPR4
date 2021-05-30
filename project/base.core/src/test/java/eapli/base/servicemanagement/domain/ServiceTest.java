@@ -26,7 +26,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Title").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -43,7 +43,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Title").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -54,13 +54,8 @@ public class ServiceTest {
         final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
                 AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
         final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
-        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
-                CatalogueTitle.valueOf("Title"), new Collaborator(null,
-                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
-                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
-                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Title").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).build();
         assertTrue(true);
@@ -77,7 +72,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Title").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -94,7 +89,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Title").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm)))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -111,7 +106,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Title").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -128,7 +123,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Title").withBriefDescription("Description")
+        new ServiceBuilder().withTitle("Title").withIcon("C:/img/icon.png").withBriefDescription("Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -145,7 +140,24 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Title").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Title").withIcon("C:/img/icon.png").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithoutIcon() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -162,7 +174,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -179,7 +191,24 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithEmptyIcon() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Title").withIcon("").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -196,7 +225,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Description").withBriefDescription("").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Description").withIcon("C:/img/icon.png").withBriefDescription("").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -213,7 +242,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Description").withBriefDescription("Description").withCompleteDescription("")
+        new ServiceBuilder().withTitle("Description").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -230,7 +259,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Description").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Description").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>()).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -247,7 +276,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Description").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Description").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>())
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -264,7 +293,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Description").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Description").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(-1d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -280,7 +309,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Description").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Description").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(null).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -308,7 +337,24 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Description*$$").withBriefDescription("Description").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Description*$$").withIcon("C:/img/icon.png").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithInvalidIcon() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Description").withIcon("Invalid Icon Path").withBriefDescription("Description").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
@@ -325,7 +371,7 @@ public class ServiceTest {
                 CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
                 CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-        new ServiceBuilder().withTitle("Description").withBriefDescription("Description11111111111111111111111111111111111111111111111111").withCompleteDescription("Complete Description")
+        new ServiceBuilder().withTitle("Description").withIcon("C:/img/icon.png").withBriefDescription("Description11111111111111111111111111111111111111111111111111").withCompleteDescription("Complete Description")
                 .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
                 .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
         assertTrue(true);
