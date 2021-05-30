@@ -44,7 +44,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 /**
  *
- * @author Pedro Santos 1190967@isep.ipp.pt
+ * @author Beatriz Seixas 1190424@isep.ipp.pt
  */
 @UseCaseController
 public class AssignTasksController {
