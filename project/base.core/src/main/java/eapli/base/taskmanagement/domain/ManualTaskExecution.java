@@ -42,6 +42,10 @@ public class ManualTaskExecution implements AggregateRoot<Long> {
         return this.m_oResponse;
     }
 
+    public ManualTask getManualTask() {
+        return this.m_oTask;
+    }
+
     public void executeTask(Response response) {
         this.m_oResponse = response;
         m_oTask.setExecuted();
