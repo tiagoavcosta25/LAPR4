@@ -13,6 +13,7 @@ import java.net.Socket;
  * @author Pedro Santos (1190967@isep.ipp.pt)
  */
 public class HttpAjaxDashboardRequest extends Thread {
+	private static final String SERVER_IP = "10.9.20.133";
 	String baseFolder;
 	Socket sock;
 	DataInputStream inS;
@@ -37,7 +38,7 @@ public class HttpAjaxDashboardRequest extends Thread {
 
 					String strUsername = AuthzRegistry.authorizationService().session().get().authenticatedUser().username().toString();
 
-					ActivityFlowClient oActivityFlow = new ActivityFlowClient();
+					ActivityFlowClient oActivityFlow = new ActivityFlowClient(SERVER_IP);
 
 					SDP2021 oProtocol = oActivityFlow.retrieveInformation(strUsername, SDP2021Code.INFO_REQUEST.getCode());
 
