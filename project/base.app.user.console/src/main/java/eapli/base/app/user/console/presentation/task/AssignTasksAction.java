@@ -1,4 +1,4 @@
-package eapli.base.app.backoffice.console.presentation.task;
+package eapli.base.app.user.console.presentation.task;
 
 import eapli.framework.actions.Action;
 

@@ -26,6 +26,8 @@ package eapli.base.app.user.console.presentation;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.app.user.console.net.dashboard.HttpAjaxDashboardRequest;
 import eapli.base.app.user.console.net.dashboard.HttpServerAjaxDashboard;
+import eapli.base.app.user.console.presentation.task.AssignTasksAction;
+import eapli.base.app.user.console.presentation.task.ExecuteManualTaskAction;
 import eapli.base.app.user.console.presentation.ticket.ServiceSolicitationAction;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -53,9 +55,14 @@ class MainMenu extends ClientUserBaseUI {
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int TICKET_OPTION = 2;
+    private static final int TASK_OPTION = 3;
 
     // TICKET MENU
     private static final int SERVICES_SOLICITATION = 1;
+
+    // TASKS
+    private static final int ASSIGN_TASKS = 1;
+    private static final int EXECUTE_TASK = 2;
 
     // SETTINGS
     private static final int SET_USER_ALERT_LIMIT_OPTION = 1;
@@ -109,6 +116,9 @@ class MainMenu extends ClientUserBaseUI {
         final Menu ticketMenu = buildTicketMenu();
         mainMenu.addSubMenu(TICKET_OPTION, ticketMenu);
 
+        final Menu taskMenu = buildTasksMenu();
+        mainMenu.addSubMenu(TASK_OPTION, taskMenu);
+
         mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
 
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
@@ -122,6 +132,14 @@ class MainMenu extends ClientUserBaseUI {
         menu.addItem(SERVICES_SOLICITATION, "Service Solicitation (Ticket)", new ServiceSolicitationAction());
         menu.addItem(EXIT_OPTION, RETURN, Actions.SUCCESS);
 
+        return menu;
+    }
+
+    private Menu buildTasksMenu() {
+        final Menu menu = new Menu("Tasks >");
+        menu.addItem(ASSIGN_TASKS, "Assign Task", new AssignTasksAction());
+        menu.addItem(EXECUTE_TASK, "Execute Task", new ExecuteManualTaskAction());
+        menu.addItem(EXIT_OPTION, RETURN, Actions.SUCCESS);
         return menu;
     }
 }

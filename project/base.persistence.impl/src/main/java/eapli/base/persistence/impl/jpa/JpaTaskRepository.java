@@ -65,4 +65,15 @@ class JpaTaskRepository
         return q.getResultList();
 
     }
+
+    @Override
+    public Iterable<ManualTask> getHisPendingManualTasks(Username oUsername) {
+        final TypedQuery<ManualTask> q = entityManager().createQuery(
+                "Select mt from ManualTask mt " +
+                        "inner join Task t on t.id = mt.id " +
+                        "where mt.m_oCollaborator.m_oSystemUser.username = :uname and t.m_oTaskStatus = 'PENDING'",
+                ManualTask.class);
+        q.setParameter("uname", oUsername);
+        return q.getResultList();
+    }
 }

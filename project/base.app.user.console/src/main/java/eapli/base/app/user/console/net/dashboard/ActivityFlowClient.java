@@ -35,21 +35,20 @@ public class ActivityFlowClient {
         try {
             clientSocket = new Socket(SERVER_IP, TCP_PORT);
         } catch (IOException e) {
-            LOGGER.error("Failed to establish TCP Connection", e);
+            LOGGER.error("Failed to establish TCP Connection");
             if(connectionAttempts < 3) {
-                LOGGER.info("Attempt {} to connect", connectionAttempts);
+                LOGGER.info("Attempt {} to connect", connectionAttempts + 1);
                 connectionAttempts++;
+                try {
                 startConnection();
+                    out = new DataOutputStream(clientSocket.getOutputStream());
+                    in = new DataInputStream(clientSocket.getInputStream());
+                } catch (Exception ef) {
+                    //LOGGER.error("Error connecting");
+                }
             } else {
                 LOGGER.info("Could not connect");
             }
-        }
-        try {
-            out = new DataOutputStream(clientSocket.getOutputStream());
-            in = new DataInputStream(clientSocket.getInputStream());
-        } catch (IOException e) {
-            LOGGER.error("IOException");
-            e.printStackTrace();
         }
     }
 

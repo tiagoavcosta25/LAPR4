@@ -43,7 +43,8 @@ public class Ticket implements AggregateRoot<Long> {
 
     public Ticket(final TicketUrgency oUrgency, final TicketLimitDate oLimitDate, final TicketCreationDate oCreationDate,
                   final List<Response> lstResponse, final List<TicketFile> lstFiles, final Service oService) {
-        if (oUrgency == null || oLimitDate == null || oCreationDate == null || lstFiles == null || oService == null) {
+        if (oUrgency == null || oLimitDate == null || oCreationDate == null || lstFiles == null || lstResponse == null ||
+                oService == null || lstFiles.isEmpty() || lstResponse.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oUrgency = oUrgency;
