@@ -59,4 +59,9 @@ public class InMemoryTaskRepository
         throw new UnsupportedOperationException("Not supported yet.");
 
     }
+
+    @Override
+    public Iterable<ManualTask> getHisPendingManualTasks(Username oUsername) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

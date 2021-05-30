@@ -38,4 +38,6 @@ public interface TaskRepository
                                                        TaskOrderFields enumOrderBy);
 
     public Iterable<ManualTask> getPendingManualTasks(final Username oUsername);
+
+    public Iterable<ManualTask> getHisPendingManualTasks(final Username oUsername);
 }
