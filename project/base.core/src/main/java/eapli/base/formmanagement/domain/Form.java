@@ -57,7 +57,7 @@ public class Form implements AggregateRoot<Long> {
     private List<Attribute> m_lstAttributes;
 
     public Form(final FormName oName, final FormType oFormType, final List<Attribute> lstAttributes) {
-        if (oName == null || oFormType == null || lstAttributes.isEmpty()) {
+        if (oName == null || oFormType == null || lstAttributes == null || lstAttributes.isEmpty()) {
             throw new IllegalArgumentException();
         }
         this.m_oName = oName;
