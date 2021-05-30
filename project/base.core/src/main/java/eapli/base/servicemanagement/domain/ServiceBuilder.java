@@ -17,6 +17,7 @@ import java.util.List;
 public class ServiceBuilder implements DomainFactory<Service> {
 
     private ServiceTitle m_oTitle;
+    private ServiceIcon m_oIcon;
     private ServiceBriefDescription m_oBriefDescription;
     private ServiceCompleteDescription m_oCompleteDescription;
     private Feedback m_oFeedback;
@@ -27,6 +28,11 @@ public class ServiceBuilder implements DomainFactory<Service> {
 
     public ServiceBuilder withTitle(String strTitle) {
         this.m_oTitle = ServiceTitle.valueOf(strTitle);
+        return this;
+    }
+
+    public ServiceBuilder withIcon(String strIcon) {
+        this.m_oIcon = ServiceIcon.valueOf(strIcon);
         return this;
     }
 
@@ -73,6 +79,6 @@ public class ServiceBuilder implements DomainFactory<Service> {
     public Service build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new Service(this.m_oTitle, this.m_oBriefDescription, this.m_oCompleteDescription ,this.m_oFeedback, this.m_oCatalogue, this.m_lstKeywords, this.m_lstForms, this.m_oActivityFlux);
+        return new Service(this.m_oTitle, this.m_oIcon, this.m_oBriefDescription, this.m_oCompleteDescription ,this.m_oFeedback, this.m_oCatalogue, this.m_lstKeywords, this.m_lstForms, this.m_oActivityFlux);
     }
 }
