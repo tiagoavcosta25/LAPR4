@@ -19,9 +19,11 @@ public class ActivityFlowClient {
     private Socket clientSocket;
     private DataOutputStream out;
     private DataInputStream in;
+    private int connectionAttempts;
 
     public ActivityFlowClient() {
         startConnection(); //10.9.20.133 ip server
+        connectionAttempts = 0;
     }
 
     public SDP2021 retrieveInformation(String strMessage, int intCode) {
@@ -34,7 +36,13 @@ public class ActivityFlowClient {
             clientSocket = new Socket(SERVER_IP, TCP_PORT);
         } catch (IOException e) {
             LOGGER.error("Failed to establish TCP Connection", e);
-            System.exit(1);
+            if(connectionAttempts < 3) {
+                LOGGER.info("Attempt {} to connect", connectionAttempts);
+                connectionAttempts++;
+                startConnection();
+            } else {
+                LOGGER.info("Could not connect");
+            }
         }
         try {
             out = new DataOutputStream(clientSocket.getOutputStream());
