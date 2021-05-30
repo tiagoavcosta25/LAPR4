@@ -3,7 +3,6 @@ package eapli.base.app.user.console.net.dashboard;
 import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import java.util.concurrent.ThreadLocalRandom;
 
 import java.io.*;
 import java.net.Socket;
@@ -15,20 +14,19 @@ import java.net.Socket;
 public class HttpAjaxDashboardRequest extends Thread {
 	String baseFolder;
 	Socket sock;
-	ActivityFlowClient oActivityFlowClient;
 	DataInputStream inS;
 	DataOutputStream outS;
     
-	public HttpAjaxDashboardRequest(Socket s, String f, ActivityFlowClient af) {
-		baseFolder=f; sock=s; oActivityFlowClient = af;
+	public HttpAjaxDashboardRequest(Socket s, String f) {
+		baseFolder=f; sock=s;
 		}	
     
 	public void run() {
 		try {
 			outS = new DataOutputStream(sock.getOutputStream());
 			inS = new DataInputStream(sock.getInputStream());
-			}
-		catch(IOException ex) { System.out.println("Thread error on data streams creation"); }
+		} catch(IOException ex) { System.out.println("Thread error on data streams creation"); }
+
 		try{
 			HTTPmessage request = new HTTPmessage(inS);
 			HTTPmessage response = new HTTPmessage();
@@ -38,20 +36,13 @@ public class HttpAjaxDashboardRequest extends Thread {
 
 					String strUsername = AuthzRegistry.authorizationService().session().get().authenticatedUser().username().toString();
 
+					ActivityFlowClient oActivityFlow = new ActivityFlowClient();
 
-					SDP2021 oProtocol = oActivityFlowClient.retrieveInformation(strUsername, SDP2021Code.INFO_REQUEST.getCode());
+					SDP2021 oProtocol = oActivityFlow.retrieveInformation(strUsername, SDP2021Code.INFO_REQUEST.getCode());
 
 					String strMessage = oProtocol.getData();
 
-					/*int random1 = ThreadLocalRandom.current().nextInt(0, 10);
-					int random2 = ThreadLocalRandom.current().nextInt(0, 10);
-					int random3 = ThreadLocalRandom.current().nextInt(0, 10);
-					int random4 = ThreadLocalRandom.current().nextInt(0, 10);
-					int random5 = ThreadLocalRandom.current().nextInt(0, 10);
-					int random6 = ThreadLocalRandom.current().nextInt(0, 10);
-
-					String strMessage = random1 + ";" + random2 + ";" + random3 + ";" + random4 + ";" + random5 + ";" + random6;
-					*/
+					oActivityFlow.retrieveInformation("", SDP2021Code.END.getCode());
 
 					int[] arrayCounter = new int[6];
 
@@ -88,15 +79,16 @@ public class HttpAjaxDashboardRequest extends Thread {
 				response.send(outS);
 			}
 
-        } catch(IOException ex) {
-			System.out.println("Thread error when reading request");
+        } catch(Exception ex) {
+			//System.out.println("Thread error when reading request");
 		}
 
 		try {
 			sock.close();
 		}
 		catch(IOException ex) {
-			System.out.println("CLOSE IOException"); }
+			//System.out.println("CLOSE IOException");
 		}
 	}
+}
 
