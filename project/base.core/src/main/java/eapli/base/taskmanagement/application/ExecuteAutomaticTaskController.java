@@ -2,6 +2,7 @@ package eapli.base.taskmanagement.application;
 
 import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
 import eapli.base.net.motorflux.ActivityFlowClient;
 import eapli.base.net.motorflux.TCPAutoTaskExecutorClient;
@@ -37,7 +38,8 @@ public class ExecuteAutomaticTaskController {
     public AutomaticTask executeTask(AutomaticTask task) {
         task.setExecuting();
         ActivityFlowClient afc = new ActivityFlowClient(EXECUTE_SERVER_IP);
-        afc.retrieveInformation(task.script().toString(), SDP2021Code.AUTOTASK_REQUEST.getCode());
+        SDP2021 receive = afc.retrieveInformation(task.script().toString(), SDP2021Code.AUTOTASK_REQUEST.getCode());
+        afc.retrieveInformation("", SDP2021Code.END.getCode());
         task.setExecuted();
         return this.aTaskRep.save(task);
     }
