@@ -45,21 +45,21 @@
  O utilizador escolha a tarefa que quer revindicar.
 O sistema pede confirmação e o utilizador confirma.
 A tarefa é reivindicada com sucesso e o utilizador é informado.
-![US_2_1005_SSD_](US_2_1005_SSD_.svg)
+![US_2_3022_SSD_](US_2_3022_SSD_.svg)
 ### Parte do Modelo de Domínio Relevante para esta User Story
 
-![US-2-1005_MD](US-2-1005_MD.svg)
+![US-2-3022_MD](US-2-3022_MD.svg)
 
 # 3. Design
 ## 3.1. Realização da Funcionalidade
 
 ###	Sequence Diagram
 
-![US_2_1005_SD_](US_2_1005_SD_.png)
+![US_2_3022_SD_](US_2_3022_SD_.png)
 
 
 
-![US-2-1005_SD_Repo](US-2-1005_SD_Repo.svg)
+![US-2-3022_SD_Repo](US-2-3022_SD_Repo.svg)
 
 ## 3.2. Diagrama de Classes
 
