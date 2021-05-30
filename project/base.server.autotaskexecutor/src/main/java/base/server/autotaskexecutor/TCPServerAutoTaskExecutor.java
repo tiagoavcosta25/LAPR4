@@ -16,7 +16,7 @@ import java.net.Socket;
 
 /**
  *
- * @author Jéssica Alves 1190682@isep.ipp.tp
+ * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 public class TCPServerAutoTaskExecutor {
     private static final Logger LOGGER = LogManager.getLogger(TCPServerAutoTaskExecutor.class);
