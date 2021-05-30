@@ -26,7 +26,6 @@ package eapli.base.app.backoffice.console.presentation;
 import eapli.base.app.backoffice.console.presentation.catalogue.*;
 import eapli.base.app.backoffice.console.presentation.collaborator.*;
 import eapli.base.app.backoffice.console.presentation.service.*;
-import eapli.base.app.backoffice.console.presentation.task.AssignTasksAction;
 import eapli.base.app.backoffice.console.presentation.teamtype.TeamTypeRegisterAction;
 import eapli.base.app.backoffice.console.presentation.team.CreateTeamAction;
 import eapli.base.app.backoffice.console.presentation.team.ListTeamTypeAction;
@@ -108,9 +107,6 @@ public class MainMenu extends AbstractUI {
     // TEAM TYPES
     private static final int TEAM_TYPES_REGISTRY = 1;
 
-    // TASKS
-    private static final int ASSIGN_TASKS = 1;
-
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int USERS_OPTION = 2;
@@ -185,8 +181,6 @@ public class MainMenu extends AbstractUI {
             mainMenu.addSubMenu(CATALOGUE_OPTION, teamsMenu);
             final Menu servicesMenu = buildServicesMenu();
             mainMenu.addSubMenu(SERVICES_OPTION, servicesMenu);
-            final Menu tasksMenu = buildTasksMenu();
-            mainMenu.addSubMenu(TASKS_OPTION, tasksMenu);
         }
 
         if (!Application.settings().isMenuLayoutHorizontal()) {
@@ -301,10 +295,4 @@ public class MainMenu extends AbstractUI {
         return menu;
     }
 
-    private Menu buildTasksMenu() {
-        final Menu menu = new Menu("Tasks >");
-        menu.addItem(ASSIGN_TASKS, "Assign Task", new AssignTasksAction());
-        menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
-        return menu;
-    }
 }
