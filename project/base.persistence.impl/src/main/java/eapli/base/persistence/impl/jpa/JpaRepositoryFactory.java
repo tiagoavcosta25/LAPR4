@@ -1,6 +1,6 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.net.activityflux.repositories.DataRepository;
+import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.util.Application;
