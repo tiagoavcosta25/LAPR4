@@ -17,10 +17,11 @@ public enum SDP2021Code {
         TEST(0),
         END(1),
         ROGER(2),
-        AUTOTASK_RESPONSE(3),
+        AUTOTASK_RESPONSE_SUCCESS(3),
         AUTOTASK_REQUEST(4),
         INFO_RESPONSE(5),
         INFO_REQUEST(6),
+        AUTOTASK_RESPONSE_FAILURE(7),
         SEGMENT(255);
 
         /**
