@@ -1,6 +1,5 @@
 package eapli.base.app.user.console.presentation.ticket;
 
-import eapli.base.app.user.console.presentation.utils.PrintList;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.formmanagement.domain.Attribute;
 import eapli.base.formmanagement.domain.Form;
@@ -12,6 +11,8 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
@@ -25,11 +26,11 @@ public class ServiceSolicitationUI extends AbstractUI {
         try {
 
             Iterable<Catalogue> itCatalogues = this.theController.getCataloguesByUser();
-            Catalogue oCatalogue = PrintList.chooseOne(itCatalogues, "Choose a Catalogue", "Catalogue");
+            Catalogue oCatalogue = chooseOne(itCatalogues, "Choose a Catalogue", "Catalogue");
             Iterable<Service> itServices = this.theController.getServicesByCatalogue(oCatalogue);
-            Service oService = PrintList.chooseOne(itServices, "Choose a Service", "Service");
+            Service oService = chooseOne(itServices, "Choose a Service", "Service");
 
-            TicketUrgency oTicketUrgency = PrintList.chooseOne(this.theController.showUrgencies(), "Choose a Urgency for this Ticket", "Urgency");
+            TicketUrgency oTicketUrgency = chooseOne(this.theController.showUrgencies(), "Choose a Urgency for this Ticket", "Urgency");
             final Integer intYear = Integer.parseInt(Console.readLine("Limit Date (year) >"));
             final Integer intMonth = Integer.parseInt(Console.readLine("Limit Date (month) >"));
             final Integer intDay = Integer.parseInt(Console.readLine("Limit Date (day) >"));
@@ -74,6 +75,30 @@ public class ServiceSolicitationUI extends AbstractUI {
         }
 
         return false;
+    }
+
+    public static <T> T chooseOne(Iterable<T> itElements, String strHeader, String strElementName) {
+        try{
+            Integer i = 1;
+            List<T> lstTemp = new ArrayList<>();
+            System.out.printf("\n==========================================\n%s\n==========================================\n\n", strHeader);
+            for(T t : itElements){
+                System.out.printf("[%d] %s\n", i, t.toString());
+                i++;
+                lstTemp.add(t);
+            }
+            if(lstTemp.isEmpty()){
+                System.out.println("There is no " + strElementName + "s in the Database.\n\n");
+                return null;
+            }
+            Integer intOp = Integer.parseInt(Console.readLine("\n\n\nSelect " + strElementName + " Number >"));
+
+            return lstTemp.get(intOp - 1);
+
+        } catch (Exception e){
+            System.out.println("Error in selecting.\n\n");
+            return null;
+        }
     }
 
     @Override
