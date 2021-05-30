@@ -1,7 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.servicemanagement.repositories.DataRepository;
+import eapli.base.taskmanagement.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
@@ -156,12 +156,22 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public ManualTaskRepository manualEx(TransactionalContext autoTx) {
+	public ManualTaskExecutionRepository manualEx(TransactionalContext autoTx) {
+		return new JpaManualTaskExecutionRepository(autoTx);
+	}
+
+	@Override
+	public ManualTaskExecutionRepository manualEx() {
+		return new JpaManualTaskExecutionRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public ManualTaskRepository manualTask(TransactionalContext autoTx) {
 		return new JpaManualTaskRepository(autoTx);
 	}
 
 	@Override
-	public ManualTaskRepository manualEx() {
+	public ManualTaskRepository manualTask() {
 		return new JpaManualTaskRepository(Application.settings().getPersistenceUnitName());
 	}
 
