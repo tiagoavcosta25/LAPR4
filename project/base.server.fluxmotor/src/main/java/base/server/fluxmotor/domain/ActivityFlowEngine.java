@@ -110,8 +110,8 @@ public class ActivityFlowEngine{
         }
 
         private Pair<Integer, String> infoRequestHandler(SDP2021 sdp2021Packet) {
-            String strMecNumber = sdp2021Packet.getData();
-            String payload = m_oActivityFlowController.prepareFluxData(strMecNumber);
+            String strUserName = sdp2021Packet.getData();
+            String payload = m_oActivityFlowController.prepareFluxData(strUserName);
             return new Pair<>(SDP2021Code.INFO_RESPONSE.getCode(), payload);
         }
 

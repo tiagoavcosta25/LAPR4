@@ -11,8 +11,8 @@ public class ActivityFlowController {
     private final FluxDataService m_oFluxDataService = new FluxDataService();
 
     //TODO: Remove Mock
-    public String prepareFluxData(String oMecanographicNumber) {
-        return m_oFluxDataService.prepareFluxData(oMecanographicNumber);
+    public String prepareFluxData(String oUserName) {
+        return m_oFluxDataService.prepareFluxData(oUserName);
     }
 
 }
