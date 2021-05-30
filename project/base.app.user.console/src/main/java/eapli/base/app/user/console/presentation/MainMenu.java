@@ -24,6 +24,7 @@
 package eapli.base.app.user.console.presentation;
 
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
+import eapli.base.app.user.console.net.dashboard.HttpAjaxDashboardRequest;
 import eapli.base.app.user.console.net.dashboard.HttpServerAjaxDashboard;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -72,11 +73,18 @@ class MainMenu extends ClientUserBaseUI {
     @Override
     public boolean show() {
         drawFormTitle();
-        try {
-            HttpServerAjaxDashboard.main(HTTP_SERVER_PORT);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Runnable r = new Runnable() {
+                public void run() {
+                    try {
+                        HttpServerAjaxDashboard.main(HTTP_SERVER_PORT);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+        };
+        new Thread(r).start();
+
+
         return doShow();
     }
 
