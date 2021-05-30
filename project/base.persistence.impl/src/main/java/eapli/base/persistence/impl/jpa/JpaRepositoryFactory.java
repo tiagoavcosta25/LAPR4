@@ -1,6 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.servicemanagement.repositories.DataRepository;
+import eapli.base.taskmanagement.repositories.AutomaticTaskRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.taskmanagement.repositories.TaskRepository;
@@ -176,7 +177,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
+	public AutomaticTaskRepository automaticTask() {
+		return new JpaAutomaticTaskRepository();
+	}
+
+	@Override
 	public JpaTicketRepository tickets() {
 		return new JpaTicketRepository(Application.settings().getPersistenceUnitName());
 	}
+
 }

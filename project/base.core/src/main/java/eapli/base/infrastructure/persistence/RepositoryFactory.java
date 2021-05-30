@@ -13,6 +13,7 @@ import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
+import eapli.base.taskmanagement.repositories.AutomaticTaskRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
@@ -230,4 +231,13 @@ public interface RepositoryFactory {
 	 * @return
 	 */
 	ManualTaskRepository manualTask();
+
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	AutomaticTaskRepository automaticTask();
+
+
 }

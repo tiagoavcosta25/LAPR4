@@ -26,7 +26,6 @@
     <class>eapli.base.ticketmanagement.domain.Response</class>
     <class>eapli.base.activityfluxmanagement.domain.ActivityFlux</class>
     <class>eapli.base.taskmanagement.domain.ManualTaskExecution</class>
-    <class>eapli.base.taskmanagement.domain.ManualTask</class>
 
     <properties>
       <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/../db/base"/>-->
