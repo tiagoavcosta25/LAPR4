@@ -1,159 +1,333 @@
 package eapli.base.servicemanagement.domain;
 
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.cataloguemanagement.domain.CatalogueBriefDescription;
 import eapli.base.cataloguemanagement.domain.CatalogueCompleteDescription;
 import eapli.base.cataloguemanagement.domain.CatalogueTitle;
-import eapli.base.collaboratormanagement.domain.Collaborator;
-import eapli.base.collaboratormanagement.domain.CollaboratorBuilder;
+import eapli.base.collaboratormanagement.domain.*;
 import eapli.base.formmanagement.domain.*;
-import eapli.base.usermanagement.domain.BaseRoles;
-import eapli.framework.infrastructure.authz.domain.model.*;
-import junit.framework.TestCase;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import eapli.base.taskmanagement.domain.*;
+import org.junit.Test;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import static org.junit.Assert.assertTrue;
 
-public class ServiceTest extends TestCase {
+public class ServiceTest {
 
-    public final Attribute a = getDummyAttribute("Lorem", "Ipsum", "Lorem", "Ipsum", "D:/folder/script.bat", "Integer");
+    @Test
+    public void ensureCanBuildServiceWithApprovalAndManualTask() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
 
-    public final Form f = getDummyForm("Lorem", "MANUAL_TASK", Arrays.asList(a));
-
-    public final Collaborator c = getDummyCollaborator(dummyUser("dummy", BaseRoles.ADMIN), null, 919191919d,
-            "+351", LocalDate.of(2000,01,01), "Lorem", "Ipsum",
-            "Lorem", 123456l);
-
-    public final Catalogue cat = new Catalogue(CatalogueBriefDescription.valueOf("Lorem"), CatalogueCompleteDescription.valueOf("Lorem"),
-            CatalogueTitle.valueOf("Lorem"), c, null);
-    public final Service s = getDummyService("Lorem", "Ipsum", "Lorem", 2d, cat, Arrays.asList("Ipsum"), Arrays.asList(f));
-
-    public static Attribute getDummyAttribute(final String strName, final String strLabel, final String strDescription,
-                                              final String strRegex, final String strScript, final String strDataType) {
-        AttributeBuilder attributeBuilder = new AttributeBuilder();
-        attributeBuilder = attributeBuilder.withName(strName);
-        attributeBuilder = attributeBuilder.withLabel(strLabel);
-        attributeBuilder = attributeBuilder.withDescription(strDescription);
-        attributeBuilder = attributeBuilder.withRegex(strRegex);
-        attributeBuilder = attributeBuilder.withScript(strScript);
-        attributeBuilder = attributeBuilder.withDataType(strDataType);
-        return attributeBuilder.build();
+        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public static Form getDummyForm(final String oName, final String oFormType, final List<Attribute> lstAttributes) {
-        FormBuilder formBuilder = new FormBuilder();
-        formBuilder = formBuilder.withName(oName);
-        formBuilder = formBuilder.withType(oFormType);
-        formBuilder = formBuilder.withAttributeList(lstAttributes);
-        return formBuilder.build();
+    @Test
+    public void ensureCanBuildServiceWithoutFeedback() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public static SystemUser dummyUser(final String username, final Role... roles) {
-        final SystemUserBuilder userBuilder = new SystemUserBuilder(new NilPasswordPolicy(), new PlainTextEncoder());
-        return userBuilder.with(username, "duMMy1", "dummy", "dummy", "a@b.ro").withRoles(roles).build();
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithoutCatalogue() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).build();
+        assertTrue(true);
     }
 
-    public static Collaborator getDummyCollaborator(final SystemUser oSystemUser, final Collaborator oManager, final Double dblPhoneNumber, final String strPhoneCode,
-                                                    final LocalDate dtBirthDate, final String strAddress, final String strCompleteName,
-                                                    final String strShortName, final Long lngMechanographicNumber) {
-        CollaboratorBuilder collaboratorBuilder = new CollaboratorBuilder();
-        collaboratorBuilder = collaboratorBuilder.withSystemUser(oSystemUser);
-        collaboratorBuilder = collaboratorBuilder.withManager(oManager);
-        collaboratorBuilder = collaboratorBuilder.withPhoneNumber(dblPhoneNumber, strPhoneCode);
-        collaboratorBuilder = collaboratorBuilder.withBirthDate(dtBirthDate);
-        collaboratorBuilder = collaboratorBuilder.withAddress(strAddress);
-        collaboratorBuilder = collaboratorBuilder.withCompleteName(strCompleteName);
-        collaboratorBuilder = collaboratorBuilder.withShortName(strShortName, strShortName);
-        collaboratorBuilder = collaboratorBuilder.withMechanographicNumber(lngMechanographicNumber);
-        return collaboratorBuilder.build();
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithoutActivityFlux() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public static Service getDummyService(final String strTitle, final String strBriefDescription, final String strCompleteDescription,
-                                              final Double dblFeedback, Catalogue oCatalogue, final List<String> lstKeywords, final List<Form> lstForms) {
-        ServiceBuilder serviceBuilder = new ServiceBuilder();
-        serviceBuilder = serviceBuilder.withTitle(strTitle);
-        serviceBuilder = serviceBuilder.withBriefDescription(strBriefDescription);
-        serviceBuilder = serviceBuilder.withCompleteDescription(strCompleteDescription);
-        serviceBuilder = serviceBuilder.withFeedback(dblFeedback);
-        serviceBuilder = serviceBuilder.withCatalogue(oCatalogue);
-        serviceBuilder = serviceBuilder.withKeywordList(lstKeywords);
-        serviceBuilder = serviceBuilder.withFormList(lstForms);
-        return serviceBuilder.build();
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithoutKeywordList() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm)))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public ServiceTest() throws ParseException {
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithoutFormList() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Title").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public void testTitle() {
-        ServiceTitle real = s.title();
-        String expected = "Lorem";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithoutCompleteDescription() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Title").withBriefDescription("Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public void testBriefDescription() {
-        ServiceBriefDescription real = s.briefDescription();
-        String expected = "Ipsum";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithoutBriefDescription() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Title").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public void testCompleteDescription() {
-        ServiceCompleteDescription real = s.completeDescription();
-        String expected = "Lorem";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithoutTitle() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public void testFeedback() {
-        Feedback real = s.feedback();
-        String expected = "2.0";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithEmptyTitle() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public void testCatalogue() {
-        Catalogue real = s.catalogue();
-        Catalogue expected = cat;
-        assertEquals(real, expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithEmptyBriefDescription() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Description").withBriefDescription("").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public void testKeywords() {
-        List<Keyword> real = s.keywords();
-        List<Keyword> expected = new ArrayList<>(Arrays.asList(new Keyword("Ipsum")));
-        assertEquals(real, expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithEmptyCompleteDescription() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Description").withBriefDescription("Description").withCompleteDescription("")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public void testForms() {
-        List<Form> real = s.forms();
-        List<Form> expected = new ArrayList<>(Arrays.asList(f));
-        assertEquals(real, expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithEmptyFormList() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Description").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>()).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public void testTestEquals() {
-        boolean real = s.equals(s);
-        assertTrue(real);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithEmptyKeywordList() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Description").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>())
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public void testTestHashCode() {
-        int real = s.hashCode();
-        int expected = s.hashCode();
-        assertEquals(real, expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithNegativeFeedback() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Description").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(-1d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public void testSameAs() {
-        boolean real = s.sameAs(s);
-        assertTrue(real);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithNullActivityFlux() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Description").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(null).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 
-    public void testId() {
-        Long real = s.id();
-        assertNull(real);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithNullCatalogue() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        new ServiceBuilder().withTitle("Description").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(null).build();
+        assertTrue(true);
     }
 
-    public void testIdentity() {
-        Long real = s.identity();
-        assertNull(real);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithInvalidTitle() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Description*$$").withBriefDescription("Description").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCantBuildServiceWithMoreThan40CharsBriefDescription() {
+        final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
+                AttributeLabel.valueOf("Label"), AttributeDescription.valueOf("Description"), AttributeRegex.valueOf("[0-9]+"), AttributeScript.valueOf("D:/folder3/script3.bat"), DataType.STRING))));
+        final ActivityFlux oActivityFlux = new ActivityFlux(new ArrayList<>(Arrays.asList(new AutomaticTask(TaskDescription.valueOf("Task Description"), TaskPriority.HIGH, AutomaticTaskScript.valueOf("D:/folder3/script3.bat")))));
+        final Catalogue oCatalogue = new Catalogue(CatalogueBriefDescription.valueOf("Description"), CatalogueCompleteDescription.valueOf("Complete Description"),
+                CatalogueTitle.valueOf("Title"), new Collaborator(null,
+                null, CollaboratorPhoneNumber.valueOf("+351", 966666666d), CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"), CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l)), new HashSet<>());
+
+        new ServiceBuilder().withTitle("Description").withBriefDescription("Description11111111111111111111111111111111111111111111111111").withCompleteDescription("Complete Description")
+                .withFormList(new ArrayList<>(Arrays.asList(oForm))).withKeywordList(new ArrayList<>(Arrays.asList("Keyword")))
+                .withFeedback(24d).withActivityFlux(oActivityFlux).withCatalogue(oCatalogue).build();
+        assertTrue(true);
     }
 }
