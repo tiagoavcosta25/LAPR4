@@ -57,26 +57,21 @@ public class TCPServerAutoTaskExecutor {
 
                 while((request = new SDP2021(sIn)).getCode() != SDP2021Code.END.getCode()) {
 
-                    if(request.getCode() != SDP2021Code.AUTOTASK_REQUEST.getCode()){
-                        System.out.println("Wrong Code.");
+                    System.out.println("Executing Automatic Task...");
+
+                    ExecuteAutomaticTaskController autoTaskController = new ExecuteAutomaticTaskController();
+                    boolean blnTaskSuccessful = autoTaskController.executeAutomaticTaskMock(request.getData());
+
+                    if(blnTaskSuccessful){
+                        response = new SDP2021(SDP2021Code.AUTOTASK_RESPONSE_SUCCESS.getCode());
+                        System.out.println("Automatic Task Executed Successfully.");
+
+                        response.send(sOut, "Success");
                     } else{
+                        response = new SDP2021(SDP2021Code.AUTOTASK_RESPONSE_FAILURE.getCode());
+                        System.out.println("Error Executing Automatic Task.");
 
-                        System.out.println("Executing Automatic Task...");
-
-                        ExecuteAutomaticTaskController autoTaskController = new ExecuteAutomaticTaskController();
-                        boolean blnTaskSuccessful = autoTaskController.executeAutomaticTaskMock(request.getData());
-
-                        if(blnTaskSuccessful){
-                            response = new SDP2021(SDP2021Code.AUTOTASK_RESPONSE_SUCCESS.getCode());
-                            System.out.println("Automatic Task Executed Successfully.");
-
-                            response.send(sOut, "Success");
-                        } else{
-                            response = new SDP2021(SDP2021Code.AUTOTASK_RESPONSE_FAILURE.getCode());
-                            System.out.println("Error Executing Automatic Task.");
-
-                            response.send(sOut, "Error");
-                        }
+                        response.send(sOut, "Error");
                     }
                 }
                 LOGGER.trace("Asked to close");
