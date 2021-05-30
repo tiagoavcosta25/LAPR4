@@ -17,6 +17,8 @@ A interpretação feita deste requisito foi no sentido de ...
 
 * **Gestor do Projeto :** pretende que seja desnvolvida a tarefa manual.
 
+
+
 #### Pré-condições
 
 \-
@@ -44,9 +46,10 @@ A interpretação feita deste requisito foi no sentido de ...
 
 *Recomenda-se que organize este conteúdo por subsecções.*
 
+![US_2_1005_SSD_](US_2_1005_SSD_.svg)
 ### Parte do Modelo de Domínio Relevante para esta User Story
 
-![]()
+![US-2-1005_MD](US-2-1005_MD.svg)
 
 # 3. Design
 
@@ -60,11 +63,11 @@ A interpretação feita deste requisito foi no sentido de ...
 
 ###	Sequence Diagram
 
-![US_1_2001_SD](US_1_2001_SD.svg)
+![US_2_1005_SD_](US_2_1005_SD_.png)
 
 
 
-![US-1-2001_SD_Repo](US-1-2001_SD_Repo.svg)
+![US-2-1005_SD_Repo](US-2-1005_SD_Repo.svg)
 
 ## 3.2. Diagrama de Classes
 

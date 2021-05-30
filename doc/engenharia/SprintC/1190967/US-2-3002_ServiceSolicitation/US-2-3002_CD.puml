@@ -62,9 +62,9 @@ class TicketFile<<Value Object>>{
 -validate(ticketFile)
 }
 
-class TicketResponse<<Value Object>>{
-+create(ticketResponse)
--validate(ticketResponse)
+class Response<<Value Object>>{
++create(response)
+-validate(response)
 }
 }
 
@@ -99,6 +99,11 @@ class TicketRepository<<repository>>{
 +save(ticket)
 }
 
+class ResponseRepository<<repository>>{
++create()
++save(response)
+}
+
 class CatalogueRepository<<repository>>{
 +create()
 +findByUser(user)
@@ -116,6 +121,10 @@ interface ServiceRepositoryInterface{
 
 }
 
+interface ResponseRepositoryInterface{
+
+}
+
 }
 
 
@@ -126,6 +135,7 @@ ServiceSolicitationController ..> PersistenceContext
 ServiceRepository ..> ServiceRepositoryInterface
 TicketRepository ..> TicketRepositoryInterface
 CatalogueRepository ..> CatalogueRepositoryInterface
+ResponseRepository ..> ResponseRepositoryInterface
 
 AppSettings -> RepositoryFactory : creates
 PersistenceContext -> AppSettings : implements
@@ -133,10 +143,12 @@ PersistenceContext -> AppSettings : implements
 RepositoryFactory "1" -> "1" ServiceRepository : has
 RepositoryFactory "1" -> "1" TicketRepository : has
 RepositoryFactory "1" -> "1" CatalogueRepository : has
+RepositoryFactory "1" -> "1" ResponseRepository : has
 
 ServiceRepository "1" -> "*" Service : saves
 TicketRepository "1" -> "*" Ticket : saves
 CatalogueRepository "1" -> "*" Catalogue : saves
+ResponseRepository "1" -> "*" Response : saves
 
 Catalogue "1" -> "*" Service : has
 Service "1" -> "*" Form : has
@@ -147,6 +159,6 @@ Ticket "1" -> "1..*" TicketUrgency : has
 Ticket "1" -> "1..*" TicketLimitDate : has
 Ticket "1" -> "1..*" TicketCreationDate : has
 Ticket "1" -> "1..*" TicketFile : has
-Ticket "1" -> "1..*" TicketResponse : has
+Ticket "1" -> "1..*" Response : has
 
 @enduml
