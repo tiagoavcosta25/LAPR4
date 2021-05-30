@@ -17,7 +17,7 @@ public class ListTaskFilterFieldsService {
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
 
     public Iterable<TaskFilterFields> getTaskFilterFields() {
-        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.USER);
+        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
         return Arrays.asList(TaskFilterFields.values());
     }
 }
