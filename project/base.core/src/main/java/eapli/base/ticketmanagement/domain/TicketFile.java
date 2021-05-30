@@ -21,7 +21,7 @@ import javax.persistence.Embeddable;
 public class TicketFile implements ValueObject, Comparable<TicketFile> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "([a-zA-Z]:)?(/[a-zA-Z0-9_.-]+)+/[a-zA-Z0-9_.-]+.bat";
+    private static final String m_strRegex = "([a-zA-Z]:)?(/[a-zA-Z0-9_.-]+)+/[a-zA-Z0-9_.-]+.[a-z]";
 
     @Column(name = "ticketFilePath")
     private String m_strFilePath;
