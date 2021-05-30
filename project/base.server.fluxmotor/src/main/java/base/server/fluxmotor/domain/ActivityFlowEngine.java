@@ -32,6 +32,8 @@ public class ActivityFlowEngine{
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             while (true) {
                 final Socket clientSocket = serverSocket.accept();
+                final InetAddress clientIP = clientSocket.getInetAddress();
+                LOGGER.debug("Acepted connection from {}:{}", clientIP.getHostAddress(), clientSocket.getPort());
                 new ActivityFlowClientHandler(clientSocket).start();
             }
         } catch (final IOException e) {
@@ -48,24 +50,28 @@ public class ActivityFlowEngine{
         }
 
         public void run() {
-            final InetAddress clientIP = clientSocket.getInetAddress();
-            LOGGER.debug("Acepted connection from {}:{}", clientIP.getHostAddress(), clientSocket.getPort());
             try(DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
-                 DataInputStream in = new DataInputStream(clientSocket.getInputStream())){
+                DataInputStream in = new DataInputStream(clientSocket.getInputStream())){
 
-                SDP2021 sdp2021PacketReceived = new SDP2021(in);
+                SDP2021 sdp2021PacketReceived;
+                SDP2021 sdp2021Packet2Sent;
 
-                LOGGER.trace("Received message:----\n{}\n----", sdp2021PacketReceived.getData());
+                while((sdp2021PacketReceived = new SDP2021(in)).getCode() != SDP2021Code.END.getCode()) {
 
-                Pair<Integer, String> dataForPacket = handleRequest(sdp2021PacketReceived);
+                    LOGGER.trace("Received message:----\n{}\n----", sdp2021PacketReceived.getData());
 
-                SDP2021 sdp2021Packet2Sent = new SDP2021(dataForPacket.getKey());
-                sdp2021Packet2Sent.send(out, dataForPacket.getValue());
-                LOGGER.trace("Sent message:----\n{}\n----", sdp2021Packet2Sent.getData());
+                    Pair<Integer, String> dataForPacket = handleRequest(sdp2021PacketReceived);
 
+                    sdp2021Packet2Sent = new SDP2021(dataForPacket.getKey());
+                    sdp2021Packet2Sent.send(out, dataForPacket.getValue());
+                    LOGGER.trace("Sent message:----\n{}\n----", sdp2021Packet2Sent.getData());
+                }
+                LOGGER.trace("CLOSED");
+                sdp2021Packet2Sent = new SDP2021(SDP2021Code.ROGER.getCode());
+                sdp2021Packet2Sent.send(out, "");
                 clientSocket.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             } finally {
                 try {
                     clientSocket.close();

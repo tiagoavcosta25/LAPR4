@@ -21,6 +21,13 @@ public class ActivityFlowClient {
     private DataInputStream in;
     private int connectionAttempts;
 
+    public static void main(String[] args) {
+        ActivityFlowClient cl = new ActivityFlowClient();
+        cl.retrieveInformation("doe", 6);
+        cl.retrieveInformation("doe", 6);
+        cl.retrieveInformation("doe", 6);
+    }
+
     public ActivityFlowClient() {
         startConnection(); //10.9.20.133 ip server
         connectionAttempts = 0;
