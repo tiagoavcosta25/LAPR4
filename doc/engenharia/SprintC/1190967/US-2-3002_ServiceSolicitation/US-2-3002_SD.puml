@@ -8,6 +8,8 @@ participant "<<presentation>>\nServiceSolicitationUI" as UI
 participant "<<application>>\nServiceSolicitationController" as CTRL
 database "<<repository>>\nCatalogueRepository" as CR
 database "<<repository>>\nServiceRepository" as SR
+participant "<<domain>>\nResponse" as RS
+database "<<repository>>\nResponseRepository" as RR
 participant "<<domain>>\nTicket" as T
 database "<<repository>>\nTicketRepository" as TR
 participant "<<persistence>>\nPersistenceContext" as PC
@@ -19,7 +21,6 @@ participant "<<domain>>\nTicketUrgency" as TU
 participant "<<domain>>\nTicketLimitDate" as TD
 participant "<<domain>>\nTicketCreationDate" as TC
 participant "<<domain>>\nTicketFile" as TF
-participant "<<domain>>\nTicketResponse" as TRS
 participant "<<domain>>\nAttribute" as A
 participant "<<domain>>\nForm" as F
 
@@ -98,6 +99,16 @@ UI -> CTRL : addResponse(response)
 activate CTRL
 deactivate CTRL
 end
+
+UI -> CTRL : createResponse(form)
+activate CTRL
+
+CTRL -> RS** : res = createResponse(form)
+
+CTRL -> RR : save(res)
+activate RR
+deactivate RR
+deactivate CTRL
 end
 
 UI -> CTRL : addTicket(service, urgency, limitDate, creationDate)
