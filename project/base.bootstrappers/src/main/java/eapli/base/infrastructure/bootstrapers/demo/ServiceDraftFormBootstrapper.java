@@ -38,7 +38,7 @@ public class ServiceDraftFormBootstrapper implements Action {
         draftForm("Network Form", 2, new ArrayList<>(Arrays.asList("IPAddress", "VLANID")),
                 new ArrayList<>(Arrays.asList("IP Address", "VLAN ID")),
                 new ArrayList<>(Arrays.asList("Address of the end node with problems", "Identification of the Virtual LAN")),
-                new ArrayList<>(Arrays.asList("[0-9.]+", "[0-9]+")),
+                new ArrayList<>(Arrays.asList("[0-9.]*[0-9]", "[0-9]+")),
                 new ArrayList<>(Arrays.asList("D:/folder3/script3.bat", "C:/folder4/script4.bat")),
                 new ArrayList<>(Arrays.asList(DataType.STRING, DataType.INTEGER)));
         return true;
