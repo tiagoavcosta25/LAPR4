@@ -70,15 +70,12 @@ da aplicação, sendo introduzido previamente valores referentes a serviços com
 
 # 3. Implementação
 
-## 3.1. Provas de Implementação
+## 3.1. Commits Mais Relevantes
 
-![1](imgs/1190682_Implementation_1.PNG) 
-
-
-## 3.2. Commits Mais Relevantes
-
-
-
+* Analysis: 70c3715
+* Design: 567a25e
+* Implementation: ffa5b6c
+* Review: -
 
 # 4. Integração/Demonstração
 
@@ -88,6 +85,7 @@ Isto foi possível através de imenso planeamento da equipa, reuniões e comunic
 # 5. Observações
 
 ## 5.1. Melhoramentos Futuros
+\-
 
 
 
