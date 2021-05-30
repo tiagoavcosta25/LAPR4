@@ -73,11 +73,6 @@ public class ServiceDraftSpecificationController {
         return this.m_oServiceDraft;
     }
 
-    public List<FormType> showFormTypes() {
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        return Arrays.asList(FormType.values());
-    }
-
     public void addForm(ServiceDraft oServiceDraft, String strName, String strType) {
         this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
@@ -121,35 +116,36 @@ public class ServiceDraftSpecificationController {
     public void addKeywordList(ServiceDraft oServiceDraft, List<String> keywordList) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft = oServiceDraft;
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setKeywordList(keywordList);
     }
 
     public void addTitle(ServiceDraft oServiceDraft, String strTitle) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft = oServiceDraft;
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setTitle(strTitle);
+    }
+
+    public void addIcon(ServiceDraft oServiceDraft, String strIcon) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        this.m_oServiceDraft = oServiceDraft;
+        this.m_oServiceDraft.setIcon(strIcon);
     }
 
     public void addBriefDescription(ServiceDraft oServiceDraft, String strBriefDescription) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft = oServiceDraft;
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setBriefDescription(strBriefDescription);
     }
 
     public void addCompleteDescription(ServiceDraft oServiceDraft, String strCompleteDescription) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft = oServiceDraft;
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setCompleteDescription(strCompleteDescription);
     }
 
     public void addFeedback(ServiceDraft oServiceDraft, Double dblFeedback) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft = oServiceDraft;
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.m_oServiceDraft.setFeedback(dblFeedback);
     }
 
