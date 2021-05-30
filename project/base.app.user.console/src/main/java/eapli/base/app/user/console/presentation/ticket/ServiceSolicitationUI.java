@@ -1,16 +1,16 @@
-package eapli.base.app.backoffice.console.presentation.ticket;
+package eapli.base.app.user.console.presentation.ticket;
 
-import eapli.base.app.backoffice.console.presentation.utils.PrintList;
+import eapli.base.app.user.console.presentation.utils.PrintList;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.formmanagement.domain.Attribute;
 import eapli.base.formmanagement.domain.Form;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.ticketmanagement.application.ServiceSolicitationController;
-import eapli.base.ticketmanagement.domain.*;
+import eapli.base.ticketmanagement.domain.Ticket;
+import eapli.base.ticketmanagement.domain.TicketUrgency;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
