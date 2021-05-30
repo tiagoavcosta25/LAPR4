@@ -1,22 +1,17 @@
-# [US-1-2002] Service Specification - Draft Form
+# [US-1-2003] Service Specification - Draft Task
 =======================================
 
 
 # 1. Requisitos
 
-**[US-1-2002]** Como Gestor de Serviços de Helpdesk, eu pretendo proceder à especificação de 
-um novo serviço, devendo o sistema permitir que a mesma fique incompleta e seja, posteriomente, retomada.
+**[US-1-2003]** Como GSH, eu pretendo continuar/completar a especificação em curso de um serviço.
 
-- [US-1-2002] Service Specification - Draft Field
+- [US-1-2003] Service Specification - Draft Task
 
-- [US-1-2002] Service Specification - Draft Form
-
-- [US-1-2002] Service Specification - Save Draft
-
-A interpretação feita deste requisito foi no sentido do gestor de serviços adicionar um formulário a um draft de serviço, 
+A interpretação feita deste requisito foi no sentido do gestor de serviços adicionar uma task a um draft de serviço, 
 para que este eventualmente seja guardado como um serviço (implementado em [US-1-2002] Service Specification - Save Draft).
 
-![US-1-2002_SSD](US-1-2002_SSD.svg)
+![US-1-2003_SSD](US-1-2002_SSD.svg)
 
 ### Formato Completo
 
@@ -26,7 +21,7 @@ para que este eventualmente seja guardado como um serviço (implementado em [US-
 
 #### Partes interessadas e seus interesses
 
-* **Gestor de Serviços de Helpdesk:** pretende especificar adicionar um(vários) formulário(s) a um draft de serviço.
+* **Gestor de Serviços de Helpdesk:** pretende adicionar uma(várias) task(s) a um draft de serviço.
 
 #### Pré-condições
 
@@ -34,7 +29,7 @@ para que este eventualmente seja guardado como um serviço (implementado em [US-
 
 #### Pós-condições
 
-* A informação do formulário(s) adicionado(s) é guardada no draft e registada na base e dados.
+* A informação da task(s) adicionada(s) é guardada no draft e registada na base e dados.
 
 #### Requisitos especiais
 
@@ -56,7 +51,7 @@ para que este eventualmente seja guardado como um serviço (implementado em [US-
 
 ### Parte do Modelo de Domínio Relevante para esta User Story
 
-![US-1-2002_MD](US-1-2002_MD.svg)
+![US-1-2003_MD](US-1-2002_MD.svg)
 
 # 3. Design
 
@@ -64,13 +59,13 @@ para que este eventualmente seja guardado como um serviço (implementado em [US-
 
 ###	Sequence Diagram
 
-![US-1-2002_SD_DraftForm](US-1-2002_SD_DraftForm.svg)
+![US-1-2003_SD_DraftTask](US-1-2002_SD_DraftTask.svg)
 
 ## 3.2. Diagrama de Classes
 
 ###	Class Diagram
 
-![US-1-2002_CD.svg](US-1-2002_CD.svg)
+![US-1-2003_CD.svg](US-1-2002_CD.svg)
 
 ## 3.3. Padrões Aplicados
 
@@ -78,60 +73,20 @@ para que este eventualmente seja guardado como um serviço (implementado em [US-
 
 ## 3.4. Testes 
 
-**Teste Exemplo:** Testar os builders desenvolvidos para o atributo e para o formulário de forma a que todas as regras de negócio sejam verificadas e, após estes serem criados, 
-adicionar um lista de formulários a um draft e verificar se este guarda/apresenta a informação corretamente.
-
-	public static Attribute getDummyAttribute(final String strName, final String strLabel, final String strDescription,
-                                              final String strRegex, final String strScript, final String strDataType) {
-        AttributeBuilder attributeBuilder = new AttributeBuilder();
-        attributeBuilder = attributeBuilder.withName(strName);
-        attributeBuilder = attributeBuilder.withLabel(strLabel);
-        attributeBuilder = attributeBuilder.withDescription(strDescription);
-        attributeBuilder = attributeBuilder.withRegex(strRegex);
-        attributeBuilder = attributeBuilder.withScript(strScript);
-        attributeBuilder = attributeBuilder.withDataType(strDataType);
-        return attributeBuilder.build();
-    }
-
-    public static Form getDummyForm(final String oName, final String oFormType, final List<Attribute> lstAttributes) {
-        FormBuilder formBuilder = new FormBuilder();
-        formBuilder = formBuilder.withName(oName);
-        formBuilder = formBuilder.withType(oFormType);
-        formBuilder = formBuilder.withAttributeList(lstAttributes);
-        return formBuilder.build();
-    }
-	
-	public void testGetFormList() {
-        Form real = s.getFormList().get(0);
-        Form expected = f;
-        assertEquals(real, expected);
-    }
+TO-DO
 
 # 4. Implementação
 
-## 4.1. Provas de Implementação
+## 4.1. Bootstrap
 
-![1](imgs/1190967_Implementation_1.PNG)  
+* Foi também desenvolvido bootstrap com o intuito de inicializar a aplicação com alguma informação, sendo tasks e service drafts inicializados no mesmo.
 
-![2](imgs/1190967_Implementation_2.PNG)  
+## 4.2. Commits Mais Relevantes
 
-![3](imgs/1190967_Implementation_3.PNG)  
-
-![4](imgs/1190967_Implementation_4.PNG)  
-
-![5](imgs/1190967_Implementation_5.PNG)  
-
-
-## 4.2. Bootstrap
-
-* Foi também desenvolvido bootstrap com o intuito de inicializar a aplicação com alguma informação, sendo services e service drafts inicializados no mesmo.
-
-## 4.3. Commits Mais Relevantes
-
-* Analysis: b8c23ad
-* Design: eef63dc
-* Implementation: f8c46b3
-* Review: f787981
+* Analysis: 4991c27
+* Design: 34822dd
+* Implementation: 68ae9af
+* Review: 907cfd4
 
 
 # 5. Integração/Demonstração
@@ -143,8 +98,7 @@ Isto foi possível através de imenso planeamento da equipa, reuniões e comunic
 
 ## 6.1. Melhoramentos Futuros
 
-* Permitir ao utilizador adicionar novos tipos de dados no atributo
-* Permitir ao utilizador adicionar novos tipos de formulario
+- Possiveis Melhoramentos à classe ActivityFlux
 
 
 
