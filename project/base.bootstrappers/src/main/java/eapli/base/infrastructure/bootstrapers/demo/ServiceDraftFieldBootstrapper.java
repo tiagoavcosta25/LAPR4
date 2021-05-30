@@ -28,26 +28,26 @@ public class ServiceDraftFieldBootstrapper implements Action {
 
     @Override
     public boolean execute() {
-        List<Integer> lstOp = new ArrayList<>(Arrays.asList(1,2,3,4,5));
+        List<Integer> lstOp = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
         List<String> lstField = new ArrayList<>(Arrays.asList("Mouse Repair", "Repairing a Mouse Product",
-                "Finding the problem on a product, mainly a mouse, that the customer has", "", "48"));
+                "Finding the problem on a product, mainly a mouse, that the customer has", "", "48", "C:/img/icon1.png"));
         List<String> lstKeywords = new ArrayList<>(Arrays.asList("Repair", "Customer Service", "Approval"));
-        draftField(5, lstOp, lstField, lstKeywords);
+        draftField(6, lstOp, lstField, lstKeywords);
 
         List<String> lstField2 = new ArrayList<>(Arrays.asList("Internet Problems", "Fixing Internet Problems",
-                "Fixing Internet Problems that arise", "", "24"));
+                "Fixing Internet Problems that arise", "", "24", "C:/img/icon2.png"));
         List<String> lstKeywords2 = new ArrayList<>(Arrays.asList("Fix", "Internet"));
-        draftField(5, lstOp, lstField2, lstKeywords2);
+        draftField(6, lstOp, lstField2, lstKeywords2);
 
         List<String> lstField3 = new ArrayList<>(Arrays.asList("Request Contract", "Ask HR to see your contract",
-                "The Human Resources Department will send the user's contract", "", "5"));
+                "The Human Resources Department will send the user's contract", "", "5", "C:/img/icon3.png"));
         List<String> lstKeywords3 = new ArrayList<>(Arrays.asList("Contract", "HR"));
-        draftField(5, lstOp, lstField3, lstKeywords3);
+        draftField(6, lstOp, lstField3, lstKeywords3);
 
         List<String> lstField4 = new ArrayList<>(Arrays.asList("Request Vacation", "Request Vacation Days to the HR Department",
-                "Formal request to have vacation on a certain day.", "", "72"));
+                "Formal request to have vacation on a certain day.", "", "72", "C:/img/icon4.png"));
         List<String> lstKeywords4 = new ArrayList<>(Arrays.asList("HR", "Vacation"));
-        draftField(5, lstOp, lstField4, lstKeywords4);
+        draftField(6, lstOp, lstField4, lstKeywords4);
         return true;
     }
 
@@ -84,6 +84,9 @@ public class ServiceDraftFieldBootstrapper implements Action {
                 break;
             case 5:
                 this.m_oCtrl.addFeedback(oServiceDraft, Double.parseDouble(strField));
+                break;
+            case 6:
+                this.m_oCtrl.addIcon(oServiceDraft, strField);
                 break;
             default:
                 throw new IllegalArgumentException();
