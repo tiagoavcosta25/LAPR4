@@ -4,7 +4,7 @@ hide footbox
 
 actor "User" as U
 
-participant "<<presentation>>\nAssignasksUI" as UI
+participant "<<presentation>>\nAssignTasksUI" as UI
 participant "<<aplication>>\nAssignTasksController" as CTRL
 participant "<<domain>>\ntask:ManualTask" as MT
 database "<<repository>>\nTaskRepository" as TR
@@ -23,16 +23,16 @@ US-1-2051_SD_Repo
 end ref
 deactivate CTRL
 
-UI-> CTRL : getPendingTasks()
+UI-> CTRL : getPendingManualTasks()
 activate CTRL
 
-CTRL-> TR : getPendingTasks(username)
+CTRL-> TR : getPendingManualTasks(username)
 activate TR
 
 TR--> CTRL : pendingTasks
 deactivate TR
 
-CTRL-> CR : getCollaborator(username)
+CTRL-> CR : findByUserName(username)
 activate CR
 CR--> CTRL : collab
 deactivate CR
@@ -68,4 +68,4 @@ UI --> U: Informs of the success of the operation
 deactivate UI
 deactivate U
 
-@endumlml
+@enduml
