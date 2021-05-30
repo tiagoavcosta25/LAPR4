@@ -1,7 +1,8 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.formmanagement.domain.Form;
+import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.domain.ManualTaskExecution;
+import eapli.base.taskmanagement.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.util.Application;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -14,11 +15,11 @@ import java.util.Optional;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class JpaManualTaskRepository extends JpaAutoTxRepository<ManualTaskExecution, Long, Long>
+public class JpaManualTaskRepository extends JpaAutoTxRepository<ManualTask, Long, Long>
         implements ManualTaskRepository {
 
     public JpaManualTaskRepository(TransactionalContext autoTx) {
-        super(autoTx, "executionTaskID");
+        super(autoTx, "taskID");
     }
 
     public JpaManualTaskRepository(String puname) {
@@ -27,9 +28,9 @@ public class JpaManualTaskRepository extends JpaAutoTxRepository<ManualTaskExecu
     }
 
     @Override
-    public Optional<ManualTaskExecution> findById(Long lngID) {
+    public Optional<ManualTask> findById(Long lngID) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("executionTaskID", lngID);
+        params.put("taskID", lngID);
         return matchOne("e.id=:executionTaskID", params);
     }
 
