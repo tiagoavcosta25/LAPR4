@@ -11,6 +11,7 @@ import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
+import eapli.base.taskmanagement.repositories.AutomaticTaskRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
@@ -183,6 +184,11 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public ManualTaskRepository manualTask() {
+		return null;
+	}
+
+	@Override
+	public AutomaticTaskRepository automaticTask() {
 		return null;
 	}
 
