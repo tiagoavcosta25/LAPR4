@@ -61,6 +61,6 @@ public class AutomaticTask extends Task{
 
     @Override
     public String toString() {
-        return super.toString() + this.m_oScript.toString();
+        return "Automatic Task #" + this.id() + ": " + this.description() + " | Script: " + this.m_oScript.toString();
     }
 }
