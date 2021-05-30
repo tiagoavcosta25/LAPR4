@@ -1,6 +1,8 @@
 package eapli.base.taskmanagement.repositories;
 
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.servicemanagement.domain.Service;
 import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.domain.Task;
 import eapli.base.taskmanagement.domain.TaskFilterFields;
@@ -28,16 +30,18 @@ public interface TaskRepository
         return ofIdentity(lngID);
     }
 
-    public Iterable<ManualTask> getTasksOfCollaborator(final Collaborator oCollaborator);
+    public Iterable<Service> getTasksOfCollaborator(final Username oUsername);
 
-    public Iterable<ManualTask> getTasksOfCollaborator(final Collaborator oCollaborator, TaskFilterFields enumFilterBy);
+    public Iterable<Service> getTasksOfCollaborator(final Username oUsername, TaskFilterFields enumFilterBy);
 
-    public Iterable<ManualTask> getTasksOfCollaborator(final Collaborator oCollaborator, TaskOrderFields enumOrderBy);
+    public Iterable<Service> getTasksOfCollaborator(final Username oUsername, TaskOrderFields enumOrderBy);
 
-    public Iterable<ManualTask> getTasksOfCollaborator(final Collaborator oCollaborator, TaskFilterFields enumFilterBy,
+    public Iterable<Service> getTasksOfCollaborator(final Username oUsername, TaskFilterFields enumFilterBy,
                                                        TaskOrderFields enumOrderBy);
 
     public Iterable<ManualTask> getPendingManualTasks(final Username oUsername);
 
-    public Iterable<ManualTask> getHisPendingManualTasks(final Username oUsername);
+    public Iterable<ManualTask> getHisPendingManualTasks(final Username oUsername, Long idFlux);
+
+    public Iterable<Service> getActivityFlux(final Username oUsername);
 }

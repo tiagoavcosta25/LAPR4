@@ -1,6 +1,7 @@
 package eapli.base.persistence.impl.inmemory;
 
 import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.servicemanagement.domain.Service;
 import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.domain.Task;
 import eapli.base.taskmanagement.domain.TaskFilterFields;
@@ -32,25 +33,25 @@ public class InMemoryTaskRepository
 
     //TODO: Finish method getTasksOfCollaborator (no filter nor order)
     @Override
-    public Iterable<ManualTask> getTasksOfCollaborator(Collaborator oCollaborator) {
+    public Iterable<Service> getTasksOfCollaborator(Username oUsername) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     //TODO: Finish method getTasksOfCollaborator (filter)
     @Override
-    public Iterable<ManualTask> getTasksOfCollaborator(Collaborator oCollaborator, TaskFilterFields enumFilterBy) {
+    public Iterable<Service> getTasksOfCollaborator(Username oUsername, TaskFilterFields enumFilterBy) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     //TODO: Finish method getTasksOfCollaborator (order)
     @Override
-    public Iterable<ManualTask> getTasksOfCollaborator(Collaborator oCollaborator, TaskOrderFields enumOrderBy) {
+    public Iterable<Service> getTasksOfCollaborator(Username oUsername, TaskOrderFields enumOrderBy) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     //TODO: Finish method getTasksOfCollaborator (filter and order)
     @Override
-    public Iterable<ManualTask> getTasksOfCollaborator(Collaborator oCollaborator, TaskFilterFields enumFilterBy, TaskOrderFields enumOrderBy) {
+    public Iterable<Service> getTasksOfCollaborator(Username oUsername, TaskFilterFields enumFilterBy, TaskOrderFields enumOrderBy) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -61,7 +62,12 @@ public class InMemoryTaskRepository
     }
 
     @Override
-    public Iterable<ManualTask> getHisPendingManualTasks(Username oUsername) {
+    public Iterable<ManualTask> getHisPendingManualTasks(Username oUsername, Long idFlux) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Iterable<Service> getActivityFlux(Username oUsername) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

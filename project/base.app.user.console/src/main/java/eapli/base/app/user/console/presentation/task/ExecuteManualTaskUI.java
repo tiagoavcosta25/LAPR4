@@ -1,7 +1,9 @@
 package eapli.base.app.user.console.presentation.task;
 
 
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.formmanagement.domain.Attribute;
+import eapli.base.servicemanagement.domain.Service;
 import eapli.base.taskmanagement.application.ExecuteManualTaskController;
 import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.ticketmanagement.domain.Response;
@@ -22,7 +24,10 @@ public class ExecuteManualTaskUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         try {
-            final ManualTask manualTask = selectManualTask();
+
+            final ActivityFlux af = selectActivityFlux();
+
+            final ManualTask manualTask = selectManualTask(af);
             int id = Math.toIntExact(manualTask.identity());
             List<String> responses = new ArrayList<>();
             System.out.println("Complete the form:");
@@ -45,15 +50,26 @@ public class ExecuteManualTaskUI extends AbstractUI {
         return false;
     }
 
-    private ManualTask selectManualTask() {
+    private ManualTask selectManualTask(ActivityFlux af) {
         System.out.println("List of Pending Manual Tasks - Select a Manual Task");
-        final Iterable<ManualTask> listTasks = theController.getUserPendingTasks();
+        final Iterable<ManualTask> listTasks = theController.getUserPendingTasks(af);
         if(!listTasks.iterator().hasNext())
             throw new IllegalArgumentException("No Pending Tasks avaiable!");
         final SelectWidget<ManualTask> selectorManualTask = new SelectWidget<>("Select a Manual Task", listTasks,
                 new ManualTaskPrinter());
         selectorManualTask.show();
         return selectorManualTask.selectedElement();
+    }
+
+    private ActivityFlux selectActivityFlux() {
+        System.out.println("List of Activity Flux - Select an Activity Flux");
+        final Iterable<Service> listActivityFlux = theController.getUserActivityFlux();
+        if(!listActivityFlux.iterator().hasNext())
+            throw new IllegalArgumentException("No Pending Tasks avaiable!");
+        final SelectWidget<Service> selectorActivityFlux = new SelectWidget<>("Select a Manual Task", listActivityFlux,
+                new ActivityFluxPrinter());
+        selectorActivityFlux.show();
+        return selectorActivityFlux.selectedElement().flux();
     }
 
     @Override
