@@ -66,9 +66,9 @@ public class ActivityFlowEngine{
                     sdp2021Packet2Sent.send(out, dataForPacket.getValue());
                     LOGGER.trace("Sent message:----\n{}\n----", sdp2021Packet2Sent.getData());
                 }
-                LOGGER.trace("CLOSED");
+                LOGGER.trace("Asked to close");
                 sdp2021Packet2Sent = new SDP2021(SDP2021Code.ROGER.getCode());
-                sdp2021Packet2Sent.send(out, "");
+                sdp2021Packet2Sent.send(out, "Goodbye");
                 clientSocket.close();
             } catch (IOException e) {
                 //e.printStackTrace();
@@ -86,13 +86,7 @@ public class ActivityFlowEngine{
             Pair<Integer, String> dataPacket = null;
             switch(pktCode) {
                 case 0:
-                    //TODO: Implement TEST
-                    break;
-                case 1:
-                    //TODO: Implement END
-                    break;
-                case 2:
-                    //TODO: Implement ROGER
+                    dataPacket = testHandler();
                     break;
                 case 3:
                     //TODO: Implement AUTOTASK_RESPONSE
@@ -113,6 +107,11 @@ public class ActivityFlowEngine{
                     throw new IllegalStateException("Unhandled code for packet: " + pktCode);
             }
             return dataPacket;
+        }
+
+        private Pair<Integer, String> testHandler() {
+            String payload = "";
+            return new Pair<>(SDP2021Code.ROGER.getCode(), payload);
         }
 
         private Pair<Integer, String> infoRequestHandler(SDP2021 sdp2021Packet) {

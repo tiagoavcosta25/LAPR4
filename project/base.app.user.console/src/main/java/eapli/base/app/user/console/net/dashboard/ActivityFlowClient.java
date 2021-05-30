@@ -13,20 +13,13 @@ import java.net.Socket;
 public class ActivityFlowClient {
 
     private static final int TCP_PORT = 32507;
-    private static final String SERVER_IP = "127.0.0.1";
+    private static final String SERVER_IP = "10.9.20.133";
     private static final Logger LOGGER = LogManager.getLogger(ActivityFlowClient.class);
 
     private Socket clientSocket;
     private DataOutputStream out;
     private DataInputStream in;
     private int connectionAttempts;
-
-    public static void main(String[] args) {
-        ActivityFlowClient cl = new ActivityFlowClient();
-        cl.retrieveInformation("doe", 6);
-        cl.retrieveInformation("doe", 6);
-        cl.retrieveInformation("doe", 6);
-    }
 
     public ActivityFlowClient() {
         startConnection(); //10.9.20.133 ip server
@@ -72,6 +65,7 @@ public class ActivityFlowClient {
             sdp2021Packet.send(out, strMessage);
         } catch (IOException e) {
             LOGGER.error("Could not send packet!");
+            startConnection();
         }
     }
 
@@ -81,6 +75,7 @@ public class ActivityFlowClient {
             sdp2021Packet = new SDP2021(in);
         } catch (IOException e) {
             LOGGER.error("Could not catch data!");
+            startConnection();
         }
         return sdp2021Packet;
     }
