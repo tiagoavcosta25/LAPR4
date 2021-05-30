@@ -15,11 +15,12 @@ import java.net.Socket;
 public class HttpAjaxDashboardRequest extends Thread {
 	String baseFolder;
 	Socket sock;
+	ActivityFlowClient oActivityFlowClient;
 	DataInputStream inS;
 	DataOutputStream outS;
     
-	public HttpAjaxDashboardRequest(Socket s, String f) {
-		baseFolder=f; sock=s;
+	public HttpAjaxDashboardRequest(Socket s, String f, ActivityFlowClient af) {
+		baseFolder=f; sock=s; oActivityFlowClient = af;
 		}	
     
 	public void run() {
@@ -37,9 +38,9 @@ public class HttpAjaxDashboardRequest extends Thread {
 
 					String strUsername = AuthzRegistry.authorizationService().session().get().authenticatedUser().username().toString();
 
-					ActivityFlowClient oActivityFlow = new ActivityFlowClient();
-					SDP2021 oProtocol = oActivityFlow.retrieveInformation(strUsername, SDP2021Code.INFO_REQUEST.getCode());
-					//oActivityFlow.stopConnection();
+
+					SDP2021 oProtocol = oActivityFlowClient.retrieveInformation(strUsername, SDP2021Code.INFO_REQUEST.getCode());
+
 					String strMessage = oProtocol.getData();
 
 					/*int random1 = ThreadLocalRandom.current().nextInt(0, 10);
