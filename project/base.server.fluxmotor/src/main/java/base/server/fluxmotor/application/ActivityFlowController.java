@@ -12,7 +12,7 @@ public class ActivityFlowController {
 
     //TODO: Remove Mock
     public String prepareFluxData(String oUserName) {
-        return m_oFluxDataService.prepareFluxData(oUserName);
+        return m_oFluxDataService.prepareFluxDataMock(oUserName);
     }
 
 }
