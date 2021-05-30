@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 public final class RunServer {
 
     //TODO: read port from properties file
-    private static final int BOOKING_PORT = 32507;
+    private static final int TCP_PORT = 32507;
     private static final Logger LOGGER = LogManager.getLogger(RunServer.class);
 
     /**
@@ -41,7 +41,7 @@ public final class RunServer {
 
         LOGGER.info("Starting the server socket");
         final ActivityFlowEngine server = new ActivityFlowEngine();
-        server.start(BOOKING_PORT, true);
+        server.start(TCP_PORT, true);
 
         LOGGER.info("Exiting the daemon");
         System.exit(0);
