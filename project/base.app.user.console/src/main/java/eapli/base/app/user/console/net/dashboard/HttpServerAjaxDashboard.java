@@ -12,7 +12,7 @@ import java.net.URISyntaxException;
  * @author Pedro Santos (1190967@isep.ipp.pt)
  */
 public class HttpServerAjaxDashboard extends Thread {
-    static private final String BASE_FOLDER = "D:\\Escola\\Uni\\_Year-02\\LAPR4\\ProjetoIntegrador\\project\\base.app.user.console\\src\\main\\java\\eapli\\base\\app\\user\\console\\net\\dashboard\\www";
+    static private final String BASE_FOLDER = System.getProperty("user.dir") + "\\base.app.user.console\\src\\main\\java\\eapli\\base\\app\\user\\console\\net\\dashboard\\www";
     static private ServerSocket sock;
 
     public static void main(Integer intPort) throws Exception {

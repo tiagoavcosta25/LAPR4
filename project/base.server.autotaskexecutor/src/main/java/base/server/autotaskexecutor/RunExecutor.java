@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author Jéssica Alves 1190682@isep.ipp.tp
+ * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 @SuppressWarnings("squid:S106")
 public final class RunExecutor {
