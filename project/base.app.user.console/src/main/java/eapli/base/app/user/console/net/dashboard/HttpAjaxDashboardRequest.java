@@ -2,6 +2,7 @@ package eapli.base.app.user.console.net.dashboard;
 
 import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
+import eapli.base.net.motorflux.ActivityFlowClient;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 import java.io.*;
