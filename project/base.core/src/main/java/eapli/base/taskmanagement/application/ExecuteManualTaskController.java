@@ -5,9 +5,12 @@ import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.domain.ManualTaskExecution;
+import eapli.base.taskmanagement.domain.Task;
+import eapli.base.taskmanagement.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.base.ticketmanagement.domain.Response;
+import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -21,7 +24,9 @@ public class ExecuteManualTaskController {
 
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
     private final TaskRepository taskRepo = PersistenceContext.repositories().tasks();
-    private final ManualTaskRepository mTaskRepo = PersistenceContext.repositories().manualEx();
+    private final ManualTaskRepository mTaskRep = PersistenceContext.repositories().manualTask();
+    private final ManualTaskExecutionRepository mTaskExecRepo = PersistenceContext.repositories().manualEx();
+    private final ResponseRepository responseRepository = PersistenceContext.repositories().responses();
 
     public Iterable<ManualTask> getUserPendingTasks(ActivityFlux af) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
@@ -36,8 +41,10 @@ public class ExecuteManualTaskController {
     public ManualTaskExecution executeTask(ManualTask task, Response response) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
         ManualTaskExecution mt = new ManualTaskExecution(task);
-        mt.executeTask(response);
-        return this.mTaskRepo.save(mt);
+        Response savedResponse = responseRepository.save(response);
+        mt.executeTask(savedResponse);
+        mTaskRep.save(mt.getManualTask());
+        return this.mTaskExecRepo.save(mt);
     }
 
 }
