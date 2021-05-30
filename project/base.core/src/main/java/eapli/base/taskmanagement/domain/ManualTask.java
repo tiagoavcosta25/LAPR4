@@ -25,6 +25,7 @@ package eapli.base.taskmanagement.domain;
 
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.formmanagement.domain.*;
+import eapli.base.ticketmanagement.domain.Response;
 import eapli.framework.domain.model.ValueObject;
 import org.aspectj.apache.bcel.generic.FieldOrMethod;
 
@@ -46,6 +47,10 @@ public class ManualTask extends Task{
     @JoinColumn(name="m_oMechanographicNumber")
     private Collaborator m_oCollaborator;
 
+    @OneToOne
+    @JoinColumn(name="responses")
+    private Response m_oResponse;
+
     public ManualTask(final TaskDescription oDescription, final TaskPriority oTaskPriority, Form oForm) {
         super(oDescription, oTaskPriority);
         if (oForm == null) {
@@ -64,6 +69,14 @@ public class ManualTask extends Task{
 
     public Collaborator collaborator() {
         return this.m_oCollaborator;
+    }
+
+    public Response verifyExecution() {
+        return this.m_oResponse;
+    }
+
+    public void executeTask(Response response) {
+        this.m_oResponse = response;
     }
 
     public void assignCollaborator(Collaborator oCollaborator) {
