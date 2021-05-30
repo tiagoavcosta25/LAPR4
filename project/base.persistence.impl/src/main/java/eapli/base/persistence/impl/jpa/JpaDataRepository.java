@@ -1,6 +1,6 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.net.activityflux.repositories.DataRepository;
+import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.servicemanagement.domain.Service;
 
 import javax.persistence.TypedQuery;
@@ -11,13 +11,13 @@ import javax.persistence.TypedQuery;
 class JpaDataRepository extends HelpDeskJpaRepositoryBase<Service, Long, Long>
         implements DataRepository {
 
-
     public JpaDataRepository() {
         super("m_lngID");
     }
 
+    //TODO: Fix Class
     @Override
-    public Long numberOfPendingActivities(Long oMecanographicNumber) {
+    public Long numberOfPendingActivities(String oUserName) {
         final TypedQuery<Long> q = entityManager().createQuery(
                 "Select count(DISTINCT lst.id) from ActivityFlux a join a.m_lstFlux lst " +
                         "inner join Task t on t.id = lst.id " +
@@ -26,33 +26,34 @@ class JpaDataRepository extends HelpDeskJpaRepositoryBase<Service, Long, Long>
                         "inner join Ticket tt on s.id = tt.m_oService.id " +
                         "where mt.m_oCollaborator.m_oMechanographicNumber.m_lngMechanographicNumber = :mec and t.m_oTaskStatus = 'PENDING'",
                 Long.class);
-        q.setParameter("mec", oMecanographicNumber);
+        q.setParameter("mec", Long.valueOf(oUserName));
         return q.getSingleResult();
     }
 
     @Override
-    public int numberOfExpiredActivities(Long oMecanographicNumber) {
+    public int numberOfExpiredActivities(String oUserName) {
         return 0;
     }
 
     @Override
-    public int numberOfNearExpiredActivities(Long oMecanographicNumber) {
+    public int numberOfNearExpiredActivities(String oUserName) {
         return 0;
     }
 
     @Override
-    public int numberOfLowPriorityActivities(Long oMecanographicNumber) {
+    public int numberOfLowPriorityActivities(String oUserName) {
         return 0;
     }
 
     @Override
-    public int numberOfMediumPriorityActivities(Long oMecanographicNumber) {
+    public int numberOfMediumPriorityActivities(String oUserName) {
         return 0;
     }
 
     @Override
-    public int numberOfHighPriorityActivities(Long oMecanographicNumber) {
+    public int numberOfHighPriorityActivities(String oUserName) {
         return 0;
     }
+
 
 }
