@@ -1,4 +1,4 @@
-package eapli.base.app.user.console.net.dashboard;
+package eapli.base.net.motorflux;
 
 import eapli.base.net.SDP2021;
 import org.apache.logging.log4j.LogManager;
@@ -13,14 +13,16 @@ import java.net.Socket;
 public class ActivityFlowClient {
 
     private static final int TCP_PORT = 32507;
-    private static final String SERVER_IP = "10.9.20.133";
-    private static final Logger LOGGER = LogManager.getLogger(ActivityFlowClient.class);
+    private static final String FLUX_SERVER_IP = "10.9.20.133";
+    private static final String EXECUTE_SERVER_IP = "10.9.21.104";
 
     private Socket clientSocket;
     private DataOutputStream out;
     private DataInputStream in;
+    private final String ip;
 
-    public ActivityFlowClient() {
+    public ActivityFlowClient(String serverIP) {
+        this.ip = serverIP;
         startConnection(); //10.9.20.133 ip server
     }
 
@@ -31,7 +33,7 @@ public class ActivityFlowClient {
 
     private void startConnection() {
         try {
-            clientSocket = new Socket(SERVER_IP, TCP_PORT);
+            clientSocket = new Socket(ip, TCP_PORT);
             out = new DataOutputStream(clientSocket.getOutputStream());
             in = new DataInputStream(clientSocket.getInputStream());
         } catch (Exception e) {
