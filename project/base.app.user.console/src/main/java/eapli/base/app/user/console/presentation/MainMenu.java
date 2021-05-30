@@ -26,6 +26,8 @@ package eapli.base.app.user.console.presentation;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.app.user.console.net.dashboard.HttpAjaxDashboardRequest;
 import eapli.base.app.user.console.net.dashboard.HttpServerAjaxDashboard;
+import eapli.base.app.user.console.presentation.ticket.ServiceSolicitationAction;
+import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -50,16 +52,10 @@ class MainMenu extends ClientUserBaseUI {
 
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
-    private static final int BOOKINGS_OPTION = 2;
-    private static final int ACCOUNT_OPTION = 3;
-    private static final int SETTINGS_OPTION = 4;
+    private static final int TICKET_OPTION = 2;
 
-    // BOOKINGS MENU
-    private static final int BOOK_A_MEAL_OPTION = 2;
-    private static final int LIST_MY_BOOKINGS_OPTION = 3;
-
-    // ACCOUNT MENU
-    private static final int LIST_MOVEMENTS_OPTION = 1;
+    // TICKET MENU
+    private static final int SERVICES_SOLICITATION = 1;
 
     // SETTINGS
     private static final int SET_USER_ALERT_LIMIT_OPTION = 1;
@@ -67,13 +63,17 @@ class MainMenu extends ClientUserBaseUI {
     // HTTP SERVER
     private static final int HTTP_SERVER_PORT = 8000;
 
+    private boolean blnHttpFlag = true;
+
     private final AuthorizationService authz =
             AuthzRegistry.authorizationService();
 
     @Override
     public boolean show() {
         drawFormTitle();
-        Runnable r = new Runnable() {
+
+        if(blnHttpFlag){
+            Runnable r = new Runnable() {
                 public void run() {
                     try {
                         HttpServerAjaxDashboard.main(HTTP_SERVER_PORT);
@@ -81,9 +81,10 @@ class MainMenu extends ClientUserBaseUI {
                         e.printStackTrace();
                     }
                 }
-        };
-        new Thread(r).start();
-
+            };
+            new Thread(r).start();
+            blnHttpFlag = false;
+        }
 
         return doShow();
     }
@@ -105,10 +106,22 @@ class MainMenu extends ClientUserBaseUI {
         final Menu myUserMenu = new MyUserMenu();
         mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
 
+        final Menu ticketMenu = buildTicketMenu();
+        mainMenu.addSubMenu(TICKET_OPTION, ticketMenu);
+
         mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
 
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;
+    }
+
+    private Menu buildTicketMenu() {
+        final Menu menu = new Menu("Ticket >");
+
+        menu.addItem(SERVICES_SOLICITATION, "Service Solicitation (Ticket)", new ServiceSolicitationAction());
+        menu.addItem(EXIT_OPTION, RETURN, Actions.SUCCESS);
+
+        return menu;
     }
 }
