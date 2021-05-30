@@ -32,7 +32,7 @@ public class ExecuteAutomaticTaskController {
     }
 
     public Iterable<Service> getActivityFlow() {
-        return this.taskRepo.getActivityFlux(m_oAuthz.session().get().authenticatedUser().username());
+        return this.aTaskRep.getActivityFlux();
     }
 
     public AutomaticTask executeTask(AutomaticTask task) {

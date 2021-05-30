@@ -2,7 +2,7 @@
 autonumber
 hide footbox
 
-participant "<<server>>\nHttpAjaxDashboardRequest" as RQ
+participant "<<server>>\nTCPExecutorThread" as RQ
 participant "<<domain>>\nSocket" as S
 participant "<<domain>>\nrequest:\nSDP2021" as SDP2021
 participant "<<domain>>\nresponse:\nSDP2021" as SDP2021_2
