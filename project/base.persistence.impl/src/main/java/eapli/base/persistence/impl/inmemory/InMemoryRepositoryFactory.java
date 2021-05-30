@@ -104,13 +104,8 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public TaskRepository tasks(TransactionalContext autoTx) {
-		return null;
-	}
-
-	@Override
 	public TaskRepository tasks() {
-		return tasks(null);
+		return tasks();
 	}
 
 	@Override

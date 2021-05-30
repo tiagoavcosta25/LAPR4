@@ -141,13 +141,6 @@ public interface RepositoryFactory {
 	ResponseRepository responses();
 
 	/**
-	 *
-	 * @param autoTx the transactional context to enrol
-	 * @return
-	 */
-	TaskRepository tasks(TransactionalContext autoTx);
-
-	/**
 	 * repository will be created in auto transaction mode
 	 *
 	 * @return
