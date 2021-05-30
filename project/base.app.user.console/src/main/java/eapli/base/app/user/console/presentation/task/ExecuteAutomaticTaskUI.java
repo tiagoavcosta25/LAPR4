@@ -1,10 +1,10 @@
 package eapli.base.app.user.console.presentation.task;
 
-
 import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.formmanagement.domain.Attribute;
 import eapli.base.servicemanagement.domain.Service;
-import eapli.base.taskmanagement.application.ExecuteManualTaskController;
+import eapli.base.taskmanagement.application.ExecuteAutomaticTaskController;
+import eapli.base.taskmanagement.domain.AutomaticTask;
 import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.ticketmanagement.domain.Response;
 import eapli.framework.io.util.Console;
@@ -17,9 +17,8 @@ import java.util.List;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class ExecuteManualTaskUI extends AbstractUI {
-
-    private final ExecuteManualTaskController theController = new ExecuteManualTaskController();
+public class ExecuteAutomaticTaskUI extends AbstractUI {
+    private final ExecuteAutomaticTaskController theController = new ExecuteAutomaticTaskController();
 
     @Override
     protected boolean doShow() {
@@ -27,48 +26,40 @@ public class ExecuteManualTaskUI extends AbstractUI {
 
             final ActivityFlux af = selectActivityFlux();
 
-            final ManualTask manualTask = selectManualTask(af);
-            int id = Math.toIntExact(manualTask.identity());
-            List<String> responses = new ArrayList<>();
+            final AutomaticTask autoTask = selectAutomaticTask(af);
+            int id = Math.toIntExact(autoTask.identity());
             System.out.println();
-            System.out.println("Complete the form:");
-            System.out.println();
-            for(Attribute attr : manualTask.form().attributes()) {
-                responses.add(Console.readLine(attr.label().toString() + " >"));
-                System.out.println();
-            }
-            Response rp = new Response(manualTask.form(), responses);
             String strOp = Console.readLine("Confirm the execution of task with code " + id + "? (Y/N) ");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
-                this.theController.executeTask(manualTask, rp);
-                System.out.printf("Operation Successful. The Following Manual Task was executed successfully > id:" +
+                this.theController.executeTask(autoTask);
+                System.out.printf("Operation Successful. The Following Automatic Task was executed successfully > id:" +
                         " %s\n\n", id);
             } else{
                 System.out.println("Operation Cancelled.");
             }
         } catch (final Exception ex) {
-            System.out.println("Error while executing a Manual Task. " + ex.getMessage());
+            System.out.println("Error while executing an Automatic Task. " + ex.getMessage());
         }
         return false;
     }
 
-    private ManualTask selectManualTask(ActivityFlux af) {
+    private AutomaticTask selectAutomaticTask(ActivityFlux af) {
         System.out.println();
-        System.out.println("List of Pending Manual Tasks - Select a Manual Task");
-        final Iterable<ManualTask> listTasks = theController.getUserPendingTasks(af);
+        System.out.println("List of Pending Automatic Tasks - Select an Automatic Task");
+        final Iterable<AutomaticTask> listTasks = theController.getPendingTasks(af);
         if(!listTasks.iterator().hasNext())
             throw new IllegalArgumentException("No Pending Tasks avaiable!");
-        final SelectWidget<ManualTask> selectorManualTask = new SelectWidget<>("Select a Manual Task", listTasks,
-                new ManualTaskPrinter());
-        selectorManualTask.show();
-        return selectorManualTask.selectedElement();
+        final SelectWidget<AutomaticTask> selectorAutomaticTask = new SelectWidget<>("Select an Automatic Task", listTasks,
+                new AutomaticTaskPrinter());
+        selectorAutomaticTask.show();
+        return selectorAutomaticTask.selectedElement();
     }
 
     private ActivityFlux selectActivityFlux() {
         System.out.println();
         System.out.println("List of Activity Flux - Select an Activity Flux");
-        final Iterable<Service> listActivityFlux = theController.getUserActivityFlux();
+        final Iterable<Service> listActivityFlux = theController.getActivityFlow();
         if(!listActivityFlux.iterator().hasNext())
             throw new IllegalArgumentException("No Pending Tasks avaiable!");
         final SelectWidget<Service> selectorActivityFlux = new SelectWidget<>("Select an Activity Flow", listActivityFlux,
