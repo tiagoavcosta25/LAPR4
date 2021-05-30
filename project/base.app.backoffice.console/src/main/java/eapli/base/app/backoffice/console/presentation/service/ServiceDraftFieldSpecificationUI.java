@@ -77,7 +77,7 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
     private Integer addField(ServiceDraft oServiceDraft) {
         String strOp = Console.readLine("\nMENU\n==========================================\n" +
                 "1 - Title\n2- Brief Description\n3 - Complete Description"
-                + "\n4 - Keywords\n5- Enable Feedback\n\n0 - Finish"
+                + "\n4 - Keywords\n5- Enable Feedback\n6 - Icon\n\n0 - Finish"
                 + "\n\nChoose a field to add/update in the draft >");
 
         switch (Integer.parseInt(strOp))
@@ -104,6 +104,9 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
                 break;
             case 5:
                 this.theController.addFeedback(oServiceDraft, Double.parseDouble(Console.readLine("Feedback Duration >")));
+                break;
+            case 6:
+                this.theController.addIcon(oServiceDraft, Console.readLine("Service Icon >"));
                 break;
             case 0:
             default:
