@@ -27,6 +27,8 @@ public class HttpServerAjaxDashboard extends Thread {
                 System.exit(1);
         }
 
+        ActivityFlowClient oActivityFlow = new ActivityFlowClient();
+
         Desktop desktop = java.awt.Desktop.getDesktop();
         try {
             URI oURL = new URI(
@@ -38,7 +40,7 @@ public class HttpServerAjaxDashboard extends Thread {
 
         while(true) {
                 cliSock = sock.accept();
-                HttpAjaxDashboardRequest req = new HttpAjaxDashboardRequest(cliSock, BASE_FOLDER);
+                HttpAjaxDashboardRequest req = new HttpAjaxDashboardRequest(cliSock, BASE_FOLDER, oActivityFlow);
                 req.start();
                 incAccessesCounter();
         }
