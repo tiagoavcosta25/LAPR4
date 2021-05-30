@@ -1,8 +1,8 @@
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.formmanagement.domain.Form;
-import eapli.base.formmanagement.repositories.FormRepository;
+import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.domain.ManualTaskExecution;
+import eapli.base.taskmanagement.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class InMemoryManualTaskRepository extends InMemoryDomainRepository<ManualTaskExecution, Long>
+public class InMemoryManualTaskRepository extends InMemoryDomainRepository<ManualTask, Long>
         implements ManualTaskRepository {
 
     static {
@@ -19,7 +19,7 @@ public class InMemoryManualTaskRepository extends InMemoryDomainRepository<Manua
     }
 
     @Override
-    public Optional<ManualTaskExecution> findById(Long number) {
+    public Optional<ManualTask> findById(Long number) {
         return Optional.of(data().get(number));
     }
 }
