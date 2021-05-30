@@ -1,98 +1,207 @@
 package eapli.base.collaboratormanagement.domain;
 
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
+import eapli.base.collaboratormanagement.application.CollaboratorSpecificationController;
+import eapli.base.formmanagement.domain.*;
+import eapli.base.servicemanagement.domain.Service;
+import eapli.base.servicemanagement.domain.ServiceBuilder;
+import eapli.base.taskmanagement.domain.AutomaticTask;
+import eapli.base.taskmanagement.domain.AutomaticTaskScript;
+import eapli.base.taskmanagement.domain.TaskDescription;
+import eapli.base.taskmanagement.domain.TaskPriority;
+import eapli.base.ticketmanagement.domain.*;
 import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.framework.general.domain.model.Money;
 import eapli.framework.infrastructure.authz.domain.model.*;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
-public class CollaboratorTest extends TestCase {
+import static org.junit.Assert.assertTrue;
 
+public class CollaboratorTest {
 
-    public final Collaborator c = getDummyCollaborator(dummyUser("dummy", BaseRoles.ADMIN), null, 919191919d,
-            "+351", LocalDate.of(2000,01,01), "Lorem", "Ipsum", "Lorem", 123456l);
-
-    public CollaboratorTest() throws ParseException {
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithNullPhoneNumber() {
+        System.out.println("\nCollaborator With Null Phone Number.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                null, CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"),
+                CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public static SystemUser dummyUser(final String username, final Role... roles) {
-        final SystemUserBuilder userBuilder = new SystemUserBuilder(new NilPasswordPolicy(), new PlainTextEncoder());
-        return userBuilder.with(username, "duMMy1", "dummy", "dummy", "a@b.ro").withRoles(roles).build();
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithWrongPhoneNumberLength() {
+        System.out.println("\nCollaborator With Wrong Phone Number Length.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 9666666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2000,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"),
+                CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public static Collaborator getDummyCollaborator(final SystemUser oSystemUser, final Collaborator oManager, final Double dblPhoneNumber, final String strPhoneCode,
-                                                    final LocalDate dtBirthDate, final String strAddress, final String strCompleteName,
-                                                    final String strShortName, final Long lngMechanographicNumber) {
-        CollaboratorBuilder collaboratorBuilder = new CollaboratorBuilder();
-        collaboratorBuilder = collaboratorBuilder.withSystemUser(oSystemUser);
-        collaboratorBuilder = collaboratorBuilder.withManager(oManager);
-        collaboratorBuilder = collaboratorBuilder.withPhoneNumber(dblPhoneNumber, strPhoneCode);
-        collaboratorBuilder = collaboratorBuilder.withBirthDate(dtBirthDate);
-        collaboratorBuilder = collaboratorBuilder.withAddress(strAddress);
-        collaboratorBuilder = collaboratorBuilder.withCompleteName(strCompleteName);
-        collaboratorBuilder = collaboratorBuilder.withShortName(strShortName, strShortName);
-        collaboratorBuilder = collaboratorBuilder.withMechanographicNumber(lngMechanographicNumber);
-        return collaboratorBuilder.build();
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithNullBirthDate() {
+        System.out.println("\nCollaborator With Null Birth Date.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d), null,
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"),
+                CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public void testPhoneNumber() {
-        String real = c.phoneNumber().toString();
-        String expected = "+3519.19191919E8";
-        assertEquals(real, expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithWrongBirthDate() {
+        System.out.println("\nCollaborator With Birth Date Set in the Future.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                CollaboratorAddress.valueOf("Address Street"), CollaboratorCompleteName.valueOf("Complete Name"),
+                CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public void testBirthDate() {
-        String real = c.birthDate().toString();
-        String expected = LocalDate.of(2000,01,01).toString();
-        assertEquals(real, expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithNullAddress() {
+        System.out.println("\nCollaborator With Null Address.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                null, CollaboratorCompleteName.valueOf("Complete Name"),
+                CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public void testAddress() {
-        CollaboratorAddress real = c.address();
-        String expected = "Lorem";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithEmptyAddress() {
+        System.out.println("\nCollaborator With Empty Address.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                CollaboratorAddress.valueOf(""), CollaboratorCompleteName.valueOf("Complete Name"),
+                CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public void testCompleteName() {
-        CollaboratorCompleteName real = c.completeName();
-        String expected = "Ipsum";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithNullCompleteName() {
+        System.out.println("\nCollaborator With Null Complete Name.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                CollaboratorAddress.valueOf("Address Street"),null,
+                CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public void testShortName() {
-        CollaboratorShortName real = c.shortName();
-        String expected = "Lorem Lorem";
-        assertEquals(real.toString(), expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithEmptyCompleteName() {
+        System.out.println("\nCollaborator With Empty Complete Name.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                CollaboratorAddress.valueOf("Address Street"),CollaboratorCompleteName.valueOf(""),
+                CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public void testTestEquals() {
-        boolean real = c.equals(c);
-        assertTrue(real);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithWrongCompleteNameRegex() {
+        System.out.println("\nCollaborator With Wrong Complete Name Regex.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                CollaboratorAddress.valueOf("Address Street"),CollaboratorCompleteName.valueOf("N4M3"),
+                CollaboratorShortName.valueOf("First", "Last"),
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public void testTestHashCode() {
-        int real = c.hashCode();
-        int expected = c.hashCode();
-        assertEquals(real, expected);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithNullShortName() {
+        System.out.println("\nCollaborator With Null Short Name.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                CollaboratorAddress.valueOf("Address Street"),CollaboratorCompleteName.valueOf("Complete Name"),null,
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public void testSameAs() {
-        boolean real = c.sameAs(c);
-        assertTrue(real);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithEmptyShortName() {
+        System.out.println("\nCollaborator With Empty Short Name.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                CollaboratorAddress.valueOf("Address Street"),CollaboratorCompleteName.valueOf("Complete Name"),
+                CollaboratorShortName.valueOf("", ""),
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public void testId() {
-        String real = c.id().toString();
-        String excepted = "123456";
-        assertEquals(excepted, real);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithWrongShortNameRegex() {
+        System.out.println("\nCollaborator With Wrong Short Name Regex.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                CollaboratorAddress.valueOf("Address Street"),CollaboratorCompleteName.valueOf("N4M3"),
+                CollaboratorShortName.valueOf("F1rst", "L4st"),
+                CollaboratorMechanographicNumber.valueOf(1919l));
+        assertTrue(subject != null);
     }
 
-    public void testIdentity() {
-        String real = c.identity().toString();
-        String excepted = "123456";
-        assertEquals(excepted, real);
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithNullMechanographicNumber() {
+        System.out.println("\nCollaborator With Null Mechanographic Number.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                CollaboratorAddress.valueOf("Address Street"),CollaboratorCompleteName.valueOf("Complete Name"),
+                CollaboratorShortName.valueOf("First", "Last"), null);
+        assertTrue(subject != null);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithWrongMechanographicNumberNegative() {
+        System.out.println("\nCollaborator With Wrong Mechanographic Number Negative.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                CollaboratorAddress.valueOf("Address Street"),CollaboratorCompleteName.valueOf("N4M3"),
+                CollaboratorShortName.valueOf("F1rst", "L4st"),
+                CollaboratorMechanographicNumber.valueOf(-12l));
+        assertTrue(subject != null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void ensureCanBuildCollaboratorWithWrongMechanographicNumberLength() {
+        System.out.println("\nCollaborator With Wrong Mechanographic Number Length.\n");
+        final Collaborator subject = new Collaborator(null, null,
+                CollaboratorPhoneNumber.valueOf("+351", 966666666d),
+                CollaboratorBirthDate.valueOf(LocalDate.of(2023,01,01)),
+                CollaboratorAddress.valueOf("Address Street"),CollaboratorCompleteName.valueOf("N4M3"),
+                CollaboratorShortName.valueOf("F1rst", "L4st"),
+                CollaboratorMechanographicNumber.valueOf(12121212l));
+        assertTrue(subject != null);
+    }
+
 }
