@@ -46,7 +46,7 @@ A interpretação feita deste requisito foi no sentido de ...
 
 *Recomenda-se que organize este conteúdo por subsecções.*
 
-
+![US_2_1005_SSD_](US_2_1005_SSD_.svg)
 ### Parte do Modelo de Domínio Relevante para esta User Story
 
 ![US-2-1005_MD](US-2-1005_MD.svg)

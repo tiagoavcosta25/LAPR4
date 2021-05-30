@@ -29,8 +29,8 @@ public class HttpServerAjaxDashboard extends Thread {
                 HttpAjaxDashboardRequest req = new HttpAjaxDashboardRequest(cliSock, BASE_FOLDER);
                 req.start();
                 incAccessesCounter();
-                }
         }
+    }
 	
     
     // DATA ACCESSED BY THREADS - LOCKING REQUIRED
