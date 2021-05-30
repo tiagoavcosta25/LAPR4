@@ -39,7 +39,7 @@ public class ServiceDraftTaskBootstrapper implements Action {
                 "Resolution Network Form", 2, new ArrayList<>(Arrays.asList("Resolution", "Problems")),
                 new ArrayList<>(Arrays.asList("Task Resolution", "Problems")),
                 new ArrayList<>(Arrays.asList("Task Resolution Field", "Problems Encountered")),
-                new ArrayList<>(Arrays.asList("Success|Error", "*")),
+                new ArrayList<>(Arrays.asList("Success|Error", "[a-zA-Z0-9]+")),
                 new ArrayList<>(Arrays.asList("D:/folder4/script4.bat", "C:/folder5/script5.bat")),
                 new ArrayList<>(Arrays.asList(DataType.STRING, DataType.STRING)), null);
 
