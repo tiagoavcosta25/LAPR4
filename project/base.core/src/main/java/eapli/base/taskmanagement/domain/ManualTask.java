@@ -77,6 +77,7 @@ public class ManualTask extends Task{
 
     public void executeTask(Response response) {
         this.m_oResponse = response;
+        super.setExecuted();
     }
 
     public void assignCollaborator(Collaborator oCollaborator) {

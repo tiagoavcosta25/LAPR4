@@ -1,12 +1,10 @@
 package eapli.base.taskmanagement.application;
 
 import eapli.base.activityfluxmanagement.domain.ActivityFlux;
-import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.taskmanagement.domain.ManualTask;
 import eapli.base.taskmanagement.repositories.TaskRepository;
-import eapli.base.teammanagement.domain.Team;
 import eapli.base.ticketmanagement.domain.Response;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
@@ -34,6 +32,7 @@ public class ExecuteManualTaskController {
 
     public ManualTask executeTask(ManualTask task, Response response) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
+        task.setExecuting();
         task.executeTask(response);
         return this.taskRepo.save(task);
     }

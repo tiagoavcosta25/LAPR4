@@ -90,6 +90,18 @@ public abstract class Task implements AggregateRoot<Long> {
         return this.m_oTaskResult;
     }
 
+    public void setPending() {
+        this.m_oTaskStatus = TaskStatus.PENDING;
+    }
+
+    public void setExecuting() {
+        this.m_oTaskStatus = TaskStatus.DOING;
+    }
+
+    public void setExecuted() {
+        this.m_oTaskStatus = TaskStatus.DONE;
+    }
+
     @Override
     public boolean equals(final Object o) {
         return DomainEntities.areEqual(this, o);
