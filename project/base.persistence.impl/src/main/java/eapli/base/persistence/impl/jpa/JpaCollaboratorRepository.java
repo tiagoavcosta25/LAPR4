@@ -14,7 +14,7 @@ import java.util.Optional;
 
 /**
  *
- * @author Jéssica Alves 1190682@isep.ipp.pt
+ * @author JÃ©ssica Alves 1190682@isep.ipp.pt
  */
 class JpaCollaboratorRepository
         extends JpaAutoTxRepository<Collaborator, CollaboratorMechanographicNumber, CollaboratorMechanographicNumber>
@@ -40,7 +40,7 @@ class JpaCollaboratorRepository
     public Optional<Collaborator> findByUsername(Username name) {
         final Map<String, Object> params = new HashMap<>();
         params.put("name", name);
-        return matchOne("e.systemUser.username=:name", params);
+        return matchOne("e.m_oSystemUser.username=:name", params);
     }
 
     @Override

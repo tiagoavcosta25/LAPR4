@@ -6,8 +6,10 @@ import eapli.base.taskmanagement.domain.Task;
 import eapli.base.taskmanagement.domain.TaskFilterFields;
 import eapli.base.taskmanagement.domain.TaskOrderFields;
 import eapli.base.taskmanagement.repositories.TaskRepository;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
+import javax.persistence.TypedQuery;
 import java.util.Optional;
 
 /**
@@ -50,5 +52,11 @@ public class InMemoryTaskRepository
     @Override
     public Iterable<ManualTask> getTasksOfCollaborator(Collaborator oCollaborator, TaskFilterFields enumFilterBy, TaskOrderFields enumOrderBy) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Iterable<ManualTask> getPendingManualTasks(Username oUsername) {
+        throw new UnsupportedOperationException("Not supported yet.");
+
     }
 }

@@ -1,6 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.net.activityflux.repositories.DataRepository;
+import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.util.Application;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
@@ -78,13 +79,8 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public JpaTaskRepository tasks(final TransactionalContext autoTx) {
-		return new JpaTaskRepository(autoTx);
-	}
-
-	@Override
-	public JpaTaskRepository tasks() {
-		return new JpaTaskRepository(Application.settings().getPersistenceUnitName());
+	public TaskRepository tasks() {
+		return new JpaTaskRepository();
 	}
 
 	@Override
