@@ -1,0 +1,43 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<server>>\nHttpServerAjaxDashboard" as SRV
+participant "<<thread>>\nHttpAjaxDashboardRequest" as RQ
+participant "<<domain>>\nServerSocket" as SS
+participant "<<domain>>\ncliSock:\nSocket" as S
+
+[o-> SRV : initiates http server
+
+activate SRV
+
+SRV -> SS** : create(port)
+
+loop every time the server receives a request
+
+SRV -> SS : cliSock = accept()
+activate SS
+deactivate SS
+
+SRV -> RQ** : create(cliSock, folder)
+
+SRV -> RQ : start()
+activate RQ
+
+ref over RQ
+    SD_Request
+end ref
+
+deactivate RQ
+
+SRV -> SRV : incAccessesCounter()
+
+end
+
+
+
+
+deactivate SRV
+
+@enduml
+

@@ -1,0 +1,71 @@
+@startuml@startuml
+         autonumber
+         hide footbox
+
+         actor "User" as U
+
+         participant "<<presentation>>\nAssignTasksUI" as UI
+         participant "<<aplication>>\nAssignTasksController" as CTRL
+         participant "<<domain>>\ntask:ManualTask" as MT
+         database "<<repository>>\nTaskRepository" as TR
+         database "<<repository>>\nCollaboratorRepository" as CR
+         participant "<<domain>>\ncollaborator:Collaborator" as COLLAB
+
+         activate U
+
+         U-> UI : Iniciates the request to assign a task
+         activate UI
+
+         activate CTRL
+         UI-> CTRL** : create()
+         ref over CTRL
+         US-1-2051_SD_Repo
+         end ref
+         deactivate CTRL
+
+         UI-> CTRL : getPendingManualTasks()
+         activate CTRL
+
+         CTRL-> TR : getPendingManualTasks(username)
+         activate TR
+
+         TR--> CTRL : pendingTasks
+         deactivate TR
+
+         CTRL-> CR : findByUserName(username)
+         activate CR
+         CR--> CTRL : collab
+         deactivate CR
+
+         CTRL--> UI : pendingTasks
+         deactivate CTRL
+
+         loop until there is no more roles to add
+         UI --> U: Shows pending task's list
+         deactivate UI
+
+         U-> UI : Select the intended task to assign
+         activate UI
+
+         UI-> CTRL : assignTask(task)
+         activate CTRL
+
+         CTRL-> MT : addCollaborator(colab)
+         activate MT
+         deactivate MT
+
+         CTRL-> TR : save(task)
+         activate TR
+
+         TR --> CTRL : task
+         deactivate TR
+
+         CTRL--> UI : task
+         deactivate CTRL
+         end
+
+         UI --> U: Informs of the success of the operation
+         deactivate UI
+         deactivate U
+
+         @enduml

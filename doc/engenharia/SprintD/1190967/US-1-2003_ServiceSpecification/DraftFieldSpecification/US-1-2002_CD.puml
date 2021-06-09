@@ -1,0 +1,87 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Presentation" #DDDDDD {
+class ServiceDraftFieldSpecificationUI<<presentation>>{
+
+}
+}
+
+
+package "Application" #DDDDDD {
+class ServiceDraftSpecificationController<<application>>{
++create()
++getDrafts()
++newDraft()
++addTitle()
++addBriefDescription(briefDescription)
++addCompleteDescription(completeDescription)
++addKeywordList(keywordList)
++addFeedback(feedback)
++saveServiceDraft(serviceDraft)
+}
+}
+
+
+package "Domain" #DDDDDD {
+class ServiceDraft<<Entity>><<Root>>{
+- title
+- briefDescription
+- completeDescription
+- keyword
+- feedback
++create()
++setTitle()
++setBriefDescription(briefDescription)
++setCompleteDescription(completeDescription)
++setKeywordList(keywordList)
++setFeedback(feedback)
+}
+
+}
+
+package Persistence #DDDDDD {
+class PersistenceContext<<persistence>>{
++repositories()
+}
+
+class AppSettings<<persistence>>{
++instance()
++getRepositoryFactory()
+}
+
+package Factory #DDDDDD {
+class RepositoryFactory<<factory>>{
++create()
++servicos()
++catalogos()
++formularios()
+}
+}
+
+package "Repository" #DDDDDD {
+class ServiceDraftRepository<<repository>>{
++create()
++findAll()
++save(serviceDraft)
+}
+
+interface ServiceDraftRepositoryInterface{
+
+}
+
+
+
+ServiceDraftFieldSpecificationUI ..> ServiceDraftSpecificationController
+ServiceDraftSpecificationController ..> PersistenceContext
+
+ServiceDraftRepository ..> ServiceDraftRepositoryInterface
+
+AppSettings -> RepositoryFactory : creates
+PersistenceContext -> AppSettings : implements
+
+RepositoryFactory "1" -> "1" ServiceDraftRepository : has
+
+ServiceDraftRepository "1" -> "*" ServiceDraft : saves
+
+@enduml

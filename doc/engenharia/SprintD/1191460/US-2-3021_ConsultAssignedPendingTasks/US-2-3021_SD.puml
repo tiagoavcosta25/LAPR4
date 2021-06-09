@@ -1,0 +1,120 @@
+@startuml
+autonumber
+hide footbox
+
+actor "User" as USER
+
+participant "<<presentation>>\nConsultAssignedPendingTasksUI" as UI
+participant "<<aplication>>\nConsultAssignedPendingTasksController" as CTRL
+participant "<<aplication>>\nAuthzRegistry" as AUTHR
+participant "<<aplication>>\nAuthorizationService" as AUTH
+participant "<<domain>>\nTaskFilterFields" as TFF
+participant "<<domain>>\nTaskOrderFields" as TOF
+database "<<repository>>\nTaskRepository" as TR
+participant "<<persistence>>\nPersistenceContext"
+participant "<<persistence>>\nAppSettings"
+participant "<<factory>>\nRepositoryFactory"
+participant "<<domain>>\nTask"
+participant "<<domain>>\nManualTask"
+participant "<<domain>>\nTaskDescription"
+participant "<<domain>>\nTaskStatus"
+participant "<<domain>>\nTaskPriority"
+participant "<<domain>>\nTaskResult"
+participant "<<domain>>\nCollaborator"
+participant "<<domain>>\nForm"
+
+activate USER
+USER -> UI : Initiates the request to check the pending task assigned to him
+
+activate UI
+UI -> CTRL** : create()
+
+activate CTRL
+ref over CTRL
+US-1-2052_SD_Repo
+end ref
+
+CTRL -> AUTHR : m_oAuthz = authorizationService()
+activate AUTHR
+deactivate CTRL
+deactivate AUTHR
+
+alt if the user pretends to filter the search by the available fields
+    UI -> CTRL : getTaskFilterFields()
+
+    activate CTRL
+    CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
+    activate AUTH
+    deactivate AUTH
+    CTRL -> TFF : values()
+
+    activate TFF
+    TFF --> CTRL : taskFilterFields
+    deactivate TFF
+
+    CTRL --> UI : taskFilterFields
+    deactivate CTRL
+
+    UI --> USER : Displays the available task filter fields
+
+    USER -> UI : Selects the type of filter
+end alt
+
+alt if the user pretends to filter the search by the available fields
+    UI -> CTRL : getTaskOrderFields()
+
+    activate CTRL
+    CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
+    activate AUTH
+    deactivate AUTH
+    CTRL -> TOF : values()
+
+    activate TOF
+    TOF --> CTRL : taskOrderFields
+    deactivate TOF
+
+    CTRL --> UI : taskOrderFields
+    deactivate CTRL
+
+    UI --> USER : Displays the available task order fields
+
+    USER -> UI : Selects the type of order
+end alt
+
+alt if user didnt pretend to filter or order the search
+    UI -> CTRL : getTasksOfCollaborator(collaborator)
+    activate CTRL
+    else if user pretended to filter the search
+    UI -> CTRL : getTasksOfCollaborator(collaborator, filterBy)
+    else if user pretended to order the search
+    UI -> CTRL : getTasksOfCollaborator(collaborator, orderBy)
+    else if user pretended to filter and order the search
+    UI -> CTRL : getTasksOfCollaborator(collaborator, filterBy, orderBy)
+end
+
+CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
+activate AUTH
+deactivate AUTH
+
+alt if user didnt pretend to filter or order the search
+    CTRL -> TR : getTasksOfCollaborator(collaborator)
+    activate TR
+    else if user pretended to filter the search
+    CTRL -> TR : getTasksOfCollaborator(collaborator, filterBy)
+    else if user pretended to order the search
+    CTRL -> TR : getTasksOfCollaborator(collaborator, orderBy)
+    else if user pretended to filter and order the search
+    CTRL -> TR : getTasksOfCollaborator(collaborator, filterBy, orderBy)
+end
+
+TR --> CTRL : pendingTaskList
+
+deactivate TR
+CTRL --> UI : pendingTaskList
+deactivate CTRL
+
+UI --> USER : Displays user's pending task list
+deactivate UI
+deactivate USER
+
+@enduml

@@ -1,0 +1,178 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Human Resource Representative" as HRR
+
+participant "<<presentation>>\nCollaboratorSpecificationUI" as UI
+participant "<<aplication>>\nCollaboratorSpecificationController" as CTRL
+participant "<<builder>>\nCollaboratorBuilder" as CB
+participant "<<domain>>\nRandomRawPassword" as PASS
+participant "<<domain>>\nAuthzRegistry" as AUTH
+participant "<<service>>\nUserService" as US
+participant "<<domain>>\nrole:Role" as ROLE
+database "<<repository>>\nCollaboratorRepository" as CR
+participant "<<domain>>\ncolab:Collaborator" as COLAB
+participant "<<persistence>>\nPersistenceContex" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+participant "<<domain>>\nSystemUser" as U
+participant "<<domain>>\nEmail" as EM
+participant "<<domain>>\nShortName" as SN
+participant "<<domain>>\nCompleteName" as CN
+participant "<<domain>>\nMechanographicNumber" as MN
+participant "<<domain>>\nRole" as R
+participant "<<domain>>\nAddress" as A
+participant "<<domain>>\nPhoneNumber" as PN
+participant "<<domain>>\nBirthDate" as BD
+
+activate HRR
+
+HRR-> UI : Iniciates the request to specify a collaborator
+activate UI
+
+UI-> CTRL** : create()
+activate CTRL
+ref over CTRL
+US-1-2051_SD_Repo
+end ref
+
+UI --> HRR: Request all information needed (i.e. email, first name,\n last nameshort and complete name,mechanographic number, \naddress, phone number, birth date)
+deactivate CTRL
+deactivate UI
+HRR-> UI : Inserts the requested information
+activate UI
+UI-> CTRL : addColaborador(email, firstName, lastName,\ncompleteName, mechanographicNumber,\naddress, phoneCode, phoneNumber, birthDate)
+activate CTRL
+
+CTRL-> CB** : create()
+CTRL-> CB : withShortName(firstName, lastName)
+activate CB
+deactivate CB
+CTRL-> CB : withCompleteName(completeName)
+activate CB
+deactivate CB
+CTRL-> CB : withMechanographicNumber(mechanographicNumber)
+activate CB
+deactivate CB
+CTRL-> CB : withAddress(address)
+activate CB
+deactivate CB
+CTRL-> CB : withPhoneNumber(phoneNumber, phoneCode)
+activate CB
+deactivate CB
+CTRL-> CB : withBirthDate(birthDate)
+activate CB
+deactivate CB
+deactivate CTRL
+
+UI-> CTRL : getRoleList()
+activate CTRL
+
+CTRL-> ROLE : values()
+activate ROLE
+
+ROLE--> CTRL : rolesList
+deactivate ROLE
+CTRL--> UI : rolesList
+deactivate CTRL
+
+loop until there is no more roles to add
+UI --> HRR: Shows role's list
+deactivate UI
+
+HRR-> UI : Select the intended role
+activate UI
+
+UI --> HRR: Asks if the user wants to add more roles
+deactivate UI
+
+HRR-> UI : Responds
+activate UI
+end
+
+UI-> CTRL : addRoles(roles)
+activate CTRL
+
+
+deactivate CTRL
+
+UI-> CTRL : getCollaborators()
+activate CTRL
+CTRL-> CR : all()
+activate CR
+
+CR--> CTRL : colabList
+deactivate CR
+
+CTRL--> UI : colabList
+deactivate CTRL
+deactivate CR
+
+UI --> HRR: Shows callaborator's list
+deactivate UI
+
+HRR-> UI : Select his/hers manager
+activate UI
+
+UI-> CTRL : addManager(manager)
+activate CTRL
+
+CTRL -> CB : withManager(manager)
+activate CB
+deactivate CB
+deactivate CTRL
+
+UI --> HRR: Validates, presents the information and asks for confirmation
+deactivate UI
+
+deactivate UI
+HRR-> UI : Confirms
+activate UI
+
+UI-> CTRL : saveCollaborator()
+activate CTRL
+CTRL-> PASS** : create
+CTRL-> PASS : toString()
+activate PASS
+
+PASS--> CTRL : password
+deactivate PASS
+
+CTRL-> AUTH : userService()
+activate AUTH
+
+AUTH --> CTRL : userService
+deactivate AUTH
+
+CTRL-> US : registerNewUser(username, password, firstName, lastName, email, roles)
+activate US
+
+US --> CTRL : systemUser
+deactivate US
+
+CTRL-> CB : withSystemUser(systemUser)
+activate CB
+deactivate CB
+CTRL-> CB : build()
+activate CB
+CB-> COLAB** : create(systemUser, manager, phoneNumber, completeName, mechanographicNumber,address, phoneNumber, birthDate)
+activate COLAB
+
+COLAB --> CB : collaborator
+deactivate COLAB
+CB --> CTRL : collaborator
+deactivate CB
+
+CTRL-> CR : save(collaborator)
+activate CR
+CR --> CTRL : collaborator
+deactivate CR
+CTRL --> UI : collaborator
+deactivate CTRL
+
+UI --> HRR: Informs of the success of the operation
+deactivate UI
+deactivate HRR
+
+@enduml
