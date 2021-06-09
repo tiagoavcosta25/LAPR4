@@ -18,22 +18,20 @@
 
 ## 2.3. Protocols Used
 
-* HTTPS
-* SDP2021
+
 * SSL
 * TLS
+* HTTPS
+* SDP2021
 
 # 3. Implementação
 
 ## 3.1. Commits Mais Relevantes
 
-* HTML: d3e201a
-* JavaScript: 3f9fc0a
-* SDP2021 Protocol Development: 63f9eee
-* Server: d2728a4
-* Thread: 74fd55e
-* HTTP: 271c2e4
-* Design: 5e047f5
+* Analysis: d2728a4
+* Design: c277190
+* Implementation: 7d575ba
+* Review: 271c2e4
 
 
 # 4. Integração/Demonstração
@@ -45,7 +43,8 @@ Isto foi possível através de imenso planeamento da equipa, reuniões e comunic
 
 ## 5.1. Melhoramentos Futuros
 
-* Aspeto Gráfico
+* Aspeto Gráfico do Dashboard
+* Error Handling
 
 
 
