@@ -1,0 +1,81 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Help Desk Services Manager" as HSM
+participant ":System" as SYST
+
+activate HSM
+
+HSM -> SYST : initiates the request to add/update a field in a service draft
+activate SYST
+
+SYST -> HSM : asks if the user pretends to use an existing draft
+deactivate SYST
+
+HSM -> SYST : responds
+activate SYST
+
+alt if the user pretends to use an existing draft
+
+SYST -> HSM : presents the draft list and asks the user to choose a draft
+deactivate SYST
+
+HSM -> SYST : chooses a draft
+activate SYST
+end
+
+loop until the user doesn't want to add more fields
+SYST -> HSM : asks which field does the user pretend to add/update
+deactivate SYST
+
+HSM -> SYST : chooses the field
+activate SYST
+
+SYST -> HSM : requests the user to insert the field
+deactivate SYST
+
+HSM -> SYST : selects the field
+activate SYST
+
+alt if the user chooses to add keywords
+loop until there is no more keywords to add
+SYST -> HSM : requests the user to insert the keyword
+deactivate SYST
+
+HSM -> SYST : inserts the keyword
+activate SYST
+
+SYST -> HSM : asks if the user wants to add more keywords
+deactivate SYST
+
+HSM -> SYST : responds
+activate SYST
+end
+
+else if the user chooses to any other field
+SYST -> HSM : requests the user to insert the keyword
+deactivate SYST
+
+HSM -> SYST : selects the field
+activate SYST
+end
+
+SYST -> HSM : saves the field in the draft and\n asks if there is more fields to add
+deactivate SYST
+
+HSM -> SYST : responds
+activate SYST
+end
+
+SYST -> HSM : validates, presents the current \ninformation in the draft and asks for confirmation
+deactivate SYST
+
+HSM -> SYST : confirms
+activate SYST
+
+SYST -> HSM : registers the draft in the persistence\n and informs of the success of the operation
+deactivate SYST
+deactivate HSM
+
+@enduml

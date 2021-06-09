@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="392px" preserveAspectRatio="none" style="width:535px;height:392px;" version="1.1" viewBox="0 0 535 392" width="535px" zoomAndPan="magnify"><defs><filter height="300%" id="f8i2fabqa6q6c" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" filter="url(#f8i2fabqa6q6c)" height="267.5156" style="stroke:#A80036;stroke-width:1.0;" width="10" x="94" y="99.6094"/><rect fill="#FFFFFF" filter="url(#f8i2fabqa6q6c)" height="30.3516" style="stroke:#A80036;stroke-width:1.0;" width="10" x="488" y="121.9609"/><rect fill="#FFFFFF" filter="url(#f8i2fabqa6q6c)" height="30.3516" style="stroke:#A80036;stroke-width:1.0;" width="10" x="488" y="182.6641"/><rect fill="#FFFFFF" filter="url(#f8i2fabqa6q6c)" height="46.7031" style="stroke:#A80036;stroke-width:1.0;" width="10" x="488" y="243.3672"/><rect fill="#FFFFFF" filter="url(#f8i2fabqa6q6c)" height="46.7031" style="stroke:#A80036;stroke-width:1.0;" width="10" x="488" y="320.4219"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="99" x2="99" y1="89.6094" y2="385.125"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="493" x2="493" y1="89.6094" y2="385.125"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="182" x="5" y="86.5332">Help Desk Services Manager</text><ellipse cx="99" cy="15" fill="#FEFECE" filter="url(#f8i2fabqa6q6c)" rx="8" ry="8" style="stroke:#A80036;stroke-width:2.0;"/><path d="M99,23 L99,50 M86,31 L112,31 M99,50 L86,65 M99,50 L112,65 " fill="none" filter="url(#f8i2fabqa6q6c)" style="stroke:#A80036;stroke-width:2.0;"/><rect fill="#FEFECE" filter="url(#f8i2fabqa6q6c)" height="31.6094" style="stroke:#A80036;stroke-width:1.5;" width="60" x="461" y="53"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="468" y="74.5332">System</text><rect fill="#FFFFFF" filter="url(#f8i2fabqa6q6c)" height="267.5156" style="stroke:#A80036;stroke-width:1.0;" width="10" x="94" y="99.6094"/><rect fill="#FFFFFF" filter="url(#f8i2fabqa6q6c)" height="30.3516" style="stroke:#A80036;stroke-width:1.0;" width="10" x="488" y="121.9609"/><rect fill="#FFFFFF" filter="url(#f8i2fabqa6q6c)" height="30.3516" style="stroke:#A80036;stroke-width:1.0;" width="10" x="488" y="182.6641"/><rect fill="#FFFFFF" filter="url(#f8i2fabqa6q6c)" height="46.7031" style="stroke:#A80036;stroke-width:1.0;" width="10" x="488" y="243.3672"/><rect fill="#FFFFFF" filter="url(#f8i2fabqa6q6c)" height="46.7031" style="stroke:#A80036;stroke-width:1.0;" width="10" x="488" y="320.4219"/><polygon fill="#A80036" points="476,117.9609,486,121.9609,476,125.9609,480,121.9609" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="104" x2="482" y1="121.9609" y2="121.9609"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="111" y="117.1045">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="257" x="122" y="117.1045">initiates the request to save in a service draft</text><polygon fill="#A80036" points="115,148.3125,105,152.3125,115,156.3125,111,152.3125" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="109" x2="492" y1="152.3125" y2="152.3125"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="121" y="147.4561">2</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="331" x="132" y="147.4561">presents the draft list and asks the user to choose a draft</text><polygon fill="#A80036" points="476,178.6641,486,182.6641,476,186.6641,480,182.6641" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="104" x2="482" y1="182.6641" y2="182.6641"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="111" y="177.8076">3</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="89" x="122" y="177.8076">chooses a draft</text><polygon fill="#A80036" points="115,209.0156,105,213.0156,115,217.0156,111,213.0156" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="109" x2="492" y1="213.0156" y2="213.0156"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="121" y="208.1592">4</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="349" x="132" y="208.1592">shows the catalogue list and request the user to choose one</text><polygon fill="#A80036" points="476,239.3672,486,243.3672,476,247.3672,480,243.3672" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="104" x2="482" y1="243.3672" y2="243.3672"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="111" y="238.5107">5</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="124" x="122" y="238.5107">selects the catalogue</text><polygon fill="#A80036" points="115,286.0703,105,290.0703,115,294.0703,111,290.0703" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="109" x2="492" y1="290.0703" y2="290.0703"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="121" y="277.0381">6</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="174" x="132" y="268.8623">validates, presents the current</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="277" x="132" y="285.2139">information in the draft and asks for confirmation</text><polygon fill="#A80036" points="476,316.4219,486,320.4219,476,324.4219,480,320.4219" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="104" x2="482" y1="320.4219" y2="320.4219"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="111" y="315.5654">7</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="49" x="122" y="315.5654">confirms</text><polygon fill="#A80036" points="110,363.125,100,367.125,110,371.125,106,367.125" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="104" x2="492" y1="367.125" y2="367.125"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="116" y="354.0928">8</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="208" x="127" y="345.917">registers the draft in the persistence</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="249" x="131" y="362.2686">and informs of the success of the operation</text><!--MD5=[05a1447a98d708cbbc7cadd1539c4e5a]
+@startuml
+autonumber
+hide footbox
+
+actor "Help Desk Services Manager" as HSM
+participant "System" as SYST
+
+activate HSM
+
+HSM -> SYST : initiates the request to save in a service draft
+activate SYST
+
+SYST -> HSM : presents the draft list and asks the user to choose a draft
+deactivate SYST
+
+HSM -> SYST : chooses a draft
+activate SYST
+
+SYST -> HSM : shows the catalogue list and request the user to choose one
+deactivate SYST
+
+HSM -> SYST : selects the catalogue
+activate SYST
+
+SYST -> HSM : validates, presents the current \ninformation in the draft and asks for confirmation
+deactivate SYST
+
+HSM -> SYST : confirms
+activate SYST
+
+SYST -> HSM : registers the draft in the persistence\n and informs of the success of the operation
+deactivate SYST
+deactivate HSM
+
+@enduml
+
+PlantUML version 1.2021.5(Sun Apr 25 12:20:28 BST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: Dynamic Code Evolution 64-Bit Server VM
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+--></g></svg>

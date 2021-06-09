@@ -1,0 +1,88 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<boostrapers>>\nServiceDraftTaskBootstrapper" as BOOT
+participant "<<aplication>>\nServiceDraftSpecificationController" as CTRL
+participant "<<domain>>\ndraft:ServiceDraft" as SER
+
+[o-> BOOT : execute
+
+activate BOOT
+BOOT -> CTRL** : create()
+
+BOOT -> BOOT : draftTask(approvalFlag)
+
+BOOT -> CTRL : newDraft()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftTask
+end ref
+CTRL --> BOOT : draft
+deactivate CTRL
+
+alt if the user wants to add an approval task to the draft
+BOOT -> CTRL : addApprovalTask(description)
+activate CTRL
+deactivate CTRL
+
+
+BOOT -> CTRL : saveApprovalTask()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftTask
+end ref
+CTRL --> BOOT : task
+deactivate CTRL
+else
+deactivate CTRL
+end
+
+alt if the user pretends to add a manual task
+
+BOOT -> CTRL : addForm(serviceDraft, formName, formType)
+activate CTRL
+deactivate CTRL
+
+loop until there are no more attributes
+BOOT -> CTRL : addAttribute(name, label, description, regex, scrip, dataType)
+activate CTRL
+deactivate CTRL
+end
+
+BOOT -> CTRL : newManualTask(description, form)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftTask
+end ref
+CTRL --> BOOT : manualTak
+deactivate CTRL
+
+else if the user pretends to add an automatic task
+BOOT -> CTRL : newAutoTask(description, scriptPath)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftTask
+end ref
+CTRL --> BOOT : autoTask
+deactivate CTRL
+end
+
+BOOT -> CTRL : addTaskToDraft()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftTask
+end ref
+CTRL --> BOOT : draft
+deactivate CTRL
+
+BOOT -> CTRL : saveServiceDraft()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2002_SD_DraftTask
+end ref
+CTRL --> BOOT : draft
+deactivate CTRL
+deactivate BOOT
+
+@enduml

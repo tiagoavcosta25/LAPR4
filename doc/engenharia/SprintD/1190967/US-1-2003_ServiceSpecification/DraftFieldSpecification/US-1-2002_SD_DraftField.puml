@@ -1,0 +1,140 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Help Desk Services Manager" as HSM
+
+participant "<<presentation>>\nServiceDraftFieldSpecificationUI" as UI
+participant "<<application>>\nServiceDraftSpecificationController" as CTRL
+database "<<repository>>\nServiceDraftRepository" as SR
+participant "<<domain>>\nServiceDraft" as S
+participant "<<persistence>>\nPersistenceContext" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+
+activate HSM
+
+HSM -> UI : initiates the request to add/update a field in a service draft
+activate UI
+
+UI -> CTRL** : create
+activate CTRL
+
+ref over CTRL
+  US-1-2002_SD_Repo
+end ref
+
+UI -> HSM : asks if the user pretends to use an existing draft
+deactivate CTRL
+deactivate UI
+
+HSM -> UI : responds
+activate UI
+
+alt if the user pretends to use an existing draft
+
+UI -> CTRL : getDrafts()
+activate CTRL
+
+CTRL -> SR : findAll()
+activate SR
+SR --> CTRL : drafts
+deactivate SR
+
+CTRL --> UI : drafts
+deactivate CTRL
+
+UI -> HSM : presents the draft list and asks the user to choose a draft
+deactivate UI
+
+HSM -> UI : chooses a draft
+activate UI
+
+else if the user pretends to use create a new draft
+
+UI -> CTRL : newDraft()
+activate CTRL
+
+CTRL --> S** : create
+deactivate CTRL
+end
+
+loop until the user doesn't want to add more fields
+UI -> HSM : asks which field does the user pretend to add/update
+deactivate UI
+
+HSM -> UI : chooses the field
+activate UI
+
+UI -> HSM : requests the user to insert the field
+deactivate UI
+
+HSM -> UI : selects the field
+activate UI
+
+alt if the user chooses to add keywords
+loop until there is no more keywords to add
+UI -> HSM : requests the user to insert the keyword
+deactivate UI
+
+HSM -> UI : inserts the keyword
+activate UI
+
+UI -> HSM : asks if the user wants to add more keywords
+deactivate UI
+
+HSM -> UI : responds
+activate UI
+end
+
+UI -> CTRL : addKeywordList(keywordList)
+activate CTRL
+
+CTRL -> S : setKeywordList(keywordList)
+activate S
+deactivate S
+deactivate CTRL
+
+else if the user chooses to any other field
+
+UI -> HSM : requests the user to insert the keyword
+deactivate UI
+
+HSM -> UI : selects the field
+activate UI
+
+ref over UI
+    US-1-2002_SD_AddField
+end ref
+end
+
+UI -> HSM : saves the field in the draft and\n asks if there is more fields to add
+deactivate UI
+
+HSM -> UI : responds
+activate UI
+end
+
+UI -> HSM : validates, presents the current \ninformation in the draft and asks for confirmation
+deactivate UI
+
+HSM -> UI : confirms
+activate UI
+
+UI -> CTRL : saveServiceDraft(serviceDraft)
+activate CTRL
+
+CTRL -> SR : save(serviceDraft)
+activate SR
+SR --> CTRL : serviceDraft
+deactivate SR
+
+
+CTRL --> UI : serviceDraft
+deactivate CTRL
+
+UI -> HSM : registers the draft in the persistence\n and informs of the success of the operation
+deactivate UI
+deactivate HSM
+
+@enduml

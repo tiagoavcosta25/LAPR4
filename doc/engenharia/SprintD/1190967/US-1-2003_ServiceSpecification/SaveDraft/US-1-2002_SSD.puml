@@ -1,0 +1,35 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Help Desk Services Manager" as HSM
+participant "System" as SYST
+
+activate HSM
+
+HSM -> SYST : initiates the request to save in a service draft
+activate SYST
+
+SYST -> HSM : presents the draft list and asks the user to choose a draft
+deactivate SYST
+
+HSM -> SYST : chooses a draft
+activate SYST
+
+SYST -> HSM : shows the catalogue list and request the user to choose one
+deactivate SYST
+
+HSM -> SYST : selects the catalogue
+activate SYST
+
+SYST -> HSM : validates, presents the current \ninformation in the draft and asks for confirmation
+deactivate SYST
+
+HSM -> SYST : confirms
+activate SYST
+
+SYST -> HSM : registers the draft in the persistence\n and informs of the success of the operation
+deactivate SYST
+deactivate HSM
+
+@enduml

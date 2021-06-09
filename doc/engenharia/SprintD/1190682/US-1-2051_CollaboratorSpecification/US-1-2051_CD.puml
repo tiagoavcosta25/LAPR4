@@ -1,0 +1,148 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package "Presentation" #DDDDDD {
+class CollaboratorSpecificationUI <<presentation>>{
+
+}
+}
+
+
+package "Application" #DDDDDD {
+class CollaboratorSpecificationController <<aplication>>{
++create()
++addColaborador(email, firstName, lastName, shortName, \ncompleteName, mechanographicNumber,\naddress, phoneNumber, birthDate)
++getRoleList()
++addRoles(roles)
++getCollaborators()
++addManager(manager)
++saveCollaborator()
+}
+}
+
+
+package "Domain" #DDDDDD {
+class Collaborator <<entity>>{
++create(systemUser, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate)
+}
+
+class ShortName <<value object>>{
++createShortName(shortName)
+-validate(shortName)
+}
+
+class CompleteName <<value object>>{
++createCompleteName(completeName)
+-validate(completeName)
+}
+
+class NumeroMecanografico <<value object>>{
++createNumeroMecanografico(numeroMecanografico)
+-validate(numeroMecanografico)
+}
+
+class Address <<value object>>{
++createAddress(address)
+-validate(address)
+}
+
+class PhoneNumber <<value object>>{
++createPhoneNumber(phoneNumber)
+-validate(phoneNumber)
+}
+
+class BirthDate <<value object>>{
++createBirthDate(birthDate)
+-validate(birthDate)
+}
+
+class BaseRoles <<enum>>{
++nonUserValues()
+}
+
+class RandomRawPassword <<domain>>{
++toString()
+}
+
+class AuthzRegistry <<domain>>{
++userService()
+}
+
+class UserService <<domain>>{
++registerNewUser(username, password, firstName, lastName, email, roles)
+}
+
+package Builder #DDDDDD {
+class CollaboratorBuilder <<builder>>{
++create()
++withShortName(firstName, completeName)
++withCompleteName(completeName)
++withMechanographicNumber(mechanographicNumber)
++withAddress(address)
++withPhoneNumber(phoneNumber, phoneCode)
++withBirthDate(birthDate)
++withRole(Role)
++withManager(manager)
++withSystemUser(systemUser)
++build()
+}
+}
+}
+
+package Persistence #DDDDDD {
+class PersistenceContext <<persistence>>{
++repositories()
+}
+
+class AppSettings <<persistence>>{
++instance()
++getRepositoryFactory()
+}
+
+package Factory #DDDDDD {
+class RepositoryFactory <<factory>>{
++collaborators()
++roles()
+}
+}
+
+package "Repository" #DDDDDD {
+class CollaboratorRepository <<repository>>{
++all()
++save(collaborator)
+}
+
+interface CollaboratorRepositoryInterface{
+
+}
+}
+
+}
+
+
+CollaboratorSpecificationUI ..> CollaboratorSpecificationController
+CollaboratorSpecificationController ..> CollaboratorBuilder
+CollaboratorSpecificationController ..> PersistenceContext
+CollaboratorSpecificationController ..> RandomRawPassword
+CollaboratorSpecificationController ..> AuthzRegistry
+CollaboratorSpecificationController ..> UserService
+
+AppSettings -> RepositoryFactory : creates
+PersistenceContext -> AppSettings : implements
+
+RepositoryFactory "1" -> "1" CollaboratorRepository : has
+CollaboratorRepository ..> CollaboratorRepositoryInterface
+
+CollaboratorRepository "1" -> "*" Collaborator : saves
+CollaboratorBuilder "1" -> "*" Collaborator : creates
+
+Collaborator "1" -> "1" ShortName : has
+Collaborator "1" -> "1" CompleteName : has
+Collaborator "1" -> "1" NumeroMecanografico : is identified by
+Collaborator "1" -> "1" BaseRoles : has
+Collaborator "1" -> "1" Address : has
+Collaborator "1" -> "1" PhoneNumber : has
+Collaborator "1" -> "1" BirthDate : has
+
+@enduml

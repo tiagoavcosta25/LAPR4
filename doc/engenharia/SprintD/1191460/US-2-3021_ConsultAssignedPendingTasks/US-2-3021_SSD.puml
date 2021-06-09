@@ -1,0 +1,45 @@
+@startuml
+autonumber
+hide footbox
+
+actor "User" as USER
+
+participant ":System" as SYST
+
+activate USER
+USER-> SYST : Initiates the request to check the pending task assigned to him
+activate SYST
+SYST --> USER: Asks if the user pretends to filter the search by the available fields
+deactivate SYST
+
+USER-> SYST : Responds
+activate SYST
+
+alt if the user pretends to filter the search by the available fields
+    SYST --> USER: Shows the options to filter the search by
+    deactivate SYST
+
+    USER --> SYST: Selects the desired option
+    activate SYST
+
+end alt
+
+SYST --> USER: Asks if the user pretends to organize the tasks by the avaiable fields
+deactivate SYST
+
+USER --> SYST: Responds
+activate SYST
+
+alt if the user pretends to order the search by the available fields
+    SYST --> USER: Shows the options to order the search by
+    deactivate SYST
+
+    USER --> SYST: Selects the desired option
+    activate SYST
+end alt
+
+SYST --> USER: Shows the pending tasks assigned to the user
+deactivate SYST
+
+
+@enduml

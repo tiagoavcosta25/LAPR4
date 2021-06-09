@@ -1,0 +1,38 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<server>>\nTCPServerAutoTaskExecutor" as SRV
+participant "<<thread>>\nTCPExecutorThread" as RQ
+participant "<<domain>>\nServerSocket" as SS
+participant "<<domain>>\ncliSock:\nSocket" as S
+
+[o-> SRV : initiates automatic \ntask executor
+
+activate SRV
+
+SRV -> SS** : create(port)
+
+loop every time the server receives a request
+
+SRV -> SS : cliSock = accept()
+activate SS
+deactivate SS
+
+SRV -> RQ** : create(cliSock)
+
+SRV -> RQ : start()
+activate RQ
+
+ref over RQ
+    SD_Request
+end ref
+
+deactivate RQ
+
+end
+
+deactivate SRV
+
+@enduml
+

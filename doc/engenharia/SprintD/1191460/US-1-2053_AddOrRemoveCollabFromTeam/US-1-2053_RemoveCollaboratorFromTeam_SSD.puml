@@ -1,0 +1,89 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Human Resource Representative" as HRR
+
+participant "<<presentation>>\nAddCollabToTeamUI" as UI
+participant "<<aplication>>\nAddCollabToTeamController" as CTRL
+participant "<<aplication>>\nAuthzRegistry" as AUTHR
+participant "<<aplication>>\nAuthorizationService" as AUTH
+database "<<repository>>\nCollaboratorRepository" as CR
+database "<<repository>>\nTeamRepository" as TR
+
+activate HRR
+HRR -> UI : Iniciates the request to remove a collaborator from a team
+
+activate UI
+UI -> CTRL** : create()
+
+activate CTRL
+ref over CTRL
+US-1-2052_SD_Repo
+end ref
+
+CTRL -> AUTHR : m_oAuthz = authorizationService()
+activate AUTHR
+deactivate CTRL
+deactivate AUTHR
+
+UI -> CTRL : getCollaborators()
+
+activate CTRL
+CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
+CTRL -> CR : all()
+
+activate CR
+CR --> CTRL : collabSet
+deactivate CR
+
+CTRL --> UI : collabSet
+deactivate CTRL
+
+UI --> HRR : Display collaborator's list
+
+HRR -> UI : Selects the intended collaborator
+
+UI -> CTRL : getTeams()
+
+activate CTRL
+CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
+CTRL -> TR : all()
+
+activate TR
+TR --> CTRL : teamSet
+deactivate TR
+
+CTRL --> UI : teamSet
+deactivate CTRL
+
+UI --> HRR : Display collaborator's team's list
+
+HRR -> UI : Selects the intended Team
+
+UI -> CTRL : addCollaboratorToTeam(collab, team)
+
+
+activate CTRL
+CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role, role)
+activate AUTH
+CTRL -> CR : save(collab)
+deactivate AUTH
+activate CR
+CR --> CTRL : collab
+deactivate CR
+
+
+CTRL --> UI : collab
+deactivate CTRL
+
+
+
+UI --> HRR : Validates, presents the information and asks for confirmation
+
+HRR -> UI : Confirms
+
+UI --> HRR : Informs the success of the operation
+deactivate UI
+deactivate HRR
+@enduml

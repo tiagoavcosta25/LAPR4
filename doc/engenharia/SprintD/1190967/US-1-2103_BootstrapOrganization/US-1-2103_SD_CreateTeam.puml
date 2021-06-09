@@ -1,0 +1,33 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<boostrapers>>\nTeamCreatorBootstrapper" as BOOT
+participant "<<aplication>>\nTeamCreatorController" as CTRL
+participant "<<domain>>\nteam:Team" as TEAM
+
+[o-> BOOT : execute
+
+activate BOOT
+BOOT -> CTRL** : create()
+
+BOOT -> BOOT : createTeam(teamType, acronym,\nteamDescription, collaboratorsID)
+
+BOOT -> CTRL : getCollaborators()
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2052_SD
+end ref
+CTRL --> BOOT : collaborators
+deactivate CTRL
+
+BOOT -> CTRL : createTeam(teamType, acronym,\nteamDescription, collaboratorsID)
+activate CTRL
+ref over CTRL
+Code Sequence similar to US-1-2052_SD
+end ref
+CTRL --> BOOT : team
+deactivate CTRL
+deactivate BOOT
+
+@enduml

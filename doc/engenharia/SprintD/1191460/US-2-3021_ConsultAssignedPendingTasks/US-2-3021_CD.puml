@@ -1,0 +1,123 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Presentation" #DDDDDD {
+    class ConsultAssignedPendingTasksUI<<presentation>>{
+    }
+}
+
+
+package "Application" #DDDDDD {
+    class ConsultAssignedPendingTasksController<<application>>{
+        + create()
+        + getTasksOfCollaborator(collaborator)
+        + getTasksOfCollaborator(collaborator, filterBy)
+        + getTasksOfCollaborator(collaborator, orderBy)
+        + getTasksOfCollaborator(collaborator, filterBy, orderBy)
+    }
+}
+
+
+package "Domain" #DDDDDD {
+
+    abstract class Task<<Entity>><<Root>>{
+        - taskDescription
+        - taskStatus
+        - taskPriority
+        - taskResult
+        - collaborator
+        +create(taskDescription, taskPriority)
+        +assignCollaborator(collaborator)
+    }
+
+    class ManualTask<<Entity>>{
+        - form
+        - limitDate
+        +create(taskDescription, taskPriority, limitDate, form)
+    }
+
+    class Collaborator<<Entity>><<Root>>{
+        - mecanographicNumber
+        - systemUser
+        - manager
+        - phoneNumber
+        - birthDate
+        - address
+        - completeName
+        - shortName
+        - teams
+        + create(systemUser, manager, phoneNumber, birthDate, address, completeName, shortName, mecanographicNumber)
+        + addTeam(team)
+        + removeTeam(team)
+    }
+
+    class Form<<Entity>><<Root>> {
+        - name
+        - formType
+        - attributeList
+        + create(name, formType, attributeList)
+    }
+
+    enum TaskFilterFields<<enum>> {
+    }
+
+    enum TaskOrderFields<<enum>> {
+    }
+}
+
+package Persistence #DDDDDD {
+    class PersistenceContext<<persistence>>{
+        +repositories()
+    }
+
+    class AppSettings<<persistence>>{
+        +instance()
+        +getRepositoryFactory()
+    }
+
+    package Factory #DDDDDD {
+        class RepositoryFactory<<factory>>{
+            +create()
+            +collaborators()
+            +tasks()
+            +teams()
+            +forms()
+    }
+}
+
+package "Repository" #DDDDDD {
+    class TaskRepository<<repository>>{
+        +create()
+        +findAll()
+        +getTasksOfCollaborator(collaborator)
+        +getTasksOfCollaborator(collaborator, filterBy)
+        +getTasksOfCollaborator(collaborator, orderBy)
+        +getTasksOfCollaborator(collaborator, filterBy, orderBy)
+        +save(Task)
+    }
+
+    interface TaskRepositoryInterface{
+
+    }
+}
+
+
+ConsultAssignedPendingTasksUI ..> ConsultAssignedPendingTasksController
+ConsultAssignedPendingTasksController ..> PersistenceContext
+
+TaskRepository ..> TaskRepositoryInterface
+
+AppSettings -> RepositoryFactory : creates
+PersistenceContext -> AppSettings : implements
+
+RepositoryFactory "1" -> "1" TaskRepository : has
+
+TaskRepository "1" -> "*" ManualTask : saves
+
+ManualTask -> Task : extends
+
+Task -> Collaborator : has
+
+ManualTask -> Form : has
+
+@enduml
