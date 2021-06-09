@@ -25,8 +25,11 @@
 # 3. Implementação
 
 ## 3.1. Commits Mais Relevantes
-* Server: c9aacaa
-* Thread: 096f94a
+
+* Analysis:
+* Design: bbef0c8
+* Implementation: 7b5fe60
+* Review:
 
 
 # 4. Integração/Demonstração
