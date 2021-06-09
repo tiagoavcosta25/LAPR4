@@ -1,0 +1,88 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<server>>\nHttpAjaxDashboardRequest" as RQ
+participant "<<domain>>\nSocket" as S
+participant "<<domain>>\nrequest:\nHTTPmessage" as HTTP
+participant "<<domain>>\nresponse:\nHTTPmessage" as HTTP2
+participant "<<client>>\nActivityFlowClient" as AF
+participant "<<server>>\nHttpServerAjaxDashboard" as SRV
+
+[o-> RQ : start()
+
+activate RQ
+
+RQ -> S : in = getInputStream()
+activate S
+deactivate S
+
+RQ -> S : out = getOutputStream()
+activate S
+deactivate S
+
+RQ -> HTTP** : create(in)
+RQ -> HTTP2** : create()
+
+alt if the request's method is GET
+
+alt if the request's URI is /dashboard_info
+
+RQ -> AF** : create(username)
+
+RQ -> AF : strData = retrieveInformation()
+activate AF
+deactivate AF
+
+RQ -> SRV : content = getPendingTasksInHTML(strData, type)
+activate SRV
+deactivate SRV
+
+RQ -> HTTP2 : setContentFromString(content)
+activate HTTP2
+deactivate HTTP2
+
+RQ -> HTTP2 : setResponseStatus("200 Ok")
+activate HTTP2
+deactivate HTTP2
+
+else
+
+alt if the request's URI is //
+
+RQ -> HTTP2 : setContentFromString(webPage)
+activate HTTP2
+deactivate HTTP2
+
+RQ -> HTTP2 : setResponseStatus("200 Ok")
+activate HTTP2
+deactivate HTTP2
+
+else
+
+RQ -> HTTP2 : setResponseStatus("404 Not Found")
+activate HTTP2
+deactivate HTTP2
+
+end
+
+else
+
+RQ -> HTTP2 : setResponseStatus("405 Method Not Allowed")
+activate HTTP2
+deactivate HTTP2
+
+end
+
+RQ -> HTTP2 : send(out)
+activate HTTP2
+deactivate HTTP2
+
+RQ -> S : close()
+activate S
+deactivate S
+
+deactivate RQ
+
+@enduml
+
