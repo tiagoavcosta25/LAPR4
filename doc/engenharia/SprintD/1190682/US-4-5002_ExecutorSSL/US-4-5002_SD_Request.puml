@@ -1,0 +1,44 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<server>>\nTCPExecutorThread" as RQ
+participant "<<domain>>\nSocket" as S
+participant "<<domain>>\nrequest:\nSDP2021" as SDP2021
+participant "<<domain>>\nresponse:\nSDP2021" as SDP2021_2
+
+[o-> RQ : start()
+
+activate RQ
+
+RQ -> S : clientIP = getInetAddress()
+activate S
+deactivate S
+
+RQ -> S : in = getInputStream()
+activate S
+deactivate S
+
+RQ -> S : out = getOutputStream()
+activate S
+deactivate S
+
+RQ -> SDP2021** : create(in)
+RQ -> SDP2021_2** : create(code)
+
+RQ -> SDP2021_2 : getData()
+activate SDP2021_2
+deactivate SDP2021_2
+
+RQ -> SDP2021_2 : send(out, message)
+activate SDP2021_2
+deactivate SDP2021_2
+
+RQ -> S : close()
+activate S
+deactivate S
+
+deactivate RQ
+
+@enduml
+
