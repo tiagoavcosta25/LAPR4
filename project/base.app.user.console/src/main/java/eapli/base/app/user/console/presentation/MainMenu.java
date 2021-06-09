@@ -87,7 +87,7 @@ class MainMenu extends ClientUserBaseUI {
                     try {
                         HttpServerAjaxDashboard.main(HTTP_SERVER_PORT);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        //e.printStackTrace();
                     }
                 }
             };
