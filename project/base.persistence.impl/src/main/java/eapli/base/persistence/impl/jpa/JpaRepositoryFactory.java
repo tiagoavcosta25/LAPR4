@@ -2,7 +2,7 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.taskmanagement.repositories.AutomaticTaskRepository;
-import eapli.base.taskmanagement.repositories.ManualTaskExecutionRepository;
+import eapli.base.taskmanagement.repositories.TaskExecutionRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.taskmanagement.repositories.TaskRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
@@ -82,6 +82,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
+	public JpaActivityFluxExecutionRepository fluxExecs(final TransactionalContext autoTx) {
+		return new JpaActivityFluxExecutionRepository(autoTx);
+	}
+
+	@Override
+	public JpaActivityFluxExecutionRepository fluxExecs() {
+		return new JpaActivityFluxExecutionRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
 	public TaskRepository tasks() {
 		return new JpaTaskRepository();
 	}
@@ -157,13 +167,13 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public ManualTaskExecutionRepository manualEx(TransactionalContext autoTx) {
-		return new JpaManualTaskExecutionRepository(autoTx);
+	public JpaTaskExecutionRepository taskExecs(TransactionalContext autoTx) {
+		return new JpaTaskExecutionRepository(autoTx);
 	}
 
 	@Override
-	public ManualTaskExecutionRepository manualEx() {
-		return new JpaManualTaskExecutionRepository(Application.settings().getPersistenceUnitName());
+	public JpaTaskExecutionRepository taskExecs() {
+		return new JpaTaskExecutionRepository(Application.settings().getPersistenceUnitName());
 	}
 
 	@Override
