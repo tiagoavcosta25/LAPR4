@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 public class TicketTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    /*@Test(expected = IllegalArgumentException.class)
     public void ensureCanBuildTicketWithNullUrgency() {
         System.out.println("\nTicket With Null Urgency.\n");
         final Form oForm = new Form(FormName.valueOf("Form Name"), FormType.MANUALTASK, new ArrayList<>(Arrays.asList(new Attribute(AttributeName.valueOf("Attribute"),
@@ -190,7 +190,7 @@ public class TicketTest {
                 TicketCreationDate.valueOf(LocalDateTime.of(2020,01,01,10,10)),
                 Arrays.asList(new Response(oForm, Arrays.asList("Ipsum", "Ipsum"))), Arrays.asList(new TicketFile()), null);
         assertTrue(subject != null);
-    }
+    }*/
 
 
 }
