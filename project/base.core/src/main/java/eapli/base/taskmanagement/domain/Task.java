@@ -23,7 +23,6 @@
  */
 package eapli.base.taskmanagement.domain;
 
-import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
@@ -50,13 +49,7 @@ public abstract class Task implements AggregateRoot<Long> {
     private TaskDescription m_oDescription;
 
     @Enumerated(EnumType.STRING)
-    private TaskStatus m_oTaskStatus;
-
-    @Enumerated(EnumType.STRING)
     private TaskPriority m_oTaskPriority;
-
-    @Enumerated(EnumType.STRING)
-    private TaskResult m_oTaskResult;
 
 
 
@@ -65,9 +58,7 @@ public abstract class Task implements AggregateRoot<Long> {
             throw new IllegalArgumentException();
         }
         this.m_oDescription = oDescription;
-        this.m_oTaskStatus = TaskStatus.PENDING;
         this.m_oTaskPriority = oTaskPriority;
-        this.m_oTaskResult = TaskResult.NO_RESULT;
     }
 
     protected Task() {
@@ -78,28 +69,8 @@ public abstract class Task implements AggregateRoot<Long> {
         return this.m_oDescription;
     }
 
-    public TaskStatus status() {
-        return this.m_oTaskStatus;
-    }
-
     public TaskPriority priority() {
         return this.m_oTaskPriority;
-    }
-
-    public TaskResult result() {
-        return this.m_oTaskResult;
-    }
-
-    public void setPending() {
-        this.m_oTaskStatus = TaskStatus.PENDING;
-    }
-
-    public void setExecuting() {
-        this.m_oTaskStatus = TaskStatus.DOING;
-    }
-
-    public void setExecuted() {
-        this.m_oTaskStatus = TaskStatus.DONE;
     }
 
     @Override
