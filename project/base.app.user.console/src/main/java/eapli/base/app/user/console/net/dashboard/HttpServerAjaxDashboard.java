@@ -6,38 +6,46 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
 
 /**
  *
  * @author Pedro Santos (1190967@isep.ipp.pt)
  */
+
 public class HttpServerAjaxDashboard extends Thread {
     static private final String BASE_FOLDER = System.getProperty("user.dir") + "\\base.app.user.console\\src\\main\\java\\eapli\\base\\app\\user\\console\\net\\dashboard\\www";
-    static private ServerSocket sock;
+    static private SSLServerSocket sock;
 
     public static void main(Integer intPort) throws Exception {
-        Socket cliSock;
+        SSLSocket cliSock;
+
+        System.setProperty("javax.net.ssl.keyStore", "server.jks");
+        System.setProperty("javax.net.ssl.keyStorePassword", "forgotten");
         
         accessesCounter = 0;
 
         try {
-            sock = new ServerSocket(intPort);
-        } catch(IOException ex) {
-                System.out.println("Server failed to open local port " + intPort);
-                System.exit(1);
+            SSLServerSocketFactory sslF = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+            sock = (SSLServerSocket) sslF.createServerSocket(intPort);
+        }
+        catch(IOException ex) {
+            System.out.println("Server failed to open local port " + intPort);
         }
 
         Desktop desktop = java.awt.Desktop.getDesktop();
         try {
             URI oURL = new URI(
-                    "http://127.0.0.1:8000/");
+                    "https://127.0.0.1:8000/");
             desktop.browse(oURL);
         } catch (URISyntaxException e) {
             System.out.println("Error Opening the Browser");
         }
 
         while(true) {
-                cliSock = sock.accept();
+                cliSock = (SSLSocket) sock.accept();
                 HttpAjaxDashboardRequest req = new HttpAjaxDashboardRequest(cliSock, BASE_FOLDER);
                 req.start();
                 incAccessesCounter();

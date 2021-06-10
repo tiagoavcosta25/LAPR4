@@ -1,0 +1,31 @@
+
+
+@startuml
+autonumber
+hide footbox
+
+actor "User" as USER
+
+participant "<<presentation>>\nAssignPendingTasksUI" as UI
+
+
+activate USER
+USER -> UI : Initiates the request to check the pending tasks
+
+activate UI
+
+
+
+
+
+UI --> USER: show list of tasks pendants
+
+
+USER->UI: Chooses an taks to assign to himself
+
+UI --> USER: Requests confirmation
+
+USER -> UI: confirms
+ UI-->USER : Assigns this activity to this user and informs him
+
+@enduml

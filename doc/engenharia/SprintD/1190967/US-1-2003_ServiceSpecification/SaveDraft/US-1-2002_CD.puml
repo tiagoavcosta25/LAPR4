@@ -1,0 +1,161 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Presentation" #DDDDDD {
+class SaveDraftUI<<presentation>>{
+
+}
+}
+
+
+package "Application" #DDDDDD {
+class SaveDraftController<<application>>{
++create()
++getDrafts()
++getCatalogues()
++saveService(serviceDraft)
+}
+}
+
+
+package "Domain" #DDDDDD {
+class Service<<Entity>><<Root>>{
++create(title, briefDescription, completeDescription, \nfeedback, keywordList, formList)
+}
+
+class ServiceDraft<<Entity>><<Root>>{
++getTitle()
++getBriefDescription()
++getCompleteDescription()
++getFeedback()
++getKeywordList()
++getFormList()
+}
+
+class Form<<Entity>><<Root>>{
+}
+
+class Catalogue<<Entity>><<Root>>{
+}
+
+class Title<<Value Object>>{
++createTitle(title)
+-validate(title)
+}
+
+class BriefDescription<<Value Object>>{
++createBriefDescription(briefDescription)
+-validate(briefDescription)
+}
+
+class CompleteDescription<<Value Object>>{
++createDescricaoCompleta(completeDescription)
+-validate(completeDescription)
+}
+
+class Keyword<<Value Object>>{
++createKeyword(keyword)
+-validate(keyword)
+}
+
+class Feedback<<Value Object>>{
++createFeedback(feedback)
+-validate(feedback)
+}
+
+
+
+package Builder #DDDDDD {
+class ServiceBuilder<<builder>>{
++create()
++withTitle(title)
++withBriefDescription(briefDescription)
++withCompleteDescription(completeDescription)
++withFeedback(feedback)
++withKeywordList(keywordList)
++withFormList(formList)
++build()
+}
+
+}
+
+}
+
+package Persistence #DDDDDD {
+class PersistenceContext<<persistence>>{
++repositories()
+}
+
+class AppSettings<<persistence>>{
++instance()
++getRepositoryFactory()
+}
+
+package Factory #DDDDDD {
+class RepositoryFactory<<factory>>{
++create()
++servicos()
++catalogos()
++formularios()
+}
+}
+
+package "Repository" #DDDDDD {
+class ServiceRepository<<repository>>{
++create()
++save(service)
+}
+
+class ServiceDraftRepository<<repository>>{
++create()
++findAll()
+}
+
+class CatalogueRepository<<repository>>{
++create()
++findAll()
+}
+
+interface ServiceRepositoryInterface{
+
+}
+
+interface ServiceDraftRepositoryInterface{
+
+}
+
+interface CatalogueRepositoryInterface{
+
+}
+}
+
+SaveDraftUI ..> SaveDraftController
+SaveDraftController ..> ServiceBuilder
+SaveDraftController ..> PersistenceContext
+
+ServiceRepository ..> ServiceRepositoryInterface
+ServiceDraftRepository ..> ServiceDraftRepositoryInterface
+CatalogueRepository ..> CatalogueRepositoryInterface
+
+AppSettings -> RepositoryFactory : creates
+PersistenceContext -> AppSettings : implements
+
+RepositoryFactory "1" -> "1" ServiceRepository : has
+RepositoryFactory "1" -> "1" CatalogueRepository : has
+RepositoryFactory "1" -> "1" ServiceDraftRepository : has
+
+ServiceRepository "1" -> "*" Service : saves
+ServiceBuilder "1" -> "*" Service : cria
+ServiceDraftRepository "1" -> "*" ServiceDraft : saves
+CatalogueRepository "1" -> "*" Catalogue : saves
+
+Service "1" -> "1" Title : has
+Service "1" -> "1" BriefDescription : has
+Service "1" -> "1" CompleteDescription : has
+Service "1" -> "*" Keyword : has
+Service "1" -> "0..1" Feedback : has
+Service "1" -> "*" Form : has
+Service "1" -> "1" Catalogue : is available in
+
+
+@enduml

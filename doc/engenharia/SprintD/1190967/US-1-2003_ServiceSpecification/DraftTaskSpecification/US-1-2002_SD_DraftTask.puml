@@ -1,0 +1,254 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Help Desk Services Manager" as HSM
+
+participant "<<presentation>>\nServiceDraftTaskSpecificationUI" as UI
+participant "<<application>>\nServiceDraftSpecificationController" as CTRL
+database "<<repository>>\nServiceDraftRepository" as SR
+participant "<<application>>\nServiceDraftSpecificationService" as SRV
+participant "<<domain>>\napprovalTask:\nManualTask" as AMT
+participant "<<domain>>\nmanualTask:\nManualTask" as MT
+participant "<<domain>>\nautoTask:\nAutomaticTask" as AT
+participant "<<domain>>\nTask" as T
+participant "<<domain>>\nServiceDraft" as S
+database "<<repository>>\nTaskRepository" as TR
+participant "<<domain>>\nTaskPriority" as TP
+database "<<repository>>\nFormRepository" as FR
+participant "<<domain>>\nActivityFlux" as AF
+database "<<repository>>\nActivityFluxRepository" as AR2
+participant "<<domain>>\nTaskDescription" as TD
+participant "<<domain>>\nTaskResult" as TR
+participant "<<domain>>\nTaskStatus" as TD
+participant "<<domain>>\nAutomaticTaskScript" as ATS
+participant "<<builder>>\nFormBuilder" as FBD
+participant "<<domain>>\nDataType" as DT
+participant "<<builder>>\nAttributeBuilder" as ABD
+participant "<<domain>>\nAttribute" as A
+participant "<<domain>>\nForm" as F
+participant "<<persistence>>\nPersistenceContext" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+participant "<<domain>>\nFormName" as FM
+participant "<<domain>>\nFormType" as FT
+participant "<<domain>>\nAttributeName" as AN
+participant "<<domain>>\nAttributeLabel" as AL
+participant "<<domain>>\nAttributeDescription" as AD
+participant "<<domain>>\nAttributeRegex" as AR
+participant "<<domain>>\nAttributeScript" as ASC
+
+activate HSM
+
+HSM -> UI : initiates the request to add/update tasks in a service draft
+activate UI
+
+UI -> CTRL** : create
+activate CTRL
+
+CTRL -> SRV** : create
+
+ref over CTRL
+  US-1-2002_SD_Repo
+end ref
+
+UI -> HSM : asks if the user pretends to use an existing draft
+deactivate CTRL
+deactivate UI
+
+HSM -> UI : responds
+activate UI
+
+alt if the user pretends to use an existing draft
+
+UI -> CTRL : getDrafts()
+activate CTRL
+
+CTRL -> SR : findAll()
+activate SR
+SR --> CTRL : drafts
+deactivate SR
+
+CTRL --> UI : drafts
+deactivate CTRL
+
+UI -> HSM : presents the draft list and asks the user to choose a draft
+deactivate UI
+
+HSM -> UI : chooses a draft
+activate UI
+
+else if the user pretends to use create a new draft
+
+UI -> CTRL : newDraft()
+activate CTRL
+
+CTRL --> S** : create
+deactivate CTRL
+end
+
+alt if the user wants to add an approval task to the draft
+UI -> HSM : requests the user to insert the approval task's description
+deactivate UI
+
+HSM -> UI : inserts the task's description
+activate UI
+
+UI -> CTRL : addApprovalTask(description)
+activate CTRL
+
+CTRL -> SRV : form = generateApprovalForm()
+activate SRV
+
+SRV -> SRV : addAttribute()
+deactivate SRV
+
+CTRL -> FR : save(form)
+activate FR
+FR --> CTRL : form
+deactivate FR
+
+CTRL -> SRV : approvalTask = addApprovalTask(description, form)
+activate SRV
+
+SRV --> AMT** : create(description, priority, form)
+activate AMT
+AMT --> T** : create(description, priority)
+deactivate AMT
+deactivate SRV
+
+CTRL -> CTRL : saveManualTask(approvalTask)
+
+CTRL -> TR : save(approvalTask)
+activate TR
+TR --> CTRL : approvalTask
+deactivate TR
+
+CTRL --> UI : approvalTask
+deactivate CTRL
+end
+
+UI -> CTRL : showTaskPriorities()
+activate CTRL
+
+CTRL -> TP : values()
+activate TP
+
+TP --> CTRL : taskPriorities
+deactivate TP
+
+CTRL --> UI : taskPriorities
+deactivate CTRL
+
+UI -> HSM : requests the user to insert the resolution task's description
+deactivate UI
+
+HSM -> UI : inserts the resolution task's description and priority
+activate UI
+
+UI -> HSM : requests the user to insert the resolution task's type
+deactivate UI
+
+HSM -> UI : inserts the resolution task's type
+activate UI
+
+alt if the user pretends to add a manual task
+
+ref over UI
+    US-1-2002_SD_CreateForm
+end ref
+
+UI -> CTRL : newManualTask(description, priority, form)
+activate CTRL
+
+CTRL -> MT** : create(description, priority, form)
+activate MT
+MT --> T : create(description, priority)
+activate T
+deactivate T
+deactivate MT
+
+CTRL -> CTRL : saveManualTask(manualTask)
+
+CTRL -> TR : save(manualTask)
+activate TR
+TR --> CTRL : manualTask
+deactivate TR
+
+CTRL --> UI : manualTask
+deactivate CTRL
+
+else if the user pretends to add an automatic task
+UI -> HSM : requests the user to insert the task's script's path
+deactivate UI
+
+HSM -> UI : inserts the task's script's path
+activate UI
+
+UI -> CTRL : newAutoTask(description, priority, scriptPath)
+activate CTRL
+
+CTRL -> AT** : create(description, priority, scriptPath)
+activate AT
+AT --> T : create(description, priority)
+activate T
+deactivate T
+deactivate AT
+
+CTRL -> CTRL : saveAutomaticTask(autoTask)
+
+CTRL -> TR : save(autoTask)
+activate TR
+TR --> CTRL : autoTask
+deactivate TR
+
+CTRL --> UI : autoTask
+deactivate CTRL
+deactivate CTRL
+end
+
+UI -> CTRL : addTaskToDraft()
+activate CTRL
+
+CTRL -> SRV : flux = createActivityFlux(flag, approvalTask, resolutionTask)
+activate SRV
+
+SRV -> AF** : create(lstTasks)
+deactivate SRV
+
+CTRL -> AR2 : save(flux)
+activate AR2
+AR2 --> CTRL : flux
+deactivate AR2
+
+CTRL -> S : setActivityFlux(flux)
+activate S
+
+S --> CTRL : serviceDraft
+deactivate S
+
+CTRL --> UI : serviceDraft
+deactivate CTRL
+
+UI -> HSM : validates, presents the current \ninformation in the draft and asks for confirmation
+deactivate UI
+
+HSM -> UI : confirms
+activate UI
+
+UI -> CTRL : saveServiceDraft()
+activate CTRL
+
+CTRL -> SR : save(serviceDraft)
+activate SR
+SR --> CTRL : serviceDraft
+deactivate SR
+
+CTRL --> UI : serviceDraft
+deactivate CTRL
+
+UI -> HSM : registers the draft in the persistence\n and informs of the success of the operation
+deactivate UI
+deactivate HSM
+
+@enduml

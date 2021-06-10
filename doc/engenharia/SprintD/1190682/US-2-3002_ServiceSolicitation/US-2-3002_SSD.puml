@@ -1,0 +1,59 @@
+@startuml
+autonumber
+hide footbox
+
+actor "User" as US
+participant "System" as SYST
+
+activate US
+
+US -> SYST : initiates a service solicitation request (ticket)
+activate SYST
+
+SYST -> US : shows the catalogues available to the user
+deactivate SYST
+
+US -> SYST : chooses a catalogue
+activate SYST
+
+SYST -> US : shows the services in that catalogue
+deactivate SYST
+
+US -> SYST : chooses a service
+activate SYST
+
+SYST -> US : requests the user to submit the required information (urgency, limitDate)
+deactivate SYST
+
+US -> SYST : inserts the information
+activate SYST
+
+loop until the user doesnt have more files to attach
+SYST -> US : asks the user to attach a file
+deactivate SYST
+
+US -> SYST : attaches a file
+activate SYST
+end
+
+loop until there are no more forms to answer
+loop until there are no more attributes in the form
+SYST -> US : requests the input for a form's attribute
+deactivate SYST
+
+US -> SYST : answers
+activate SYST
+end
+end
+
+SYST -> US : validates, presents the current \ninformation in the ticket and asks for confirmation
+deactivate SYST
+
+US -> SYST : confirms
+activate SYST
+
+SYST -> US : registers the ticket in the persistence\n and informs of the success of the operation
+deactivate SYST
+deactivate US
+
+@enduml

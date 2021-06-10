@@ -1,0 +1,72 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Help Desk Services Manager" as HSM
+participant "System" as SYST
+
+activate HSM
+
+HSM -> SYST : initiates the request to add/update a form in a service draft
+activate SYST
+
+SYST -> HSM : asks if the user pretends to use an existing draft
+deactivate SYST
+
+HSM -> SYST : responds
+activate SYST
+
+alt if the user pretends to use an existing draft
+
+SYST -> HSM : presents the draft list and asks the user to choose a draft
+deactivate SYST
+
+HSM -> SYST : chooses a draft
+activate SYST
+end
+
+loop until the user doesn't want to add more forms
+SYST -> HSM : requests the user to insert the form's name
+deactivate SYST
+
+HSM -> SYST : inserts the form's name
+activate SYST
+
+loop until the user doesn't want to add more forms
+SYST -> HSM : requests the user to insert the attribute's data (name, label, description, regex, scriptPath)
+deactivate SYST
+
+HSM -> SYST : inserts the data
+activate SYST
+
+SYST -> HSM : presents the available data types
+deactivate SYST
+
+HSM -> SYST : selects the data types
+activate SYST
+
+SYST -> HSM : asks if there is more attribute to add to the current form
+deactivate SYST
+
+HSM -> SYST : responds
+activate SYST
+end
+
+SYST -> HSM : asks if there is more forms to add to the current draft
+deactivate SYST
+
+HSM -> SYST : responds
+activate SYST
+end
+
+SYST -> HSM : validates, presents the current \ninformation in the draft and asks for confirmation
+deactivate SYST
+
+HSM -> SYST : confirms
+activate SYST
+
+SYST -> HSM : registers the draft in the persistence\n and informs of the success of the operation
+deactivate SYST
+deactivate HSM
+
+@enduml

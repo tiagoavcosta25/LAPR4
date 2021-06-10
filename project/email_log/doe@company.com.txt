@@ -5,4 +5,4 @@ Subject: Collaborator creation.
 
 Your collaborator was created with success.
 Username: doe
-Password: ZNc+v9X2W#0V
+Password: DIooaOCQ5OLL

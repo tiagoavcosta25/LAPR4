@@ -1,0 +1,48 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Human Resource Representative" as HRR
+
+participant ":System" as SYST
+
+activate HRR
+HRR-> SYST : Iniciates the request to create a team
+activate SYST
+SYST --> HRR: Shows team types
+deactivate SYST
+
+HRR-> SYST : Select's the intended team type
+activate SYST
+
+SYST --> HRR: Requests all information needed (i.e. teamId, acronym,\n designation)
+deactivate SYST
+
+HRR-> SYST : Inserts the requested information
+activate SYST
+
+loop until user command
+    SYST --> HRR: Shows collaborator's list
+    deactivate SYST
+
+    HRR-> SYST : Select's the team's responsible collaborator
+    activate SYST
+
+    SYST --> HRR: Asks if the user wants to add more responsible collaborator's
+    deactivate SYST
+
+    HRR-> SYST : Responds
+    activate SYST
+end
+
+SYST --> HRR: Validates, presents the information and asks for confirmation
+deactivate SYST
+
+HRR-> SYST : Confirms
+activate SYST
+SYST --> HRR: Informs of the success of the operation
+deactivate SYST
+
+deactivate HRR
+
+@enduml

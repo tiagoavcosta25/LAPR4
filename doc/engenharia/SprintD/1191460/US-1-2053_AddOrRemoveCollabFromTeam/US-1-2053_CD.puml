@@ -1,0 +1,192 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "base.app.backoffice.console" #AAAAAA {
+    package "presentation" #CCCCCC {
+        class CreateTeamUI <<presentation>>{
+        }
+    }
+}
+
+package "base.core" #AAAAAA {
+    package "eapli.base" #CCCCCC {
+        package "collaboratormanagement" #CCCCCC{
+            package "collaboratormanagement.application" #DDDDDD {
+                class CollaboratorSpecificationController <<application>>{
+                    +create()
+                    +addColaborador(email, firstName, lastName, shortName, \ncompleteName, mechanographicNumber,\naddress, phoneNumber, birthDate)
+                    +getRoleList()
+                    +addRoles(roles)
+                    +getCollaborators()
+                    +addManager(manager)
+                    +saveCollaborator()
+                }
+            }
+
+            package "collaboratormanagement.domain" #DDDDDD {
+                class Collaborator <<entity>>{
+                    +create(systemUser, shortName, completeName, mechanographicNumber,\naddress, phoneNumber, birthDate)
+                }
+
+                class ShortName <<value object>>{
+                    +createShortName(shortName)
+                    +validate(shortName)
+                }
+
+                class CompleteName <<value object>>{
+                    +createCompleteName(completeName)
+                    +validate(completeName)
+                }
+
+                class NumeroMecanografico <<value object>>{
+                    +createNumeroMecanografico(numeroMecanografico)
+                    +validate(numeroMecanografico)
+                }
+
+                class Address <<value object>>{
+                    +createAddress(address)
+                    +validate(address)
+                }
+
+                class PhoneNumber <<value object>>{
+                    +createPhoneNumber(phoneNumber)
+                    +validate(phoneNumber)
+                }
+
+                class BirthDate <<value object>>{
+                    +createBirthDate(birthDate)
+                    +validate(birthDate)
+                }
+
+                enum BaseRoles <<enum>>{
+                    +nonUserValues()
+                }
+            }
+
+            package "collaboratormanagement.repositories" #DDDDDD {
+                interface CollaboratorRepositoryInterface{
+                }
+            }
+        }
+
+        package infrastructure.persistence #DDDDDD {
+            class PersistenceContext <<persistence>>{
+                +repositories()
+            }
+
+            interface RepositoryFactory{
+            }
+        }
+
+        package "teammanagement" #CCCCCC{
+            package "teammanagement.repositories" #DDDDDD{
+                interface TeamRepositoryInterface {
+                }
+            }
+
+            package "teammanagement.application" #DDDDDD{
+                class CreateTeamController <<application>> {}
+            }
+
+            package "teammanagement.domain" #DDDDDD {
+                class Team <<entity>> {
+                    -teamType
+                    -acronym
+                    -designation
+                    -representation
+                    +create(teamType, acronym, designation, representation)
+                }
+
+                class Acronym <<value object>> {
+                    +createAcronym(acronym)
+                    +validate(acronym)
+                }
+
+                class TeamDescription <<value object>> {
+                    +createTeamDescription(teamDescription)
+                    +validate(teamDescription)
+                }
+
+                enum TeamType <<enum>>{
+                }
+
+                class TeamBuilder <<builder>> {
+                    -teamType
+                    -representation
+                    -acronym
+                    -teamDescription
+                    +withTeamType(teamType)
+                    +withRepresentation(representation)
+                    +withAcronym(acronym)
+                    +withDescription(teamDescription)
+                    +build()
+                }
+            }
+        }
+
+        class AppSettings <<persistence>>{
+            +instance()
+            +getRepositoryFactory()
+        }
+    }
+}
+
+package "base.persistence.impl" #AAAAAA {
+    package "jpa" #CCCCCC {
+        class CollaboratorRepository <<repository>>{
+            +all()
+            +save(collaborator)
+        }
+
+        class TeamRepository <<repository>>{
+            +all()
+            +save(team)
+        }
+
+        class JpaRepositoryFactory <<factory>>{
+            +collaborators()
+            +roles()
+        }
+
+    }
+}
+
+CreateTeamUI ..> CreateTeamController
+CollaboratorSpecificationController ..> PersistenceContext
+CreateTeamController ..> PersistenceContext
+CreateTeamController ..> TeamBuilder
+
+AppSettings -> JpaRepositoryFactory : creates
+JpaRepositoryFactory -> RepositoryFactory : implements
+PersistenceContext -> RepositoryFactory : has
+RepositoryFactory -> CollaboratorRepository : has
+RepositoryFactory -> TeamRepository : has
+
+JpaRepositoryFactory "1" -> "1" CollaboratorRepository : has
+JpaRepositoryFactory "1" -> "1" TeamRepository : has
+CollaboratorRepository ..> CollaboratorRepositoryInterface
+TeamRepository ..> TeamRepositoryInterface
+
+CollaboratorRepository "1" -> "*" Collaborator : saves
+TeamRepository "1" -> "*" Team : saves
+
+Collaborator "1" -> "1" ShortName : has
+Collaborator "1" -> "1" CompleteName : has
+Collaborator "1" -> "1" NumeroMecanografico : is identified by
+Collaborator "1" -> "1" BaseRoles : has
+Collaborator "1" -> "1" Address : has
+Collaborator "1" -> "1" PhoneNumber : has
+Collaborator "1" -> "1" BirthDate : has
+Collaborator "1" -> "*" Team : represents
+
+Team "1" -> "1" Acronym : has
+Team "1" -> "1" TeamDescription : has
+Team "1" -> "1" TeamBuilder : has
+Team "1" -> "1" TeamType : has
+Team "1" -> "1..*" Collaborator : has
+
+TeamBuilder "1" -> "1" Acronym : has
+TeamBuilder "1" -> "1" TeamDescription : has
+TeamBuilder "1" -> "1" TeamType : has
+
+@enduml

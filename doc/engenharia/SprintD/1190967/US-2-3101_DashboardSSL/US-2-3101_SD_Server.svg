@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="506px" preserveAspectRatio="none" style="width:739px;height:506px;" version="1.1" viewBox="0 0 739 506" width="739px" zoomAndPan="magnify"><defs><filter height="300%" id="f18nkr6axk18ka" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><rect fill="#FFFFFF" filter="url(#f18nkr6axk18ka)" height="380.5469" style="stroke:#A80036;stroke-width:1.0;" width="10" x="147" y="109.1797"/><rect fill="#FFFFFF" filter="url(#f18nkr6axk18ka)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="409" y="353.6719"/><rect fill="#FFFFFF" filter="url(#f18nkr6axk18ka)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="566.5" y="229.1016"/><rect fill="#FFFFFF" filter="url(#f18nkr6axk18ka)" height="294.3281" style="stroke:#000000;stroke-width:2.0;" width="581.5" x="51.5" y="188.3984"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="151.5" x2="151.5" y1="76.8281" y2="499.7266"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="414" x2="414" y1="309.2109" y2="499.7266"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="571" x2="571" y1="159.2891" y2="499.7266"/><line style="stroke:#A80036;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="681" x2="681" y1="76.8281" y2="499.7266"/><rect fill="#FEFECE" filter="url(#f18nkr6axk18ka)" height="49.2188" style="stroke:#A80036;stroke-width:1.5;" width="177" x="61.5" y="22.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="72" x="114" y="44.1426">&lt;&lt;server&gt;&gt;</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="163" x="68.5" y="61.752">HttpServerAjaxDashboard</text><rect fill="#FEFECE" filter="url(#f18nkr6axk18ka)" height="66.8281" style="stroke:#A80036;stroke-width:1.5;" width="92" x="633" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="640" y="26.5332">&lt;&lt;domain&gt;&gt;</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="655" y="44.1426">cliSock:</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="657.5" y="61.752">Socket</text><rect fill="#FFFFFF" filter="url(#f18nkr6axk18ka)" height="380.5469" style="stroke:#A80036;stroke-width:1.0;" width="10" x="147" y="109.1797"/><rect fill="#FFFFFF" filter="url(#f18nkr6axk18ka)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="409" y="353.6719"/><rect fill="#FFFFFF" filter="url(#f18nkr6axk18ka)" height="30" style="stroke:#A80036;stroke-width:1.0;" width="10" x="566.5" y="229.1016"/><ellipse cx="7.5" cy="108.4297" rx="4" ry="4" style="stroke:#A80036;stroke-width:1.5;fill:none;"/><polygon fill="#A80036" points="135,105.1797,145,109.1797,135,113.1797,139,109.1797" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="12" x2="141" y1="109.1797" y2="109.1797"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="15" y="104.3232">1</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="109" x="26" y="104.3232">initiates http server</text><polygon fill="#A80036" points="508,135.5313,518,139.5313,508,143.5313,512,139.5313" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="157" x2="514" y1="139.5313" y2="139.5313"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="164" y="134.6748">2</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="66" x="175" y="134.6748">create(port)</text><rect fill="#FEFECE" filter="url(#f18nkr6axk18ka)" height="49.2188" style="stroke:#A80036;stroke-width:1.5;" width="99" x="520" y="117.1797"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="78" x="530.5" y="138.7129">&lt;&lt;domain&gt;&gt;</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="527" y="156.3223">ServerSocket</text><path d="M51.5,188.3984 L124.5,188.3984 L124.5,196.3984 L114.5,206.3984 L51.5,206.3984 L51.5,188.3984 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.0;"/><rect fill="none" height="294.3281" style="stroke:#000000;stroke-width:2.0;" width="581.5" x="51.5" y="188.3984"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="28" x="66.5" y="202.8936">loop</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="235" x="139.5" y="201.8174">[every time the server receives a request]</text><polygon fill="#A80036" points="554.5,225.1016,564.5,229.1016,554.5,233.1016,558.5,229.1016" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="157" x2="560.5" y1="229.1016" y2="229.1016"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="164" y="224.2451">3</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="106" x="175" y="224.2451">cliSock = accept()</text><polygon fill="#A80036" points="306,285.4531,316,289.4531,306,293.4531,310,289.4531" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="157" x2="312" y1="289.4531" y2="289.4531"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="164" y="284.5967">4</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="126" x="175" y="284.5967">create(cliSock, folder)</text><rect fill="#FEFECE" filter="url(#f18nkr6axk18ka)" height="49.2188" style="stroke:#A80036;stroke-width:1.5;" width="188" x="318" y="267.1016"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="73" x="375.5" y="288.6348">&lt;&lt;thread&gt;&gt;</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="174" x="325" y="306.2441">HttpAjaxDashboardRequest</text><polygon fill="#A80036" points="397,349.6719,407,353.6719,397,357.6719,401,353.6719" style="stroke:#A80036;stroke-width:1.0;"/><line style="stroke:#A80036;stroke-width:1.0;" x1="157" x2="403" y1="353.6719" y2="353.6719"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="164" y="348.8154">5</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="34" x="175" y="348.8154">start()</text><rect fill="#FFFFFF" filter="url(#f18nkr6axk18ka)" height="42.7031" style="stroke:#000000;stroke-width:2.0;" width="194" x="315" y="391.6719"/><polygon fill="#EEEEEE" points="315,391.6719,377,391.6719,377,399.6719,367,409.6719,315,409.6719,315,391.6719" style="stroke:#000000;stroke-width:2.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="17" x="328" y="407.167">ref</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="73" x="377.5" y="427.167">SD_Request</text><line style="stroke:#A80036;stroke-width:1.0;" x1="157" x2="199" y1="461.7266" y2="461.7266"/><line style="stroke:#A80036;stroke-width:1.0;" x1="199" x2="199" y1="461.7266" y2="474.7266"/><line style="stroke:#A80036;stroke-width:1.0;" x1="158" x2="199" y1="474.7266" y2="474.7266"/><polygon fill="#A80036" points="168,470.7266,158,474.7266,168,478.7266,164,474.7266" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="7" x="164" y="456.8701">6</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="128" x="175" y="456.8701">incAccessesCounter()</text><!--MD5=[990d4de55f9d2689b98ef0ad1ee91266]
+@startuml
+autonumber
+hide footbox
+
+participant "<<server>>\nHttpServerAjaxDashboard" as SRV
+participant "<<thread>>\nHttpAjaxDashboardRequest" as RQ
+participant "<<domain>>\nServerSocket" as SS
+participant "<<domain>>\ncliSock:\nSocket" as S
+
+[o-> SRV : initiates http server
+
+activate SRV
+
+SRV -> SS** : create(port)
+
+loop every time the server receives a request
+
+SRV -> SS : cliSock = accept()
+activate SS
+deactivate SS
+
+SRV -> RQ** : create(cliSock, folder)
+
+SRV -> RQ : start()
+activate RQ
+
+ref over RQ
+    SD_Request
+end ref
+
+deactivate RQ
+
+SRV -> SRV : incAccessesCounter()
+
+end
+
+
+
+
+deactivate SRV
+
+@enduml
+
+PlantUML version 1.2021.5(Sun Apr 25 12:20:28 BST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: Dynamic Code Evolution 64-Bit Server VM
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+--></g></svg>

@@ -1,0 +1,68 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Human Resource Representative" as HRR
+
+participant "<<presentation>>\nTeamTypeRegisterUI" as UI
+participant "<<aplication>>\nTeamTypeController" as CTRL
+participant "<<aplication>>\nAuthzRegistry" as AUTHR
+participant "<<aplication>>\nAuthorizationService" as AUTH
+participant "<<builder>>\nTeamTypeBuilder" as TTB
+participant "<<domain>>\nTeamType" as TT
+database "<<repository>>\nTeamTypeRepository" as TTR
+
+activate HRR
+HRR -> UI : initiates the request to create a team type
+
+activate UI
+UI -> CTRL** : create()
+
+activate CTRL
+ref over CTRL
+US-1-2054_SD_Repo
+end ref
+
+CTRL -> AUTHR : authorizationService = authorizationService()
+activate AUTHR
+deactivate AUTHR
+deactivate CTRL
+
+UI --> HRR : requests all the required information \n (i.e. identifier, description, color)
+HRR -> UI : inserts the requested information
+UI -> CTRL : buildTeamType(id, description, color)
+
+activate CTRL
+CTRL -> AUTH : ensureAuthenticatedUserHasAnyOf(role)
+activate AUTH
+deactivate AUTH
+
+CTRL -> TTB** : teamType = create()
+
+activate TTB
+CTRL -> TTB : withId(id)
+CTRL -> TTB : withDescription(description)
+CTRL -> TTB : withColor(color)
+CTRL -> TTB : build()
+
+TTB -> TT** : create(id, description, color)
+deactivate TTB
+deactivate CTRL
+
+UI --> HRR : validates, presents the information and asks for confirmation
+HRR -> UI : confirms
+UI -> CTRL : registerTeamType()
+
+activate CTRL
+CTRL -> AUTHR : ensureAuthenticatedUserHasAnyOf(role)
+activate AUTHR
+deactivate AUTHR
+
+CTRL -> TTR : save(teamType)
+activate TTR
+deactivate TTR
+deactivate CTRL
+
+UI --> HRR: informs of the success of the operation
+deactivate UI
+@enduml

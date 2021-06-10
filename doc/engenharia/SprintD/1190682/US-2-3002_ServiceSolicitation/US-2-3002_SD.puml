@@ -1,0 +1,144 @@
+@startuml
+autonumber
+hide footbox
+
+actor "User" as US
+
+participant "<<presentation>>\nServiceSolicitationUI" as UI
+participant "<<application>>\nServiceSolicitationController" as CTRL
+database "<<repository>>\nCatalogueRepository" as CR
+database "<<repository>>\nServiceRepository" as SR
+participant "<<domain>>\nResponse" as RS
+database "<<repository>>\nResponseRepository" as RR
+participant "<<domain>>\nTicket" as T
+database "<<repository>>\nTicketRepository" as TR
+participant "<<persistence>>\nPersistenceContext" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+participant "<<domain>>\nCatalogue" as C
+participant "<<domain>>\nService" as S
+participant "<<domain>>\nTicketUrgency" as TU
+participant "<<domain>>\nTicketLimitDate" as TD
+participant "<<domain>>\nTicketCreationDate" as TC
+participant "<<domain>>\nTicketFile" as TF
+participant "<<domain>>\nAttribute" as A
+participant "<<domain>>\nForm" as F
+
+activate US
+
+US -> UI : initiates a service solicitation request (ticket)
+activate UI
+
+UI -> CTRL** : create
+activate CTRL
+
+ref over CTRL
+  US-1-2002_SD_Repo
+end ref
+
+UI -> CTRL : getCataloguesByUser()
+
+CTRL -> CR : findByUser(user)
+activate CR
+CR --> CTRL : catalogues
+deactivate CR
+
+CTRL --> UI : catalogues
+deactivate CTRL
+
+UI -> US : shows the catalogues available to the user
+deactivate UI
+
+US -> UI : chooses a catalogue
+activate UI
+
+UI -> CTRL : getServicesByCatalogue(oCatalogue)
+activate CTRL
+
+CTRL -> SR : findByCatalogue(oCatalogue)
+activate SR
+SR --> CTRL : services
+deactivate SR
+
+CTRL --> UI : services
+deactivate CTRL
+
+UI -> US : shows the services in that catalogue
+deactivate UI
+
+US -> UI : chooses a service
+activate UI
+
+UI -> US : requests the user to submit the required information (urgency, limitDate)
+deactivate UI
+
+US -> UI : inserts the information
+activate UI
+
+loop until the user doesnt have more files to attach
+UI -> US : asks the user to attach a file
+deactivate UI
+
+US -> UI : attaches a file
+activate UI
+
+UI -> CTRL : addFile(file)
+activate CTRL
+deactivate CTRL
+end
+
+loop until there are no more forms to answer
+loop until there are no more attributes in the form
+UI -> US : requests the input for a form's attribute
+deactivate UI
+
+US -> UI : answers
+activate UI
+
+UI -> CTRL : addResponse(response)
+activate CTRL
+deactivate CTRL
+end
+
+UI -> CTRL : createResponse(form)
+activate CTRL
+
+CTRL -> RS** : res = createResponse(form)
+
+CTRL -> RR : save(res)
+activate RR
+deactivate RR
+deactivate CTRL
+end
+
+UI -> CTRL : addTicket(service, urgency, limitDate, creationDate)
+activate CTRL
+
+CTRL -> T** : create(urgency, limitDate, creationDate, lstResponses, lstFiles, service)
+
+CTRL --> UI : ticket
+deactivate CTRL
+
+UI -> US : validates, presents the current \ninformation in the ticket and asks for confirmation
+deactivate UI
+
+US -> UI : confirms
+activate UI
+
+UI -> CTRL : saveTicket(ticket)
+activate CTRL
+
+CTRL -> TR : save(ticket)
+activate TR
+TR --> CTRL : ticket
+deactivate TR
+
+CTRL --> UI : ticket
+deactivate CTRL
+
+UI -> US : registers the ticket in the persistence\n and informs of the success of the operation
+deactivate UI
+deactivate US
+
+@enduml
+
