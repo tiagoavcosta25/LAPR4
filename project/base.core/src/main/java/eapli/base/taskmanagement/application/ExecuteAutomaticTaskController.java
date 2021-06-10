@@ -36,11 +36,11 @@ public class ExecuteAutomaticTaskController {
     }
 
     public AutomaticTask executeTask(AutomaticTask task) {
-        task.setExecuting();
+        /*task.setExecuting();
         ActivityFlowClient afc = new ActivityFlowClient(EXECUTE_SERVER_IP);
         SDP2021 receive = afc.retrieveInformation(task.script().toString(), SDP2021Code.AUTOTASK_REQUEST.getCode());
         afc.retrieveInformation("", SDP2021Code.END.getCode());
-        task.setExecuted();
+        task.setExecuted();*/ // TODO
         return this.aTaskRep.save(task);
     }
     public boolean executeAutomaticTaskMock(String filePath) {
