@@ -1,20 +1,20 @@
 package eapli.base.servicemanagement.repositories;
 
-import eapli.base.servicemanagement.domain.Service;
+import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.framework.domain.repositories.DomainRepository;
 
 public interface DataRepository
-        extends DomainRepository<Long, Service> {
+        extends DomainRepository<Long, Ticket> {
 
     public Long numberOfPendingActivities(String oUserName);
 
-    public int numberOfExpiredActivities(String oUserName);
+    public Long numberOfExpiredActivities(String oUserName);
 
-    public int numberOfNearExpiredActivities(String oUserName);
+    public Long numberOfNearExpiredActivities(String oUserName);
 
-    public int numberOfLowPriorityActivities(String oUserName);
+    public Long numberOfLowPriorityActivities(String oUserName);
 
-    public int numberOfMediumPriorityActivities(String oUserName);
+    public Long numberOfMediumPriorityActivities(String oUserName);
 
-    public int numberOfHighPriorityActivities(String oUserName);
+    public Long numberOfHighPriorityActivities(String oUserName);
 }
