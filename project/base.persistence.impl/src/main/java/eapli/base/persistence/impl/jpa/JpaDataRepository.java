@@ -19,7 +19,16 @@ class JpaDataRepository extends HelpDeskJpaRepositoryBase<Ticket, Long, Long>
 
     @Override
     public Long numberOfPendingActivities(String oUserName) {
-        return null;
+        final TypedQuery<Long> q = entityManager().createQuery(
+                "Select count(mte) from ActivityFluxExecution a join a.m_lstFlux lst " +
+                        "inner join Ticket t on t.m_oFluxExecution.id = a.id " +
+                        "inner join TaskExecution te on te.id = lst.id " +
+                        "inner join ManualTaskExecution mte on mte.id = te.id " +
+                        "where mte.m_oCollaborator.m_oSystemUser.username.value =: un and te.m_oTaskStatus = 'PENDING' " +
+                        "and t.m_oLimitDate.m_dtLimitDate > CURRENT_TIMESTAMP",
+                Long.class);
+        q.setParameter("un", oUserName);
+        return q.getSingleResult();
     }
 
     @Override
