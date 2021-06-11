@@ -1,5 +1,6 @@
 package eapli.base.ticketmanagement.domain;
 
+import eapli.base.activityfluxmanagement.domain.ActivityFluxExecution;
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
@@ -34,6 +35,10 @@ public class Ticket implements AggregateRoot<Long> {
     @JoinColumn(name="ServiceID")
     private Service m_oService;
 
+    @OneToOne
+    @JoinColumn(name="fluxExecID")
+    private ActivityFluxExecution m_oFluxExecution;
+
     @ElementCollection()
     @CollectionTable(name = "ticketFiles")
     private List<TicketFile> m_lstFiles;
@@ -42,8 +47,8 @@ public class Ticket implements AggregateRoot<Long> {
     private List<Response> m_lstResponse;
 
     public Ticket(final TicketUrgency oUrgency, final TicketLimitDate oLimitDate, final TicketCreationDate oCreationDate,
-                  final List<Response> lstResponse, final List<TicketFile> lstFiles, final Service oService) {
-        if (oUrgency == null || oLimitDate == null || oCreationDate == null || lstFiles == null || lstResponse == null ||
+                  final List<Response> lstResponse, final ActivityFluxExecution oFluxExecution, final List<TicketFile> lstFiles, final Service oService) {
+        if (oUrgency == null || oLimitDate == null || oCreationDate == null || oFluxExecution == null || lstFiles == null || lstResponse == null ||
                 oService == null || lstFiles.isEmpty() || lstResponse.isEmpty()) {
             throw new IllegalArgumentException();
         }
@@ -51,6 +56,7 @@ public class Ticket implements AggregateRoot<Long> {
         this.m_oLimitDate = oLimitDate;
         this.m_oCreationDate = oCreationDate;
         this.m_lstResponse = lstResponse;
+        this.m_oFluxExecution = oFluxExecution;
         this.m_lstFiles = lstFiles;
         this.m_oService = oService;
     }

@@ -5,10 +5,10 @@
  */
 package eapli.base.taskmanagement.domain;
 
-public enum TaskResult {
+public enum TaskExecutionResult {
     NO_RESULT, APPROVED, DENIED, SUCCESS, ERROR;
 
-    public static TaskResult stringToTaskResult(String strResult) {
+    public static TaskExecutionResult stringToTaskResult(String strResult) {
         if(strResult.compareToIgnoreCase("APPROVED") == 0){
             return APPROVED;
         } else if(strResult.compareToIgnoreCase("DENIED") == 0){

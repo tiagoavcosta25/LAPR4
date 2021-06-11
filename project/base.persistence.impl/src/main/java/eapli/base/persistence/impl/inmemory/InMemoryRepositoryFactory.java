@@ -1,5 +1,7 @@
 package eapli.base.persistence.impl.inmemory;
 
+import eapli.base.activityfluxmanagement.domain.ActivityFluxExecution;
+import eapli.base.activityfluxmanagement.repositories.ActivityFluxExecutionRepository;
 import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
@@ -12,7 +14,7 @@ import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.base.taskmanagement.repositories.AutomaticTaskRepository;
-import eapli.base.taskmanagement.repositories.ManualTaskExecutionRepository;
+import eapli.base.taskmanagement.repositories.TaskExecutionRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
@@ -97,6 +99,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
+	public ActivityFluxExecutionRepository fluxExecs() {
+		return fluxExecs(null);
+	}
+
+	@Override
+	public ActivityFluxExecutionRepository fluxExecs(TransactionalContext autoTx) {
+		return null;
+	}
+
+	@Override
 	public ResponseRepository responses() {
 		return responses(null);
 	}
@@ -168,12 +180,12 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public ManualTaskExecutionRepository manualEx(TransactionalContext autoTx) {
+	public TaskExecutionRepository taskExecs(TransactionalContext autoTx) {
 		return null;
 	}
 
 	@Override
-	public ManualTaskExecutionRepository manualEx() {
+	public TaskExecutionRepository taskExecs() {
 		return null;
 	}
 

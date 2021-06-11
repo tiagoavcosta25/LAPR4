@@ -5,10 +5,10 @@
  */
 package eapli.base.taskmanagement.domain;
 
-public enum TaskStatus {
+public enum TaskExecutionStatus {
     PENDING, DOING, DONE;
 
-    public static TaskStatus stringToTaskStatus(String strStatus) {
+    public static TaskExecutionStatus stringToTaskStatus(String strStatus) {
         if(strStatus.compareToIgnoreCase("PENDING") == 0){
             return PENDING;
         } else if(strStatus.compareToIgnoreCase("DOING") == 0){

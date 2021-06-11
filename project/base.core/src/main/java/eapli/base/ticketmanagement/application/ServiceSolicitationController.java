@@ -1,10 +1,14 @@
 package eapli.base.ticketmanagement.application;
 
+import eapli.base.activityfluxmanagement.domain.ActivityFlux;
+import eapli.base.activityfluxmanagement.domain.ActivityFluxExecution;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.formmanagement.domain.Form;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.servicemanagement.application.ServiceDraftSpecificationService;
 import eapli.base.servicemanagement.domain.Service;
+import eapli.base.servicemanagement.domain.ServiceDraft;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.base.ticketmanagement.domain.*;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
@@ -32,6 +36,7 @@ public class ServiceSolicitationController {
     private final List<String> m_lstAnswer = new ArrayList<>();
     private final List<Response> m_lstResponses = new ArrayList<>();
     private final List<TicketFile> m_lstFiles = new ArrayList<>();
+    private ServiceSolicitationService m_oServiceSolicitationService = new ServiceSolicitationService();
 
     public Iterable<Catalogue> getCataloguesByUser(){
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER, BaseRoles.COLLABORATOR);
@@ -70,8 +75,9 @@ public class ServiceSolicitationController {
 
     public Ticket addTicket(Service oService, String strUrgency, LocalDateTime dtLimitDate, LocalDateTime dtCreationDate){
 
+        ActivityFluxExecution oFlux = this.m_oServiceSolicitationService.createActivityFluxExecution(oService);
         return new Ticket(TicketUrgency.stringToTicketUrgency(strUrgency),
-                new TicketLimitDate(dtLimitDate), new TicketCreationDate(dtCreationDate), this.m_lstResponses, this.m_lstFiles, oService);
+                new TicketLimitDate(dtLimitDate), new TicketCreationDate(dtCreationDate), this.m_lstResponses, oFlux, this.m_lstFiles, oService);
     }
 
     public Ticket saveTicket(Ticket oTicket){

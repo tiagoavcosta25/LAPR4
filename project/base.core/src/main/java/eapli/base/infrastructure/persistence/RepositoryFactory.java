@@ -3,6 +3,7 @@
  */
 package eapli.base.infrastructure.persistence;
 
+import eapli.base.activityfluxmanagement.repositories.ActivityFluxExecutionRepository;
 import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
@@ -14,7 +15,7 @@ import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.base.taskmanagement.repositories.AutomaticTaskRepository;
-import eapli.base.taskmanagement.repositories.ManualTaskExecutionRepository;
+import eapli.base.taskmanagement.repositories.TaskExecutionRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
@@ -134,6 +135,20 @@ public interface RepositoryFactory {
 	 * @param autoTx the transactional context to enrol
 	 * @return
 	 */
+	ActivityFluxExecutionRepository fluxExecs(TransactionalContext autoTx);
+
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	ActivityFluxExecutionRepository fluxExecs();
+
+	/**
+	 *
+	 * @param autoTx the transactional context to enrol
+	 * @return
+	 */
 	ResponseRepository responses(TransactionalContext autoTx);
 
 	/**
@@ -209,14 +224,14 @@ public interface RepositoryFactory {
 	 * @param autoTx the transactional context to enrol
 	 * @return
 	 */
-	ManualTaskExecutionRepository manualEx(TransactionalContext autoTx);
+	TaskExecutionRepository taskExecs(TransactionalContext autoTx);
 
 	/**
 	 * repository will be created in auto transaction mode
 	 *
 	 * @return
 	 */
-	ManualTaskExecutionRepository manualEx();
+	TaskExecutionRepository taskExecs();
 
 	/**
 	 *

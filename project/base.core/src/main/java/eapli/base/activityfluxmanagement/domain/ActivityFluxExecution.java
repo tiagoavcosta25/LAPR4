@@ -21,56 +21,62 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.taskmanagement.domain;
+package eapli.base.activityfluxmanagement.domain;
 
+import eapli.base.formmanagement.domain.AttributeScript;
+import eapli.base.taskmanagement.domain.Task;
+import eapli.base.taskmanagement.domain.TaskExecution;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  *
+ * @author Jéssica Alves 1190682@isep.ipp.pt
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-public abstract class Task implements AggregateRoot<Long> {
+public class ActivityFluxExecution implements AggregateRoot<Long> {
 
     @Version
     private Long version;
 
     @Id
     @GeneratedValue
-    @Column(name = "taskID")
+    @Column(name = "fluxExecID")
     private Long m_oID;
 
     @Embedded
-    private TaskDescription m_oDescription;
+    private ActivityFluxExecutionProgress m_oProgress;
 
-    @Enumerated(EnumType.STRING)
-    private TaskPriority m_oTaskPriority;
+    @OneToMany
+    @Column(name = "activityFluxExecution")
+    private List<TaskExecution> m_lstFlux;
 
-
-
-    public Task(final TaskDescription oDescription, final TaskPriority oTaskPriority) {
-        if (oDescription == null || oTaskPriority == null) {
+    public ActivityFluxExecution(final ActivityFluxExecutionProgress oProgress, final List<TaskExecution> lstFlux) {
+        if (oProgress == null || lstFlux.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        this.m_oDescription = oDescription;
-        this.m_oTaskPriority = oTaskPriority;
+        this.m_oProgress = oProgress;
+        this.m_lstFlux = lstFlux;
     }
 
-    protected Task() {
+    protected ActivityFluxExecution() {
         // for ORM only
     }
 
-    public TaskDescription description() {
-        return this.m_oDescription;
+    public ActivityFluxExecutionProgress progess() {
+        return this.m_oProgress;
+    }
+    public List<TaskExecution> flux() {
+        return this.m_lstFlux;
     }
 
-    public TaskPriority priority() {
-        return this.m_oTaskPriority;
+    public void addTask(TaskExecution oTask) {
+        this.m_lstFlux.add(oTask);
     }
 
     @Override

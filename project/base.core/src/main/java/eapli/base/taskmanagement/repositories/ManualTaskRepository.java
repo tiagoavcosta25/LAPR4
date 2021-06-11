@@ -1,7 +1,6 @@
 package eapli.base.taskmanagement.repositories;
 
 import eapli.base.taskmanagement.domain.ManualTask;
-import eapli.base.taskmanagement.domain.ManualTaskExecution;
 import eapli.framework.domain.repositories.DomainRepository;
 
 import java.util.Optional;

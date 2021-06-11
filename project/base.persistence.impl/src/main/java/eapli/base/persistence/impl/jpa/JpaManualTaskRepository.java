@@ -1,8 +1,6 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.taskmanagement.domain.ManualTask;
-import eapli.base.taskmanagement.domain.ManualTaskExecution;
-import eapli.base.taskmanagement.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.repositories.ManualTaskRepository;
 import eapli.base.util.Application;
 import eapli.framework.domain.repositories.TransactionalContext;

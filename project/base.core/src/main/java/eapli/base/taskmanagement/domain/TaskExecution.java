@@ -30,47 +30,68 @@ import javax.persistence.*;
 
 /**
  *
+ * @author Jéssica Alves 1190682@isep.ipp.pt
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-public abstract class Task implements AggregateRoot<Long> {
+public abstract class TaskExecution implements AggregateRoot<Long> {
 
     @Version
     private Long version;
 
     @Id
     @GeneratedValue
-    @Column(name = "taskID")
+    @Column(name = "taskExecID")
     private Long m_oID;
 
-    @Embedded
-    private TaskDescription m_oDescription;
+    @Enumerated(EnumType.STRING)
+    private TaskExecutionStatus m_oTaskStatus;
 
     @Enumerated(EnumType.STRING)
-    private TaskPriority m_oTaskPriority;
+    private TaskExecutionResult m_oTaskResult;
+
+    @ManyToOne
+    private Task m_oTask;
 
 
 
-    public Task(final TaskDescription oDescription, final TaskPriority oTaskPriority) {
-        if (oDescription == null || oTaskPriority == null) {
+    public TaskExecution(final Task oTask) {
+        if (oTask == null) {
             throw new IllegalArgumentException();
         }
-        this.m_oDescription = oDescription;
-        this.m_oTaskPriority = oTaskPriority;
+        this.m_oTaskStatus = TaskExecutionStatus.PENDING;
+        this.m_oTaskResult = TaskExecutionResult.NO_RESULT;
+        this.m_oTask = oTask;
     }
 
-    protected Task() {
+    protected TaskExecution() {
         // for ORM only
     }
 
-    public TaskDescription description() {
-        return this.m_oDescription;
+    public Task task() {
+        return this.m_oTask;
     }
 
-    public TaskPriority priority() {
-        return this.m_oTaskPriority;
+    public TaskExecutionStatus status() {
+        return this.m_oTaskStatus;
+    }
+
+    public TaskExecutionResult result() {
+        return this.m_oTaskResult;
+    }
+
+    public void setPending() {
+        this.m_oTaskStatus = TaskExecutionStatus.PENDING;
+    }
+
+    public void setExecuting() {
+        this.m_oTaskStatus = TaskExecutionStatus.DOING;
+    }
+
+    public void setExecuted() {
+        this.m_oTaskStatus = TaskExecutionStatus.DONE;
     }
 
     @Override

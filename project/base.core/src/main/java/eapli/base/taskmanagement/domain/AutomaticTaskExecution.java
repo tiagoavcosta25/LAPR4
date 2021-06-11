@@ -23,53 +23,27 @@
  */
 package eapli.base.taskmanagement.domain;
 
-import eapli.base.collaboratormanagement.domain.Collaborator;
-import eapli.base.formmanagement.domain.Form;
-import eapli.base.ticketmanagement.domain.Response;
-
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 /**
  *
+ * @author Jéssica Alves 1190682@isep.ipp.pt
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 
 @Entity
-public class ManualTask extends Task{
+public class AutomaticTaskExecution extends TaskExecution{
 
-    @OneToOne()
-    @JoinColumn(name = "formID")
-    private Form m_oForm;
-
-
-
-    public ManualTask(final TaskDescription oDescription, final TaskPriority oTaskPriority, Form oForm) {
-        super(oDescription, oTaskPriority);
-        if (oForm == null) {
-            throw new IllegalArgumentException();
-        }
-        this.m_oForm = oForm;
+    public AutomaticTaskExecution(final Task oTask) {
+        super(oTask);
     }
 
-    protected ManualTask() {
+    protected AutomaticTaskExecution() {
         // for ORM only
-    }
-
-    public Form form() {
-        return this.m_oForm;
-    }
-
-
-
-    @Override
-    public int hashCode() {
-        return this.m_oForm.hashCode();
     }
 
     @Override
     public String toString() {
-        return "Manual Task #" + this.id() + ": " + this.description() + " | Form: " + this.m_oForm.name();
+        return "Automatic Task Execution #" + this.id() + ": " + " | Task #" + this.task().id() + ": " + this.task().description();
     }
 }
