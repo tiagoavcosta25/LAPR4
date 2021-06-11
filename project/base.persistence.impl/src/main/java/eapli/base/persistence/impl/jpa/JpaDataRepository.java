@@ -1,57 +1,49 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.servicemanagement.repositories.DataRepository;
-import eapli.base.servicemanagement.domain.Service;
+import eapli.base.taskmanagement.domain.TaskPriority;
+import eapli.base.ticketmanagement.domain.Ticket;
 
 import javax.persistence.TypedQuery;
+import java.time.LocalDateTime;
 
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-class JpaDataRepository extends HelpDeskJpaRepositoryBase<Service, Long, Long>
+class JpaDataRepository extends HelpDeskJpaRepositoryBase<Ticket, Long, Long>
         implements DataRepository {
 
     public JpaDataRepository() {
         super("m_lngID");
     }
 
-    //TODO: Fix Class
     @Override
     public Long numberOfPendingActivities(String oUserName) {
-        final TypedQuery<Long> q = entityManager().createQuery(
-                "Select count( lst.id) from ActivityFlux a join a.m_lstFlux lst " +
-                        "inner join Task t on t.id = lst.id " +
-                        "inner join ManualTask mt on mt.id = t.id " +
-                        "where mt.m_oCollaborator.m_oSystemUser.username.value = :mec and t.m_oTaskStatus = 'PENDING'",
-                Long.class);
-        q.setParameter("mec", oUserName);
-        return q.getSingleResult();
+        return null;
     }
 
     @Override
-    public int numberOfExpiredActivities(String oUserName) {
-        return 0;
+    public Long numberOfExpiredActivities(String oUserName) {
+       return null;
     }
 
     @Override
-    public int numberOfNearExpiredActivities(String oUserName) {
-        return 0;
+    public Long numberOfNearExpiredActivities(String oUserName) {
+        return null;
     }
 
     @Override
-    public int numberOfLowPriorityActivities(String oUserName) {
-        return 0;
+    public Long numberOfLowPriorityActivities(String oUserName) {
+        return null;
     }
 
     @Override
-    public int numberOfMediumPriorityActivities(String oUserName) {
-        return 0;
+    public Long numberOfMediumPriorityActivities(String oUserName) {
+        return null;
     }
 
     @Override
-    public int numberOfHighPriorityActivities(String oUserName) {
-        return 0;
+    public Long numberOfHighPriorityActivities(String oUserName) {
+       return null;
     }
-
-
 }
