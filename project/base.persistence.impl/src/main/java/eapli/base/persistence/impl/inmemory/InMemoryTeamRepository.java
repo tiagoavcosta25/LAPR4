@@ -20,6 +20,6 @@ public class InMemoryTeamRepository extends InMemoryDomainRepository<Team, TeamI
 
     @Override
     public Optional<Team> findById(TeamID oID) {
-        return matchOne(e -> e.identity().equals(oID));
+        return matchOne(team -> team.identity().equals(oID));
     }
 }

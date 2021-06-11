@@ -141,7 +141,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public TeamRepository teams(TransactionalContext autoTx) {
-		return null;
+		return new InMemoryTeamRepository();
 	}
 
 	@Override
