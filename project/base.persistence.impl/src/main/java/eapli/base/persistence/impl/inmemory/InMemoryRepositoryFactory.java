@@ -120,7 +120,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public TaskRepository tasks() {
-		return tasks();
+		return new InMemoryTaskRepository();
 	}
 
 	@Override
@@ -176,27 +176,27 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public DataRepository data() {
-		return data();
+		return new InMemoryDataRepository();
 	}
 
 	@Override
 	public TaskExecutionRepository taskExecs(TransactionalContext autoTx) {
-		return null;
+		return new InMemoryTaskExecutionRepository();
 	}
 
 	@Override
 	public TaskExecutionRepository taskExecs() {
-		return null;
+		return taskExecs(null);
 	}
 
 	@Override
 	public ManualTaskRepository manualTask(TransactionalContext autoTx) {
-		return null;
+		return new InMemoryManualTaskRepository();
 	}
 
 	@Override
 	public ManualTaskRepository manualTask() {
-		return null;
+		return manualTask(null);
 	}
 
 	@Override

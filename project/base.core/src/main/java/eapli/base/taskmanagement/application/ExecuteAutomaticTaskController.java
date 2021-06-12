@@ -2,10 +2,6 @@ package eapli.base.taskmanagement.application;
 
 import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.net.SDP2021;
-import eapli.base.net.SDP2021Code;
-import eapli.base.net.motorflux.ActivityFlowClient;
-import eapli.base.net.motorflux.TCPAutoTaskExecutorClient;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.taskmanagement.domain.AutomaticTask;
 import eapli.base.taskmanagement.repositories.AutomaticTaskRepository;
