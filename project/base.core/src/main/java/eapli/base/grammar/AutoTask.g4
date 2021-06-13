@@ -1,4 +1,4 @@
-grammar helpdesk_grammar;
+grammar AutoTask;
 
 start: header type BLOCK_START statements BLOCK_END;
 
@@ -8,19 +8,19 @@ statement: function;
 
 header: HASHTAG HELPDESK;
 
-type: AUTO_TASK
-     | VALIDATE_FORM;
+type: AUTO_TASK;
 
 function: HASHTAG sendEmail END
         | HASHTAG fileSearch END
-        | if_func
+        | HASHTAG if_func
         | assign END;
 
-sendEmail : SEND_EMAIL_LABEL STMT_START email COMMA subject COMMA body STMT_END;
+sendEmail : SEND_EMAIL_LABEL STMT_START QUOTATION_MARKS email QUOTATION_MARKS COMMA QUOTATION_MARKS subject QUOTATION_MARKS COMMA QUOTATION_MARKS body QUOTATION_MARKS STMT_END;
 
-fileSearch : FILE_SEARCH_LABEL STMT_START path COMMA keyword STMT_END;
+fileSearch : FILE_SEARCH_LABEL STMT_START QUOTATION_MARKS path QUOTATION_MARKS COMMA QUOTATION_MARKS keyword QUOTATION_MARKS STMT_END;
 
-if_func: IF_LABEL STMT_START condition STMT_END BLOCK_START statements BLOCK_END;
+if_func: IF_LABEL STMT_START conditions STMT_END BLOCK_START statements
+        | IF_LABEL STMT_START conditions STMT_END BLOCK_START statements BLOCK_END ELSE BLOCK_START statements BLOCK_END;
 
 conditions: condition conjunction conditions
           | condition;
@@ -39,7 +39,7 @@ conjunction: AND
 
 assign: variable EQUAL op;
 
-variable : PERC var_label;
+variable : DOLLAR var_label;
 
 op: object sign op
     | object
@@ -48,7 +48,7 @@ op: object sign op
 object: variable
        | NUM+
        | HASHTAG fileSearch;
-       
+
 sign: PLUS
     | HYPHEN
     | TIMES
@@ -85,11 +85,11 @@ alpha: LOWERCASE
      | UPPERCASE;
 
 AUTO_TASK: 'autoTask';
-VALIDATE_FORM: 'validateForm';
 FILE_SEARCH_LABEL: 'fileSearch';
 SEND_EMAIL_LABEL: 'sendEmail';
 HELPDESK: 'helpdesk';
 IF_LABEL: 'if';
+ELSE: 'else';
 XML: 'xml';
 NUM: [0-9];
 LOWERCASE: [a-z];
@@ -105,6 +105,7 @@ AT: '@';
 DOT: '.';
 EQUAL: '=';
 PERC: '%';
+DOLLAR: '$';
 FOWARD_SLASH: '/';
 COMP_EQUAL: '==';
 DIFF: '!=';
@@ -118,5 +119,6 @@ COLON: ':';
 COMMA: ',';
 HASHTAG: '#';
 UNDERSCORE: '_';
+QUOTATION_MARKS: '"';
 END: ';';
 WS : [ \t\r\n]+ -> skip;
