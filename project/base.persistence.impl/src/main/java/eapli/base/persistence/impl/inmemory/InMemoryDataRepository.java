@@ -52,7 +52,20 @@ public class InMemoryDataRepository extends InMemoryDomainRepository<Ticket, Lon
 
     @Override
     public Long numberOfNearExpiredActivities(String oUserName) {
-        return prioritySearch(oUserName, TaskPriority.LOW);
+        Long counter = 0L;
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime in1h = now.plusHours(1);
+        Iterable<Ticket> lst = match(ticket -> ticket.executionFlux().flux().stream()
+                .allMatch(taskExecution -> taskExecution.status().equals(TaskExecutionStatus.PENDING))
+                && ticket.limitDate().getM_dtLimitDate().isAfter(now)
+                && ticket.limitDate().getM_dtLimitDate().isBefore(in1h));
+        for(Ticket t : lst) {
+            for(TaskExecution te : t.executionFlux().flux()) {
+                ManualTaskExecution me = (ManualTaskExecution) te;
+                if (me.getM_oCollaborator().user().username().toString().equals(oUserName)) counter++;
+            }
+        }
+        return counter;
     }
 
     @Override
@@ -62,7 +75,7 @@ public class InMemoryDataRepository extends InMemoryDomainRepository<Ticket, Lon
 
     @Override
     public Long numberOfMediumPriorityActivities(String oUserName) {
-        return 0L;
+       return 0L;
     }
 
     @Override
@@ -78,7 +91,7 @@ public class InMemoryDataRepository extends InMemoryDomainRepository<Ticket, Lon
             for(TaskExecution te : t.executionFlux().flux()) {
                 ManualTaskExecution me = (ManualTaskExecution) te;
                 if (me.getM_oCollaborator().user().username().toString().equals(oUserName)
-                        && me.task().priority().equals(tp)) counter++;
+                        && me.task().priority().equals(tp) counter++;
             }
         }
         return counter;
