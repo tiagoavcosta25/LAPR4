@@ -1,10 +1,9 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.servicemanagement.repositories.DataRepository;
-import eapli.base.taskmanagement.repositories.AutomaticTaskRepository;
-import eapli.base.taskmanagement.repositories.TaskExecutionRepository;
-import eapli.base.taskmanagement.repositories.ManualTaskRepository;
-import eapli.base.taskmanagement.repositories.TaskRepository;
+import eapli.base.taskmanagement.specification.repositories.AutomaticTaskRepository;
+import eapli.base.taskmanagement.specification.repositories.ManualTaskRepository;
+import eapli.base.taskmanagement.specification.repositories.TaskRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.util.Application;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;

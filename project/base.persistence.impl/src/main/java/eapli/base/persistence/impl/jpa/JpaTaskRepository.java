@@ -1,24 +1,14 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
-import eapli.base.cataloguemanagement.domain.Catalogue;
-import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.servicemanagement.domain.Service;
-import eapli.base.taskmanagement.domain.ManualTask;
-import eapli.base.taskmanagement.domain.Task;
-import eapli.base.taskmanagement.domain.TaskFilterFields;
-import eapli.base.taskmanagement.domain.TaskOrderFields;
-import eapli.base.taskmanagement.repositories.TaskRepository;
-import eapli.base.util.Application;
-import eapli.framework.domain.repositories.TransactionalContext;
-import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.base.taskmanagement.specification.domain.ManualTask;
+import eapli.base.taskmanagement.specification.domain.Task;
+import eapli.base.taskmanagement.specification.domain.TaskFilterFields;
+import eapli.base.taskmanagement.specification.domain.TaskOrderFields;
+import eapli.base.taskmanagement.specification.repositories.TaskRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
-import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import javax.persistence.TypedQuery;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  *

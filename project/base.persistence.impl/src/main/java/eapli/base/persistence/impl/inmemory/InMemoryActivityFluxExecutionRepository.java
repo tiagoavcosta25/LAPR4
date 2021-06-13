@@ -1,9 +1,7 @@
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
-import eapli.base.activityfluxmanagement.domain.ActivityFluxExecution;
-import eapli.base.activityfluxmanagement.repositories.ActivityFluxExecutionRepository;
-import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
+import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
+import eapli.base.activityfluxmanagement.execution.repositories.ActivityFluxExecutionRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 import java.util.Optional;

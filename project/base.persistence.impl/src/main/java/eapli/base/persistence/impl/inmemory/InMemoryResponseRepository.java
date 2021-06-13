@@ -1,7 +1,5 @@
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
-import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
 import eapli.base.ticketmanagement.domain.Response;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;

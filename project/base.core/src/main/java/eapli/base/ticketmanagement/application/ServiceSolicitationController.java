@@ -1,14 +1,11 @@
 package eapli.base.ticketmanagement.application;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
-import eapli.base.activityfluxmanagement.domain.ActivityFluxExecution;
+import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.formmanagement.domain.Form;
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.servicemanagement.application.ServiceDraftSpecificationService;
 import eapli.base.servicemanagement.domain.Service;
-import eapli.base.servicemanagement.domain.ServiceDraft;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.base.ticketmanagement.domain.*;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
@@ -17,7 +14,6 @@ import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;

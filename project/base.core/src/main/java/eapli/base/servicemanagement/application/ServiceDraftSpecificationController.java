@@ -23,15 +23,15 @@
  */
 package eapli.base.servicemanagement.application;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
-import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
+import eapli.base.activityfluxmanagement.specification.domain.ActivityFlux;
+import eapli.base.activityfluxmanagement.specification.repositories.ActivityFluxRepository;
 import eapli.base.formmanagement.domain.*;
 import eapli.base.formmanagement.repositories.FormRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.*;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
-import eapli.base.taskmanagement.domain.*;
-import eapli.base.taskmanagement.repositories.TaskRepository;
+import eapli.base.taskmanagement.specification.domain.*;
+import eapli.base.taskmanagement.specification.repositories.TaskRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;

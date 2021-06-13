@@ -1,7 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.servicemanagement.repositories.DataRepository;
-import eapli.base.taskmanagement.domain.TaskPriority;
+import eapli.base.taskmanagement.specification.domain.TaskPriority;
 import eapli.base.ticketmanagement.domain.Ticket;
 
 import javax.persistence.TypedQuery;

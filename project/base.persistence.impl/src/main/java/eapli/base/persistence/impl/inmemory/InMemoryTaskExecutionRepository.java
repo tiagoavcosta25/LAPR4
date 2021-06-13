@@ -1,7 +1,7 @@
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.taskmanagement.domain.TaskExecution;
-import eapli.base.taskmanagement.repositories.TaskExecutionRepository;
+import eapli.base.taskmanagement.execution.domain.TaskExecution;
+import eapli.base.taskmanagement.execution.repositories.TaskExecutionRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 import java.util.Optional;

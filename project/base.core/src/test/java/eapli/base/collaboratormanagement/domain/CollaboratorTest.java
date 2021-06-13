@@ -1,28 +1,8 @@
 package eapli.base.collaboratormanagement.domain;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
-import eapli.base.collaboratormanagement.application.CollaboratorSpecificationController;
-import eapli.base.formmanagement.domain.*;
-import eapli.base.servicemanagement.domain.Service;
-import eapli.base.servicemanagement.domain.ServiceBuilder;
-import eapli.base.taskmanagement.domain.AutomaticTask;
-import eapli.base.taskmanagement.domain.AutomaticTaskScript;
-import eapli.base.taskmanagement.domain.TaskDescription;
-import eapli.base.taskmanagement.domain.TaskPriority;
-import eapli.base.ticketmanagement.domain.*;
-import eapli.base.usermanagement.domain.BaseRoles;
-import eapli.framework.general.domain.model.Money;
-import eapli.framework.infrastructure.authz.domain.model.*;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
 

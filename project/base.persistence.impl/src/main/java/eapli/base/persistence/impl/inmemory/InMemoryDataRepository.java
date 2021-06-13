@@ -1,10 +1,10 @@
 package eapli.base.persistence.impl.inmemory;
 
 import eapli.base.servicemanagement.repositories.DataRepository;
-import eapli.base.taskmanagement.domain.ManualTaskExecution;
-import eapli.base.taskmanagement.domain.TaskExecution;
-import eapli.base.taskmanagement.domain.TaskExecutionStatus;
-import eapli.base.taskmanagement.domain.TaskPriority;
+import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
+import eapli.base.taskmanagement.execution.domain.TaskExecution;
+import eapli.base.taskmanagement.execution.domain.TaskExecutionStatus;
+import eapli.base.taskmanagement.specification.domain.TaskPriority;
 import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 

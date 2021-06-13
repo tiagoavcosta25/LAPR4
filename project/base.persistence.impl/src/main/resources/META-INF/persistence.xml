@@ -19,16 +19,16 @@
     <class>eapli.base.teamtypemanagement.domain.TeamType</class>
     <class>eapli.base.cataloguemanagement.domain.Catalogue</class>
     <class>eapli.base.collaboratormanagement.domain.Collaborator</class>
-    <class>eapli.base.taskmanagement.domain.Task</class>
-    <class>eapli.base.taskmanagement.domain.ManualTask</class>
-    <class>eapli.base.taskmanagement.domain.AutomaticTask</class>
+    <class>eapli.base.taskmanagement.specification.domain.Task</class>
+    <class>eapli.base.taskmanagement.specification.domain.ManualTask</class>
+    <class>eapli.base.taskmanagement.specification.domain.AutomaticTask</class>
     <class>eapli.base.ticketmanagement.domain.Ticket</class>
     <class>eapli.base.ticketmanagement.domain.Response</class>
-    <class>eapli.base.activityfluxmanagement.domain.ActivityFlux</class>
-    <class>eapli.base.activityfluxmanagement.domain.ActivityFluxExecution</class>
-    <class>eapli.base.taskmanagement.domain.TaskExecution</class>
-    <class>eapli.base.taskmanagement.domain.ManualTaskExecution</class>
-    <class>eapli.base.taskmanagement.domain.AutomaticTaskExecution</class>
+    <class>eapli.base.activityfluxmanagement.specification.domain.ActivityFlux</class>
+    <class>eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution</class>
+    <class>eapli.base.taskmanagement.execution.domain.TaskExecution</class>
+    <class>eapli.base.taskmanagement.execution.domain.ManualTaskExecution</class>
+    <class>eapli.base.taskmanagement.execution.domain.AutomaticTaskExecution</class>
 
     <properties>
       <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/../db/base"/>-->

@@ -1,7 +1,8 @@
 package eapli.base.activityfluxmanagement.domain;
 
+import eapli.base.activityfluxmanagement.specification.domain.ActivityFlux;
 import eapli.base.formmanagement.domain.*;
-import eapli.base.taskmanagement.domain.*;
+import eapli.base.taskmanagement.specification.domain.*;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,8 +1,7 @@
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFluxExecution;
-import eapli.base.activityfluxmanagement.repositories.ActivityFluxExecutionRepository;
-import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
+import eapli.base.activityfluxmanagement.execution.repositories.ActivityFluxExecutionRepository;
+import eapli.base.activityfluxmanagement.specification.repositories.ActivityFluxRepository;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
@@ -13,12 +12,12 @@ import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
-import eapli.base.taskmanagement.repositories.AutomaticTaskRepository;
-import eapli.base.taskmanagement.repositories.TaskExecutionRepository;
-import eapli.base.taskmanagement.repositories.ManualTaskRepository;
+import eapli.base.taskmanagement.specification.repositories.AutomaticTaskRepository;
+import eapli.base.taskmanagement.execution.repositories.TaskExecutionRepository;
+import eapli.base.taskmanagement.specification.repositories.ManualTaskRepository;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
-import eapli.base.taskmanagement.repositories.TaskRepository;
+import eapli.base.taskmanagement.specification.repositories.TaskRepository;
 import eapli.base.teammanagement.repositories.TeamRepository;
 import eapli.base.teamtypemanagement.repositories.TeamTypeRepository;
 import eapli.framework.domain.repositories.TransactionalContext;

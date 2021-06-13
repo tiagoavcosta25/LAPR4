@@ -29,9 +29,7 @@ import eapli.base.formmanagement.domain.Form;
 import eapli.base.formmanagement.domain.FormType;
 import eapli.base.servicemanagement.application.ServiceDraftSpecificationController;
 import eapli.base.servicemanagement.domain.ServiceDraft;
-import eapli.base.taskmanagement.domain.ManualTask;
-import eapli.base.taskmanagement.domain.Task;
-import eapli.base.taskmanagement.domain.TaskPriority;
+import eapli.base.taskmanagement.specification.domain.TaskPriority;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 

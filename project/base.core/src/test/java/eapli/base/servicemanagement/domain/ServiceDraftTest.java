@@ -1,23 +1,10 @@
 package eapli.base.servicemanagement.domain;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
-import eapli.base.cataloguemanagement.domain.Catalogue;
-import eapli.base.cataloguemanagement.domain.CatalogueBriefDescription;
-import eapli.base.cataloguemanagement.domain.CatalogueCompleteDescription;
-import eapli.base.cataloguemanagement.domain.CatalogueTitle;
-import eapli.base.collaboratormanagement.domain.*;
 import eapli.base.formmanagement.domain.*;
-import eapli.base.taskmanagement.domain.AutomaticTask;
-import eapli.base.taskmanagement.domain.AutomaticTaskScript;
-import eapli.base.taskmanagement.domain.TaskDescription;
-import eapli.base.taskmanagement.domain.TaskPriority;
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 

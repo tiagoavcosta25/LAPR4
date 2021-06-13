@@ -1,9 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
-import eapli.base.activityfluxmanagement.repositories.ActivityFluxRepository;
-import eapli.base.formmanagement.domain.Form;
-import eapli.base.formmanagement.repositories.FormRepository;
+import eapli.base.activityfluxmanagement.specification.domain.ActivityFlux;
+import eapli.base.activityfluxmanagement.specification.repositories.ActivityFluxRepository;
 import eapli.base.util.Application;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;

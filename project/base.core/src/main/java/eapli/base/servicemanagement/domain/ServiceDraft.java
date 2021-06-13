@@ -23,7 +23,7 @@
  */
 package eapli.base.servicemanagement.domain;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
+import eapli.base.activityfluxmanagement.specification.domain.ActivityFlux;
 import eapli.base.formmanagement.domain.Form;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;

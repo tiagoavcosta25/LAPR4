@@ -1,6 +1,6 @@
 package eapli.base.ticketmanagement.domain;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFluxExecution;
+import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
