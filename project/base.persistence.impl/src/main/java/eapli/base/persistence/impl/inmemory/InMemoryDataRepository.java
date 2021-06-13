@@ -4,6 +4,7 @@ import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.taskmanagement.domain.ManualTaskExecution;
 import eapli.base.taskmanagement.domain.TaskExecution;
 import eapli.base.taskmanagement.domain.TaskExecutionStatus;
+import eapli.base.taskmanagement.domain.TaskPriority;
 import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
@@ -67,12 +68,22 @@ public class InMemoryDataRepository extends InMemoryDomainRepository<Ticket, Lon
         return counter;
     }
 
-    //TODO: whole class
     @Override
     public Long numberOfLowPriorityActivities(String oUserName) {
-        return 0L;
+        Long counter = 0L;
+        Iterable<Ticket> lst = match(ticket -> ticket.executionFlux().flux().stream()
+                .allMatch(taskExecution -> taskExecution.status().equals(TaskExecutionStatus.PENDING)));
+        for(Ticket t : lst) {
+            for(TaskExecution te : t.executionFlux().flux()) {
+                ManualTaskExecution me = (ManualTaskExecution) te;
+                if (me.getM_oCollaborator().user().username().toString().equals(oUserName)
+                    && me.task().priority().equals(TaskPriority.LOW)) counter++;
+            }
+        }
+        return counter;
     }
 
+    //TODO: whole class
     @Override
     public Long numberOfMediumPriorityActivities(String oUserName) {
         return 0L;
