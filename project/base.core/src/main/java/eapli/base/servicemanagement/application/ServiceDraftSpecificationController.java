@@ -73,11 +73,12 @@ public class ServiceDraftSpecificationController {
         return this.m_oServiceDraft;
     }
 
-    public void addForm(ServiceDraft oServiceDraft, String strName, String strType) {
+    public void addForm(ServiceDraft oServiceDraft, String strName, String strType, String strScript) {
         this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.formBuilder = this.formBuilder.withName(strName);
         this.formBuilder = this.formBuilder.withType(strType);
+        this.formBuilder = this.formBuilder.withScript(strScript);
     }
 
     public List<DataType> showDataTypes() {
@@ -86,9 +87,9 @@ public class ServiceDraftSpecificationController {
     }
 
     public Attribute addAttribute(String strName, String strLabel, String strDescription,
-                                  String strRegex, String strScript, String strDataType) {
+                                  String strRegex, String strDataType) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        Attribute oAttribute = this.m_oServiceDraftSpecificationService.addAttribute(strName, strLabel, strDescription, strRegex, strScript, strDataType);
+        Attribute oAttribute = this.m_oServiceDraftSpecificationService.addAttribute(strName, strLabel, strDescription, strRegex, strDataType);
         this.m_lstAttributes.add(oAttribute);
         return oAttribute;
     }
