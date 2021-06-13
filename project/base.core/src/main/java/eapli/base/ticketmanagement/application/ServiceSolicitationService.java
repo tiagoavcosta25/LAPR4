@@ -23,14 +23,17 @@
  */
 package eapli.base.ticketmanagement.application;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFluxExecution;
-import eapli.base.activityfluxmanagement.domain.ActivityFluxExecutionProgress;
-import eapli.base.activityfluxmanagement.repositories.ActivityFluxExecutionRepository;
+import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
+import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecutionProgress;
+import eapli.base.activityfluxmanagement.execution.repositories.ActivityFluxExecutionRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.Service;
-import eapli.base.taskmanagement.domain.*;
-import eapli.base.taskmanagement.repositories.TaskExecutionRepository;
-import eapli.base.taskmanagement.repositories.TaskRepository;
+import eapli.base.taskmanagement.execution.domain.AutomaticTaskExecution;
+import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
+import eapli.base.taskmanagement.execution.domain.TaskExecution;
+import eapli.base.taskmanagement.execution.repositories.TaskExecutionRepository;
+import eapli.base.taskmanagement.specification.domain.Task;
+import eapli.base.taskmanagement.specification.repositories.TaskRepository;
 import eapli.framework.application.ApplicationService;
 
 import java.util.ArrayList;

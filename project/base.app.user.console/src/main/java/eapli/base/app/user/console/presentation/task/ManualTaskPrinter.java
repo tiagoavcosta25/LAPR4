@@ -1,6 +1,6 @@
 package eapli.base.app.user.console.presentation.task;
 
-import eapli.base.taskmanagement.domain.ManualTask;
+import eapli.base.taskmanagement.specification.domain.ManualTask;
 import eapli.framework.visitor.Visitor;
 
 /**

@@ -1,7 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFluxExecution;
-import eapli.base.activityfluxmanagement.repositories.ActivityFluxExecutionRepository;
+import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
+import eapli.base.activityfluxmanagement.execution.repositories.ActivityFluxExecutionRepository;
 import eapli.base.util.Application;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;

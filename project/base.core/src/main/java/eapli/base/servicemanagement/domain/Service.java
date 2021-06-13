@@ -24,11 +24,9 @@
 package eapli.base.servicemanagement.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
+import eapli.base.activityfluxmanagement.specification.domain.ActivityFlux;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.formmanagement.domain.*;
-import eapli.base.taskmanagement.domain.ManualTask;
-import eapli.base.taskmanagement.domain.Task;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 

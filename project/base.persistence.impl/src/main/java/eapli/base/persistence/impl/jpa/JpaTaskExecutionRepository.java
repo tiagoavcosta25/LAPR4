@@ -1,7 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.taskmanagement.domain.TaskExecution;
-import eapli.base.taskmanagement.repositories.TaskExecutionRepository;
+import eapli.base.taskmanagement.execution.domain.TaskExecution;
+import eapli.base.taskmanagement.execution.repositories.TaskExecutionRepository;
 import eapli.base.util.Application;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;

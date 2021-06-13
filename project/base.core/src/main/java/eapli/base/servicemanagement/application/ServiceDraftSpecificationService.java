@@ -23,13 +23,12 @@
  */
 package eapli.base.servicemanagement.application;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
+import eapli.base.activityfluxmanagement.specification.domain.ActivityFlux;
 import eapli.base.formmanagement.domain.*;
-import eapli.base.servicemanagement.domain.ServiceDraft;
-import eapli.base.taskmanagement.domain.ManualTask;
-import eapli.base.taskmanagement.domain.Task;
-import eapli.base.taskmanagement.domain.TaskDescription;
-import eapli.base.taskmanagement.domain.TaskPriority;
+import eapli.base.taskmanagement.specification.domain.ManualTask;
+import eapli.base.taskmanagement.specification.domain.Task;
+import eapli.base.taskmanagement.specification.domain.TaskDescription;
+import eapli.base.taskmanagement.specification.domain.TaskPriority;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.ApplicationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;

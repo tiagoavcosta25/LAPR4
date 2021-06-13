@@ -2,7 +2,7 @@ package base.server.autotaskexecutor;
 
 import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
-import eapli.base.taskmanagement.application.ExecuteAutomaticTaskController;
+import eapli.base.taskmanagement.execution.application.ExecuteAutomaticTaskController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.DataInputStream;

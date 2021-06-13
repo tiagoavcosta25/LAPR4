@@ -1,10 +1,8 @@
 package eapli.base.persistence.impl.jpa;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
 import eapli.base.servicemanagement.domain.Service;
-import eapli.base.taskmanagement.domain.AutomaticTask;
-import eapli.base.taskmanagement.repositories.AutomaticTaskRepository;
-import eapli.framework.infrastructure.authz.domain.model.Username;
+import eapli.base.taskmanagement.specification.domain.AutomaticTask;
+import eapli.base.taskmanagement.specification.repositories.AutomaticTaskRepository;
 
 import javax.persistence.TypedQuery;
 

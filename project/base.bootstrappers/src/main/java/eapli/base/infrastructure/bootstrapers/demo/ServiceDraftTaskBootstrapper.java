@@ -10,7 +10,7 @@ import eapli.base.formmanagement.domain.Form;
 import eapli.base.formmanagement.domain.FormType;
 import eapli.base.servicemanagement.application.ServiceDraftSpecificationController;
 import eapli.base.servicemanagement.domain.ServiceDraft;
-import eapli.base.taskmanagement.domain.TaskPriority;
+import eapli.base.taskmanagement.specification.domain.TaskPriority;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;

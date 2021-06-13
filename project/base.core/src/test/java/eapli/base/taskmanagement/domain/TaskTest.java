@@ -1,6 +1,7 @@
 package eapli.base.taskmanagement.domain;
 
 import eapli.base.formmanagement.domain.*;
+import eapli.base.taskmanagement.specification.domain.*;
 import org.junit.Test;
 
 import java.util.ArrayList;

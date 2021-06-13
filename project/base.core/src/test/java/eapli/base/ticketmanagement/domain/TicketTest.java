@@ -1,17 +1,5 @@
 package eapli.base.ticketmanagement.domain;
 
-import eapli.base.activityfluxmanagement.domain.ActivityFlux;
-import eapli.base.cataloguemanagement.domain.*;
-import eapli.base.collaboratormanagement.domain.*;
-import eapli.base.formmanagement.domain.*;
-import eapli.base.servicemanagement.domain.*;
-import eapli.base.taskmanagement.domain.*;
-import org.junit.Test;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.*;
-
 import static org.junit.Assert.assertTrue;
 
 public class TicketTest {
