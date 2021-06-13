@@ -80,7 +80,7 @@ public class InMemoryDataRepository extends InMemoryDomainRepository<Ticket, Lon
 
     @Override
     public Long numberOfHighPriorityActivities(String oUserName) {
-        return 0L;
+        return prioritySearch(oUserName, TaskPriority.HIGH);
     }
 
     private Long prioritySearch(String oUserName, TaskPriority tp) {
