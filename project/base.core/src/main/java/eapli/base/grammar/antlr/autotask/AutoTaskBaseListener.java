@@ -1,376 +1,376 @@
-// Generated from D:/Escola/Uni/_Year-02/LAPR4/ProjetoIntegrador/project/base.core/src/main/java/eapli/base/grammar\helpdesk_grammar.g4 by ANTLR 4.9.1
-package antlr;
+// Generated from D:/Escola/Uni/_Year-02/LAPR4/ProjetoIntegrador/project/base.core/src/main/java/eapli/base/grammar\AutoTask.g4 by ANTLR 4.9.1
+package eapli.base.grammar.antlr.autotask;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link helpdesk_grammarListener},
+ * This class provides an empty implementation of {@link AutoTaskListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class helpdesk_grammarBaseListener implements helpdesk_grammarListener {
+public class AutoTaskBaseListener implements AutoTaskListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStart(helpdesk_grammarParser.StartContext ctx) { }
+	@Override public void enterStart(AutoTaskParser.StartContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStart(helpdesk_grammarParser.StartContext ctx) { }
+	@Override public void exitStart(AutoTaskParser.StartContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatements(helpdesk_grammarParser.StatementsContext ctx) { }
+	@Override public void enterStatements(AutoTaskParser.StatementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatements(helpdesk_grammarParser.StatementsContext ctx) { }
+	@Override public void exitStatements(AutoTaskParser.StatementsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(helpdesk_grammarParser.StatementContext ctx) { }
+	@Override public void enterStatement(AutoTaskParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatement(helpdesk_grammarParser.StatementContext ctx) { }
+	@Override public void exitStatement(AutoTaskParser.StatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHeader(helpdesk_grammarParser.HeaderContext ctx) { }
+	@Override public void enterHeader(AutoTaskParser.HeaderContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHeader(helpdesk_grammarParser.HeaderContext ctx) { }
+	@Override public void exitHeader(AutoTaskParser.HeaderContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(helpdesk_grammarParser.TypeContext ctx) { }
+	@Override public void enterType(AutoTaskParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType(helpdesk_grammarParser.TypeContext ctx) { }
+	@Override public void exitType(AutoTaskParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction(helpdesk_grammarParser.FunctionContext ctx) { }
+	@Override public void enterFunction(AutoTaskParser.FunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction(helpdesk_grammarParser.FunctionContext ctx) { }
+	@Override public void exitFunction(AutoTaskParser.FunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSendEmail(helpdesk_grammarParser.SendEmailContext ctx) { }
+	@Override public void enterSendEmail(AutoTaskParser.SendEmailContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSendEmail(helpdesk_grammarParser.SendEmailContext ctx) { }
+	@Override public void exitSendEmail(AutoTaskParser.SendEmailContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFileSearch(helpdesk_grammarParser.FileSearchContext ctx) { }
+	@Override public void enterFileSearch(AutoTaskParser.FileSearchContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFileSearch(helpdesk_grammarParser.FileSearchContext ctx) { }
+	@Override public void exitFileSearch(AutoTaskParser.FileSearchContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIf_func(helpdesk_grammarParser.If_funcContext ctx) { }
+	@Override public void enterIf_func(AutoTaskParser.If_funcContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIf_func(helpdesk_grammarParser.If_funcContext ctx) { }
+	@Override public void exitIf_func(AutoTaskParser.If_funcContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConditions(helpdesk_grammarParser.ConditionsContext ctx) { }
+	@Override public void enterConditions(AutoTaskParser.ConditionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConditions(helpdesk_grammarParser.ConditionsContext ctx) { }
+	@Override public void exitConditions(AutoTaskParser.ConditionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCondition(helpdesk_grammarParser.ConditionContext ctx) { }
+	@Override public void enterCondition(AutoTaskParser.ConditionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCondition(helpdesk_grammarParser.ConditionContext ctx) { }
+	@Override public void exitCondition(AutoTaskParser.ConditionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComp(helpdesk_grammarParser.CompContext ctx) { }
+	@Override public void enterComp(AutoTaskParser.CompContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitComp(helpdesk_grammarParser.CompContext ctx) { }
+	@Override public void exitComp(AutoTaskParser.CompContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConjunction(helpdesk_grammarParser.ConjunctionContext ctx) { }
+	@Override public void enterConjunction(AutoTaskParser.ConjunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConjunction(helpdesk_grammarParser.ConjunctionContext ctx) { }
+	@Override public void exitConjunction(AutoTaskParser.ConjunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssign(helpdesk_grammarParser.AssignContext ctx) { }
+	@Override public void enterAssign(AutoTaskParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssign(helpdesk_grammarParser.AssignContext ctx) { }
+	@Override public void exitAssign(AutoTaskParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariable(helpdesk_grammarParser.VariableContext ctx) { }
+	@Override public void enterVariable(AutoTaskParser.VariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariable(helpdesk_grammarParser.VariableContext ctx) { }
+	@Override public void exitVariable(AutoTaskParser.VariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOp(helpdesk_grammarParser.OpContext ctx) { }
+	@Override public void enterOp(AutoTaskParser.OpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOp(helpdesk_grammarParser.OpContext ctx) { }
+	@Override public void exitOp(AutoTaskParser.OpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterObject(helpdesk_grammarParser.ObjectContext ctx) { }
+	@Override public void enterObject(AutoTaskParser.ObjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitObject(helpdesk_grammarParser.ObjectContext ctx) { }
+	@Override public void exitObject(AutoTaskParser.ObjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSign(helpdesk_grammarParser.SignContext ctx) { }
+	@Override public void enterSign(AutoTaskParser.SignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSign(helpdesk_grammarParser.SignContext ctx) { }
+	@Override public void exitSign(AutoTaskParser.SignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPath(helpdesk_grammarParser.PathContext ctx) { }
+	@Override public void enterPath(AutoTaskParser.PathContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPath(helpdesk_grammarParser.PathContext ctx) { }
+	@Override public void exitPath(AutoTaskParser.PathContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPort(helpdesk_grammarParser.PortContext ctx) { }
+	@Override public void enterPort(AutoTaskParser.PortContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPort(helpdesk_grammarParser.PortContext ctx) { }
+	@Override public void exitPort(AutoTaskParser.PortContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFolder(helpdesk_grammarParser.FolderContext ctx) { }
+	@Override public void enterFolder(AutoTaskParser.FolderContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFolder(helpdesk_grammarParser.FolderContext ctx) { }
+	@Override public void exitFolder(AutoTaskParser.FolderContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFile(helpdesk_grammarParser.FileContext ctx) { }
+	@Override public void enterFile(AutoTaskParser.FileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFile(helpdesk_grammarParser.FileContext ctx) { }
+	@Override public void exitFile(AutoTaskParser.FileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEmail(helpdesk_grammarParser.EmailContext ctx) { }
+	@Override public void enterEmail(AutoTaskParser.EmailContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEmail(helpdesk_grammarParser.EmailContext ctx) { }
+	@Override public void exitEmail(AutoTaskParser.EmailContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterKeyword(helpdesk_grammarParser.KeywordContext ctx) { }
+	@Override public void enterKeyword(AutoTaskParser.KeywordContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitKeyword(helpdesk_grammarParser.KeywordContext ctx) { }
+	@Override public void exitKeyword(AutoTaskParser.KeywordContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSubject(helpdesk_grammarParser.SubjectContext ctx) { }
+	@Override public void enterSubject(AutoTaskParser.SubjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSubject(helpdesk_grammarParser.SubjectContext ctx) { }
+	@Override public void exitSubject(AutoTaskParser.SubjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBody(helpdesk_grammarParser.BodyContext ctx) { }
+	@Override public void enterBody(AutoTaskParser.BodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBody(helpdesk_grammarParser.BodyContext ctx) { }
+	@Override public void exitBody(AutoTaskParser.BodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVar_label(helpdesk_grammarParser.Var_labelContext ctx) { }
+	@Override public void enterVar_label(AutoTaskParser.Var_labelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVar_label(helpdesk_grammarParser.Var_labelContext ctx) { }
+	@Override public void exitVar_label(AutoTaskParser.Var_labelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAlphanumeric(helpdesk_grammarParser.AlphanumericContext ctx) { }
+	@Override public void enterAlphanumeric(AutoTaskParser.AlphanumericContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAlphanumeric(helpdesk_grammarParser.AlphanumericContext ctx) { }
+	@Override public void exitAlphanumeric(AutoTaskParser.AlphanumericContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSystem_name(helpdesk_grammarParser.System_nameContext ctx) { }
+	@Override public void enterSystem_name(AutoTaskParser.System_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSystem_name(helpdesk_grammarParser.System_nameContext ctx) { }
+	@Override public void exitSystem_name(AutoTaskParser.System_nameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAlpha(helpdesk_grammarParser.AlphaContext ctx) { }
+	@Override public void enterAlpha(AutoTaskParser.AlphaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAlpha(helpdesk_grammarParser.AlphaContext ctx) { }
+	@Override public void exitAlpha(AutoTaskParser.AlphaContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

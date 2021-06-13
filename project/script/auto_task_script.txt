@@ -1,0 +1,19 @@
+#helpdesk
+
+autoTask{
+
+$var1 = 2;
+
+#fileSearch("D:test.xml", "key");
+
+$var1 = 2 + #fileSearch("D:test.xml", "key");
+
+#if($var1 == 3){
+	#sendEmail("email@isep.pt", "subject test", "body test");
+} else{
+	$var1 = 19;
+}
+
+}
+
+

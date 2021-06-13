@@ -1,0 +1,16 @@
+#helpdesk
+
+validateForm{
+
+$var1 = 2;
+
+#if($var1 == 3){
+	#mandatory(1);
+	#regex(2,"[0-9]");
+	#assert(1 < 19);
+	#getAttribute(1);
+} else{
+	$var1 = 19;
+}
+
+}

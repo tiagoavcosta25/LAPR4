@@ -1,224 +1,210 @@
-// Generated from D:/Escola/Uni/_Year-02/LAPR4/ProjetoIntegrador/project/base.core/src/main/java/eapli/base/grammar\helpdesk_grammar.g4 by ANTLR 4.9.1
-package antlr;
+// Generated from D:/Escola/Uni/_Year-02/LAPR4/ProjetoIntegrador/project/base.core/src/main/java/eapli/base/grammar\ValidateForm.g4 by ANTLR 4.9.1
+package eapli.base.grammar.antlr.validateform;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
- * This class provides an empty implementation of {@link helpdesk_grammarVisitor},
+ * This class provides an empty implementation of {@link ValidateFormVisitor},
  * which can be extended to create a visitor which only needs to handle a subset
  * of the available methods.
  *
  * @param <T> The return type of the visit operation. Use {@link Void} for
  * operations with no return type.
  */
-public class helpdesk_grammarBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements helpdesk_grammarVisitor<T> {
+public class ValidateFormBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements ValidateFormVisitor<T> {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStart(helpdesk_grammarParser.StartContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStart(ValidateFormParser.StartContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStatements(helpdesk_grammarParser.StatementsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStatements(ValidateFormParser.StatementsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStatement(helpdesk_grammarParser.StatementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStatement(ValidateFormParser.StatementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitHeader(helpdesk_grammarParser.HeaderContext ctx) { return visitChildren(ctx); }
+	@Override public T visitHeader(ValidateFormParser.HeaderContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitType(helpdesk_grammarParser.TypeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitType(ValidateFormParser.TypeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFunction(helpdesk_grammarParser.FunctionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFunction(ValidateFormParser.FunctionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSendEmail(helpdesk_grammarParser.SendEmailContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExec_mandatory(ValidateFormParser.Exec_mandatoryContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFileSearch(helpdesk_grammarParser.FileSearchContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExec_regex(ValidateFormParser.Exec_regexContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIf_func(helpdesk_grammarParser.If_funcContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExec_assert(ValidateFormParser.Exec_assertContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitConditions(helpdesk_grammarParser.ConditionsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExec_get_attribute(ValidateFormParser.Exec_get_attributeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitCondition(helpdesk_grammarParser.ConditionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNums(ValidateFormParser.NumsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitComp(helpdesk_grammarParser.CompContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOnly_if(ValidateFormParser.Only_ifContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitConjunction(helpdesk_grammarParser.ConjunctionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIf_else(ValidateFormParser.If_elseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAssign(helpdesk_grammarParser.AssignContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMultiple_conditions(ValidateFormParser.Multiple_conditionsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitVariable(helpdesk_grammarParser.VariableContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSingle_conditions(ValidateFormParser.Single_conditionsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOp(helpdesk_grammarParser.OpContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCond(ValidateFormParser.CondContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitObject(helpdesk_grammarParser.ObjectContext ctx) { return visitChildren(ctx); }
+	@Override public T visitComp(ValidateFormParser.CompContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSign(helpdesk_grammarParser.SignContext ctx) { return visitChildren(ctx); }
+	@Override public T visitConjunction(ValidateFormParser.ConjunctionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPath(helpdesk_grammarParser.PathContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExec_assign(ValidateFormParser.Exec_assignContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPort(helpdesk_grammarParser.PortContext ctx) { return visitChildren(ctx); }
+	@Override public T visitVariable(ValidateFormParser.VariableContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFolder(helpdesk_grammarParser.FolderContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOp(ValidateFormParser.OpContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFile(helpdesk_grammarParser.FileContext ctx) { return visitChildren(ctx); }
+	@Override public T visitObject(ValidateFormParser.ObjectContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEmail(helpdesk_grammarParser.EmailContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSign(ValidateFormParser.SignContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitKeyword(helpdesk_grammarParser.KeywordContext ctx) { return visitChildren(ctx); }
+	@Override public T visitVar_label(ValidateFormParser.Var_labelContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSubject(helpdesk_grammarParser.SubjectContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAlphanumeric(ValidateFormParser.AlphanumericContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBody(helpdesk_grammarParser.BodyContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAlpha(ValidateFormParser.AlphaContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitVar_label(helpdesk_grammarParser.Var_labelContext ctx) { return visitChildren(ctx); }
+	@Override public T visitString(ValidateFormParser.StringContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAlphanumeric(helpdesk_grammarParser.AlphanumericContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitSystem_name(helpdesk_grammarParser.System_nameContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitAlpha(helpdesk_grammarParser.AlphaContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCharacter(ValidateFormParser.CharacterContext ctx) { return visitChildren(ctx); }
 }
