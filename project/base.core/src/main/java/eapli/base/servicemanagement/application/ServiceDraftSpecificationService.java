@@ -34,7 +34,13 @@ import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.ApplicationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +57,7 @@ public class ServiceDraftSpecificationService {
     private final String APPROVAL_LABEL = "Approval";
     private final String APPROVAL_DESC = "Did this service get approved or rejected";
     private final String APPROVAL_REGEX = "Approval|Rejected";
-    private final String APPROVAL_SCRIPT = "D:/folder3/script3.bat";
+    private final String APPROVAL_SCRIPT = "D:/folder3/script3.txt";
     private final String APPROVAL_DATA = "STRING";
 
     public ManualTask addApprovalTask(String strDescription, Form oForm) {
@@ -60,18 +66,17 @@ public class ServiceDraftSpecificationService {
 
     public Form generateApprovalForm() {
         List<Attribute> lstAttributes = new ArrayList<>();
-        lstAttributes.add(this.addAttribute(APPROVAL_NAME, APPROVAL_LABEL, APPROVAL_DESC, APPROVAL_REGEX, APPROVAL_SCRIPT, APPROVAL_DATA));
-        return new Form(new FormName(APPROVAL_FORM_NAME), FormType.MANUALTASK, lstAttributes);
+        lstAttributes.add(this.addAttribute(APPROVAL_NAME, APPROVAL_LABEL, APPROVAL_DESC, APPROVAL_REGEX, APPROVAL_DATA));
+        return new Form(new FormName(APPROVAL_FORM_NAME), FormType.MANUALTASK, new FormScript(APPROVAL_SCRIPT), lstAttributes);
     }
 
     public Attribute addAttribute(String strName, String strLabel, String strDescription,
-                                  String strRegex, String strScript, String strDataType) {
+                                  String strRegex, String strDataType) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.attributeBuilder = this.attributeBuilder.withName(strName);
         this.attributeBuilder = this.attributeBuilder.withLabel(strLabel);
         this.attributeBuilder = this.attributeBuilder.withDescription(strDescription);
         this.attributeBuilder = this.attributeBuilder.withRegex(strRegex);
-        this.attributeBuilder = this.attributeBuilder.withScript(strScript);
         this.attributeBuilder = this.attributeBuilder.withDataType(strDataType);
 
         return this.attributeBuilder.build();
@@ -85,5 +90,23 @@ public class ServiceDraftSpecificationService {
         lstFlux.add(oResolutionTask);
 
         return new ActivityFlux(lstFlux);
+    }
+
+    public void validateScript(String strScriptPath) {
+        /*try{
+            File oFile = new File(strScriptPath);
+
+            if(oFile.exists() && !oFile.isDirectory()) {
+                if(ValidateScript.){
+
+                }
+                String strContent = FileUtils.readFileToString(oFile, StandardCharsets.UTF_8);
+            } else{
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
     }
 }
