@@ -22,10 +22,8 @@ public class InMemoryDataRepository extends InMemoryDomainRepository<Ticket, Lon
     @Override
     public Long numberOfPendingActivities(String oUserName) {
         Long counter = 0L;
-        LocalDateTime now = LocalDateTime.now();
         Iterable<Ticket> lst = match(ticket -> ticket.executionFlux().flux().stream()
-                .allMatch(taskExecution -> taskExecution.status().equals(TaskExecutionStatus.PENDING))
-                && ticket.limitDate().getM_dtLimitDate().isAfter(now));
+                .allMatch(taskExecution -> taskExecution.status().equals(TaskExecutionStatus.PENDING)));
         for(Ticket t : lst) {
             for(TaskExecution te : t.executionFlux().flux()) {
                 ManualTaskExecution me = (ManualTaskExecution) te;
