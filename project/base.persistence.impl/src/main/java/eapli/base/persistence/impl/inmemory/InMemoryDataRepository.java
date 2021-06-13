@@ -91,7 +91,7 @@ public class InMemoryDataRepository extends InMemoryDomainRepository<Ticket, Lon
             for(TaskExecution te : t.executionFlux().flux()) {
                 ManualTaskExecution me = (ManualTaskExecution) te;
                 if (me.getM_oCollaborator().user().username().toString().equals(oUserName)
-                        && me.task().priority().equals(tp) counter++;
+                        && me.task().priority().equals(tp)) counter++;
             }
         }
         return counter;
