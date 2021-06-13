@@ -83,6 +83,9 @@ public class Ticket implements AggregateRoot<Long> {
     public Service service() {
         return this.m_oService;
     }
+    public ActivityFluxExecution executionFlux() {
+        return m_oFluxExecution;
+    }
 
     @Override
     public boolean equals(final Object o) {
