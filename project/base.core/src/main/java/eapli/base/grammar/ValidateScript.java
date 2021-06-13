@@ -21,7 +21,6 @@ public class ValidateScript {
         SyntaxError syntaxError = new SyntaxError();
         parser.addErrorListener(syntaxError);
         parser.start();
-
         return !syntaxError.isError();
     }
 
@@ -33,10 +32,6 @@ public class ValidateScript {
         SyntaxError syntaxError = new SyntaxError();
         parser.addErrorListener(syntaxError);
         parser.start();
-
-        if(syntaxError.isError()){
-            return false;
-        }
-        return true;
+        return !syntaxError.isError();
     }
 }
