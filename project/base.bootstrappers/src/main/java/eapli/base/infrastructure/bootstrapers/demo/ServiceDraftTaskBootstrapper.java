@@ -36,20 +36,19 @@ public class ServiceDraftTaskBootstrapper implements Action {
     public boolean execute() {
 
         draftTask(true, "Approval Network", true, "Resolution Task Network", TaskPriority.HIGH,
-                "Resolution Network Form", 2, new ArrayList<>(Arrays.asList("Resolution", "Problems")),
+                "Resolution Network Form", "D:/folder4/script4.txt", 2, new ArrayList<>(Arrays.asList("Resolution", "Problems")),
                 new ArrayList<>(Arrays.asList("Task Resolution", "Problems")),
                 new ArrayList<>(Arrays.asList("Task Resolution Field", "Problems Encountered")),
                 new ArrayList<>(Arrays.asList("Success|Error", "[a-zA-Z0-9]+")),
-                new ArrayList<>(Arrays.asList("D:/folder4/script4.bat", "C:/folder5/script5.bat")),
                 new ArrayList<>(Arrays.asList(DataType.STRING, DataType.STRING)), null);
 
         return true;
     }
 
     private ServiceDraft draftTask(Boolean blApproval, String strApprovalDescription, Boolean blResolutionTask, String strDescription,
-                                   TaskPriority oTaskPriority, String strFormName, Integer intNumAttributes,
+                                   TaskPriority oTaskPriority, String strFormName, String strValidateScript, Integer intNumAttributes,
                                    List<String> lstNames, List<String> lstLabels, List<String> lstDescriptions, List<String> lstRegex,
-                                   List<String> lstScripts, List<DataType> lstDataType, String strScript) {
+                                   List<DataType> lstDataType, String strScript) {
         ServiceDraft oServiceDraft = null;
         try {
             Iterator<ServiceDraft> itServiceDrafts = this.m_oCtrl.getDrafts().iterator();
@@ -60,11 +59,11 @@ public class ServiceDraftTaskBootstrapper implements Action {
             }
 
             if(blResolutionTask){
-                this.m_oCtrl.addForm(oServiceDraft, strFormName, FormType.MANUALTASK.toString());
+                this.m_oCtrl.addForm(oServiceDraft, strFormName, FormType.MANUALTASK.toString(), strValidateScript);
 
                 for(int i = 0; i < intNumAttributes; i++){
                     this.m_oCtrl.addAttribute(lstNames.get(i), lstLabels.get(i), lstDescriptions.get(i), lstRegex.get(i),
-                            lstScripts.get(i), lstDataType.get(i).toString());
+                            lstDataType.get(i).toString());
                 }
                 Form oForm = this.m_oCtrl.saveForm();
                 this.m_oCtrl.newManualTask(strDescription, oTaskPriority.toString(), oForm);
