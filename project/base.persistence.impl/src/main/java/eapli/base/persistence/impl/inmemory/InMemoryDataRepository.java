@@ -1,7 +1,5 @@
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.collaboratormanagement.domain.Collaborator;
-import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.taskmanagement.domain.ManualTaskExecution;
 import eapli.base.taskmanagement.domain.TaskExecution;
@@ -10,8 +8,6 @@ import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Stream;
 
 
 /**
