@@ -4,7 +4,6 @@ import eapli.framework.domain.model.ValueObject;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Embeddable
@@ -32,7 +31,11 @@ public class TicketLimitDate implements ValueObject, Comparable<TicketLimitDate>
             return new TicketLimitDate(dtLimitDate);
         }
 
-        @Override
+    public LocalDateTime getM_dtLimitDate() {
+        return m_dtLimitDate;
+    }
+
+    @Override
         public boolean equals(final Object o) {
             if (this == o) {
                 return true;
