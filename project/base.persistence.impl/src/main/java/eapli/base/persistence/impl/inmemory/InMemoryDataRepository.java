@@ -75,7 +75,7 @@ public class InMemoryDataRepository extends InMemoryDomainRepository<Ticket, Lon
 
     @Override
     public Long numberOfMediumPriorityActivities(String oUserName) {
-       return 0L;
+        return prioritySearch(oUserName, TaskPriority.MEDIUM);
     }
 
     @Override
