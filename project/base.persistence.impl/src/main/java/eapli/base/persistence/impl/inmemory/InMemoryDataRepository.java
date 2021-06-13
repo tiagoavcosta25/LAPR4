@@ -69,4 +69,18 @@ public class InMemoryDataRepository extends InMemoryDomainRepository<Ticket, Lon
     public Long numberOfHighPriorityActivities(String oUserName) {
         return 0L;
     }
+
+    private Long prioritySearch(String oUserName, TaskPriority tp) {
+        Long counter = 0L;
+        Iterable<Ticket> lst = match(ticket -> ticket.executionFlux().flux().stream()
+                .allMatch(taskExecution -> taskExecution.status().equals(TaskExecutionStatus.PENDING)));
+        for(Ticket t : lst) {
+            for(TaskExecution te : t.executionFlux().flux()) {
+                ManualTaskExecution me = (ManualTaskExecution) te;
+                if (me.getM_oCollaborator().user().username().toString().equals(oUserName)
+                        && me.task().priority().equals(tp)) counter++;
+            }
+        }
+        return counter;
+    }
 }
