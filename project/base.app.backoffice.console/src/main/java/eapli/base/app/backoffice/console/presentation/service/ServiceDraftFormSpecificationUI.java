@@ -77,7 +77,8 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
     }
     private boolean insertForm(ServiceDraft oServiceDraft) {
         final String strFormName = Console.readLine("Form Name >");
-        this.theController.addForm(oServiceDraft, strFormName.trim(), FormType.SERVICE.toString());
+        final String strScript = Console.readLine("Validation Script >");
+        this.theController.addForm(oServiceDraft, strFormName.trim(), FormType.SERVICE.toString(), strScript);
         boolean blFlag;
         do {
             blFlag = insertAttribute();
@@ -91,12 +92,11 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
         final String strAttributeLabel = Console.readLine("Attribute Label >");
         final String strAttributeDescription = Console.readLine("Attribute Description >");
         final String strAttributeRegex = Console.readLine("Attribute Regex >");
-        final String strAttributeScript = Console.readLine("Attribute Script >");
 
 
         DataType oDataType = PrintList.chooseOne(this.theController.showDataTypes(), "Choose a Data Type for this Attribute", "Data Type");
 
-        this.theController.addAttribute(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, strAttributeScript, oDataType.toString());
+        this.theController.addAttribute(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, oDataType.toString());
 
         String strOp = Console.readLine("Do you want to add another attribute to this service? (Y/N) >");
         return strOp.compareToIgnoreCase("N") == 0;
