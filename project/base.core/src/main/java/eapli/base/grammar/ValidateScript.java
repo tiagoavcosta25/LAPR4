@@ -22,10 +22,7 @@ public class ValidateScript {
         parser.addErrorListener(syntaxError);
         parser.start();
 
-        if(syntaxError.isError()){
-            return false;
-        }
-        return true;
+        return !syntaxError.isError();
     }
 
     public static boolean validateAutoTask(String strPath) throws IOException {
