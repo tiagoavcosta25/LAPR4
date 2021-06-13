@@ -23,11 +23,7 @@
  */
 package eapli.base.formmanagement.domain;
 
-import eapli.base.servicemanagement.domain.Keyword;
-import eapli.framework.domain.model.AggregateRoot;
-import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.domain.model.ValueObject;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -51,22 +47,18 @@ public class Attribute implements ValueObject, Comparable<Attribute>{
     @Embedded
     private AttributeRegex m_oRegex;
 
-    @Embedded
-    private AttributeScript m_oScript;
-
     @Enumerated(EnumType.STRING)
     private DataType m_oDataType;
 
     public Attribute(final AttributeName oName, final AttributeLabel oLabel, final AttributeDescription oDescription,
-                     final AttributeRegex oRegex, final AttributeScript oScript, final DataType oDataType) {
-        if (oName == null || oLabel == null || oDescription == null || oRegex == null || oScript == null || oDataType == null) {
+                     final AttributeRegex oRegex, final DataType oDataType) {
+        if (oName == null || oLabel == null || oDescription == null || oRegex == null || oDataType == null) {
             throw new IllegalArgumentException();
         }
         this.m_oName = oName;
         this.m_oLabel = oLabel;
         this.m_oDescription = oDescription;
         this.m_oRegex = oRegex;
-        this.m_oScript = oScript;
         this.m_oDataType = oDataType;
     }
 
@@ -86,9 +78,6 @@ public class Attribute implements ValueObject, Comparable<Attribute>{
 
     public AttributeRegex regex() {
         return this.m_oRegex;
-    }
-    public AttributeScript script() {
-        return this.m_oScript;
     }
     public DataType dataType() {
         return this.m_oDataType;
