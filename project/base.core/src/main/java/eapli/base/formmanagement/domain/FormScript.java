@@ -8,40 +8,41 @@ package eapli.base.formmanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 /**
  *
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 @Embeddable
-@Access(AccessType.FIELD)
-public class AttributeScript implements ValueObject, Comparable<AttributeScript> {
+public class FormScript implements ValueObject, Comparable<FormScript> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "([a-zA-Z]:)?(/[a-zA-Z0-9_.-]+)+/[a-zA-Z0-9_.-]+.bat";
+    private static final String m_strRegex = "([a-zA-Z]:)?(/[a-zA-Z0-9_.-]+)+/[a-zA-Z0-9_.-]+.txt";
 
-    @Column(name = "attributeScriptPath")
+    @Column(name = "validateFormScriptPath")
     private String m_strScriptPath;
 
-    public AttributeScript(final String strScriptPath) {
+    @Lob
+    @Column(name = "validateFormScript")
+    private String m_strScript;
+
+    public FormScript(final String strScriptPath) {
         if (StringPredicates.isNullOrEmpty(strScriptPath) || !strScriptPath.matches(m_strRegex)) {
             throw new IllegalArgumentException(
                     "Attribute Script should neither be null nor empty and be a valid file path");
         }
+
         // expression
         this.m_strScriptPath = strScriptPath;
     }
 
-    protected AttributeScript() {
+    protected FormScript() {
         // for ORM
     }
 
-    public static AttributeScript valueOf(final String strScriptPath) {
-        return new AttributeScript(strScriptPath);
+    public static FormScript valueOf(final String strScriptPath) {
+        return new FormScript(strScriptPath);
     }
 
     @Override
@@ -49,11 +50,11 @@ public class AttributeScript implements ValueObject, Comparable<AttributeScript>
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AttributeScript)) {
+        if (!(o instanceof FormScript)) {
             return false;
         }
 
-        final AttributeScript that = (AttributeScript) o;
+        final FormScript that = (FormScript) o;
         return this.m_strScriptPath.equals(that.m_strScriptPath);
     }
 
@@ -68,7 +69,7 @@ public class AttributeScript implements ValueObject, Comparable<AttributeScript>
     }
 
     @Override
-    public int compareTo(final AttributeScript arg0) {
+    public int compareTo(final FormScript arg0) {
         return m_strScriptPath.compareTo(arg0.m_strScriptPath);
     }
 }
