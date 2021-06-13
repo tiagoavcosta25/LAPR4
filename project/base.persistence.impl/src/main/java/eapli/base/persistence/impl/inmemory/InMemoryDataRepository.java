@@ -52,7 +52,7 @@ public class InMemoryDataRepository extends InMemoryDomainRepository<Ticket, Lon
 
     @Override
     public Long numberOfNearExpiredActivities(String oUserName) {
-        return 0L;
+        return prioritySearch(oUserName, TaskPriority.LOW);
     }
 
     @Override
