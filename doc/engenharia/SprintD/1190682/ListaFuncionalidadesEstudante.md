@@ -14,7 +14,7 @@
 | **C**  | [US-2-3002](refinement/US-2-3002_ServiceSolicitation)
 | **C**  | [US-4-5001](refinement/US-4-5001_AutoTaskExecutor)
 | **D**  | [US-4-5003](US-4-5003_CompleteExecutor)
-| **D**  | [US-4-5002](refinement/US-4-5002_ExecutorSSL)
+| **D**  | [US-4-5002](US-4-5002_ExecutorSSL)
 | **D**  | [US-2-3031](US-2-3031_SerchTickets)
 | **D**  | [US-3-4071](US-3-4071_DistribuitonAlgorithms) |
 | **D**  | [US-5-9002](US-5-9002_Presentation) |
