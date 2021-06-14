@@ -151,13 +151,8 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public TicketRepository tickets(TransactionalContext autoTx) {
-		return null;
-	}
-
-	@Override
 	public TicketRepository tickets() {
-		return tickets(null);
+		return tickets();
 	}
 
 	@Override
