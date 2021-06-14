@@ -1,0 +1,92 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Collaborator" as COLLAB
+
+participant "<<presentation>>\nSearchTicketsUI" as UI
+participant "<<application>>\nSearchTicketsController" as CTRL
+database "<<repository>>\nTicketRepository" as TR
+participant "<<persistence>>\nPersistenceContext" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+participant "<<domain>>\nTicket" as T
+participant "<<domain>>\nResponse" as RS
+participant "<<domain>>\nCatalogue" as C
+participant "<<domain>>\nService" as S
+participant "<<domain>>\nTicketUrgency" as TU
+participant "<<domain>>\nTicketLimitDate" as TD
+participant "<<domain>>\nTicketCreationDate" as TC
+participant "<<domain>>\nTicketStatus" as TS
+participant "<<domain>>\nTicketFile" as TF
+participant "<<domain>>\nAttribute" as A
+participant "<<domain>>\nForm" as F
+
+activate COLLAB
+
+COLLAB -> UI : initiates the ticket query request
+activate UI
+
+UI -> CTRL** : create
+activate CTRL
+
+ref over CTRL
+  US-2-3031_SD_Repo
+end ref
+
+UI -> COLLAB : requests the user to choose on going or history mode
+deactivate UI
+deactivate CTRL
+
+COLLAB -> UI : chooses the mode
+activate UI
+
+alt if the user selects history mode
+UI -> CTRL : getTicketHistory()
+activate CTRL
+
+CTRL -> TR : getTicketHistory(username)
+activate TR
+TR --> CTRL : lstTickets
+deactivate TR
+
+CTRL --> UI : lstTickets
+deactivate CTRL
+
+else if the user selects on going mode
+
+UI -> CTRL : getOnGoingTickets()
+activate CTRL
+
+CTRL -> TR : getOnGoingTickets(username)
+activate TR
+TR --> CTRL : lstTickets
+deactivate TR
+
+CTRL --> UI : lstTickets
+deactivate CTRL
+end
+
+loop until the user wants to leave
+
+UI -> COLLAB : presents the tickets to the user
+deactivate UI
+
+alt if the user wants to see a detailed view of a specific ticket
+
+COLLAB -> UI : chooses the ticket
+activate UI
+
+
+
+UI -> COLLAB : presents the detailed information of said ticket
+deactivate UI
+
+end
+
+end
+
+deactivate COLLAB
+
+@enduml
+
