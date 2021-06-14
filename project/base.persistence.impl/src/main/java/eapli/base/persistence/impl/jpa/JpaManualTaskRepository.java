@@ -29,7 +29,7 @@ public class JpaManualTaskRepository extends JpaAutoTxRepository<ManualTask, Lon
     public Optional<ManualTask> findById(Long lngID) {
         final Map<String, Object> params = new HashMap<>();
         params.put("taskID", lngID);
-        return matchOne("e.id=:executionTaskID", params);
+        return matchOne("e.id=:taskID", params);
     }
 
 }
