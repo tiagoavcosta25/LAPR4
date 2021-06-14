@@ -26,6 +26,8 @@ package eapli.base.taskmanagement.execution.application;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
+import eapli.base.taskmanagement.execution.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.specification.domain.ManualTask;
 import eapli.base.taskmanagement.specification.repositories.TaskRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -35,24 +37,10 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 /**
  *
+ * @author Tiago Costa 1191460@isep.ipp.pt
  * @author Beatriz Seixas 1190424@isep.ipp.pt
  */
 @UseCaseController
 public class AssignTasksController {
-    private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
 
-    private final CollaboratorRepository collabRepo = PersistenceContext.repositories().collaborators();
-    private final TaskRepository taskRepo = PersistenceContext.repositories().tasks();
-
-    public Iterable<ManualTask> getPendingTasks() {
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        Iterable<ManualTask> itTasks = this.taskRepo.getPendingManualTasks(this.m_oAuthz.session().get().authenticatedUser().username());
-        return itTasks;
-    }
-    public ManualTask assignTask(ManualTask task) {
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        Collaborator collab = this.collabRepo.findByUsername(this.m_oAuthz.session().get().authenticatedUser().username()).get();
-        //task.assignCollaborator(collab); //TODO
-        return this.taskRepo.save(task);
-    }
 }
