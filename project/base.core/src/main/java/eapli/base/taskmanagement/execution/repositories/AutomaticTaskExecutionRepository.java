@@ -10,5 +10,6 @@ import eapli.framework.domain.repositories.DomainRepository;
 public interface AutomaticTaskExecutionRepository extends DomainRepository<Long, AutomaticTaskExecution> {
 
     public Iterable<AutomaticTaskExecution> getPendingAutomaticTasks(Long idFlux);
-    
+
+    public Iterable<ActivityFluxExecution> getActivityFlux();
 }
