@@ -2,6 +2,7 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.ticketmanagement.domain.Ticket;
+import eapli.base.ticketmanagement.domain.TicketStatus;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.util.Application;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -36,18 +37,22 @@ class JpaTicketRepository
     @Override
     public Iterable<Ticket> getTicketHistory(SystemUser oUser) {
         final TypedQuery<Ticket> q = entityManager().createQuery(
-                "SELECT e FROM Ticket e WHERE e.m_oCollaborator.m_oSystemUser.username = :username ORDER BY e.m_oCreationDate DESC",
+                "SELECT e FROM Ticket e WHERE e.m_oCollaborator.m_oSystemUser.username = :username AND e.m_oStatus = :status " +
+                        "ORDER BY e.m_oCreationDate DESC",
                 Ticket.class);
         q.setParameter("username", oUser.identity());
+        q.setParameter("status", TicketStatus.CLOSED);
         return q.getResultList();
     }
 
     @Override
     public Iterable<Ticket> getOnGoingTickets(SystemUser oUser) {
         final TypedQuery<Ticket> q = entityManager().createQuery(
-                "SELECT e FROM Ticket e WHERE e.m_oCollaborator.m_oSystemUser.username = :username ORDER BY e.m_oCreationDate DESC",
+                "SELECT e FROM Ticket e WHERE e.m_oCollaborator.m_oSystemUser.username = :username AND e.m_oStatus = :status " +
+                        "ORDER BY e.m_oCreationDate DESC",
                 Ticket.class);
         q.setParameter("username", oUser.identity());
+        q.setParameter("status", TicketStatus.OPEN);
         return q.getResultList();
     }
 }
