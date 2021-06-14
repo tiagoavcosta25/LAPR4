@@ -26,18 +26,18 @@ public class SearchTicketsUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         try {
-            Iterable<Ticket> lstTickets;
+            Iterable<Ticket> itTickets;
 
-            String strOp = Console.readLine("Choose the mode of search:\n\n [1] On going\n [2] History\n >");
+            String strOp = Console.readLine("Choose Search Mode:\n\n[1] On going\n[2] History\n\nMode >");
             if (strOp.compareToIgnoreCase("1") == 0) {
-                lstTickets = this.theController.getOnGoingTickets();
+                itTickets = this.theController.getOnGoingTickets();
             } else {
-                lstTickets = this.theController.getTicketHistory();
+                itTickets = this.theController.getTicketHistory();
             }
 
             do {
-                Ticket oTicket = chooseOne(lstTickets, "Choose a Ticket", "Ticket");
-                oTicket.toString();
+                Ticket oTicket = chooseOne(itTickets, "Your Tickets", "Ticket");
+                System.out.printf("\n\n%s\n\n", oTicket.toString());
                 strOp = Console.readLine("Do you want to see a detailed view of some more tickets? (Y/N) >");
             } while (strOp.compareToIgnoreCase("Y") == 0);
 
@@ -61,7 +61,7 @@ public class SearchTicketsUI extends AbstractUI {
                 System.out.println("There is no " + strElementName + "s in the Database.\n\n");
                 return null;
             }
-            Integer intOp = Integer.parseInt(Console.readLine("\n\n\nSelect " + strElementName + " Number >"));
+            Integer intOp = Integer.parseInt(Console.readLine("\n\n\nChoose " + strElementName + " Number For a Detailed View >"));
 
             return lstTemp.get(intOp - 1);
 
