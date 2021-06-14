@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * @author Tiago Costa 1191460@isep.ipp.pt
+ * @author Pedro Santos 1190967@isep.ipp.pt
  */
 public class JpaAutomaticTaskRepository extends HelpDeskJpaRepositoryBase<AutomaticTask, Long, Long>
         implements AutomaticTaskRepository {
