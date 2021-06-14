@@ -8,6 +8,8 @@ import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
 /**
+ *
+ * @author Tiago Costa 1191460@isep.ipp.pt
  * @author Beatriz Seixas 1190424@isep.ipp.pt
  */
 public class AssignTasksUI extends AbstractUI {
