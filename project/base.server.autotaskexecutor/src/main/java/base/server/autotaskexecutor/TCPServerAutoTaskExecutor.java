@@ -15,7 +15,7 @@ import javax.net.ssl.SSLServerSocketFactory;
 
 /**
  *
- * @author JÃ©ssica Alves 1190682@isep.ipp.pt
+ * @author Jéssica Alves 1190682@isep.ipp.pt
  */
 public class TCPServerAutoTaskExecutor {
     private static final Logger LOGGER = LogManager.getLogger(TCPServerAutoTaskExecutor.class);
