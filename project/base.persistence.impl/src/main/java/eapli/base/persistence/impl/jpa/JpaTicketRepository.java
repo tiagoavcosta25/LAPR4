@@ -34,16 +34,20 @@ class JpaTicketRepository
     }
 
     @Override
-    public List<Ticket> getTicketHistory(SystemUser oUser) {
+    public Iterable<Ticket> getTicketHistory(SystemUser oUser) {
         final TypedQuery<Ticket> q = entityManager().createQuery(
-                "SELECT e FROM Ticket e WHERE e.m_oSystemUser.username = :username",
+                "SELECT e FROM Ticket e WHERE e.m_oCollaborator.m_oSystemUser.username = :username ORDER BY e.m_oCreationDate DESC",
                 Ticket.class);
         q.setParameter("username", oUser.identity());
         return q.getResultList();
     }
 
     @Override
-    public List<Ticket> getOnGoingTickets(SystemUser oUser) {
-        return null;
+    public Iterable<Ticket> getOnGoingTickets(SystemUser oUser) {
+        final TypedQuery<Ticket> q = entityManager().createQuery(
+                "SELECT e FROM Ticket e WHERE e.m_oCollaborator.m_oSystemUser.username = :username ORDER BY e.m_oCreationDate DESC",
+                Ticket.class);
+        q.setParameter("username", oUser.identity());
+        return q.getResultList();
     }
 }
