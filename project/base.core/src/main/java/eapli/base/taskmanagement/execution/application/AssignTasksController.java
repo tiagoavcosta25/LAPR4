@@ -46,5 +46,11 @@ public class AssignTasksController {
     private final CollaboratorRepository collabRepo = PersistenceContext.repositories().collaborators();
     private final ManualTaskExecutionRepository taskRepo = PersistenceContext.repositories().manualTaskExec();
 
+    public Iterable<ManualTaskExecution> getPendingTasks() {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        Iterable<ManualTaskExecution> itTasks = this.taskRepo.getHisPendingManualTasks(this.m_oAuthz.session().get().authenticatedUser().username());
+        return itTasks;
+    }
+
 
 }
