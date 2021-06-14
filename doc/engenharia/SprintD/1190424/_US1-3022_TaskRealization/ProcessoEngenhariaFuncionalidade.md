@@ -38,9 +38,12 @@
 #### Questões em aberto
 \-
 # 2. Análise
+O utilizador pede realizar uma tarefa que tenho como pendente.
+O sistema mostra a lista de tarefas pendentes
+O utilizador escolhe uma tarefa
+O sistema valida o formulario e completa a tarefa.
 
-
-![US_2_3023_SSD_](US_2_3023_SSD_.svg)
+![US_2_3022_SSD_](US_2_3022_SSD_.svg)
 ### Parte do Modelo de Domínio Relevante para esta User Story
 
 ![US-2-3023_MD](US-2-3023_MD.svg)
@@ -50,7 +53,7 @@
 
 ###	Sequence Diagram
 
-![US_2_3023_SD_](US_2_3023_SD_.png)
+![US-2-3022_SD_](US_2_3022_SD_.svg)
 
 
 

@@ -18,6 +18,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @author Beatriz Seizas 1190424@isep.ipp.pt
+ */
 public class CatalogueSpecificationController {
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
 
