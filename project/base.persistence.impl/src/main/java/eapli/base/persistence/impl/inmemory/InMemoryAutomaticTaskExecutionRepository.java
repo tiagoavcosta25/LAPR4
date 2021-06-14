@@ -22,5 +22,23 @@ public class InMemoryAutomaticTaskExecutionRepository extends InMemoryDomainRepo
         InMemoryInitializer.init();
     }
 
-  
+    @Override
+    public Iterable<AutomaticTaskExecution> getPendingAutomaticTasks(Long idFlux) {
+        ActivityFluxExecutionRepository imAFErepo = PersistenceContext.repositories().fluxExecs();
+        List<AutomaticTaskExecution> lst = new ArrayList<>();
+        Optional<ActivityFluxExecution> oAfe = imAFErepo.findByID(idFlux);
+        ActivityFluxExecution afe;
+        if(oAfe.isPresent()) {
+            afe = oAfe.get();
+        } else
+            return new ArrayList<>();
+        for(TaskExecution te : afe.flux()) {
+            if(te.getClass().equals(AutomaticTaskExecution.class)) {
+                lst.add((AutomaticTaskExecution) te);
+            }
+        }
+        return lst;
+    }
+
+
 }
