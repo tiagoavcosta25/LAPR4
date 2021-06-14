@@ -18,31 +18,28 @@ import javax.persistence.*;
 public class FormScript implements ValueObject, Comparable<FormScript> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "([a-zA-Z]:)?(/[a-zA-Z0-9_.-]+)+/[a-zA-Z0-9_.-]+.txt";
-
-    @Column(name = "validateFormScriptPath")
-    private String m_strScriptPath;
+    //private static final String m_strRegex = "([a-zA-Z]:)?(/[a-zA-Z0-9_.-]+)+/[a-zA-Z0-9_.-]+.txt";
 
     @Lob
     @Column(name = "validateFormScript")
-    private String m_strScript;
+    private String m_strScriptContent;
 
-    public FormScript(final String strScriptPath) {
-        if (StringPredicates.isNullOrEmpty(strScriptPath) || !strScriptPath.matches(m_strRegex)) {
+    public FormScript(final String strScriptContent) {
+        if (StringPredicates.isNullOrEmpty(strScriptContent)) {
             throw new IllegalArgumentException(
                     "Attribute Script should neither be null nor empty and be a valid file path");
         }
 
         // expression
-        this.m_strScriptPath = strScriptPath;
+        this.m_strScriptContent = strScriptContent;
     }
 
     protected FormScript() {
         // for ORM
     }
 
-    public static FormScript valueOf(final String strScriptPath) {
-        return new FormScript(strScriptPath);
+    public static FormScript valueOf(final String strScriptContent) {
+        return new FormScript(strScriptContent);
     }
 
     @Override
@@ -55,21 +52,21 @@ public class FormScript implements ValueObject, Comparable<FormScript> {
         }
 
         final FormScript that = (FormScript) o;
-        return this.m_strScriptPath.equals(that.m_strScriptPath);
+        return this.m_strScriptContent.equals(that.m_strScriptContent);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strScriptPath.hashCode();
+        return this.m_strScriptContent.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strScriptPath;
+        return this.m_strScriptContent;
     }
 
     @Override
     public int compareTo(final FormScript arg0) {
-        return m_strScriptPath.compareTo(arg0.m_strScriptPath);
+        return m_strScriptContent.compareTo(arg0.m_strScriptContent);
     }
 }
