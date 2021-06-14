@@ -25,6 +25,4 @@ class JpaTaskRepository
         params.put("taskID", lngID);
         return matchOne("e.id=:taskID", params);
     }
-    
-
 }
