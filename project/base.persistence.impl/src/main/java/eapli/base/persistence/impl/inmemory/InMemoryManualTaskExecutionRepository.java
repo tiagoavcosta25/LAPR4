@@ -50,5 +50,20 @@ public class InMemoryManualTaskExecutionRepository extends InMemoryDomainReposit
         return lst;
     }
 
-
+    @Override
+    public Iterable<ActivityFluxExecution> getHisActivityFluxWithManualTasks(Username oUsername) {
+        ActivityFluxExecutionRepository imAFErepo = PersistenceContext.repositories().fluxExecs();
+        List<ActivityFluxExecution> lst = new ArrayList<>();
+        Iterator<ActivityFluxExecution> iAfe = imAFErepo.findAll().iterator();
+        ActivityFluxExecution next;
+        while(iAfe.hasNext()) {
+            next = iAfe.next();
+            for(TaskExecution te : next.flux()) {
+                if(te.getClass().equals(ManualTaskExecution.class)) {
+                    lst.add(next);
+                }
+            }
+        }
+        return lst;
+    }
 }
