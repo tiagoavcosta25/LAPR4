@@ -51,10 +51,10 @@ public class AssignTasksController {
         return this.taskRepo.getHisPendingManualTasks(this.m_oAuthz.session().get().authenticatedUser().username());
     }
 
-        public ManualTaskExecution assignTask(ManualTaskExecution task) {
-            this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-            Collaborator collab = this.collabRepo.findByUsername(this.m_oAuthz.session().get().authenticatedUser().username()).get();
-            task.assignCollaborator(collab);
-            return this.taskRepo.save(task);
-        }
+    public ManualTaskExecution assignTask(ManualTaskExecution task) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        Collaborator collab = this.collabRepo.findByUsername(this.m_oAuthz.session().get().authenticatedUser().username()).get();
+        task.assignCollaborator(collab);
+        return this.taskRepo.save(task);
+    }
 }
