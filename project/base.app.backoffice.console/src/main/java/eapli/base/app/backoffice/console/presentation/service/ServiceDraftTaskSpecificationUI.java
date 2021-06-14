@@ -29,10 +29,12 @@ import eapli.base.formmanagement.domain.Form;
 import eapli.base.formmanagement.domain.FormType;
 import eapli.base.servicemanagement.application.ServiceDraftSpecificationController;
 import eapli.base.servicemanagement.domain.ServiceDraft;
+import eapli.base.taskmanagement.specification.domain.ManualTask;
 import eapli.base.taskmanagement.specification.domain.TaskPriority;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,7 +67,12 @@ public class ServiceDraftTaskSpecificationUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 String strApprovalDescription = Console.readLine("Task Description? >");
-                this.theController.addApprovalTask(strApprovalDescription);
+                insertForm(oServiceDraft);
+                Form oForm = this.theController.saveForm();
+                ManualTask oApproval = this.theController.newManualTask(strApprovalDescription, TaskPriority.HIGH.toString(), oForm);
+
+
+                this.theController.approvalTask(oApproval);
             }
 
             List<String> lstTaskTypes = new ArrayList<>(Arrays.asList("Manual Task", "Automatic Task"));
@@ -80,7 +87,7 @@ public class ServiceDraftTaskSpecificationUI extends AbstractUI {
                 Form oForm = this.theController.saveForm();
                 this.theController.newManualTask(strDescription, oTaskPriority.toString(), oForm);
             } else{
-                String strScript = Console.readLine("Automatic Task Script? >");
+                String strScript = Console.readLine("Automatic Task Script Name (present in the script folder) >");
                 this.theController.newAutoTask(strDescription, oTaskPriority.toString(), strScript);
             }
 
@@ -101,9 +108,11 @@ public class ServiceDraftTaskSpecificationUI extends AbstractUI {
 
         return false;
     }
-    private void insertForm(ServiceDraft oServiceDraft) {
+    private void insertForm(ServiceDraft oServiceDraft) throws IOException {
+        this.theController.clearForm();
         final String strFormName = Console.readLine("Form Name >");
-        this.theController.addForm(oServiceDraft, strFormName.trim(), FormType.MANUALTASK.toString());
+        final String strScript = Console.readLine("Validation Script >");
+        this.theController.addForm(oServiceDraft, strFormName.trim(), FormType.MANUALTASK.toString(), strScript);
         boolean blFlag;
         do {
             blFlag = insertAttribute();
@@ -115,12 +124,11 @@ public class ServiceDraftTaskSpecificationUI extends AbstractUI {
         final String strAttributeLabel = Console.readLine("Attribute Label >");
         final String strAttributeDescription = Console.readLine("Attribute Description >");
         final String strAttributeRegex = Console.readLine("Attribute Regex >");
-        final String strAttributeScript = Console.readLine("Attribute Script >");
 
 
         DataType oDataType = PrintList.chooseOne(this.theController.showDataTypes(), "Choose a Data Type for this Attribute", "Data Type");
 
-        this.theController.addAttribute(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, strAttributeScript, oDataType.toString());
+        this.theController.addAttribute(strAttributeName, strAttributeLabel, strAttributeDescription, strAttributeRegex, oDataType.toString());
 
         String strOp = Console.readLine("Do you want to add another attribute to this service? (Y/N) >");
         return strOp.compareToIgnoreCase("N") == 0;

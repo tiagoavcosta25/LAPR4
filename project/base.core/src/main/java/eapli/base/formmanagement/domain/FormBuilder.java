@@ -12,6 +12,7 @@ public class FormBuilder implements DomainFactory<Form> {
 
     private FormName m_oName;
     private FormType m_oFormType;
+    private FormScript m_oFormScriptContent;
     private List<Attribute> m_lstAttributes;
 
     public FormBuilder withName(String strName) {
@@ -24,6 +25,11 @@ public class FormBuilder implements DomainFactory<Form> {
         return this;
     }
 
+    public FormBuilder withScript(String strScriptContent) {
+        this.m_oFormScriptContent = FormScript.valueOf(strScriptContent);
+        return this;
+    }
+
     public FormBuilder withAttributeList(List<Attribute> lstAttributes) {
         this.m_lstAttributes = lstAttributes;
         return this;
@@ -33,6 +39,6 @@ public class FormBuilder implements DomainFactory<Form> {
     public Form build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new Form(this.m_oName, this.m_oFormType,this.m_lstAttributes);
+        return new Form(this.m_oName, this.m_oFormType, this.m_oFormScriptContent,this.m_lstAttributes);
     }
 }

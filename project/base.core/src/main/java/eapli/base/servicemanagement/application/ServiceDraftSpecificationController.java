@@ -37,6 +37,7 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,11 +74,13 @@ public class ServiceDraftSpecificationController {
         return this.m_oServiceDraft;
     }
 
-    public void addForm(ServiceDraft oServiceDraft, String strName, String strType) {
+    public void addForm(ServiceDraft oServiceDraft, String strName, String strType, String strScriptName) throws IOException {
         this.m_oServiceDraft = oServiceDraft;
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
         this.formBuilder = this.formBuilder.withName(strName);
         this.formBuilder = this.formBuilder.withType(strType);
+        String strScriptContent = this.m_oServiceDraftSpecificationService.getScriptContent(strScriptName, true);
+        this.formBuilder = this.formBuilder.withScript(strScriptContent);
     }
 
     public List<DataType> showDataTypes() {
@@ -85,10 +88,16 @@ public class ServiceDraftSpecificationController {
         return Arrays.asList(DataType.values());
     }
 
-    public Attribute addAttribute(String strName, String strLabel, String strDescription,
-                                  String strRegex, String strScript, String strDataType) {
+    public void clearForm() {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        Attribute oAttribute = this.m_oServiceDraftSpecificationService.addAttribute(strName, strLabel, strDescription, strRegex, strScript, strDataType);
+        this.m_lstAttributes.clear();
+        this.formBuilder = new FormBuilder();
+    }
+
+    public Attribute addAttribute(String strName, String strLabel, String strDescription,
+                                  String strRegex, String strDataType) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        Attribute oAttribute = this.m_oServiceDraftSpecificationService.addAttribute(strName, strLabel, strDescription, strRegex, strDataType);
         this.m_lstAttributes.add(oAttribute);
         return oAttribute;
     }
@@ -154,13 +163,9 @@ public class ServiceDraftSpecificationController {
         this.m_oServiceDraft = oServiceDraft;
     }
 
-    public void addApprovalTask(String strDescription) {
-        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
-        Form oForm = this.m_oServiceDraftSpecificationService.generateApprovalForm();
-        oForm = this.formRepo.save(oForm);
-        this.m_oApprovalTask = this.m_oServiceDraftSpecificationService.addApprovalTask(strDescription, oForm);
-        this.m_oApprovalTask = this.saveManualTask(this.m_oApprovalTask);
+    public void approvalTask(ManualTask oApprovalTask) throws IOException {
         this.m_blnApprovalFlag = true;
+        this.m_oApprovalTask = oApprovalTask;
     }
 
     public ManualTask saveManualTask(ManualTask oManualTask) {
@@ -183,10 +188,11 @@ public class ServiceDraftSpecificationController {
         return oManualTask;
     }
 
-    public AutomaticTask newAutoTask(String strDescription, String strPriority, String strScriptPath) {
+    public AutomaticTask newAutoTask(String strDescription, String strPriority, String strScriptName) throws IOException {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HS_MANAGER);
+        String strScriptContent = this.m_oServiceDraftSpecificationService.getScriptContent(strScriptName, false);
         AutomaticTask oAutomaticTask = new AutomaticTask(new TaskDescription(strDescription), TaskPriority.stringToTaskPriority(strPriority),
-                new AutomaticTaskScript(strScriptPath));
+                new AutomaticTaskScript(strScriptContent));
         oAutomaticTask = this.saveAutomaticTask(oAutomaticTask);
         this.m_oResolutionTask = oAutomaticTask;
         return oAutomaticTask;

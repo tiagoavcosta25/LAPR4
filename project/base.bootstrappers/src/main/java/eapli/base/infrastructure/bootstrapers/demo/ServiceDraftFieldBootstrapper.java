@@ -62,7 +62,7 @@ public class ServiceDraftFieldBootstrapper implements Action {
 
             oServiceDraft = this.m_oCtrl.saveServiceDraft();
         } catch (final ConcurrencyException | IntegrityViolationException e) {
-            LOGGER.error("Error Saving the Draft.");
+            LOGGER.error("Error Saving the Draft (Field).");
         }
         return oServiceDraft;
     }

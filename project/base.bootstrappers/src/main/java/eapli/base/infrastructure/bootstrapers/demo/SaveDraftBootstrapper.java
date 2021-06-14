@@ -38,8 +38,8 @@ public class SaveDraftBootstrapper implements Action {
             ServiceDraft oServiceDraft = itServiceDrafts.iterator().next();
             Catalogue oCatalogue = this.m_oCtrl.getCatalogues().iterator().next();
             oService = this.m_oCtrl.saveService(oServiceDraft, oCatalogue);
-        } catch (final ConcurrencyException | IntegrityViolationException e) {
-            LOGGER.error("Error Saving the Draft.");
+        } catch (final Exception e) {
+            LOGGER.error("Error Saving the Service.");
         }
         return oService;
     }
