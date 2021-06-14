@@ -3,6 +3,7 @@ package eapli.base.ticketmanagement.application;
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
+import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.formmanagement.domain.Form;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.Service;
@@ -29,6 +30,7 @@ public class ServiceSolicitationController {
     private final CatalogueRepository m_oCatRepo = PersistenceContext.repositories().catalogues();
     private final ServiceRepository m_oServRepo = PersistenceContext.repositories().services();
     private final ResponseRepository m_oRespRepo = PersistenceContext.repositories().responses();
+    private final CollaboratorRepository m_oCollaboratorRepo = PersistenceContext.repositories().collaborators();
     private final List<String> m_lstAnswer = new ArrayList<>();
     private final List<Response> m_lstResponses = new ArrayList<>();
     private final List<TicketFile> m_lstFiles = new ArrayList<>();
@@ -73,7 +75,8 @@ public class ServiceSolicitationController {
 
         ActivityFluxExecution oFlux = this.m_oServiceSolicitationService.createActivityFluxExecution(oService);
         return new Ticket(TicketUrgency.stringToTicketUrgency(strUrgency),
-                new TicketLimitDate(dtLimitDate), new TicketCreationDate(dtCreationDate), this.m_lstResponses, oFlux, this.m_lstFiles, oService);
+                new TicketLimitDate(dtLimitDate), new TicketCreationDate(dtCreationDate), this.m_lstResponses, oFlux, this.m_lstFiles, oService,
+                this.m_oCollaboratorRepo.findByUsername(this.m_oAuthz.session().get().authenticatedUser().username()).get());
     }
 
     public Ticket saveTicket(Ticket oTicket){
