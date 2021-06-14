@@ -45,5 +45,16 @@ public class JpaManualTaskExecutionRepository extends HelpDeskJpaRepositoryBase<
         return q.getResultList();
     }
 
-
+    @Override
+    public Iterable<ActivityFluxExecution> getHisActivityFluxWithManualTasks(Username oUsername) {
+        final TypedQuery<ActivityFluxExecution> q = entityManager().createQuery(
+                "SELECT distinct afe FROM ActivityFluxExecution afe JOIN afe.m_lstFlux lst " +
+                        "INNER JOIN TaskExecution te ON te.id = lst.id " +
+                        "INNER JOIN ManualTaskExecution mte ON mte.id = te.id " +
+                        "WHERE mte.m_oCollaborator.m_oSystemUser.username =: uname AND te.m_oTaskStatus =: pending",
+                ActivityFluxExecution.class);
+        q.setParameter("pending", TaskExecutionStatus.PENDING);
+        q.setParameter("uname", oUsername);
+        return q.getResultList();
+    }
 }
