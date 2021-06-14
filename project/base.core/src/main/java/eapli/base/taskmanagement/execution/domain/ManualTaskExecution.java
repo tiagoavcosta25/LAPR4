@@ -24,11 +24,13 @@
 package eapli.base.taskmanagement.execution.domain;
 
 import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.taskmanagement.specification.domain.ManualTask;
 import eapli.base.taskmanagement.specification.domain.Task;
 import eapli.base.ticketmanagement.domain.Response;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -49,12 +51,21 @@ public class ManualTaskExecution extends TaskExecution{
     @JoinColumn(name="responses")
     private Response m_oResponse;
 
-    public ManualTaskExecution(final Task oTask) {
-        super(oTask);
+    @ManyToOne
+    private ManualTask m_oManualTask;
+
+    public ManualTaskExecution(final ManualTask oManualTask) {
+        this.m_oManualTask = oManualTask;
+        super.setPending();
+        super.setResult(TaskExecutionResult.NO_RESULT);
     }
 
     protected ManualTaskExecution() {
         // for ORM only
+    }
+
+    public ManualTask getM_oManualTask() {
+        return m_oManualTask;
     }
 
     public Collaborator getM_oCollaborator() {
@@ -80,6 +91,6 @@ public class ManualTaskExecution extends TaskExecution{
 
     @Override
     public String toString() {
-        return "Manual Task Execution #" + this.id() + ": " + " | Task #" + this.task().id() + ": " + this.task().description();
+        return "Manual Task Execution #" + this.id() + ": " + " | Task #" + this.m_oManualTask.id() + ": " + this.m_oManualTask.description();
     }
 }
