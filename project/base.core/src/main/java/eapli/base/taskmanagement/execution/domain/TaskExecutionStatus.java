@@ -5,6 +5,11 @@
  */
 package eapli.base.taskmanagement.execution.domain;
 
+/**
+ * @author Jéssica Alves 1190682@isep.ipp.pt
+ * @author Pedro Santos 1190967@isep.ipp.pt
+ */
+
 public enum TaskExecutionStatus {
     PENDING, DOING, DONE;
 

@@ -34,8 +34,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
- *
- * @author Tiago Costa 1191460@isep.ipp.pt
  * @author Jéssica Alves 1190682@isep.ipp.pt
  * @author Pedro Santos 1190967@isep.ipp.pt
  */

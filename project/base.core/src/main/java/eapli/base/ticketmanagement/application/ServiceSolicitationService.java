@@ -32,6 +32,8 @@ import eapli.base.taskmanagement.execution.domain.AutomaticTaskExecution;
 import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
 import eapli.base.taskmanagement.execution.domain.TaskExecution;
 import eapli.base.taskmanagement.execution.repositories.TaskExecutionRepository;
+import eapli.base.taskmanagement.specification.domain.AutomaticTask;
+import eapli.base.taskmanagement.specification.domain.ManualTask;
 import eapli.base.taskmanagement.specification.domain.Task;
 import eapli.base.taskmanagement.specification.repositories.TaskRepository;
 import eapli.framework.application.ApplicationService;
@@ -56,14 +58,13 @@ public class ServiceSolicitationService {
 
         for(Task t : oService.flux().flux()){
 
-            //boolean flag = this.m_oTaskRepo.isManualTask(t.id());
-            boolean flag = true;
+            boolean flag = this.m_oTaskRepo.isManualTask(t.id());
             if(flag){
-                ManualTaskExecution oManualExec = new ManualTaskExecution(t);
+                ManualTaskExecution oManualExec = new ManualTaskExecution((ManualTask) t);
                 oManualExec = this.m_oTaskExecRepo.save(oManualExec);
                 lstFlux.add(oManualExec);
             } else{
-                AutomaticTaskExecution oAutoExec = new AutomaticTaskExecution(t);
+                AutomaticTaskExecution oAutoExec = new AutomaticTaskExecution((AutomaticTask) t);
                 oAutoExec = this.m_oTaskExecRepo.save(oAutoExec);
                 lstFlux.add(oAutoExec);
             }
