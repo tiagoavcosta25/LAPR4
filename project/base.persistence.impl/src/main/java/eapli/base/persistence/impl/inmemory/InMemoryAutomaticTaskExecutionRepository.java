@@ -15,7 +15,12 @@ import java.util.Optional;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class InMemoryAutomaticTaskExecutionRepository  {
+public class InMemoryAutomaticTaskExecutionRepository extends InMemoryDomainRepository<AutomaticTaskExecution, Long>
+        implements AutomaticTaskExecutionRepository {
 
+    static {
+        InMemoryInitializer.init();
+    }
 
+  
 }
