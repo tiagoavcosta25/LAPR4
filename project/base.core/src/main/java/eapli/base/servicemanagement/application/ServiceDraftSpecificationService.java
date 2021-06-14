@@ -50,24 +50,6 @@ import java.util.List;
 public class ServiceDraftSpecificationService {
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
     private AttributeBuilder attributeBuilder = new AttributeBuilder();
-    private final String APPROVAL_FORM_NAME = "Approval Form";
-    private final String APPROVAL_NAME = "Approval";
-    private final String APPROVAL_LABEL = "Approval";
-    private final String APPROVAL_DESC = "Did this service get approved or rejected";
-    private final String APPROVAL_REGEX = "Approval|Rejected";
-    private final String APPROVAL_SCRIPT = "validate_form_script";
-    private final String APPROVAL_DATA = "STRING";
-
-    public ManualTask addApprovalTask(String strDescription, Form oForm) {
-        return new ManualTask(new TaskDescription(strDescription), TaskPriority.HIGH, oForm);
-    }
-
-    public Form generateApprovalForm() throws IOException {
-        List<Attribute> lstAttributes = new ArrayList<>();
-        lstAttributes.add(this.addAttribute(APPROVAL_NAME, APPROVAL_LABEL, APPROVAL_DESC, APPROVAL_REGEX, APPROVAL_DATA));
-        return new Form(new FormName(APPROVAL_FORM_NAME), FormType.MANUALTASK,
-                new FormScript(getScriptContent(APPROVAL_SCRIPT, true)), lstAttributes);
-    }
 
     public Attribute addAttribute(String strName, String strLabel, String strDescription,
                                   String strRegex, String strDataType) {

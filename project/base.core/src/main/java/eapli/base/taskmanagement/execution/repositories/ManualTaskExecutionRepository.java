@@ -6,7 +6,8 @@ import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
 /**
- * @author Tiago Costa 1191460@isep.ipp.pt
+ * @author Jéssica Alves 1190682@isep.ipp.pt
+ * @author Pedro Santos 1190967@isep.ipp.pt
  */
 public interface ManualTaskExecutionRepository extends DomainRepository<Long, ManualTaskExecution> {
 
