@@ -10,7 +10,12 @@ import javax.persistence.TypedQuery;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class JpaAutomaticTaskExecutionRepository {
+public class JpaAutomaticTaskExecutionRepository extends HelpDeskJpaRepositoryBase<AutomaticTaskExecution, Long, Long>
+        implements AutomaticTaskExecutionRepository {
+
+    public JpaAutomaticTaskExecutionRepository() {
+        super("m_lngID");
+    }
 
 
 }
