@@ -19,6 +19,9 @@ import java.util.List;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class ExecuteManualTaskUI  {
+public class ExecuteManualTaskUI extends AbstractUI {
+
+    private final ExecuteManualTaskController theController = new ExecuteManualTaskController();
+
 
 }
