@@ -1,0 +1,255 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Gestor de Serviços de Help Desk" as HSM
+
+participant "<<presentation>>\nServiceDraftFormSpecificationUI" as UI
+participant "<<application>>\nServiceDraftSpecificationController" as CTRL
+database "<<repository>>\nServiceDraftRepository" as SR
+participant "<<domain>>\nFormType" as FT
+participant "<<builder>>\nFormBuilder" as FBD
+participant "<<domain>>\nDataType" as DT
+participant "<<builder>>\nAttributeBuilder" as ABD
+participant "<<domain>>\nAttribute" as A
+participant "<<domain>>\nForm" as F
+database "<<repository>>\nFormRepository" as FR
+participant "<<domain>>\nServiceDraft" as S
+participant "<<persistence>>\nPersistenceContext" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+participant "<<domain>>\nFormName" as FM
+participant "<<domain>>\nAttributeName" as AN
+participant "<<domain>>\nAttributeLabel" as AL
+participant "<<domain>>\nAttributeDescription" as AD
+participant "<<domain>>\nAttributeRegex" as AR
+participant "<<domain>>\nAttributeScript" as ASC
+
+activate HSM
+
+HSM -> UI : initiates the request to add/update a field in a service draft
+activate UI
+
+UI -> CTRL** : create
+activate CTRL
+
+ref over CTRL
+  US-1-2002_SD_Repo
+end ref
+
+UI -> HSM : asks if the user pretends to use an existing draft
+deactivate CTRL
+deactivate UI
+
+HSM -> UI : responds
+activate UI
+
+alt if the user pretends to use an existing draft
+
+UI -> CTRL : getDrafts()
+activate CTRL
+
+CTRL -> SR : findAll()
+activate SR
+SR --> CTRL : drafts
+deactivate SR
+
+CTRL --> UI : drafts
+deactivate CTRL
+
+UI -> HSM : presents the draft list and asks the user to choose a draft
+deactivate UI
+
+HSM -> UI : chooses a draft
+activate UI
+
+else if the user pretends to use create a new draft
+
+UI -> CTRL : newDraft()
+activate CTRL
+
+CTRL --> S** : create
+deactivate CTRL
+end
+
+loop until the user doesn't want to add more forms
+UI -> HSM : requests the user to insert the form's name
+deactivate UI
+
+HSM -> UI : inserts the form's name
+activate UI
+
+UI -> CTRL : showFormTypes()
+activate CTRL
+
+CTRL -> FT : values()
+activate FT
+
+FT --> CTRL : formTypes
+deactivate FT
+
+CTRL --> UI : formTypes
+deactivate CTRL
+
+UI -> HSM : presents the available form types
+deactivate UI
+
+HSM -> UI : selects a form type
+activate UI
+
+UI -> CTRL : addForm(name, formType)
+activate CTRL
+
+CTRL -> FBD** : create
+CTRL -> FBD : withName(name)
+activate FBD
+deactivate FBD
+
+CTRL -> FBD : withFormType(formType)
+activate FBD
+deactivate FBD
+deactivate CTRL
+
+loop until the user doesn't want to add more forms
+UI -> HSM : requests the user to insert the attribute's data (name, label, description, regex, scriptPath)
+deactivate UI
+
+HSM -> UI : inserts the data
+activate UI
+
+UI -> CTRL : showDataTypes()
+activate CTRL
+
+CTRL -> DT : values()
+activate DT
+
+DT --> CTRL : dataTypes
+deactivate DT
+
+CTRL --> UI : dataTypes
+deactivate CTRL
+
+UI -> HSM : presents the available data types
+deactivate UI
+
+HSM -> UI : selects the data types
+activate UI
+
+UI -> CTRL : addAttribute(name, label, description, regex, scriptPath, dataType)
+activate CTRL
+
+CTRL -> ABD** : create
+CTRL -> ABD : withName(name)
+activate ABD
+deactivate ABD
+
+CTRL -> ABD : withLabel(label)
+activate ABD
+deactivate ABD
+
+CTRL -> ABD : withDescription(description)
+activate ABD
+deactivate ABD
+
+CTRL -> ABD : withRegex(regex)
+activate ABD
+deactivate ABD
+
+CTRL -> ABD : withScript(scriptPath)
+activate ABD
+deactivate ABD
+
+CTRL -> ABD : withDataType(dataType)
+activate ABD
+deactivate ABD
+
+CTRL -> ABD : build()
+activate ABD
+
+ABD -> A** : create(name, label, description, regex, scriptPath, dataType)
+activate A
+
+A --> ABD : attribute
+deactivate A
+
+ABD --> CTRL : attribute
+deactivate ABD
+
+CTRL --> UI : attribute
+deactivate CTRL
+
+UI -> HSM : asks if there is more attribute to add to the current form
+deactivate UI
+
+HSM -> UI : responds
+activate UI
+end
+
+UI -> CTRL : saveForm()
+activate CTRL
+
+CTRL -> FBD : withAttributeList(attributeList)
+activate FBD
+deactivate FBD
+
+CTRL -> FBD : build()
+activate FBD
+
+FBD -> F** : create(name, formType, attributeList)
+activate F
+
+F --> FBD : form
+deactivate F
+
+FBD --> CTRL : form
+deactivate FBD
+
+CTRL -> FR : save(form)
+activate FR
+FR --> CTRL : form
+deactivate FR
+
+CTRL --> UI : form
+deactivate CTRL
+
+UI -> HSM : asks if there is more forms to add to the current draft
+deactivate UI
+
+HSM -> UI : responds
+activate UI
+end
+
+UI -> CTRL : addFormToDraft()
+activate CTRL
+
+CTRL -> S : setFormList(formList)
+activate S
+
+S --> CTRL : serviceDraft
+deactivate S
+
+CTRL --> UI : serviceDraft
+deactivate CTRL
+
+UI -> HSM : validates, presents the current \ninformation in the draft and asks for confirmation
+deactivate UI
+
+HSM -> UI : confirms
+activate UI
+
+UI -> CTRL : saveServiceDraft()
+activate CTRL
+
+CTRL -> SR : save(serviceDraft)
+activate SR
+SR --> CTRL : serviceDraft
+deactivate SR
+
+CTRL --> UI : serviceDraft
+deactivate CTRL
+
+UI -> HSM : registers the draft in the persistence\n and informs of the success of the operation
+deactivate UI
+deactivate HSM
+
+@enduml
