@@ -58,7 +58,8 @@ public class ServiceSolicitationService {
 
         for(Task t : oService.flux().flux()){
 
-            boolean flag = this.m_oTaskRepo.isManualTask(t.id());
+            //boolean flag = this.m_oTaskRepo.isManualTask(t.id());
+            boolean flag = true;
             if(flag){
                 ManualTaskExecution oManualExec = new ManualTaskExecution((ManualTask) t);
                 oManualExec = this.m_oTaskExecRepo.save(oManualExec);
