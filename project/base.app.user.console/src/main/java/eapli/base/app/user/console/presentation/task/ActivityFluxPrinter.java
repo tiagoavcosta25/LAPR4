@@ -7,6 +7,9 @@ import eapli.framework.visitor.Visitor;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class ActivityFluxPrinter  {
-
+public class ActivityFluxPrinter implements Visitor<ActivityFluxExecution> {
+    @Override
+    public void visit(ActivityFluxExecution visitee) {
+        System.out.println("Activity Flux " +  visitee.toString());
+    }
 }
