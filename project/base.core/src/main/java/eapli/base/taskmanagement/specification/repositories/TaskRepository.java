@@ -21,5 +21,5 @@ public interface TaskRepository
         return ofIdentity(lngID);
     }
 
-    boolean isManualTask(Long lngID);
+
 }
