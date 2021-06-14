@@ -5,15 +5,14 @@
 # 1. Requisitos
 
 
-**US1005** Como utilizador, eu pretendo consultar as tarefas pendentes que eu posso reivindicar para mim e, caso o deseje, concretize essa reivindicação.
-
+**US3023**Como utilizador, eu pretendo realizar uma tarefa que tenho como pendente.
 #### Ator principal
 
 * Utilizador
 
 #### Partes interessadas e seus interesses
 
-* **Utilizador :** pretende que possa reivindicar tarefas para si.
+* **Utilizador :** pretendo realizar uma tarefa que tenho como pendente.
 
 
 
@@ -40,26 +39,22 @@
 \-
 # 2. Análise
 
- O utilizador inicia o pedido para reivindicar as tarefas para si.
- O Sistema mostra a lista das tarefas pendentes que ele tem acesso.
- O utilizador escolha a tarefa que quer revindicar.
-O sistema pede confirmação e o utilizador confirma.
-A tarefa é reivindicada com sucesso e o utilizador é informado.
-![US_2_3022_SSD_](US_2_3022_SSD_.svg)
+
+![US_2_3023_SSD_](US_2_3023_SSD_.svg)
 ### Parte do Modelo de Domínio Relevante para esta User Story
 
-![US-2-3022_MD](US-2-3022_MD.svg)
+![US-2-3023_MD](US-2-3023_MD.svg)
 
 # 3. Design
 ## 3.1. Realização da Funcionalidade
 
 ###	Sequence Diagram
 
-![US_2_3022_SD_](US_2_3022_SD_.png)
+![US_2_3023_SD_](US_2_3023_SD_.png)
 
 
 
-![US-2-3022_SD_Repo](US-2-3022_SD_Repo.svg)
+![US-2-3023_SD_Repo](US-2-3023_SD_Repo.svg)
 
 ## 3.2. Diagrama de Classes
 
