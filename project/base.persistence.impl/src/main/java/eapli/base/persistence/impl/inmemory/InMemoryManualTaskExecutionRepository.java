@@ -31,5 +31,24 @@ public class InMemoryManualTaskExecutionRepository extends InMemoryDomainReposit
                 && manualTaskExecution.status().equals(TaskExecutionStatus.PENDING));
     }
 
+    @Override
+    public Iterable<ManualTaskExecution> getHisManualTasksFromFlux(Username oUsername, Long idFlux) {
+        ActivityFluxExecutionRepository imAFErepo = PersistenceContext.repositories().fluxExecs();
+        List<ManualTaskExecution> lst = new ArrayList<>();
+        Optional<ActivityFluxExecution> oAfe = imAFErepo.findByID(idFlux);
+        ActivityFluxExecution afe;
+        if(oAfe.isPresent()) {
+            afe = oAfe.get();
+        } else
+            return new ArrayList<>();
+        for(TaskExecution te : afe.flux()) {
+            if(te.getClass().equals(ManualTaskExecution.class)) {
+                ManualTaskExecution tmp = (ManualTaskExecution) te;
+                if(tmp.getM_oCollaborator().user().username().equals(oUsername)) lst.add(tmp);
+            }
+        }
+        return lst;
+    }
+
 
 }
