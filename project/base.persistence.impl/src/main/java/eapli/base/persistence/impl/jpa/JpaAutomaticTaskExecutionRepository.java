@@ -17,5 +17,18 @@ public class JpaAutomaticTaskExecutionRepository extends HelpDeskJpaRepositoryBa
         super("m_lngID");
     }
 
+    @Override
+    public Iterable<AutomaticTaskExecution> getPendingAutomaticTasks(Long idFlux) {
+        final TypedQuery<AutomaticTaskExecution> q = entityManager().createQuery(
+                "SELECT DISTINCT ate FROM ActivityFluxExecution afe join afe.m_lstFlux lst " +
+                        "INNER JOIN AutomaticTaskExecution ate ON ate.id = lst.id " +
+                        "INNER JOIN TaskExecution te ON te.id = ate.id " +
+                        "WHERE te.m_oTaskStatus =: pending AND afe.id =: idflux",
+                AutomaticTaskExecution.class);
+        q.setParameter("idflux", idFlux);
+        q.setParameter("pending", TaskExecutionStatus.PENDING);
+        return q.getResultList();
+    }
+
 
 }
