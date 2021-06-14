@@ -1,5 +1,6 @@
 package eapli.base.taskmanagement.execution.repositories;
 
+import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.taskmanagement.execution.domain.AutomaticTaskExecution;
 import eapli.framework.domain.repositories.DomainRepository;
 
@@ -8,4 +9,6 @@ import eapli.framework.domain.repositories.DomainRepository;
  */
 public interface AutomaticTaskExecutionRepository extends DomainRepository<Long, AutomaticTaskExecution> {
 
+    public Iterable<AutomaticTaskExecution> getPendingAutomaticTasks(Long idFlux);
+    
 }
