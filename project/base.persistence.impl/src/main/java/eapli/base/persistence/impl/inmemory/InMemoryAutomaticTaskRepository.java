@@ -21,4 +21,9 @@ public class InMemoryAutomaticTaskRepository extends InMemoryDomainRepository<Au
     public Optional<AutomaticTask> findById(Long number) {
         return matchOne(automaticTask -> automaticTask.id().equals(number));
     }
+
+    @Override
+    public boolean isAutoTask(Long lngID) {
+        return findByID(lngID).isPresent();
+    }
 }
