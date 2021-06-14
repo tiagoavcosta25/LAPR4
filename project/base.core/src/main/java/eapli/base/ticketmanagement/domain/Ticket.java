@@ -1,6 +1,7 @@
 package eapli.base.ticketmanagement.domain;
 
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
@@ -32,6 +33,10 @@ public class Ticket implements AggregateRoot<Long> {
     private TicketCreationDate m_oCreationDate;
 
     @ManyToOne
+    @JoinColumn(name="collaborator")
+    private Collaborator m_oCollaborator;
+
+    @ManyToOne
     @JoinColumn(name="ServiceID")
     private Service m_oService;
 
@@ -47,7 +52,8 @@ public class Ticket implements AggregateRoot<Long> {
     private List<Response> m_lstResponse;
 
     public Ticket(final TicketUrgency oUrgency, final TicketLimitDate oLimitDate, final TicketCreationDate oCreationDate,
-                  final List<Response> lstResponse, final ActivityFluxExecution oFluxExecution, final List<TicketFile> lstFiles, final Service oService) {
+                  final List<Response> lstResponse, final ActivityFluxExecution oFluxExecution, final List<TicketFile> lstFiles, final Service oService,
+                  final Collaborator oCollaborator) {
         if (oUrgency == null || oLimitDate == null || oCreationDate == null || oFluxExecution == null || lstFiles == null || lstResponse == null ||
                 oService == null || lstFiles.isEmpty() || lstResponse.isEmpty()) {
             throw new IllegalArgumentException();
@@ -58,6 +64,7 @@ public class Ticket implements AggregateRoot<Long> {
         this.m_lstResponse = lstResponse;
         this.m_oFluxExecution = oFluxExecution;
         this.m_lstFiles = lstFiles;
+        this.m_oCollaborator = oCollaborator;
         this.m_oService = oService;
     }
 
@@ -79,6 +86,9 @@ public class Ticket implements AggregateRoot<Long> {
     }
     public List<TicketFile> files() {
         return this.m_lstFiles;
+    }
+    public Collaborator collaborator() {
+        return this.m_oCollaborator;
     }
     public Service service() {
         return this.m_oService;
