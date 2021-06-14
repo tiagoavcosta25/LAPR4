@@ -3,6 +3,7 @@ package eapli.base.ticketmanagement.domain;
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.servicemanagement.domain.*;
+import eapli.base.taskmanagement.execution.domain.TaskExecutionStatus;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
@@ -31,6 +32,9 @@ public class Ticket implements AggregateRoot<Long> {
 
     @Embedded
     private TicketCreationDate m_oCreationDate;
+
+    @Enumerated(EnumType.STRING)
+    private TicketStatus m_oStatus;
 
     @ManyToOne
     @JoinColumn(name="collaborator")
@@ -63,6 +67,7 @@ public class Ticket implements AggregateRoot<Long> {
         this.m_oCreationDate = oCreationDate;
         this.m_lstResponse = lstResponse;
         this.m_oFluxExecution = oFluxExecution;
+        this.m_oStatus = TicketStatus.OPEN;
         this.m_lstFiles = lstFiles;
         this.m_oCollaborator = oCollaborator;
         this.m_oService = oService;
@@ -81,6 +86,9 @@ public class Ticket implements AggregateRoot<Long> {
     public TicketCreationDate creationDate() {
         return this.m_oCreationDate;
     }
+    public TicketStatus status() {
+        return this.m_oStatus;
+    }
     public List<Response> responses() {
         return this.m_lstResponse;
     }
@@ -95,6 +103,34 @@ public class Ticket implements AggregateRoot<Long> {
     }
     public ActivityFluxExecution executionFlux() {
         return m_oFluxExecution;
+    }
+
+    public void setStatus(TicketStatus oStatus) {
+        this.m_oStatus = oStatus;
+    }
+    public void setUrgency(TicketUrgency oUrgency) {
+        this.m_oUrgency = oUrgency;
+    }
+    public void setLimitDate(TicketLimitDate oLimitDate) {
+        this.m_oLimitDate = oLimitDate;
+    }
+    public void setCreationDate(TicketCreationDate oCreationDate) {
+        this.m_oCreationDate = oCreationDate;
+    }
+    public void setCollaborator(Collaborator oCollaborator) {
+        this.m_oCollaborator = oCollaborator;
+    }
+    public void setService(Service oService) {
+        this.m_oService = oService;
+    }
+    public void setFluxExecution(ActivityFluxExecution oFluxExecution) {
+        this.m_oFluxExecution = oFluxExecution;
+    }
+    public void setFiles(List<TicketFile> lstFiles) {
+        this.m_lstFiles = lstFiles;
+    }
+    public void setResponses(List<Response> lstResponse) {
+        this.m_lstResponse = lstResponse;
     }
 
     @Override
