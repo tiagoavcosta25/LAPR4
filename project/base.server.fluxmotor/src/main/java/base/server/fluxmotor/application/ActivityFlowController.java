@@ -9,8 +9,7 @@ import eapli.framework.application.UseCaseController;
 public class ActivityFlowController {
 
     private final FluxDataService m_oFluxDataService = new FluxDataService();
-
-    //TODO: Remove Mock
+    
     public String prepareFluxData(String oUserName) {
         return m_oFluxDataService.prepareFluxData(oUserName);
     }
