@@ -40,7 +40,7 @@
          CTRL--> UI : pendingTasks
          deactivate CTRL
 
-         loop until there is no more roles to add
+         loop until there is no more tasks to add
          UI --> U: Shows pending task's list
          deactivate UI
 
