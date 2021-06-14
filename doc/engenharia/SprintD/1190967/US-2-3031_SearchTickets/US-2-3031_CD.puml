@@ -2,20 +2,17 @@
 skinparam classAttributeIconSize 0
 
 package "Presentation" #DDDDDD {
-class ServiceSolicitationUI<<presentation>>{
+class SearchTicketsUI<<presentation>>{
 
 }
 }
 
 
 package "Application" #DDDDDD {
-class ServiceSolicitationController<<application>>{
+class SearchTicketsController<<application>>{
 +create()
-+getCataloguesByUser()
-+getServicesByCatalogue(oCatalogue)
-+addResponse(response)
-+addTicket(service, urgency, \nlimitDate, creationDate, lstFiles)
-+saveTicket(ticket)
++getTicketHistory()
++getOnGoingTickets()
 }
 
 }
@@ -62,6 +59,11 @@ class TicketFile<<Value Object>>{
 -validate(ticketFile)
 }
 
+class TicketStatus<<Value Object>>{
++create(ticketStatus)
+-validate(ticketStatus)
+}
+
 class Response<<Value Object>>{
 +create(response)
 -validate(response)
@@ -89,66 +91,32 @@ class RepositoryFactory<<persistence>>{
 
 package "Repository" #DDDDDD {
 
-class ServiceRepository<<repository>>{
-+create()
-+findByCatalogue(oCatalogue)
-}
-
 class TicketRepository<<repository>>{
 +create()
-+save(ticket)
-}
-
-class ResponseRepository<<repository>>{
-+create()
-+save(response)
-}
-
-class CatalogueRepository<<repository>>{
-+create()
-+findByUser(user)
-}
-
-interface CatalogueRepositoryInterface{
-
++getTicketHistory(username)
++getOnGoingTickets(username)
 }
 
 interface TicketRepositoryInterface{
 
 }
 
-interface ServiceRepositoryInterface{
-
-}
-
-interface ResponseRepositoryInterface{
-
-}
-
 }
 
 
 
-ServiceSolicitationUI ..> ServiceSolicitationController
-ServiceSolicitationController ..> PersistenceContext
+SearchTicketsUI ..> SearchTicketsController
+SearchTicketsController ..> PersistenceContext
+SearchTicketsController ..> TicketRepository
 
-ServiceRepository ..> ServiceRepositoryInterface
 TicketRepository ..> TicketRepositoryInterface
-CatalogueRepository ..> CatalogueRepositoryInterface
-ResponseRepository ..> ResponseRepositoryInterface
 
 AppSettings -> RepositoryFactory : creates
 PersistenceContext -> AppSettings : implements
 
-RepositoryFactory "1" -> "1" ServiceRepository : has
 RepositoryFactory "1" -> "1" TicketRepository : has
-RepositoryFactory "1" -> "1" CatalogueRepository : has
-RepositoryFactory "1" -> "1" ResponseRepository : has
 
-ServiceRepository "1" -> "*" Service : saves
 TicketRepository "1" -> "*" Ticket : saves
-CatalogueRepository "1" -> "*" Catalogue : saves
-ResponseRepository "1" -> "*" Response : saves
 
 Catalogue "1" -> "*" Service : has
 Service "1" -> "*" Form : has
@@ -159,6 +127,7 @@ Ticket "1" -> "1..*" TicketUrgency : has
 Ticket "1" -> "1..*" TicketLimitDate : has
 Ticket "1" -> "1..*" TicketCreationDate : has
 Ticket "1" -> "1..*" TicketFile : has
+Ticket "1" -> "1..*" TicketStatus : has
 Ticket "1" -> "1..*" Response : has
 
 @enduml
