@@ -1,6 +1,8 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.servicemanagement.repositories.DataRepository;
+import eapli.base.taskmanagement.execution.repositories.AutomaticTaskExecutionRepository;
+import eapli.base.taskmanagement.execution.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.specification.repositories.AutomaticTaskRepository;
 import eapli.base.taskmanagement.specification.repositories.ManualTaskRepository;
 import eapli.base.taskmanagement.specification.repositories.TaskRepository;
@@ -188,6 +190,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public AutomaticTaskRepository automaticTask() {
 		return new JpaAutomaticTaskRepository();
+	}
+
+	@Override
+	public ManualTaskExecutionRepository manualTaskExec() {
+		return new JpaManualTaskExecutionRepository();
+	}
+
+	@Override
+	public AutomaticTaskExecutionRepository automaticTaskExec() {
+		return new JpaAutomaticTaskExecutionRepository();
 	}
 
 	@Override
