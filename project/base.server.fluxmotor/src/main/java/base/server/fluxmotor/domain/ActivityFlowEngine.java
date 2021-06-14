@@ -83,25 +83,13 @@ public class ActivityFlowEngine{
 
         private Pair<Integer, String> handleRequest(SDP2021 sdp2021Packet) {
             int pktCode = sdp2021Packet.getCode();
-            Pair<Integer, String> dataPacket = null;
+            Pair<Integer, String> dataPacket;
             switch(pktCode) {
                 case 0:
                     dataPacket = testHandler();
                     break;
-                case 3:
-                    //TODO: Implement AUTOTASK_RESPONSE
-                    break;
-                case 4:
-                    //TODO: Implement AUTOTASK_REQUEST
-                    break;
-                case 5:
-                    //TODO: Implement INFO_RESPONSE
-                    break;
                 case 6:
                     dataPacket = infoRequestHandler(sdp2021Packet);
-                    break;
-                case 255:
-                    //TODO: Implement SEGMENT
                     break;
                 default:
                     throw new IllegalStateException("Unhandled code for packet: " + pktCode);
