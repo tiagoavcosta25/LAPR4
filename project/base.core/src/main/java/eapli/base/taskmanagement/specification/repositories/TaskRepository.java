@@ -22,4 +22,6 @@ public interface TaskRepository
     default Optional<Task> findByID(Long lngID) {
         return ofIdentity(lngID);
     }
+
+    boolean isManualTask(Long lngID);
 }
