@@ -18,6 +18,6 @@ public class InMemoryTaskExecutionRepository extends InMemoryDomainRepository<Ta
 
     @Override
     public Optional<TaskExecution> findById(Long number) {
-        return Optional.of(data().get(number));
+        return matchOne(taskExecution -> taskExecution.id().equals(number));
     }
 }
