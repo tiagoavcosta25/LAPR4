@@ -26,7 +26,7 @@ public class SearchTicketsUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         try {
-            List<Ticket> lstTickets;
+            Iterable<Ticket> lstTickets;
 
             String strOp = Console.readLine("Choose the mode of search:\n\n [1] On going\n [2] History\n >");
             if (strOp.compareToIgnoreCase("1") == 0) {
