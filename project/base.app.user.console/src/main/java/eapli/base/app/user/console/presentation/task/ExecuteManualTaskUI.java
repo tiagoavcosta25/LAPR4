@@ -79,4 +79,8 @@ public class ExecuteManualTaskUI extends AbstractUI {
         return selectorActivityFlux.selectedElement();
     }
 
+    @Override
+    public String headline() {
+        return "Execute Manual Task";
+    }
 }
