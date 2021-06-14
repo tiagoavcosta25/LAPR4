@@ -16,4 +16,29 @@ import eapli.framework.presentation.console.SelectWidget;
 public class ExecuteAutomaticTaskUI extends AbstractUI {
     private final ExecuteAutomaticTaskController theController = new ExecuteAutomaticTaskController();
 
+    @Override
+    protected boolean doShow() {
+        try {
+
+            final ActivityFluxExecution af = selectActivityFlux();
+
+            final AutomaticTaskExecution autoTask = selectAutomaticTask(af);
+            int id = Math.toIntExact(autoTask.identity());
+            System.out.println();
+            String strOp = Console.readLine("Confirm the execution of task with code " + id + "? (Y/N) ");
+
+            if(strOp.compareToIgnoreCase("Y") == 0){
+                this.theController.executeTask(autoTask);
+                System.out.printf("Operation Successful. The Following Automatic Task was executed successfully > id:" +
+                        " %s\n\n", id);
+            } else{
+                System.out.println("Operation Cancelled.");
+            }
+        } catch (final Exception ex) {
+            System.out.println("Error while executing an Automatic Task. " + ex.getMessage());
+        }
+        return false;
+    }
+
+
 }
