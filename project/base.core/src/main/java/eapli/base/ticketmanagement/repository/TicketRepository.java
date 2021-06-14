@@ -20,7 +20,7 @@ public interface TicketRepository
         return ofIdentity(lngID);
     }
 
-    List<Ticket> getTicketHistory(final SystemUser oUser);
+    Iterable<Ticket> getTicketHistory(final SystemUser oUser);
 
-    List<Ticket> getOnGoingTickets(final SystemUser oUser);
+    Iterable<Ticket> getOnGoingTickets(final SystemUser oUser);
 }
