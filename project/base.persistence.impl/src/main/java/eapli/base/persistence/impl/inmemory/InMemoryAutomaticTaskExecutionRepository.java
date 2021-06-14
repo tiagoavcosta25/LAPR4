@@ -9,6 +9,7 @@ import eapli.base.taskmanagement.execution.repositories.AutomaticTaskExecutionRe
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,5 +41,20 @@ public class InMemoryAutomaticTaskExecutionRepository extends InMemoryDomainRepo
         return lst;
     }
 
-
+    @Override
+    public Iterable<ActivityFluxExecution> getActivityFlux() {
+        ActivityFluxExecutionRepository imAFErepo = PersistenceContext.repositories().fluxExecs();
+        List<ActivityFluxExecution> lst = new ArrayList<>();
+        Iterator<ActivityFluxExecution> iAfe = imAFErepo.findAll().iterator();
+        ActivityFluxExecution next;
+        while(iAfe.hasNext()) {
+            next = iAfe.next();
+            for(TaskExecution te : next.flux()) {
+                if(te.getClass().equals(AutomaticTaskExecution.class)) {
+                    lst.add(next);
+                }
+            }
+        }
+        return lst;
+    }
 }
