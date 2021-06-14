@@ -1,0 +1,38 @@
+@startuml
+autonumber
+hide footbox
+
+actor "Collaborator" as COLLAB
+participant "System" as SYST
+
+activate COLLAB
+
+COLLAB -> SYST : initiates the ticket query request
+activate SYST
+
+SYST -> COLLAB : requests the user to choose on going or history mode
+deactivate SYST
+
+COLLAB -> SYST : chooses the mode
+activate SYST
+
+loop until the user wants to leave
+
+SYST -> COLLAB : presents the tickets to the user
+deactivate SYST
+
+alt if the user wants to see a detailed view of a specific ticket
+
+COLLAB -> SYST : chooses the ticket
+activate SYST
+
+SYST -> COLLAB : presents the detailed information of said ticket
+deactivate SYST
+
+end
+
+end
+
+deactivate COLLAB
+
+@enduml

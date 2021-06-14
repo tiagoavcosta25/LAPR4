@@ -19,6 +19,7 @@ public class SyntaxError extends BaseErrorListener {
     {
         this.error = true;
     }
+
     public boolean isError() {
         return this.error;
     }
