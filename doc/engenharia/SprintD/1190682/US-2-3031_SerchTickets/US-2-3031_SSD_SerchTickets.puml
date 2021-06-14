@@ -26,7 +26,7 @@ alt if the user wants to see a detailed view of a specific ticket
 COLLAB -> SYST : chooses the ticket
 activate SYST
 
-SYST -> COLLAB : presents the detailed information os said ticket
+SYST -> COLLAB : presents the detailed information of said ticket
 deactivate SYST
 
 end
