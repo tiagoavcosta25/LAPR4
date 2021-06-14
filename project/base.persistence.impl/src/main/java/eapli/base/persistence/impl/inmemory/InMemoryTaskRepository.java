@@ -1,19 +1,13 @@
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.servicemanagement.domain.Service;
-import eapli.base.taskmanagement.specification.domain.ManualTask;
 import eapli.base.taskmanagement.specification.domain.Task;
-import eapli.base.taskmanagement.specification.domain.TaskFilterFields;
-import eapli.base.taskmanagement.specification.domain.TaskOrderFields;
 import eapli.base.taskmanagement.specification.repositories.TaskRepository;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 import java.util.Optional;
 
 /**
  *
- * @author Pedro Santos 1190967@isep.ipp.pt
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
 public class InMemoryTaskRepository
@@ -26,46 +20,6 @@ public class InMemoryTaskRepository
 
     @Override
     public Optional<Task> findById(Long number) {
-        return Optional.of(data().get(number));
-    }
-
-    //TODO: Finish method getTasksOfCollaborator (no filter nor order)
-    @Override
-    public Iterable<Service> getTasksOfCollaborator(Username oUsername) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    //TODO: Finish method getTasksOfCollaborator (filter)
-    @Override
-    public Iterable<Service> getTasksOfCollaborator(Username oUsername, TaskFilterFields enumFilterBy) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    //TODO: Finish method getTasksOfCollaborator (order)
-    @Override
-    public Iterable<Service> getTasksOfCollaborator(Username oUsername, TaskOrderFields enumOrderBy) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    //TODO: Finish method getTasksOfCollaborator (filter and order)
-    @Override
-    public Iterable<Service> getTasksOfCollaborator(Username oUsername, TaskFilterFields enumFilterBy, TaskOrderFields enumOrderBy) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Iterable<ManualTask> getPendingManualTasks(Username oUsername) {
-        throw new UnsupportedOperationException("Not supported yet.");
-
-    }
-
-    @Override
-    public Iterable<ManualTask> getHisPendingManualTasks(Username oUsername, Long idFlux) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Iterable<Service> getActivityFlux(Username oUsername) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return matchOne(task -> task.id().equals(number));
     }
 }
