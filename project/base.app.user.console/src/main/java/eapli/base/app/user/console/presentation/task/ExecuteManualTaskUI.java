@@ -23,5 +23,37 @@ public class ExecuteManualTaskUI extends AbstractUI {
 
     private final ExecuteManualTaskController theController = new ExecuteManualTaskController();
 
+    @Override
+    protected boolean doShow() {
+        try {
+
+            final ActivityFluxExecution af = selectActivityFlux();
+
+            final ManualTaskExecution manualTask = selectManualTask(af);
+            int id = Math.toIntExact(manualTask.identity());
+            List<String> responses = new ArrayList<>();
+            System.out.println();
+            System.out.println("Complete the form:");
+            System.out.println();
+            for(Attribute attr : manualTask.getM_oManualTask().form().attributes()) {
+                responses.add(Console.readLine(attr.label().toString() + " >"));
+                System.out.println();
+            }
+            Response rp = new Response(manualTask.getM_oManualTask().form(), responses);
+            String strOp = Console.readLine("Confirm the execution of task with code " + id + "? (Y/N) ");
+
+            if(strOp.compareToIgnoreCase("Y") == 0){
+                this.theController.executeTask(manualTask, rp);
+                System.out.printf("Operation Successful. The Following Manual Task was executed successfully > id:" +
+                        " %s\n\n", id);
+            } else{
+                System.out.println("Operation Cancelled.");
+            }
+        } catch (final Exception ex) {
+            System.out.println("Error while executing a Manual Task. " + ex.getMessage());
+        }
+        return false;
+    }
+
 
 }
