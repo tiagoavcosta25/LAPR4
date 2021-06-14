@@ -19,4 +19,6 @@ public interface AutomaticTaskRepository extends DomainRepository<Long, Automati
     default Optional<AutomaticTask> findByID(Long lngID) {
         return ofIdentity(lngID);
     }
+
+    boolean isAutoTask(Long lngID);
 }
