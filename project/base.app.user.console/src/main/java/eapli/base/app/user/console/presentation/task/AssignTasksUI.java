@@ -12,5 +12,7 @@ import eapli.framework.presentation.console.AbstractUI;
  */
 public class AssignTasksUI extends AbstractUI {
 
+    private final AssignTasksController theController = new AssignTasksController();
+
 
 }
