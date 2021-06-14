@@ -25,5 +25,11 @@ public class InMemoryManualTaskExecutionRepository extends InMemoryDomainReposit
         InMemoryInitializer.init();
     }
 
+    @Override
+    public Iterable<ManualTaskExecution> getHisPendingManualTasks(Username oUsername) {
+        return match(manualTaskExecution ->manualTaskExecution.getM_oCollaborator().user().username().equals(oUsername)
+                && manualTaskExecution.status().equals(TaskExecutionStatus.PENDING));
+    }
+
 
 }
