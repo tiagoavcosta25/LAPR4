@@ -108,6 +108,11 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
+	public TicketRepository tickets() {
+		return new JpaTicketRepository();
+	}
+
+	@Override
 	public CatalogueRepository catalogues() {
 		return new JpaCatalogueRepository();
 	}
@@ -158,11 +163,6 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public TicketRepository tickets(final TransactionalContext autoTx) {
-		return new JpaTicketRepository(autoTx);
-	}
-
-	@Override
 	public DataRepository data() {
 		return new JpaDataRepository();
 	}
@@ -200,11 +200,6 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public AutomaticTaskExecutionRepository automaticTaskExec() {
 		return new JpaAutomaticTaskExecutionRepository();
-	}
-
-	@Override
-	public JpaTicketRepository tickets() {
-		return new JpaTicketRepository(Application.settings().getPersistenceUnitName());
 	}
 
 }
