@@ -27,4 +27,8 @@ public class OsUtils {
                 || osName.indexOf("aix") > 0);
     }
 
+    public static boolean isSolaris() {
+        return (getOsName().contains("sunos"));
+    }
+
 }
