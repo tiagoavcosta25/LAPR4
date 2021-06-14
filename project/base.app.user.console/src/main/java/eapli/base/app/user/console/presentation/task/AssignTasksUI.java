@@ -35,5 +35,8 @@ public class AssignTasksUI extends AbstractUI {
         return false;
     }
 
-
+    @Override
+    public String headline() {
+        return "Assign Tasks";
+    }
 }
