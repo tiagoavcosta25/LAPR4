@@ -55,5 +55,16 @@ public class ExecuteManualTaskUI extends AbstractUI {
         return false;
     }
 
+    private ManualTaskExecution selectManualTask(ActivityFluxExecution af) {
+        System.out.println();
+        System.out.println("List of Pending Manual Tasks - Select a Manual Task");
+        final Iterable<ManualTaskExecution> listTasks = theController.getUserPendingTasks(af);
+        if(!listTasks.iterator().hasNext())
+            throw new IllegalArgumentException("No Pending Tasks avaiable!");
+        final SelectWidget<ManualTaskExecution> selectorManualTask = new SelectWidget<>("Select a Manual Task",
+                listTasks, new ManualTaskPrinter());
+        selectorManualTask.show();
+        return selectorManualTask.selectedElement();
+    }
 
 }
