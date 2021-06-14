@@ -23,12 +23,15 @@
  */
 package eapli.base.taskmanagement.execution.domain;
 
+import eapli.base.taskmanagement.specification.domain.AutomaticTask;
 import eapli.base.taskmanagement.specification.domain.Task;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  *
+ * @author Tiago Costa 1191460@isep.ipp.pt
  * @author Jéssica Alves 1190682@isep.ipp.pt
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
@@ -36,8 +39,17 @@ import javax.persistence.Entity;
 @Entity
 public class AutomaticTaskExecution extends TaskExecution{
 
-    public AutomaticTaskExecution(final Task oTask) {
-        super(oTask);
+    @ManyToOne
+    private AutomaticTask m_oAutomaticTask;
+
+    public AutomaticTaskExecution(final AutomaticTask oAutomaticTask) {
+        this.m_oAutomaticTask = oAutomaticTask;
+        super.setPending();
+        super.setResult(TaskExecutionResult.NO_RESULT);
+    }
+
+    public AutomaticTask getM_oAutomaticTask() {
+        return m_oAutomaticTask;
     }
 
     protected AutomaticTaskExecution() {
@@ -46,6 +58,6 @@ public class AutomaticTaskExecution extends TaskExecution{
 
     @Override
     public String toString() {
-        return "Automatic Task Execution #" + this.id() + ": " + " | Task #" + this.task().id() + ": " + this.task().description();
+        return "Automatic Task Execution #" + this.id() + ": " + " | Task #" + this.m_oAutomaticTask.id() + ": " + this.m_oAutomaticTask.description();
     }
 }
