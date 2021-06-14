@@ -100,7 +100,7 @@ deactivate T
 CTRL -> T : changeTaskResult(SUCCESS)
 activate T
 deactivate T
-CTRL -> TR : save(Task)
+CTRL -> TR : save(Tarefa)
 activate TR
 deactivate TR
 end opt

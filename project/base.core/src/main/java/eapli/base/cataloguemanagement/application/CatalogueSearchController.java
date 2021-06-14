@@ -14,7 +14,7 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 /**
- * @author Tiago Costa 1191460@isep.ipp.pt
+ * @author Beatriz Seizas 1190424@isep.ipp.pt
  */
 @UseCaseController
 public class CatalogueSearchController {
