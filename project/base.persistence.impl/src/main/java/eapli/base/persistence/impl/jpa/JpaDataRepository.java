@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-class JpaDataRepository extends HelpDeskJpaRepositoryBase<Ticket, Long, Long>
+public class JpaDataRepository extends HelpDeskJpaRepositoryBase<Ticket, Long, Long>
         implements DataRepository {
 
     public JpaDataRepository() {
