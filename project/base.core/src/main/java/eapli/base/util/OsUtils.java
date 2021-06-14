@@ -30,5 +30,4 @@ public class OsUtils {
     public static boolean isSolaris() {
         return (getOsName().contains("sunos"));
     }
-
 }
