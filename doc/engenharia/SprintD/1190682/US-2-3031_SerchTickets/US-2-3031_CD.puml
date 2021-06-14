@@ -1,0 +1,133 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Presentation" #DDDDDD {
+class SearchTicketsUI<<presentation>>{
+
+}
+}
+
+
+package "Application" #DDDDDD {
+class SearchTicketsController<<application>>{
++create()
++getTicketHistory()
++getOnGoingTickets()
+}
+
+}
+
+
+package "Domain" #DDDDDD {
+class Service<<Entity>><<Root>>{
++create()
+}
+
+class Form<<Entity>><<Root>>{
++create(name, formType, attributeList)
+}
+
+class Attribute<<Entity>>{
++create(name, label, description, regex, scriptPath, dataType
+}
+
+class Catalogue<<Entity>><<Root>>{
++create()
+}
+
+class Ticket<<Entity>><<Root>>{
++create(service, urgency, limitDate,\n creationDate, lstFiles, lstResponses)
+}
+
+class TicketUrgency<<Value Object>>{
++create(ticketUrgency)
+-validate(ticketUrgency)
+}
+
+class TicketLimitDate<<Value Object>>{
++create(ticketLimitDate)
+-validate(ticketLimitDate)
+}
+
+class TicketCreationDate<<Value Object>>{
++create(ticketCreationDate)
+-validate(ticketCreationDate)
+}
+
+class TicketFile<<Value Object>>{
++create(ticketFile)
+-validate(ticketFile)
+}
+
+class TicketStatus<<Value Object>>{
++create(ticketStatus)
+-validate(ticketStatus)
+}
+
+class Response<<Value Object>>{
++create(response)
+-validate(response)
+}
+}
+
+package Persistence #DDDDDD {
+class PersistenceContext<<persistence>>{
++repositories()
+}
+
+class AppSettings<<persistence>>{
++instance()
++getRepositoryFactory()
+}
+
+package Factory #DDDDDD {
+class RepositoryFactory<<persistence>>{
++create()
++servicos()
++catalogos()
++formularios()
+}
+}
+
+package "Repository" #DDDDDD {
+
+class TicketRepository<<repository>>{
++create()
++getTicketHistory(username)
++getOnGoingTickets(username)
+}
+
+interface TicketRepositoryInterface{
+
+}
+
+}
+
+
+
+SearchTicketsUI ..> SearchTicketsController
+SearchTicketsController ..> PersistenceContext
+SearchTicketsController ..> TicketRepository
+
+TicketRepository ..> TicketRepositoryInterface
+
+AppSettings -> RepositoryFactory : creates
+PersistenceContext -> AppSettings : implements
+
+RepositoryFactory "1" -> "1" TicketRepository : has
+
+TicketRepository "1" -> "*" Ticket : saves
+
+Catalogue "1" -> "*" Service : has
+Service "1" -> "*" Form : has
+Form "1" -> "1..*" Attribute : has
+
+Ticket "1" -> "1..*" Service : has
+Ticket "1" -> "1..*" TicketUrgency : has
+Ticket "1" -> "1..*" TicketLimitDate : has
+Ticket "1" -> "1..*" TicketCreationDate : has
+Ticket "1" -> "1..*" TicketFile : has
+Ticket "1" -> "1..*" TicketStatus : has
+Ticket "1" -> "1..*" Response : has
+
+@enduml
