@@ -14,13 +14,18 @@ public class JpaAutomaticTaskRepository extends HelpDeskJpaRepositoryBase<Automa
         implements AutomaticTaskRepository {
 
     public JpaAutomaticTaskRepository() {
-        super("m_lngID");
+        super("m_oID");
     }
 
     @Override
     public Optional<AutomaticTask> findById(Long lngID) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("taskID", lngID);
-        return matchOne("e.id=:taskID", params);
+        params.put("m_oID", lngID);
+        return matchOne("e.id=:m_oID", params);
+    }
+
+    @Override
+    public boolean isAutoTask(Long lngID) {
+        return findByID(lngID).isPresent();
     }
 }
