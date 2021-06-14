@@ -17,19 +17,23 @@ public class JpaManualTaskRepository extends JpaAutoTxRepository<ManualTask, Lon
         implements ManualTaskRepository {
 
     public JpaManualTaskRepository(TransactionalContext autoTx) {
-        super(autoTx, "taskID");
+        super(autoTx, "m_oID");
     }
 
     public JpaManualTaskRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "executionTaskID");
+                "m_oID");
     }
 
     @Override
     public Optional<ManualTask> findById(Long lngID) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("taskID", lngID);
-        return matchOne("e.id=:taskID", params);
+        params.put("m_oID", lngID);
+        return matchOne("e.id=:m_oID", params);
     }
 
+    @Override
+    public boolean isManualTask(Long lngID) {
+        return findByID(lngID).isPresent();
+    }
 }
