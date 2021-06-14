@@ -23,7 +23,6 @@
  */
 package eapli.base.taskmanagement.execution.domain;
 
-import eapli.base.taskmanagement.specification.domain.Task;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 
@@ -31,6 +30,7 @@ import javax.persistence.*;
 
 /**
  *
+ * @author Tiago Costa 1191460@isep.ipp.pt
  * @author Jéssica Alves 1190682@isep.ipp.pt
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
@@ -53,26 +53,8 @@ public abstract class TaskExecution implements AggregateRoot<Long> {
     @Enumerated(EnumType.STRING)
     private TaskExecutionResult m_oTaskResult;
 
-    @ManyToOne
-    private Task m_oTask;
-
-
-
-    public TaskExecution(final Task oTask) {
-        if (oTask == null) {
-            throw new IllegalArgumentException();
-        }
-        this.m_oTaskStatus = TaskExecutionStatus.PENDING;
-        this.m_oTaskResult = TaskExecutionResult.NO_RESULT;
-        this.m_oTask = oTask;
-    }
-
     protected TaskExecution() {
         // for ORM only
-    }
-
-    public Task task() {
-        return this.m_oTask;
     }
 
     public TaskExecutionStatus status() {
@@ -81,6 +63,10 @@ public abstract class TaskExecution implements AggregateRoot<Long> {
 
     public TaskExecutionResult result() {
         return this.m_oTaskResult;
+    }
+
+    public void setResult(TaskExecutionResult m_oTaskResult) {
+        this.m_oTaskResult = m_oTaskResult;
     }
 
     public void setPending() {
