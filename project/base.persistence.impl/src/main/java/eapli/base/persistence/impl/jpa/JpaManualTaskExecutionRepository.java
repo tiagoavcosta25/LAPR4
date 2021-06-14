@@ -11,7 +11,12 @@ import javax.persistence.TypedQuery;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class JpaManualTaskExecutionRepository {
+public class JpaManualTaskExecutionRepository extends HelpDeskJpaRepositoryBase<ManualTaskExecution, Long, Long>
+        implements ManualTaskExecutionRepository {
+
+    public JpaManualTaskExecutionRepository() {
+        super("m_lngID");
+    }
 
 
 }
