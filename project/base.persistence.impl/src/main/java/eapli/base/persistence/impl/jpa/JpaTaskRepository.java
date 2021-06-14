@@ -25,9 +25,4 @@ class JpaTaskRepository
         params.put("taskID", lngID);
         return matchOne("e.id=:taskID", params);
     }
-
-    @Override
-    public boolean isManualTask(Long lngID) {
-        return findByID(lngID).isPresent();
-    }
 }
