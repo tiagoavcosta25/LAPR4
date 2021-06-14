@@ -203,13 +203,6 @@ public interface RepositoryFactory {
 	TeamRepository teams();
 
 	/**
-	 *
-	 * @param autoTx the transactional context to enrol
-	 * @return
-	 */
-	TicketRepository tickets(TransactionalContext autoTx);
-
-	/**
 	 * repository will be created in auto transaction mode
 	 *
 	 * @return
