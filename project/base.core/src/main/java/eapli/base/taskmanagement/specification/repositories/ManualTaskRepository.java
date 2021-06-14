@@ -20,4 +20,6 @@ public interface ManualTaskRepository extends DomainRepository<Long, ManualTask>
         return ofIdentity(lngID);
     }
 
+    boolean isManualTask(Long lngID);
+
 }
