@@ -11,4 +11,6 @@ import eapli.framework.infrastructure.authz.domain.model.Username;
 public interface ManualTaskExecutionRepository extends DomainRepository<Long, ManualTaskExecution> {
 
     Iterable<ManualTaskExecution> getHisPendingManualTasks(Username oUsername);
+
+    Iterable<ManualTaskExecution> getHisManualTasksFromFlux(Username oUsername, Long idFlux);
 }
