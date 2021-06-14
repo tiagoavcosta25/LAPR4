@@ -8,9 +8,9 @@ import java.io.File;
  */
 public class FileChooser {
 
-    public static String chooseFile(String extension) {
+    public static PickedFile chooseFile(String extension) {
         if(!OsUtils.isWindows())
-            return "";
+            return new PickedFile("", "");
         File file;
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -21,19 +21,20 @@ public class FileChooser {
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.setAcceptAllFileFilterUsed(true);
         int response = chooser.showOpenDialog(null);
+        String path = "";
         String content = "";
         if (response == JFileChooser.APPROVE_OPTION) {
             file = chooser.getSelectedFile();
             try{
                 if(file.isFile()) {
-                    if(!(FileUtils.verifyExtension(file.getName(), extension))) return "";
-                    content = FileUtils.readFileToString(file.getPath());
-                    System.out.println(content);
+                    if(!(FileUtils.verifyExtension(file.getName(), extension))) return new PickedFile("", "");
+                    path = file.getPath();
+                    content = FileUtils.readFileToString(path);
                 }
             } catch (Exception e) {
                 // Do nothing
             }
         }
-        return content;
+        return new PickedFile(path, content);
     }
 }

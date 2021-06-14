@@ -8,7 +8,7 @@ public class OsUtils {
     private static String OS = null;
 
     public static String getOsName() {
-        if(OS == null) { OS = System.getProperty("os.name"); }
+        if(OS == null) { OS = System.getProperty("os.name").toLowerCase(); }
         return OS;
     }
 
