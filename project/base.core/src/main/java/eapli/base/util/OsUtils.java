@@ -20,5 +20,11 @@ public class OsUtils {
         return (getOsName().contains("mac"));
     }
 
+    public static boolean isUnix() {
+        String osName = getOsName();
+        return (osName.contains("nix")
+                || osName.contains("nux")
+                || osName.indexOf("aix") > 0);
+    }
 
 }
