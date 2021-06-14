@@ -22,9 +22,4 @@ public class InMemoryTaskRepository
     public Optional<Task> findById(Long number) {
         return matchOne(task -> task.id().equals(number));
     }
-
-    @Override
-    public boolean isManualTask(Long lngID) {
-        return findByID(lngID).isPresent();
-    }
 }

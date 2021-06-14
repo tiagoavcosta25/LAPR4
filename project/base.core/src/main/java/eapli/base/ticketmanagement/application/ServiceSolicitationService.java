@@ -35,6 +35,8 @@ import eapli.base.taskmanagement.execution.repositories.TaskExecutionRepository;
 import eapli.base.taskmanagement.specification.domain.AutomaticTask;
 import eapli.base.taskmanagement.specification.domain.ManualTask;
 import eapli.base.taskmanagement.specification.domain.Task;
+import eapli.base.taskmanagement.specification.repositories.AutomaticTaskRepository;
+import eapli.base.taskmanagement.specification.repositories.ManualTaskRepository;
 import eapli.base.taskmanagement.specification.repositories.TaskRepository;
 import eapli.framework.application.ApplicationService;
 
@@ -48,26 +50,26 @@ import java.util.List;
 @ApplicationService
 public class ServiceSolicitationService {
 
-    private final TaskRepository m_oTaskRepo = PersistenceContext.repositories().tasks();
+    private final ManualTaskRepository m_oManualTaskRepo = PersistenceContext.repositories().manualTask();
+    private final AutomaticTaskRepository m_oAutoTaskRepo = PersistenceContext.repositories().automaticTask();
     private final TaskExecutionRepository m_oTaskExecRepo = PersistenceContext.repositories().taskExecs();
     private final ActivityFluxExecutionRepository m_oFluxExecRepo = PersistenceContext.repositories().fluxExecs();
 
-    public ActivityFluxExecution createActivityFluxExecution(Service oService) {
+    public ActivityFluxExecution createActivityFluxExecution(Service oService){
 
         List<TaskExecution> lstFlux = new ArrayList<>();
 
         for(Task t : oService.flux().flux()){
-
-            //boolean flag = this.m_oTaskRepo.isManualTask(t.id());
-            boolean flag = true;
-            if(flag){
+            if(this.m_oManualTaskRepo.isManualTask(t.id())){
                 ManualTaskExecution oManualExec = new ManualTaskExecution((ManualTask) t);
                 oManualExec = this.m_oTaskExecRepo.save(oManualExec);
                 lstFlux.add(oManualExec);
-            } else{
+            } else if(this.m_oAutoTaskRepo.isAutoTask(t.id())){
                 AutomaticTaskExecution oAutoExec = new AutomaticTaskExecution((AutomaticTask) t);
                 oAutoExec = this.m_oTaskExecRepo.save(oAutoExec);
                 lstFlux.add(oAutoExec);
+            } else{
+                throw new IllegalArgumentException();
             }
         }
 

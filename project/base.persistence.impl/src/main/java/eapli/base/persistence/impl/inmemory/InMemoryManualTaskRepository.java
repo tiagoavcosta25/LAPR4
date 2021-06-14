@@ -20,4 +20,9 @@ public class InMemoryManualTaskRepository extends InMemoryDomainRepository<Manua
     public Optional<ManualTask> findById(Long number) {
         return Optional.of(data().get(number));
     }
+
+    @Override
+    public boolean isManualTask(Long lngID) {
+        return findByID(lngID).isPresent();
+    }
 }
