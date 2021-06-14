@@ -13,4 +13,6 @@ public interface ManualTaskExecutionRepository extends DomainRepository<Long, Ma
     Iterable<ManualTaskExecution> getHisPendingManualTasks(Username oUsername);
 
     Iterable<ManualTaskExecution> getHisManualTasksFromFlux(Username oUsername, Long idFlux);
+
+    Iterable<ActivityFluxExecution> getHisActivityFluxWithManualTasks(Username oUsername);
 }
