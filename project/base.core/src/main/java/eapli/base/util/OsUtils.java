@@ -5,5 +5,10 @@ package eapli.base.util;
  */
 public class OsUtils {
 
+    private static String OS = null;
 
+    public static String getOsName() {
+        if(OS == null) { OS = System.getProperty("os.name"); }
+        return OS;
+    }
 }
