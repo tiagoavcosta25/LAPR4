@@ -1,12 +1,16 @@
 package eapli.base.persistence.impl.jpa;
 
+import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.util.Application;
 import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import javax.persistence.TypedQuery;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -15,16 +19,11 @@ import java.util.Optional;
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 class JpaTicketRepository
-        extends JpaAutoTxRepository<Ticket, Long, Long>
+        extends HelpDeskJpaRepositoryBase<Ticket, Long, Long>
         implements TicketRepository {
 
-    public JpaTicketRepository(TransactionalContext autoTx) {
-        super(autoTx, "ticketID");
-    }
-
-    public JpaTicketRepository(String puname) {
-        super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "ticketID");
+    public JpaTicketRepository() {
+        super("ticketID");
     }
 
     @Override
@@ -32,5 +31,19 @@ class JpaTicketRepository
         final Map<String, Object> params = new HashMap<>();
         params.put("ticketID", lngID);
         return matchOne("e.id=:ticketID", params);
+    }
+
+    @Override
+    public List<Ticket> getTicketHistory(SystemUser oUser) {
+        final TypedQuery<Ticket> q = entityManager().createQuery(
+                "SELECT e FROM Ticket e WHERE e.m_oSystemUser.username = :username",
+                Ticket.class);
+        q.setParameter("username", oUser.identity());
+        return q.getResultList();
+    }
+
+    @Override
+    public List<Ticket> getOnGoingTickets(SystemUser oUser) {
+        return null;
     }
 }
