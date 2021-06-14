@@ -30,6 +30,8 @@ import eapli.base.servicemanagement.domain.*;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 
+import java.io.IOException;
+
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
@@ -75,9 +77,10 @@ public class ServiceDraftFormSpecificationUI extends AbstractUI {
 
         return false;
     }
-    private boolean insertForm(ServiceDraft oServiceDraft) {
+    private boolean insertForm(ServiceDraft oServiceDraft) throws IOException {
+        this.theController.clearForm();
         final String strFormName = Console.readLine("Form Name >");
-        final String strScript = Console.readLine("Validation Script >");
+        final String strScript = Console.readLine("Validation Script Name (present in the script folder) >");
         this.theController.addForm(oServiceDraft, strFormName.trim(), FormType.SERVICE.toString(), strScript);
         boolean blFlag;
         do {
