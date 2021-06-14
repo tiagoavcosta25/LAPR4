@@ -1,0 +1,164 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Presentation" #DDDDDD {
+class ServiceSolicitationUI<<presentation>>{
+
+}
+}
+
+
+package "Application" #DDDDDD {
+class ServiceSolicitationController<<application>>{
++create()
++getCataloguesByUser()
++getServicesByCatalogue(oCatalogue)
++addResponse(response)
++addTicket(service, urgency, \nlimitDate, creationDate, lstFiles)
++saveTicket(ticket)
+}
+
+}
+
+
+package "Domain" #DDDDDD {
+class Service<<Entity>><<Root>>{
++create()
+}
+
+class Form<<Entity>><<Root>>{
++create(name, formType, attributeList)
+}
+
+class Attribute<<Entity>>{
++create(name, label, description, regex, scriptPath, dataType
+}
+
+class Catalogue<<Entity>><<Root>>{
++create()
+}
+
+class Ticket<<Entity>><<Root>>{
++create(service, urgency, limitDate,\n creationDate, lstFiles, lstResponses)
+}
+
+class TicketUrgency<<Value Object>>{
++create(ticketUrgency)
+-validate(ticketUrgency)
+}
+
+class TicketLimitDate<<Value Object>>{
++create(ticketLimitDate)
+-validate(ticketLimitDate)
+}
+
+class TicketCreationDate<<Value Object>>{
++create(ticketCreationDate)
+-validate(ticketCreationDate)
+}
+
+class TicketFile<<Value Object>>{
++create(ticketFile)
+-validate(ticketFile)
+}
+
+class Response<<Value Object>>{
++create(response)
+-validate(response)
+}
+}
+
+package Persistence #DDDDDD {
+class PersistenceContext<<persistence>>{
++repositories()
+}
+
+class AppSettings<<persistence>>{
++instance()
++getRepositoryFactory()
+}
+
+package Factory #DDDDDD {
+class RepositoryFactory<<persistence>>{
++create()
++servicos()
++catalogos()
++formularios()
+}
+}
+
+package "Repository" #DDDDDD {
+
+class ServiceRepository<<repository>>{
++create()
++findByCatalogue(oCatalogue)
+}
+
+class TicketRepository<<repository>>{
++create()
++save(ticket)
+}
+
+class ResponseRepository<<repository>>{
++create()
++save(response)
+}
+
+class CatalogueRepository<<repository>>{
++create()
++findByUser(user)
+}
+
+interface CatalogueRepositoryInterface{
+
+}
+
+interface TicketRepositoryInterface{
+
+}
+
+interface ServiceRepositoryInterface{
+
+}
+
+interface ResponseRepositoryInterface{
+
+}
+
+}
+
+
+
+ServiceSolicitationUI ..> ServiceSolicitationController
+ServiceSolicitationController ..> PersistenceContext
+
+ServiceRepository ..> ServiceRepositoryInterface
+TicketRepository ..> TicketRepositoryInterface
+CatalogueRepository ..> CatalogueRepositoryInterface
+ResponseRepository ..> ResponseRepositoryInterface
+
+AppSettings -> RepositoryFactory : creates
+PersistenceContext -> AppSettings : implements
+
+RepositoryFactory "1" -> "1" ServiceRepository : has
+RepositoryFactory "1" -> "1" TicketRepository : has
+RepositoryFactory "1" -> "1" CatalogueRepository : has
+RepositoryFactory "1" -> "1" ResponseRepository : has
+
+ServiceRepository "1" -> "*" Service : saves
+TicketRepository "1" -> "*" Ticket : saves
+CatalogueRepository "1" -> "*" Catalogue : saves
+ResponseRepository "1" -> "*" Response : saves
+
+Catalogue "1" -> "*" Service : has
+Service "1" -> "*" Form : has
+Form "1" -> "1..*" Attribute : has
+
+Ticket "1" -> "1..*" Service : has
+Ticket "1" -> "1..*" TicketUrgency : has
+Ticket "1" -> "1..*" TicketLimitDate : has
+Ticket "1" -> "1..*" TicketCreationDate : has
+Ticket "1" -> "1..*" TicketFile : has
+Ticket "1" -> "1..*" Response : has
+
+@enduml
