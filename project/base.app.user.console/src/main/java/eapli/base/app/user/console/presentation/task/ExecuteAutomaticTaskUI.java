@@ -13,6 +13,7 @@ import eapli.framework.presentation.console.SelectWidget;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class ExecuteAutomaticTaskUI  {
+public class ExecuteAutomaticTaskUI extends AbstractUI {
+    private final ExecuteAutomaticTaskController theController = new ExecuteAutomaticTaskController();
 
 }
