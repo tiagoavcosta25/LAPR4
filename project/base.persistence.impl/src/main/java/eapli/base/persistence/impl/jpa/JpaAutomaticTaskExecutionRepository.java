@@ -30,5 +30,15 @@ public class JpaAutomaticTaskExecutionRepository extends HelpDeskJpaRepositoryBa
         return q.getResultList();
     }
 
-
+    @Override
+    public Iterable<ActivityFluxExecution> getActivityFlux() {
+        final TypedQuery<ActivityFluxExecution> q = entityManager().createQuery(
+                "SELECT distinct afe FROM ActivityFluxExecution afe JOIN afe.m_lstFlux lst " +
+                        "INNER JOIN TaskExecution te ON te.id = lst.id " +
+                        "INNER JOIN AutomaticTaskExecution ate ON ate.id = te.id " +
+                        "WHERE te.m_oTaskStatus =: pending",
+                ActivityFluxExecution.class);
+        q.setParameter("pending", TaskExecutionStatus.PENDING);
+        return q.getResultList();
+    }
 }
