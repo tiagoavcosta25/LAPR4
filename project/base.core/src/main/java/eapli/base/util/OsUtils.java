@@ -15,4 +15,10 @@ public class OsUtils {
     public static boolean isWindows() {
         return (getOsName().contains("win"));
     }
+
+    public static boolean isMac() {
+        return (getOsName().contains("mac"));
+    }
+
+
 }
