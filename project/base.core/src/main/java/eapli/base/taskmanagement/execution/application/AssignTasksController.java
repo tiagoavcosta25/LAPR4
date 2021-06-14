@@ -42,5 +42,9 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
  */
 @UseCaseController
 public class AssignTasksController {
+    private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
+    private final CollaboratorRepository collabRepo = PersistenceContext.repositories().collaborators();
+    private final ManualTaskExecutionRepository taskRepo = PersistenceContext.repositories().manualTaskExec();
+
 
 }
