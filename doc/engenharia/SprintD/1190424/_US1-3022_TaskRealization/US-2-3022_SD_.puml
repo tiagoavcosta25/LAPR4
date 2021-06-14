@@ -1,0 +1,110 @@
+@startuml
+autonumber
+
+ actor "User" as U
+participant ":AccomplishPendingTaskUI" as UI
+participant ":AccomplishPendingTaskController" as CTRL
+participant ":AuthzRegistry" as AR
+participant "authz\n:AuthorizationService" as AS
+participant ":CollaboradorRepository" as CR
+participant ":TaskRepository" as TR
+participant ":Task" as T
+
+activate U
+U-> UI : Iniciates the request to accomplish a task
+activate UI
+activate CTRL
+         UI-> CTRL** : create()
+         ref over CTRL
+         US-1-2051_SD_Repo
+         end ref
+         deactivate CTRL
+
+
+
+           deactivate CTRL
+
+                  UI-> CTRL : getPendingTasks()
+                  activate CTRL
+
+                  CTRL-> TR : getPendingTasks(username)
+                  activate TR
+
+                  TR--> CTRL : pendingTasks
+                  deactivate TR
+
+                  CTRL-> CR : findByUserName(username)
+                  activate CR
+                  CR--> CTRL : collab
+                  deactivate CR
+
+                  CTRL--> UI : pendingTasks
+                  deactivate CTRL
+
+
+
+
+UI -> UI : doShow()
+UI --> U: show pending tasks
+U-> UI : choose task to accomplish
+opt
+UI -> CTRL : pendingTaskApproval(username)
+CTRL -> CR : colaborador=findByUsername(username)
+activate CR
+deactivate CR
+CTRL -> TR : findpendingTaskApprovalCollaborador(Colaborador)
+activate TR
+deactivate TR
+CTRL -> UI : Tasks
+UI -> CTRL : accomplishPendingTaskApproval(Task, formData, isTaskApproved)
+CTRL -> T : validateForm(formData)
+activate T
+deactivate T
+CTRL -> T : updateForm(formData)
+activate T
+deactivate T
+opt
+CTRL -> CTRL : criarTarefasFluxoValido(Task)
+note left : isTaskApproved : true
+CTRL -> T : changeTaskResult(SUCCESS)
+activate T
+deactivate T
+end opt
+opt
+CTRL -> CTRL : criarTarefasFluxoInvalido(Task)
+note left : isTaskApproved : false
+CTRL -> T : changeTaskResult(DENIED)
+activate T
+deactivate T
+end opt
+CTRL -> TR : save(task)
+activate TR
+deactivate TR
+end opt
+opt
+UI -> CTRL : accomplishPendingTaskResolution(Task, formData)
+UI -> CTRL : PendingTaskResolution(username)
+CTRL -> CR : collaborator=findByUsername(username)
+activate CR
+deactivate CR
+CTRL -> TR : findPendingTaskResolution(Collaborador)
+activate TR
+deactivate TR
+CTRL -> UI : Tasks
+CTRL -> T : validateDataForm(dataForm)
+activate T
+deactivate T
+CTRL -> T : updateDataForm(dataForm)
+activate T
+deactivate T
+CTRL -> T : changeTaskResult(SUCCESS)
+activate T
+deactivate T
+CTRL -> TR : save(Tarefa)
+activate TR
+deactivate TR
+end opt
+deactivate CTRL
+deactivate UI
+
+@enduml
