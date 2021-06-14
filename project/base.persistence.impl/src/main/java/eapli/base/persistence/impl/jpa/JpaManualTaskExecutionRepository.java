@@ -18,5 +18,17 @@ public class JpaManualTaskExecutionRepository extends HelpDeskJpaRepositoryBase<
         super("m_lngID");
     }
 
+    @Override
+    public Iterable<ManualTaskExecution> getHisPendingManualTasks(Username oUsername) {
+        final TypedQuery<ManualTaskExecution> q = entityManager().createQuery(
+                "SELECT mte FROM ManualTaskExecution mte " +
+                        "INNER JOIN TaskExecution te ON te.id = mte.id " +
+                        "WHERE mte.m_oCollaborator.m_oSystemUser.username =: uname AND te.m_oTaskStatus =: pending",
+                ManualTaskExecution.class);
+        q.setParameter("pending", TaskExecutionStatus.PENDING);
+        q.setParameter("uname", oUsername);
+        return q.getResultList();
+    }
+
 
 }
