@@ -12,6 +12,8 @@ import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.servicemanagement.repositories.DataRepository;
 import eapli.base.servicemanagement.repositories.ServiceDraftRepository;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
+import eapli.base.taskmanagement.execution.repositories.AutomaticTaskExecutionRepository;
+import eapli.base.taskmanagement.execution.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.specification.repositories.AutomaticTaskRepository;
 import eapli.base.taskmanagement.execution.repositories.TaskExecutionRepository;
 import eapli.base.taskmanagement.specification.repositories.ManualTaskRepository;
@@ -104,7 +106,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public ActivityFluxExecutionRepository fluxExecs(TransactionalContext autoTx) {
-		return null;
+		return new InMemoryActivityFluxExecutionRepository();
 	}
 
 	@Override
@@ -200,7 +202,17 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public AutomaticTaskRepository automaticTask() {
-		return null;
+		return new InMemoryAutomaticTaskRepository();
+	}
+
+	@Override
+	public ManualTaskExecutionRepository manualTaskExec() {
+		return new InMemoryManualTaskExecutionRepository();
+	}
+
+	@Override
+	public AutomaticTaskExecutionRepository automaticTaskExec() {
+		return new InMemoryAutomaticTaskExecutionRepository();
 	}
 
 
