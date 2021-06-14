@@ -52,55 +52,55 @@ UI -> CTRL : pendingTaskApproval(username)
 CTRL -> CR : colaborador=findByUsername(username)
 activate CR
 deactivate CR
-CTRL -> TR : find pendingTaskApprovalCollaborador(Colaborador)
+CTRL -> TR : findpendingTaskApprovalCollaborador(Colaborador)
 activate TR
 deactivate TR
 CTRL -> UI : Tasks
-UI -> CTRL : accomplishPendingTaskApproval(Tarefa, dadosFormulario, isTarefaAprovada)
-CTRL -> T : validarDadosFormulario(dadosFormulario)
+UI -> CTRL : accomplishPendingTaskApproval(Task, formData, isTaskApproved)
+CTRL -> T : validateForm(formData)
 activate T
 deactivate T
-CTRL -> T : atualizarDadosFormulario(dadosFormulario)
+CTRL -> T : updateForm(formData)
 activate T
 deactivate T
 opt
-CTRL -> CTRL : criarTarefasFluxoValido(Tarefa)
-note left : isTarefaAprovada : true
-CTRL -> T : alterarEstadoTarefa(FINALIZADA)
+CTRL -> CTRL : criarTarefasFluxoValido(Task)
+note left : isTaskApproved : true
+CTRL -> T : changeTaskResult(SUCCESS)
 activate T
 deactivate T
 end opt
 opt
-CTRL -> CTRL : criarTarefasFluxoInvalido(Tarefa)
-note left : isTarefaAprovada : false
-CTRL -> T : alterarEstadoTarefa(REJEITADA)
+CTRL -> CTRL : criarTarefasFluxoInvalido(Task)
+note left : isTaskApproved : false
+CTRL -> T : changeTaskResult(DENIED)
 activate T
 deactivate T
 end opt
-CTRL -> TR : save(Tarefa)
+CTRL -> TR : save(task)
 activate TR
 deactivate TR
 end opt
 opt
-UI -> CTRL : realizarTarefaResolucaoPendente(Tarefa, dadosFormulario)
-UI -> CTRL : tarefasResolucaoPendentes(username)
-CTRL -> CR : colaborador=findByUsername(username)
+UI -> CTRL : accomplishPendingTaskResolution(Task, formData)
+UI -> CTRL : PendingTaskResolution(username)
+CTRL -> CR : collaborator=findByUsername(username)
 activate CR
 deactivate CR
-CTRL -> TR : findTarefasResolucaoPendentesColaborador(Colaborador)
+CTRL -> TR : findPendingTaskResolution(Collaborador)
 activate TR
 deactivate TR
-CTRL -> UI : Tarefas
-CTRL -> T : validarDadosFormulario(dadosFormulario)
+CTRL -> UI : Tasks
+CTRL -> T : validateDataForm(dataForm)
 activate T
 deactivate T
-CTRL -> T : atualizarDadosFormulario(dadosFormulario)
+CTRL -> T : updateDataForm(dataForm)
 activate T
 deactivate T
-CTRL -> T : alterarEstadoTarefa(FINALIZADA)
+CTRL -> T : changeTaskResult(SUCCESS)
 activate T
 deactivate T
-CTRL -> TR : save(Tarefa)
+CTRL -> TR : save(Task)
 activate TR
 deactivate TR
 end opt
