@@ -29,6 +29,7 @@ import eapli.base.app.user.console.net.dashboard.HttpServerAjaxDashboard;
 import eapli.base.app.user.console.presentation.task.AssignTasksAction;
 import eapli.base.app.user.console.presentation.task.ExecuteAutomaticTaskAction;
 import eapli.base.app.user.console.presentation.task.ExecuteManualTaskAction;
+import eapli.base.app.user.console.presentation.ticket.SearchTicketsAction;
 import eapli.base.app.user.console.presentation.ticket.ServiceSolicitationAction;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -60,6 +61,7 @@ class MainMenu extends ClientUserBaseUI {
 
     // TICKET MENU
     private static final int SERVICES_SOLICITATION = 1;
+    private static final int SEARCH_TICKET = 2;
 
     // TASKS
     private static final int ASSIGN_TASKS = 1;
@@ -132,7 +134,10 @@ class MainMenu extends ClientUserBaseUI {
         final Menu menu = new Menu("Ticket >");
 
         menu.addItem(SERVICES_SOLICITATION, "Service Solicitation (Ticket)", new ServiceSolicitationAction());
+        menu.addItem(SEARCH_TICKET, "Search My Tickets", new SearchTicketsAction());
+
         menu.addItem(EXIT_OPTION, RETURN, Actions.SUCCESS);
+
 
         return menu;
     }
