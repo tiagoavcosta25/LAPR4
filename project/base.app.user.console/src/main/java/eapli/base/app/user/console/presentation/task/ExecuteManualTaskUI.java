@@ -67,4 +67,16 @@ public class ExecuteManualTaskUI extends AbstractUI {
         return selectorManualTask.selectedElement();
     }
 
+    private ActivityFluxExecution selectActivityFlux() {
+        System.out.println();
+        System.out.println("List of Activity Flux - Select an Activity Flux");
+        final Iterable<ActivityFluxExecution> listActivityFlux = theController.getUserActivityFlux();
+        if(!listActivityFlux.iterator().hasNext())
+            throw new IllegalArgumentException("No Pending Tasks avaiable!");
+        final SelectWidget<ActivityFluxExecution> selectorActivityFlux = new SelectWidget<>("Select an Activity Flow", listActivityFlux,
+                new ActivityFluxPrinter());
+        selectorActivityFlux.show();
+        return selectorActivityFlux.selectedElement();
+    }
+
 }
