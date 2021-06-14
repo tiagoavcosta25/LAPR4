@@ -1,7 +1,6 @@
 package eapli.base.persistence.impl.inmemory;
 
 import eapli.base.taskmanagement.specification.domain.AutomaticTask;
-import eapli.base.taskmanagement.specification.domain.Task;
 import eapli.base.taskmanagement.specification.repositories.AutomaticTaskRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
@@ -17,4 +16,8 @@ public class InMemoryAutomaticTaskRepository extends InMemoryDomainRepository<Au
         InMemoryInitializer.init();
     }
 
+    @Override
+    public Optional<AutomaticTask> findById(Long number) {
+        return matchOne(automaticTask -> automaticTask.id().equals(number));
+    }
 }
