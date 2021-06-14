@@ -8,10 +8,7 @@ package eapli.base.taskmanagement.specification.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 /**
  *
@@ -22,18 +19,18 @@ import javax.persistence.Embeddable;
 public class AutomaticTaskScript implements ValueObject, Comparable<AutomaticTaskScript> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "([a-zA-Z]:)?(/[a-zA-Z0-9_.-]+)+/[a-zA-Z0-9_.-]+.bat";
 
-    @Column(name = "automaticTaskScriptPath")
-    private String m_strScriptPath;
+    @Lob
+    @Column(name = "validateFormScript")
+    private String m_strScriptContent;
 
-    public AutomaticTaskScript(final String strScriptPath) {
-        if (StringPredicates.isNullOrEmpty(strScriptPath) || !strScriptPath.matches(m_strRegex)) {
+    public AutomaticTaskScript(final String strScriptContent) {
+        if (StringPredicates.isNullOrEmpty(strScriptContent)) {
             throw new IllegalArgumentException(
                     "Attribute Script should neither be null nor empty and be a valid file path");
         }
         // expression
-        this.m_strScriptPath = strScriptPath;
+        this.m_strScriptContent = strScriptContent;
     }
 
     protected AutomaticTaskScript() {
@@ -54,21 +51,21 @@ public class AutomaticTaskScript implements ValueObject, Comparable<AutomaticTas
         }
 
         final AutomaticTaskScript that = (AutomaticTaskScript) o;
-        return this.m_strScriptPath.equals(that.m_strScriptPath);
+        return this.m_strScriptContent.equals(that.m_strScriptContent);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strScriptPath.hashCode();
+        return this.m_strScriptContent.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strScriptPath;
+        return this.m_strScriptContent;
     }
 
     @Override
     public int compareTo(final AutomaticTaskScript arg0) {
-        return m_strScriptPath.compareTo(arg0.m_strScriptPath);
+        return m_strScriptContent.compareTo(arg0.m_strScriptContent);
     }
 }
