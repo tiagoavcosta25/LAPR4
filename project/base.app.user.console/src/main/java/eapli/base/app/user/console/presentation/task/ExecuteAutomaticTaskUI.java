@@ -40,5 +40,16 @@ public class ExecuteAutomaticTaskUI extends AbstractUI {
         return false;
     }
 
+    private AutomaticTaskExecution selectAutomaticTask(ActivityFluxExecution af) {
+        System.out.println();
+        System.out.println("List of Pending Automatic Tasks - Select an Automatic Task");
+        final Iterable<AutomaticTaskExecution> listTasks = theController.getPendingTasks(af);
+        if(!listTasks.iterator().hasNext())
+            throw new IllegalArgumentException("No Pending Tasks avaiable!");
+        final SelectWidget<AutomaticTaskExecution> selectorAutomaticTask = new SelectWidget<>(
+                "Select an Automatic Task", listTasks, new AutomaticTaskPrinter());
+        selectorAutomaticTask.show();
+        return selectorAutomaticTask.selectedElement();
+    }
 
 }
