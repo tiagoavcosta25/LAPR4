@@ -24,22 +24,22 @@ public class ActivityFluxExecutionProgress implements ValueObject, Comparable<Ac
     private static final long serialVersionUID = 1L;
 
     @Column(name = "fluxProgress")
-    private Integer m_intProgress;
+    private Long m_LongProgress;
 
-    public ActivityFluxExecutionProgress(final Integer intProgress) {
-        if (intProgress < 0) {
+    public ActivityFluxExecutionProgress(final Long longProgress) {
+        if (longProgress < 0) {
             throw new IllegalArgumentException(
-                    "Activity Flux Execution Progress should not be less than zero");
+                    "Activity Flux Execution Progress should not be created less than zero");
         }
-        this.m_intProgress = intProgress;
+        this.m_LongProgress = longProgress;
     }
 
     protected ActivityFluxExecutionProgress() {
         // for ORM
     }
 
-    public static ActivityFluxExecutionProgress valueOf(final Integer intProgress) {
-        return new ActivityFluxExecutionProgress(intProgress);
+    public static ActivityFluxExecutionProgress valueOf(final Long longProgress) {
+        return new ActivityFluxExecutionProgress(longProgress);
     }
 
     @Override
@@ -52,21 +52,25 @@ public class ActivityFluxExecutionProgress implements ValueObject, Comparable<Ac
         }
 
         final ActivityFluxExecutionProgress that = (ActivityFluxExecutionProgress) o;
-        return this.m_intProgress == that.m_intProgress;
+        return this.m_LongProgress.equals(that.m_LongProgress);
+    }
+
+    public Long currentProgress() {
+        return this.m_LongProgress;
     }
 
     @Override
     public int hashCode() {
-        return this.m_intProgress.hashCode();
+        return this.m_LongProgress.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_intProgress.toString();
+        return this.m_LongProgress.toString();
     }
 
     @Override
     public int compareTo(final ActivityFluxExecutionProgress arg0) {
-        return m_intProgress.compareTo(arg0.m_intProgress);
+        return m_LongProgress.compareTo(arg0.m_LongProgress);
     }
 }

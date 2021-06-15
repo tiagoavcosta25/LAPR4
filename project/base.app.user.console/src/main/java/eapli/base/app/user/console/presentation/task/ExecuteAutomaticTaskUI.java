@@ -28,7 +28,7 @@ public class ExecuteAutomaticTaskUI extends AbstractUI {
             String strOp = Console.readLine("Confirm the execution of task with code " + id + "? (Y/N) ");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
-                this.theController.executeTask(autoTask);
+                this.theController.executeTask(autoTask, af);
                 System.out.printf("Operation Successful. The Following Automatic Task was executed successfully > id:" +
                         " %s\n\n", id);
             } else{
