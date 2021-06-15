@@ -2,7 +2,7 @@ grammar ValidateForm;
 
 start: header type BLOCK_START statements BLOCK_END;
 
-statements: statement+;
+statements: statement+ #execStatements;
 
 header: HASHTAG HELPDESK;
 
@@ -23,8 +23,8 @@ assert_func: ASSERT_LABEL STMT_START cond=conditions STMT_END #execAssert;
 
 get_attribute: GET_ATTRIBUTE_LABEL STMT_START attribute=NUM+ STMT_END #execGetAttribute;
 
-nums: NUM+ COMMA nums
-    | NUM+;
+nums: number=NUM+ COMMA multipleNumbers=nums #execMultipleNumbers
+    | number=NUM+ #execNum;
 
 if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements #onlyIf
         | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END ELSE BLOCK_START stmt_else=statements BLOCK_END #ifElse;
@@ -56,7 +56,7 @@ op: left=object sign=sign_td right=op #execOpTimesDivision
 object: var=variable #objectVariable
        | number=NUM+ #objectNumber
        | HASHTAG get_attribute #objectAttribute;
-       
+
 sign_td: TIMES
     | FOWARD_SLASH;
 
