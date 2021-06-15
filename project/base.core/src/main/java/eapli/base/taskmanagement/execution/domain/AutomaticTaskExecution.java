@@ -55,6 +55,12 @@ public class AutomaticTaskExecution extends TaskExecution{
     }
 
     @Override
+    public void setExecuted() {
+        super.setExecuted();
+        super.setResult(TaskExecutionResult.APPROVED);
+    }
+
+    @Override
     public String toString() {
         return "Automatic Task Execution #" + this.id() + ": " + " | Task #" + this.m_oAutomaticTask.id() + ": " + this.m_oAutomaticTask.description();
     }

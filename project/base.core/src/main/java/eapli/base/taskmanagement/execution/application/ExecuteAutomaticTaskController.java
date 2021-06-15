@@ -26,6 +26,7 @@ public class ExecuteAutomaticTaskController {
 
     private final ExecuteAutomaticTaskService executeAutomaticTaskService = new ExecuteAutomaticTaskService();
     private final AutomaticTaskExecutionRepository autoTaskRepo = PersistenceContext.repositories().automaticTaskExec();
+    private final AdvanceFluxService adAFService = new AdvanceFluxService();
 
     public Iterable<AutomaticTaskExecution> getPendingTasks(ActivityFluxExecution af) {
         return this.autoTaskRepo.getPendingAutomaticTasks(af.identity());
@@ -35,14 +36,15 @@ public class ExecuteAutomaticTaskController {
         return this.autoTaskRepo.getActivityFlux();
     }
 
-    // TODO: REMOVER MOCK
-    public AutomaticTaskExecution executeTask(AutomaticTaskExecution task) {
+    // TODO: FIX CLASS
+    public AutomaticTaskExecution executeTask(AutomaticTaskExecution task, ActivityFluxExecution af) {
         task.setExecuting();
         ActivityFlowClient afc = new ActivityFlowClient(EXECUTE_SERVER_IP);
         SDP2021 receive = afc.retrieveInformation(task.getM_oAutomaticTask().script().toString(),
                 SDP2021Code.AUTOTASK_REQUEST.getCode());
         afc.retrieveInformation("", SDP2021Code.END.getCode());
         task.setExecuted();
+        adAFService.advanceFlux(af);
         return autoTaskRepo.save(task);
     }
 
