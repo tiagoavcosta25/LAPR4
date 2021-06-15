@@ -1,6 +1,8 @@
 package eapli.base.persistence.impl.inmemory;
 
+import eapli.base.taskmanagement.execution.domain.TaskExecutionStatus;
 import eapli.base.ticketmanagement.domain.Ticket;
+import eapli.base.ticketmanagement.domain.TicketStatus;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
@@ -27,11 +29,13 @@ public class InMemoryTicketRepository
 
     @Override
     public Iterable<Ticket> getTicketHistory(SystemUser oUser) {
-        return match(e -> e.collaborator().user().username().equals(oUser.username()));
+        return match(e -> e.collaborator().user().username().equals(oUser.username())
+                && e.status().equals(TicketStatus.CLOSED));
     }
 
     @Override
     public Iterable<Ticket> getOnGoingTickets(SystemUser oUser) {
-        return match(e -> e.collaborator().user().username().equals(oUser.username()));
+        return match(e -> e.collaborator().user().username().equals(oUser.username())
+                && e.status().equals(TicketStatus.OPEN));
     }
 }

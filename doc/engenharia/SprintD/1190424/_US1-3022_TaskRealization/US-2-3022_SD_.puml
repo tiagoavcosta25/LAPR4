@@ -49,10 +49,10 @@ UI --> U: show pending tasks
 U-> UI : choose task to accomplish
 opt
 UI -> CTRL : pendingTaskApproval(username)
-CTRL -> CR : colaborador=findByUsername(username)
+CTRL -> CR : collaborator=findByUsername(username)
 activate CR
 deactivate CR
-CTRL -> TR : findpendingTaskApprovalCollaborador(Colaborador)
+CTRL -> TR : findpendingTaskApprovalCollaborator(Collaborator)
 activate TR
 deactivate TR
 CTRL -> UI : Tasks
