@@ -21,5 +21,11 @@ public class RandomRawPassword {
         this(DEFAULT_LENGTH);
     }
 
+    public RandomRawPassword(final int length) {
+        PasswordPolicy pp = new BasePasswordPolicy();
+        String tmp = Strings.randomString(length, ALLOWED_CHARS);
+        while(!pp.isSatisfiedBy(tmp)) tmp = Strings.randomString(length, ALLOWED_CHARS);
+        this.rawPassword = tmp;
+    }
 
 }
