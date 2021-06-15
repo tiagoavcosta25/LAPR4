@@ -20,4 +20,8 @@ import java.util.Arrays;
  */
 @ApplicationService
 public class AdvanceFluxService {
+
+    private static final String SERVER_IP = "127.0.0.1"; //"10.9.20.133"
+
+
 }
