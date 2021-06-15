@@ -43,7 +43,7 @@ public class ExecuteManualTaskUI extends AbstractUI {
             String strOp = Console.readLine("Confirm the execution of task with code " + id + "? (Y/N) ");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
-                this.theController.executeTask(manualTask, rp);
+                this.theController.executeTask(manualTask, rp, af);
                 System.out.printf("Operation Successful. The Following Manual Task was executed successfully > id:" +
                         " %s\n\n", id);
             } else{
