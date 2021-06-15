@@ -73,12 +73,14 @@ public class ServiceSolicitationService {
             }
         }
 
-        ActivityFluxExecutionProgress oProgress = new ActivityFluxExecutionProgress(0);
+        /*ActivityFluxExecutionProgress oProgress = new ActivityFluxExecutionProgress(0L);
 
-        ActivityFluxExecution oFlux = new ActivityFluxExecution(oProgress, lstFlux);
+        ActivityFluxExecution oFlux = new ActivityFluxExecution(lstFlux);
 
         oFlux = this.m_oFluxExecRepo.save(oFlux);
 
-        return oFlux;
+        return oFlux;*/
+
+        return null;
     }
 }

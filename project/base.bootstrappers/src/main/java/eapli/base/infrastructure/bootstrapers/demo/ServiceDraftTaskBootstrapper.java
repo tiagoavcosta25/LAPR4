@@ -41,13 +41,13 @@ public class ServiceDraftTaskBootstrapper implements Action {
                 2, new ArrayList<>(Arrays.asList("Approval", "Notes")),
                 new ArrayList<>(Arrays.asList("Approval", "Notes")),
                 new ArrayList<>(Arrays.asList("Approval State", "Approval Notes")),
-                new ArrayList<>(Arrays.asList("Approval|Reproved", "[a-zA-Z0-9]+")),
+                new ArrayList<>(Arrays.asList("Approved|Reproved", "[a-zA-Z0-9 ]+")),
                 new ArrayList<>(Arrays.asList(DataType.STRING, DataType.STRING)),
                 true, "Resolution Task Network", TaskPriority.LOW,
                 "Resolution Network Form", "validate_form_script", 2, new ArrayList<>(Arrays.asList("Resolution", "Problems")),
                 new ArrayList<>(Arrays.asList("Task Resolution", "Problems")),
                 new ArrayList<>(Arrays.asList("Task Resolution Field", "Problems Encountered")),
-                new ArrayList<>(Arrays.asList("Success|Error", "[a-zA-Z0-9]+")),
+                new ArrayList<>(Arrays.asList("Success|Error", "[a-zA-Z0-9 ]+")),
                 new ArrayList<>(Arrays.asList(DataType.STRING, DataType.STRING)), null);
 
         return true;

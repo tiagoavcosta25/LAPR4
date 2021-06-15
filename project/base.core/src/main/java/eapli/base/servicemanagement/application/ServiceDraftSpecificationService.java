@@ -25,11 +25,9 @@ package eapli.base.servicemanagement.application;
 
 import eapli.base.activityfluxmanagement.specification.domain.ActivityFlux;
 import eapli.base.formmanagement.domain.*;
-import eapli.base.grammar.ValidateScript;
+import eapli.base.grammar.ScriptAlgorithms;
 import eapli.base.taskmanagement.specification.domain.ManualTask;
 import eapli.base.taskmanagement.specification.domain.Task;
-import eapli.base.taskmanagement.specification.domain.TaskDescription;
-import eapli.base.taskmanagement.specification.domain.TaskPriority;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.ApplicationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -79,11 +77,11 @@ public class ServiceDraftSpecificationService {
 
         if(oFile.exists() && !oFile.isDirectory()) {
             if(blnForm){
-                if(ValidateScript.validateForm(strPath)){
+                if(ScriptAlgorithms.validateForm(strPath)){
                     return FileUtils.readFileToString(oFile, StandardCharsets.UTF_8);
                 }
             } else{
-                if(ValidateScript.validateAutoTask(strPath)){
+                if(ScriptAlgorithms.validateAutoTask(strPath)){
                     return FileUtils.readFileToString(oFile, StandardCharsets.UTF_8);
                 }
             }
