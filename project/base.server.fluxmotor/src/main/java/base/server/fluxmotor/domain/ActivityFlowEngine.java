@@ -91,6 +91,9 @@ public class ActivityFlowEngine{
                 case 6:
                     dataPacket = infoRequestHandler(sdp2021Packet);
                     break;
+                case 9:
+                    dataPacket = advanceFluxRequestHandler(sdp2021Packet);
+                    break;
                 default:
                     throw new IllegalStateException("Unhandled code for packet: " + pktCode);
             }
@@ -106,6 +109,12 @@ public class ActivityFlowEngine{
             String strUserName = sdp2021Packet.getData();
             String payload = m_oActivityFlowController.prepareFluxData(strUserName);
             return new Pair<>(SDP2021Code.INFO_RESPONSE.getCode(), payload);
+        }
+
+        private Pair<Integer, String> advanceFluxRequestHandler(SDP2021 sdp2021Packet) {
+            Long fluxID = Long.valueOf(sdp2021Packet.getData());
+            String payload = m_oActivityFlowController.advanceFluxData(fluxID);
+            return new Pair<>(SDP2021Code.FLUX_ADVANCE_RESPONSE.getCode(), payload);
         }
 
     }
