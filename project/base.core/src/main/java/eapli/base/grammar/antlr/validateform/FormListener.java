@@ -64,4 +64,9 @@ public class FormListener extends ValidateFormBaseListener {
         this.stack.push(flag.toString());
     }
 
+    @Override
+    public void exitExecAssert(ValidateFormParser.ExecAssertContext ctx) {
+        this.stack.push(this.stack.pop());
+    }
+
 }
