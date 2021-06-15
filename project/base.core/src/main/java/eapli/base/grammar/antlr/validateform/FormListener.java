@@ -37,14 +37,31 @@ public class FormListener extends ValidateFormBaseListener {
             str = str.substring(str.indexOf(",") + 1);
         }
 
+        Boolean flag = true;
+
         for(Integer i : lstAttributes){
             if(this.m_oResponse.getResponses().get(i - 1).isEmpty()){
-                this.stack.push("false");
+                flag = false;
                 break;
             }
         }
 
-        this.stack.push("true");
+        this.stack.push(flag.toString());
+    }
+
+    @Override
+    public void exitExecRegex(ValidateFormParser.ExecRegexContext ctx) {
+        Integer intAttribute = Integer.parseInt(this.stack.pop());
+
+        String strRegex = this.stack.pop();
+
+        Boolean flag = true;
+
+        if(!this.m_oResponse.getResponses().get(intAttribute - 1).matches(strRegex)){
+            flag = false;
+        }
+
+        this.stack.push(flag.toString());
     }
 
 }
