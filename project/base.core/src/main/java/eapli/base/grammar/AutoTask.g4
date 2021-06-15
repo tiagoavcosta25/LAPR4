@@ -4,28 +4,26 @@ start: header type BLOCK_START statements BLOCK_END;
 
 statements: statement+;
 
-statement: function;
-
 header: HASHTAG HELPDESK;
 
 type: AUTO_TASK;
 
-function: HASHTAG sendEmail END
+statement: HASHTAG sendEmail END
         | HASHTAG fileSearch END
         | HASHTAG if_func
         | assign END;
 
-sendEmail : SEND_EMAIL_LABEL STMT_START QUOTATION_MARKS email QUOTATION_MARKS COMMA QUOTATION_MARKS subject QUOTATION_MARKS COMMA QUOTATION_MARKS body QUOTATION_MARKS STMT_END;
+sendEmail : SEND_EMAIL_LABEL STMT_START QUOTATION_MARKS em=email QUOTATION_MARKS COMMA QUOTATION_MARKS sub=subject QUOTATION_MARKS COMMA QUOTATION_MARKS email_body=body QUOTATION_MARKS STMT_END #execSendEmail;
 
-fileSearch : FILE_SEARCH_LABEL STMT_START QUOTATION_MARKS path QUOTATION_MARKS COMMA QUOTATION_MARKS keyword QUOTATION_MARKS STMT_END;
+fileSearch : FILE_SEARCH_LABEL STMT_START QUOTATION_MARKS fp=path QUOTATION_MARKS COMMA QUOTATION_MARKS key=keyword QUOTATION_MARKS STMT_END #execFileSearch;
 
-if_func: IF_LABEL STMT_START conditions STMT_END BLOCK_START statements
-        | IF_LABEL STMT_START conditions STMT_END BLOCK_START statements BLOCK_END ELSE BLOCK_START statements BLOCK_END;
+if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements #only_if
+        | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END ELSE BLOCK_START stmt_else=statements BLOCK_END #if_else;
 
-conditions: condition conjunction conditions
-          | condition;
+conditions: right=condition conj_sign=conjunction left=conditions #multiple_conditions
+          | condition #single_conditions;
 
-condition: object comp object;
+condition: left=object comp_sign=comp right=object #cond;
 
 comp: COMP_EQUAL
     | DIFF
@@ -37,22 +35,24 @@ comp: COMP_EQUAL
 conjunction: AND
            | OR;
 
-assign: variable EQUAL op;
+assign: var=variable EQUAL res=op #exec_assign;
 
-variable : DOLLAR var_label;
+variable : DOLLAR label=var_label #exec_var;
 
-op: object sign op
-    | object
-    | STMT_START op STMT_END;
+op: left=object sign_td right=op #exec_op_times_division
+    | left=object sign_pm right=op #exec_op_plus_minus
+    | atom=object #exec_op_atom
+    | STMT_START result=op STMT_END #exec_op_parenthesis;
 
 object: variable
        | NUM+
        | HASHTAG fileSearch;
 
-sign: PLUS
-    | HYPHEN
-    | TIMES
+sign_td: TIMES
     | FOWARD_SLASH;
+
+sign_pm: PLUS
+    | HYPHEN;
 
 path : port? folder* file;
 
@@ -121,4 +121,4 @@ HASHTAG: '#';
 UNDERSCORE: '_';
 QUOTATION_MARKS: '"';
 END: ';';
-WS : [ \t\r\n]+ -> skip;
+WS : [ \t\r\n]+ -> skip;n]+ -> skip;
