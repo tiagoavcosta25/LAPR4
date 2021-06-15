@@ -1015,6 +1015,7 @@ public class ValidateFormParser extends Parser {
 		}
 	}
 	public static class SingleConditionsContext extends ConditionsContext {
+		public ConditionContext cond;
 		public ConditionContext condition() {
 			return getRuleContext(ConditionContext.class,0);
 		}
@@ -1058,7 +1059,7 @@ public class ValidateFormParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(160);
-				condition();
+				((SingleConditionsContext)_localctx).cond = condition();
 				}
 				break;
 			}
@@ -1381,12 +1382,13 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class ExecOpTimesDivisionContext extends OpContext {
 		public ObjectContext left;
+		public Sign_tdContext sign;
 		public OpContext right;
-		public Sign_tdContext sign_td() {
-			return getRuleContext(Sign_tdContext.class,0);
-		}
 		public ObjectContext object() {
 			return getRuleContext(ObjectContext.class,0);
+		}
+		public Sign_tdContext sign_td() {
+			return getRuleContext(Sign_tdContext.class,0);
 		}
 		public OpContext op() {
 			return getRuleContext(OpContext.class,0);
@@ -1430,12 +1432,13 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class ExecOpPlusMinusContext extends OpContext {
 		public ObjectContext left;
+		public Sign_pmContext sign;
 		public OpContext right;
-		public Sign_pmContext sign_pm() {
-			return getRuleContext(Sign_pmContext.class,0);
-		}
 		public ObjectContext object() {
 			return getRuleContext(ObjectContext.class,0);
+		}
+		public Sign_pmContext sign_pm() {
+			return getRuleContext(Sign_pmContext.class,0);
 		}
 		public OpContext op() {
 			return getRuleContext(OpContext.class,0);
@@ -1455,23 +1458,23 @@ public class ValidateFormParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class Exec_op_atomContext extends OpContext {
+	public static class ExecOpAtomContext extends OpContext {
 		public ObjectContext atom;
 		public ObjectContext object() {
 			return getRuleContext(ObjectContext.class,0);
 		}
-		public Exec_op_atomContext(OpContext ctx) { copyFrom(ctx); }
+		public ExecOpAtomContext(OpContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterExec_op_atom(this);
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterExecOpAtom(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitExec_op_atom(this);
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitExecOpAtom(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitExec_op_atom(this);
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitExecOpAtom(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1490,7 +1493,7 @@ public class ValidateFormParser extends Parser {
 				setState(178);
 				((ExecOpTimesDivisionContext)_localctx).left = object();
 				setState(179);
-				sign_td();
+				((ExecOpTimesDivisionContext)_localctx).sign = sign_td();
 				setState(180);
 				((ExecOpTimesDivisionContext)_localctx).right = op();
 				}
@@ -1502,17 +1505,17 @@ public class ValidateFormParser extends Parser {
 				setState(182);
 				((ExecOpPlusMinusContext)_localctx).left = object();
 				setState(183);
-				sign_pm();
+				((ExecOpPlusMinusContext)_localctx).sign = sign_pm();
 				setState(184);
 				((ExecOpPlusMinusContext)_localctx).right = op();
 				}
 				break;
 			case 3:
-				_localctx = new Exec_op_atomContext(_localctx);
+				_localctx = new ExecOpAtomContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(186);
-				((Exec_op_atomContext)_localctx).atom = object();
+				((ExecOpAtomContext)_localctx).atom = object();
 				}
 				break;
 			case 4:
@@ -1541,32 +1544,74 @@ public class ValidateFormParser extends Parser {
 	}
 
 	public static class ObjectContext extends ParserRuleContext {
-		public VariableContext variable() {
-			return getRuleContext(VariableContext.class,0);
-		}
-		public List<TerminalNode> NUM() { return getTokens(ValidateFormParser.NUM); }
-		public TerminalNode NUM(int i) {
-			return getToken(ValidateFormParser.NUM, i);
-		}
-		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
-		public Get_attributeContext get_attribute() {
-			return getRuleContext(Get_attributeContext.class,0);
-		}
 		public ObjectContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_object; }
+	 
+		public ObjectContext() { }
+		public void copyFrom(ObjectContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class ObjectNumberContext extends ObjectContext {
+		public Token number;
+		public List<TerminalNode> NUM() { return getTokens(ValidateFormParser.NUM); }
+		public TerminalNode NUM(int i) {
+			return getToken(ValidateFormParser.NUM, i);
+		}
+		public ObjectNumberContext(ObjectContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterObject(this);
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterObjectNumber(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitObject(this);
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitObjectNumber(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitObject(this);
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitObjectNumber(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ObjectAttributeContext extends ObjectContext {
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
+		public Get_attributeContext get_attribute() {
+			return getRuleContext(Get_attributeContext.class,0);
+		}
+		public ObjectAttributeContext(ObjectContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterObjectAttribute(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitObjectAttribute(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitObjectAttribute(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ObjectVariableContext extends ObjectContext {
+		public VariableContext var;
+		public VariableContext variable() {
+			return getRuleContext(VariableContext.class,0);
+		}
+		public ObjectVariableContext(ObjectContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterObjectVariable(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitObjectVariable(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitObjectVariable(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1580,13 +1625,15 @@ public class ValidateFormParser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case DOLLAR:
+				_localctx = new ObjectVariableContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(193);
-				variable();
+				((ObjectVariableContext)_localctx).var = variable();
 				}
 				break;
 			case NUM:
+				_localctx = new ObjectNumberContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(195); 
@@ -1596,7 +1643,7 @@ public class ValidateFormParser extends Parser {
 					{
 					{
 					setState(194);
-					match(NUM);
+					((ObjectNumberContext)_localctx).number = match(NUM);
 					}
 					}
 					setState(197); 
@@ -1606,6 +1653,7 @@ public class ValidateFormParser extends Parser {
 				}
 				break;
 			case HASHTAG:
+				_localctx = new ObjectAttributeContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(199);

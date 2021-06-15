@@ -150,12 +150,12 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecOpPlusMinus(ValidateFormParser.ExecOpPlusMinusContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_op_atom}
+	 * Visit a parse tree produced by the {@code execOpAtom}
 	 * labeled alternative in {@link ValidateFormParser#op}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_op_atom(ValidateFormParser.Exec_op_atomContext ctx);
+	T visitExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code execOpParenthesis}
 	 * labeled alternative in {@link ValidateFormParser#op}.
@@ -164,11 +164,26 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#object}.
+	 * Visit a parse tree produced by the {@code objectVariable}
+	 * labeled alternative in {@link ValidateFormParser#object}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitObject(ValidateFormParser.ObjectContext ctx);
+	T visitObjectVariable(ValidateFormParser.ObjectVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code objectNumber}
+	 * labeled alternative in {@link ValidateFormParser#object}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjectNumber(ValidateFormParser.ObjectNumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code objectAttribute}
+	 * labeled alternative in {@link ValidateFormParser#object}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjectAttribute(ValidateFormParser.ObjectAttributeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ValidateFormParser#sign_td}.
 	 * @param ctx the parse tree

@@ -164,7 +164,7 @@ public class ValidateFormBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExec_op_atom(ValidateFormParser.Exec_op_atomContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -178,7 +178,21 @@ public class ValidateFormBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitObject(ValidateFormParser.ObjectContext ctx) { return visitChildren(ctx); }
+	@Override public T visitObjectVariable(ValidateFormParser.ObjectVariableContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitObjectNumber(ValidateFormParser.ObjectNumberContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitObjectAttribute(ValidateFormParser.ObjectAttributeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

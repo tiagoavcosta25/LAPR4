@@ -244,17 +244,17 @@ public interface ValidateFormListener extends ParseTreeListener {
 	 */
 	void exitExecOpPlusMinus(ValidateFormParser.ExecOpPlusMinusContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code exec_op_atom}
+	 * Enter a parse tree produced by the {@code execOpAtom}
 	 * labeled alternative in {@link ValidateFormParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void enterExec_op_atom(ValidateFormParser.Exec_op_atomContext ctx);
+	void enterExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code exec_op_atom}
+	 * Exit a parse tree produced by the {@code execOpAtom}
 	 * labeled alternative in {@link ValidateFormParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void exitExec_op_atom(ValidateFormParser.Exec_op_atomContext ctx);
+	void exitExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code execOpParenthesis}
 	 * labeled alternative in {@link ValidateFormParser#op}.
@@ -268,15 +268,41 @@ public interface ValidateFormListener extends ParseTreeListener {
 	 */
 	void exitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ValidateFormParser#object}.
+	 * Enter a parse tree produced by the {@code objectVariable}
+	 * labeled alternative in {@link ValidateFormParser#object}.
 	 * @param ctx the parse tree
 	 */
-	void enterObject(ValidateFormParser.ObjectContext ctx);
+	void enterObjectVariable(ValidateFormParser.ObjectVariableContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ValidateFormParser#object}.
+	 * Exit a parse tree produced by the {@code objectVariable}
+	 * labeled alternative in {@link ValidateFormParser#object}.
 	 * @param ctx the parse tree
 	 */
-	void exitObject(ValidateFormParser.ObjectContext ctx);
+	void exitObjectVariable(ValidateFormParser.ObjectVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code objectNumber}
+	 * labeled alternative in {@link ValidateFormParser#object}.
+	 * @param ctx the parse tree
+	 */
+	void enterObjectNumber(ValidateFormParser.ObjectNumberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code objectNumber}
+	 * labeled alternative in {@link ValidateFormParser#object}.
+	 * @param ctx the parse tree
+	 */
+	void exitObjectNumber(ValidateFormParser.ObjectNumberContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code objectAttribute}
+	 * labeled alternative in {@link ValidateFormParser#object}.
+	 * @param ctx the parse tree
+	 */
+	void enterObjectAttribute(ValidateFormParser.ObjectAttributeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code objectAttribute}
+	 * labeled alternative in {@link ValidateFormParser#object}.
+	 * @param ctx the parse tree
+	 */
+	void exitObjectAttribute(ValidateFormParser.ObjectAttributeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ValidateFormParser#sign_td}.
 	 * @param ctx the parse tree

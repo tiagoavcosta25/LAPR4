@@ -268,13 +268,13 @@ public class ValidateFormBaseListener implements ValidateFormListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExec_op_atom(ValidateFormParser.Exec_op_atomContext ctx) { }
+	@Override public void enterExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExec_op_atom(ValidateFormParser.Exec_op_atomContext ctx) { }
+	@Override public void exitExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -292,13 +292,37 @@ public class ValidateFormBaseListener implements ValidateFormListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterObject(ValidateFormParser.ObjectContext ctx) { }
+	@Override public void enterObjectVariable(ValidateFormParser.ObjectVariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitObject(ValidateFormParser.ObjectContext ctx) { }
+	@Override public void exitObjectVariable(ValidateFormParser.ObjectVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterObjectNumber(ValidateFormParser.ObjectNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitObjectNumber(ValidateFormParser.ObjectNumberContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterObjectAttribute(ValidateFormParser.ObjectAttributeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitObjectAttribute(ValidateFormParser.ObjectAttributeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
