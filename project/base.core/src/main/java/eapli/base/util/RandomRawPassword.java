@@ -13,5 +13,9 @@ public class RandomRawPassword {
     public static final String ALLOWED_CHARS;
     private final String rawPassword;
 
+    static {
+        ALLOWED_CHARS = LOWER_CHARS + UPPER_CHARS + NUMBERS + SPECIAL;
+    }
+
 
 }
