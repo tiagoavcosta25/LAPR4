@@ -23,9 +23,19 @@ public class FormListener extends ValidateFormBaseListener {
     }
 
     @Override
+    public void exitExecStatements(ValidateFormParser.ExecStatementsContext ctx) {
+        if(this.stack.size() > 1){
+            Boolean blnRight = Boolean.valueOf(this.stack.pop());
+            Boolean blnLeft = Boolean.valueOf(this.stack.pop());
+
+            this.stack.push(String.valueOf(Boolean.logicalAnd(blnLeft, blnRight)));
+        }
+    }
+
+    @Override
     public void exitExecMandatory(ValidateFormParser.ExecMandatoryContext ctx) {
         String str = this.stack.pop();
-
+        Boolean flag = true;
         List<Integer> lstAttributes = new ArrayList<>();
 
         while(!str.isEmpty()){
@@ -33,20 +43,36 @@ public class FormListener extends ValidateFormBaseListener {
                 lstAttributes.add(Integer.parseInt(str.trim()));
                 break;
             }
+
             lstAttributes.add(Integer.parseInt(str.substring(0, str.indexOf(",")).trim()));
             str = str.substring(str.indexOf(",") + 1);
         }
 
-        Boolean flag = true;
-
         for(Integer i : lstAttributes){
-            if(this.m_oResponse.getResponses().get(i - 1).isEmpty()){
+            if(i >= this.m_oResponse.getResponses().size()){
+                flag = false;
+                this.stack.push(flag.toString());
+                return;
+            }
+
+            if(this.m_oResponse.getResponses().get(i).isEmpty()){
                 flag = false;
                 break;
             }
         }
 
         this.stack.push(flag.toString());
+    }
+
+    @Override
+    public void exitExecMultipleNumbers(ValidateFormParser.ExecMultipleNumbersContext ctx) {
+        this.stack.push(ctx.number.getText() + "," + this.stack.pop());
+
+    }
+
+    @Override
+    public void enterExecNum(ValidateFormParser.ExecNumContext ctx) {
+        this.stack.push(ctx.number.getText());
     }
 
     @Override
