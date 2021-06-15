@@ -54,6 +54,8 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 		return new InMemoryClientUserRepository();
 	}
 
+
+
 	@Override
 	public ClientUserRepository clientUsers() {
 		return clientUsers(null);
@@ -123,6 +125,7 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	public TaskRepository tasks() {
 		return new InMemoryTaskRepository();
 	}
+
 
 	@Override
 	public CollaboratorRepository collaborators(TransactionalContext autoTx) {
