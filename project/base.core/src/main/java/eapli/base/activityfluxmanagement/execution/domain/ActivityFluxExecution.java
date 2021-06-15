@@ -34,6 +34,7 @@ import java.util.List;
  *
  * @author Jéssica Alves 1190682@isep.ipp.pt
  * @author Pedro Santos 1190967@isep.ipp.pt
+ * @author Beatriz Seixas 1190424@isep.ipp.pt
  */
 
 @Entity
@@ -54,11 +55,11 @@ public class ActivityFluxExecution implements AggregateRoot<Long> {
     @Column(name = "activityFluxExecution")
     private List<TaskExecution> m_lstFlux;
 
-    public ActivityFluxExecution(final ActivityFluxExecutionProgress oProgress, final List<TaskExecution> lstFlux) {
-        if (oProgress == null || lstFlux.isEmpty()) {
+    public ActivityFluxExecution(final List<TaskExecution> lstFlux) {
+        if (lstFlux.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        this.m_oProgress = oProgress;
+        this.m_oProgress = new ActivityFluxExecutionProgress(lstFlux.get(0).id());
         this.m_lstFlux = lstFlux;
     }
 
@@ -77,27 +78,23 @@ public class ActivityFluxExecution implements AggregateRoot<Long> {
         this.m_lstFlux.add(oTask);
     }
 
-    @Override
-    public boolean equals(final Object o) {
-        return DomainEntities.areEqual(this, o);
+    public ActivityFluxExecutionProgress currentProgress() {
+        return this.m_oProgress;
     }
 
-    @Override
-    public int hashCode() {
-        return DomainEntities.hashCode(this);
+    public void advanceProgress() {
+        long nPr = this.m_oProgress.currentProgress() + 1;
+
+        // Finish
+        if(nPr > this.m_lstFlux.size()) this.m_oProgress = new ActivityFluxExecutionProgress(-1L);
+
+            // Advance
+        else this.m_oProgress = new ActivityFluxExecutionProgress(nPr);
     }
 
-    @Override
-    public boolean sameAs(final Object other) {
-        return DomainEntities.areEqual(this, other);
+    public boolean isFinished() {
+        return this.m_oProgress.currentProgress() == -1L;
     }
 
-    public Long id() {
-        return identity();
-    }
-
-    @Override
-    public Long identity() {
-        return this.m_oID;
-    }
+ 
 }
