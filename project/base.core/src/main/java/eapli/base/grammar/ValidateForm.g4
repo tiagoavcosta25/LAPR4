@@ -30,7 +30,7 @@ if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=sta
         | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END ELSE BLOCK_START stmt_else=statements BLOCK_END #ifElse;
 
 conditions: right=condition conjSign=conjunction left=conditions #multipleConditions
-          | condition #singleConditions;
+          | cond=condition #singleConditions;
 
 condition: left=object compSign=comp right=object #cond;
 
@@ -48,14 +48,14 @@ assign: var=variable EQUAL res=op #execAssign;
 
 variable : DOLLAR label=var_label #execVar;
 
-op: left=object sign_td right=op #execOpTimesDivision
-    | left=object sign_pm right=op #execOpPlusMinus
-    | atom=object #exec_op_atom
+op: left=object sign=sign_td right=op #execOpTimesDivision
+    | left=object sign=sign_pm right=op #execOpPlusMinus
+    | atom=object #execOpAtom
     | STMT_START result=op STMT_END #execOpParenthesis;
 
-object: variable
-       | NUM+
-       | HASHTAG get_attribute;
+object: var=variable #objectVariable
+       | number=NUM+ #objectNumber
+       | HASHTAG get_attribute #objectAttribute;
        
 sign_td: TIMES
     | FOWARD_SLASH;
