@@ -95,6 +95,29 @@ public class ActivityFluxExecution implements AggregateRoot<Long> {
     public boolean isFinished() {
         return this.m_oProgress.currentProgress() == -1L;
     }
+    @Override
+    public boolean equals(final Object o) {
+        return DomainEntities.areEqual(this, o);
+    }
 
- 
+    @Override
+    public int hashCode() {
+        return DomainEntities.hashCode(this);
+    }
+
+    @Override
+    public boolean sameAs(final Object other) {
+        return DomainEntities.areEqual(this, other);
+    }
+
+    public Long id() {
+        return identity();
+    }
+
+    @Override
+    public Long identity() {
+        return this.m_oID;
+    }
+
+
 }
