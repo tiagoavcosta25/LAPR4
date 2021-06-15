@@ -22,12 +22,14 @@ public enum SDP2021Code {
         INFO_RESPONSE(5),
         INFO_REQUEST(6),
         AUTOTASK_RESPONSE_FAILURE(7),
+        FLUX_ADVANCE_RESPONSE(8),
+        FLUX_ADVANCE_REQUEST(9),
         SEGMENT(255);
 
         /**
          * Code.
          */
-        private int m_intCode;
+        private final int m_intCode;
 
         /**
          * An empty constructor of SDP2021Code.
