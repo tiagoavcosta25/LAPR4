@@ -17,11 +17,12 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStart(ValidateFormParser.StartContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#statements}.
+	 * Visit a parse tree produced by the {@code execStatements}
+	 * labeled alternative in {@link ValidateFormParser#statements}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatements(ValidateFormParser.StatementsContext ctx);
+	T visitExecStatements(ValidateFormParser.ExecStatementsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ValidateFormParser#header}.
 	 * @param ctx the parse tree
@@ -69,11 +70,19 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecGetAttribute(ValidateFormParser.ExecGetAttributeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#nums}.
+	 * Visit a parse tree produced by the {@code execMultipleNumbers}
+	 * labeled alternative in {@link ValidateFormParser#nums}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNums(ValidateFormParser.NumsContext ctx);
+	T visitExecMultipleNumbers(ValidateFormParser.ExecMultipleNumbersContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code execNum}
+	 * labeled alternative in {@link ValidateFormParser#nums}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecNum(ValidateFormParser.ExecNumContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code onlyIf}
 	 * labeled alternative in {@link ValidateFormParser#if_func}.
