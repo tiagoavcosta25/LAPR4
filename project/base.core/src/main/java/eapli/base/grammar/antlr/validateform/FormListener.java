@@ -1,11 +1,8 @@
 package eapli.base.grammar.antlr.validateform;
 
-import eapli.base.grammartesting.eapli.base.grammartesting.ExpressionsParser;
 import eapli.base.ticketmanagement.domain.Response;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
@@ -13,10 +10,12 @@ import java.util.Stack;
 public class FormListener extends ValidateFormBaseListener {
 
     private final Stack<String> stack = new Stack<>();
+    private Map<String,String> m_oMapVariables;
     private Response m_oResponse;
 
     public FormListener(Response oResponse) {
         this.m_oResponse = oResponse;
+        this.m_oMapVariables = new HashMap<>();
     }
 
     public Boolean getResult() {
@@ -66,24 +65,16 @@ public class FormListener extends ValidateFormBaseListener {
     }
 
     @Override
-    public void exitExecAssert(ValidateFormParser.ExecAssertContext ctx) {
-        this.stack.push(this.stack.pop());
-    }
-
-    @Override
     public void exitMultipleConditions(ValidateFormParser.MultipleConditionsContext ctx) {
         Boolean blnLeft = Boolean.valueOf(this.stack.pop());
         Boolean blnRight = Boolean.valueOf(this.stack.pop());
 
         switch (ctx.conjSign.getText()) {
             case "&&" : this.stack.push(String.valueOf(Boolean.logicalAnd(blnLeft, blnRight)));
+                return;
             case "||" : this.stack.push(String.valueOf(Boolean.logicalOr(blnLeft, blnRight)));
+                return;
         }
-    }
-
-    @Override
-    public void exitSingleConditions(ValidateFormParser.SingleConditionsContext ctx) {
-        //this.stack.push(ctx.cond.getText());
     }
 
     @Override
@@ -93,17 +84,23 @@ public class FormListener extends ValidateFormBaseListener {
 
         switch (ctx.compSign.getText()) {
             case "==" : this.stack.push(String.valueOf(intLeft == intRight));
+                return;
             case "!=" : this.stack.push(String.valueOf(intLeft != intRight));
+                return;
             case ">" : this.stack.push(String.valueOf(intLeft > intRight));
+                return;
             case "<" : this.stack.push(String.valueOf(intLeft < intRight));
+                return;
             case ">=" : this.stack.push(String.valueOf(intLeft >= intRight));
+                return;
             case "<=" : this.stack.push(String.valueOf(intLeft <= intRight));
+                return;
         }
     }
 
-    //@Override
-    //public void enterObjectNumber(ValidateFormParser.ObjectNumberContext ctx) {
-        //this.stack.push(ctx.number.getText());
-    //}
+    @Override
+    public void enterObjectNumber(ValidateFormParser.ObjectNumberContext ctx) {
+        this.stack.push(ctx.number.getText());
+    }
 
 }
