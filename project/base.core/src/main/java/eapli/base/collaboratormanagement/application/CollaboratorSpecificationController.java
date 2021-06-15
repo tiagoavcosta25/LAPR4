@@ -28,11 +28,11 @@ import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.base.util.EmailSender;
+import eapli.base.util.RandomRawPassword;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
-import eapli.framework.infrastructure.authz.domain.model.RandomRawPassword;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 
@@ -49,14 +49,15 @@ public class CollaboratorSpecificationController {
 
     private final CollaboratorRepository m_oCollaboratorRepo = PersistenceContext.repositories().collaborators();
     private CollaboratorBuilder m_oCollaboratorBuilder = new CollaboratorBuilder();
-    private RandomRawPassword m_oRandomRawPassword = new RandomRawPassword();
-    private List<Collaborator> m_lstCollaborators = new ArrayList<>();
-    private String m_strEmail, m_strFirstName, m_strLastName, m_strRawPassword, m_strUsername;
+    private final RandomRawPassword m_oRandomRawPassword = new RandomRawPassword();
+    private String m_strEmail;
+    private String m_strFirstName;
+    private String m_strLastName;
     private Set<Role> m_setRoles;
 
     public void addCollaborator(String strEmail, String strFirstName, String strLastName,
-                                        String strCompleteName, Long lngMechanographicNumber, String strAddress,
-                                        String strPhoneCode, Double dblPhoneNumber, LocalDate dtBirthDate) {
+                                String strCompleteName, Long lngMechanographicNumber, String strAddress,
+                                String strPhoneCode, Double dblPhoneNumber, LocalDate dtBirthDate) {
         m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withShortName(strFirstName, strLastName);
@@ -88,17 +89,18 @@ public class CollaboratorSpecificationController {
     }
 
     public Collaborator saveCollaborator() {
-        this.m_strRawPassword = m_oRandomRawPassword.toString();
+        String m_strRawPassword = m_oRandomRawPassword.toString();
+        System.out.println("PASSWORD: " + m_strRawPassword);
         UserManagementService oUserService = AuthzRegistry.userService();
-        this.m_strUsername = this.m_strEmail.substring(0, this.m_strEmail.indexOf("@"));
+        String m_strUsername = this.m_strEmail.substring(0, this.m_strEmail.indexOf("@"));
         this.m_setRoles.add(BaseRoles.COLLABORATOR);
-        SystemUser oSystemUser = oUserService.registerNewUser(this.m_strUsername, this.m_strRawPassword, m_strFirstName,
+        SystemUser oSystemUser = oUserService.registerNewUser(m_strUsername, m_strRawPassword, m_strFirstName,
                 m_strLastName, m_strEmail, this.m_setRoles);
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withSystemUser(oSystemUser);
         Collaborator oCollaborator = this.m_oCollaboratorBuilder.build();
         this.m_oCollaboratorRepo.save(oCollaborator);
         EmailSender.send("info@helpdesk.pt", m_strEmail, "Collaborator creation.", "Your collaborator was created with success.\n" +
-                "Username: " + this.m_strUsername + "\nPassword: "
+                "Username: " + m_strUsername + "\nPassword: "
                 + m_strRawPassword, m_strEmail);
         return oCollaborator;
     }
@@ -111,15 +113,15 @@ public class CollaboratorSpecificationController {
 
         try {
 
-        addCollaborator(strEmail, strFirstName, strLastName, strCompleteName, lngMechanographicNumber,
-                strAddress, strPhoneCode, dblPhoneNumber, dtBirthDate);
+            addCollaborator(strEmail, strFirstName, strLastName, strCompleteName, lngMechanographicNumber,
+                    strAddress, strPhoneCode, dblPhoneNumber, dtBirthDate);
 
-        addRoles(lstRoles);
-        addManager(m_oCollaboratorRepo.findByMecanographicNumber(CollaboratorMechanographicNumber.valueOf(lngManager)).get());
+            addRoles(lstRoles);
+            addManager(m_oCollaboratorRepo.findByMecanographicNumber(CollaboratorMechanographicNumber.valueOf(lngManager)).get());
 
-        saveCollaborator();
+            saveCollaborator();
 
-        return true;
+            return true;
         } catch (Exception e){
             return false;
         }
