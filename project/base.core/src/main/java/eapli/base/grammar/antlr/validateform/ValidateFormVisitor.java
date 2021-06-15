@@ -23,12 +23,6 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatements(ValidateFormParser.StatementsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStatement(ValidateFormParser.StatementContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link ValidateFormParser#header}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -41,39 +35,39 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(ValidateFormParser.TypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#function}.
+	 * Visit a parse tree produced by {@link ValidateFormParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction(ValidateFormParser.FunctionContext ctx);
+	T visitStatement(ValidateFormParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_mandatory}
+	 * Visit a parse tree produced by the {@code execMandatory}
 	 * labeled alternative in {@link ValidateFormParser#mandatory}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_mandatory(ValidateFormParser.Exec_mandatoryContext ctx);
+	T visitExecMandatory(ValidateFormParser.ExecMandatoryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_regex}
+	 * Visit a parse tree produced by the {@code execRegex}
 	 * labeled alternative in {@link ValidateFormParser#regex}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_regex(ValidateFormParser.Exec_regexContext ctx);
+	T visitExecRegex(ValidateFormParser.ExecRegexContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_assert}
+	 * Visit a parse tree produced by the {@code execAssert}
 	 * labeled alternative in {@link ValidateFormParser#assert_func}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_assert(ValidateFormParser.Exec_assertContext ctx);
+	T visitExecAssert(ValidateFormParser.ExecAssertContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_get_attribute}
+	 * Visit a parse tree produced by the {@code execGetAttribute}
 	 * labeled alternative in {@link ValidateFormParser#get_attribute}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_get_attribute(ValidateFormParser.Exec_get_attributeContext ctx);
+	T visitExecGetAttribute(ValidateFormParser.ExecGetAttributeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ValidateFormParser#nums}.
 	 * @param ctx the parse tree
@@ -81,33 +75,33 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNums(ValidateFormParser.NumsContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code only_if}
+	 * Visit a parse tree produced by the {@code onlyIf}
 	 * labeled alternative in {@link ValidateFormParser#if_func}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOnly_if(ValidateFormParser.Only_ifContext ctx);
+	T visitOnlyIf(ValidateFormParser.OnlyIfContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code if_else}
+	 * Visit a parse tree produced by the {@code ifElse}
 	 * labeled alternative in {@link ValidateFormParser#if_func}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIf_else(ValidateFormParser.If_elseContext ctx);
+	T visitIfElse(ValidateFormParser.IfElseContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code multiple_conditions}
+	 * Visit a parse tree produced by the {@code multipleConditions}
 	 * labeled alternative in {@link ValidateFormParser#conditions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMultiple_conditions(ValidateFormParser.Multiple_conditionsContext ctx);
+	T visitMultipleConditions(ValidateFormParser.MultipleConditionsContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code single_conditions}
+	 * Visit a parse tree produced by the {@code singleConditions}
 	 * labeled alternative in {@link ValidateFormParser#conditions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSingle_conditions(ValidateFormParser.Single_conditionsContext ctx);
+	T visitSingleConditions(ValidateFormParser.SingleConditionsContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code cond}
 	 * labeled alternative in {@link ValidateFormParser#condition}.
@@ -128,24 +122,47 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConjunction(ValidateFormParser.ConjunctionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_assign}
+	 * Visit a parse tree produced by the {@code execAssign}
 	 * labeled alternative in {@link ValidateFormParser#assign}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_assign(ValidateFormParser.Exec_assignContext ctx);
+	T visitExecAssign(ValidateFormParser.ExecAssignContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#variable}.
+	 * Visit a parse tree produced by the {@code execVar}
+	 * labeled alternative in {@link ValidateFormParser#variable}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVariable(ValidateFormParser.VariableContext ctx);
+	T visitExecVar(ValidateFormParser.ExecVarContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#op}.
+	 * Visit a parse tree produced by the {@code execOpTimesDivision}
+	 * labeled alternative in {@link ValidateFormParser#op}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOp(ValidateFormParser.OpContext ctx);
+	T visitExecOpTimesDivision(ValidateFormParser.ExecOpTimesDivisionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code execOpPlusMinus}
+	 * labeled alternative in {@link ValidateFormParser#op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecOpPlusMinus(ValidateFormParser.ExecOpPlusMinusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exec_op_atom}
+	 * labeled alternative in {@link ValidateFormParser#op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExec_op_atom(ValidateFormParser.Exec_op_atomContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code execOpParenthesis}
+	 * labeled alternative in {@link ValidateFormParser#op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ValidateFormParser#object}.
 	 * @param ctx the parse tree
@@ -153,11 +170,17 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitObject(ValidateFormParser.ObjectContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#sign}.
+	 * Visit a parse tree produced by {@link ValidateFormParser#sign_td}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSign(ValidateFormParser.SignContext ctx);
+	T visitSign_td(ValidateFormParser.Sign_tdContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ValidateFormParser#sign_pm}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSign_pm(ValidateFormParser.Sign_pmContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ValidateFormParser#var_label}.
 	 * @param ctx the parse tree
@@ -177,11 +200,12 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAlpha(ValidateFormParser.AlphaContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#string}.
+	 * Visit a parse tree produced by the {@code execString}
+	 * labeled alternative in {@link ValidateFormParser#string}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitString(ValidateFormParser.StringContext ctx);
+	T visitExecString(ValidateFormParser.ExecStringContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ValidateFormParser#character}.
 	 * @param ctx the parse tree
