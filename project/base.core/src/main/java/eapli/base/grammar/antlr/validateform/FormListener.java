@@ -66,8 +66,8 @@ public class FormListener extends ValidateFormBaseListener {
 
     @Override
     public void exitMultipleConditions(ValidateFormParser.MultipleConditionsContext ctx) {
-        Boolean blnLeft = Boolean.valueOf(this.stack.pop());
         Boolean blnRight = Boolean.valueOf(this.stack.pop());
+        Boolean blnLeft = Boolean.valueOf(this.stack.pop());
 
         switch (ctx.conjSign.getText()) {
             case "&&" : this.stack.push(String.valueOf(Boolean.logicalAnd(blnLeft, blnRight)));
@@ -79,8 +79,8 @@ public class FormListener extends ValidateFormBaseListener {
 
     @Override
     public void exitCond(ValidateFormParser.CondContext ctx) {
-        Integer intLeft = Integer.parseInt(this.stack.pop());
         Integer intRight = Integer.parseInt(this.stack.pop());
+        Integer intLeft = Integer.parseInt(this.stack.pop());
 
         switch (ctx.compSign.getText()) {
             case "==" : this.stack.push(String.valueOf(intLeft == intRight));
@@ -101,6 +101,27 @@ public class FormListener extends ValidateFormBaseListener {
     @Override
     public void enterObjectNumber(ValidateFormParser.ObjectNumberContext ctx) {
         this.stack.push(ctx.number.getText());
+    }
+
+    @Override
+    public void enterObjectVariable(ValidateFormParser.ObjectVariableContext ctx) {
+        this.stack.push(this.m_oMapVariables.get(ctx.var.getText().substring(1)));
+    }
+
+    @Override
+    public void enterExecVar(ValidateFormParser.ExecVarContext ctx) {
+        String strLabel = ctx.label.getText();
+        if(!this.m_oMapVariables.containsKey(strLabel)){
+            this.m_oMapVariables.put(strLabel, "");
+        }
+    }
+
+    @Override
+    public void exitExecAssign(ValidateFormParser.ExecAssignContext ctx) {
+        String strLabel = ctx.var.getText().substring(1);
+        if(this.m_oMapVariables.containsKey(strLabel)){
+            this.m_oMapVariables.put(strLabel, this.stack.pop());
+        }
     }
 
 }
