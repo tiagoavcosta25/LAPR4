@@ -37,7 +37,7 @@ public class SearchTicketsUI extends AbstractUI {
 
             do {
                 Ticket oTicket = chooseOne(itTickets, "Your Tickets", "Ticket");
-                System.out.printf("\n\n%s\n\n", oTicket.toString());
+                System.out.println(oTicket.detailedView());
                 strOp = Console.readLine("Do you want to see a detailed view of some more tickets? (Y/N) >");
             } while (strOp.compareToIgnoreCase("Y") == 0);
 
