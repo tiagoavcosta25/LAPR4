@@ -22,6 +22,7 @@ import java.io.IOException;
  * @author Jéssica Alves 1190682@isep.ipp.pt
  * @author Pedro Santos 1190967@isep.ipp.pt
  * @author Tiago Costa 1191460@isep.ipp.pt
+ *
  */
 public class ScriptAlgorithms {
     public static boolean validateForm(String strPath) throws IOException {
