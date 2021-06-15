@@ -1,6 +1,7 @@
 package eapli.base.util;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
 /**
@@ -19,7 +20,9 @@ public class FileChooser {
         }
         JFileChooser chooser = new JFileChooser(".");
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        chooser.setAcceptAllFileFilterUsed(true);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(extension, extension);
+        chooser.setAcceptAllFileFilterUsed(false);
+        chooser.setFileFilter(filter);
         int response = chooser.showOpenDialog(null);
         String path = "";
         String content = "";
