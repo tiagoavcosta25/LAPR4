@@ -28,4 +28,7 @@ public class RandomRawPassword {
         this.rawPassword = tmp;
     }
 
+    public String toString() {
+        return this.rawPassword;
+    }
 }
