@@ -19,7 +19,6 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
     @Override
     public Boolean visitExecMandatory(ValidateFormParser.ExecMandatoryContext ctx) {
         String str = ctx.agr.getText();
-
         List<Integer> lstAttributes = new ArrayList<>();
 
         while(!str.isEmpty()){
@@ -36,7 +35,21 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
         for(Integer i : lstAttributes){
             if(this.m_oResponse.getResponses().get(i - 1).isEmpty()){
                 flag = false;
+                break;
             }
+        }
+
+        return flag;
+    }
+
+    @Override
+    public Boolean visitExecRegex(ValidateFormParser.ExecRegexContext ctx) {
+        Integer intAttribute = Integer.parseInt(ctx.agr.getText());
+        String strRegex = ctx.re.getText();
+        Boolean flag = true;
+
+        if(!this.m_oResponse.getResponses().get(intAttribute - 1).matches(strRegex)){
+            flag = false;
         }
 
         return flag;
