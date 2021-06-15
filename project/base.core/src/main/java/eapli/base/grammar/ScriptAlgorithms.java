@@ -50,7 +50,7 @@ public class ScriptAlgorithms {
     public static boolean executeValidateForm(String strFileContent, Response oResponse, ScriptMode oMode) throws IOException {
         ValidateFormLexer lexer = new ValidateFormLexer(CharStreams.fromString(strFileContent));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        ExpressionsParser parser = new ExpressionsParser(tokens);
+        ValidateFormParser parser = new ValidateFormParser(tokens);
         ParseTree tree = parser.start(); // parse
 
         if(oMode.equals(ScriptMode.LISTENER)){
@@ -66,9 +66,9 @@ public class ScriptAlgorithms {
     }
 
     public static boolean executeAutoTask(String strFileContent, ScriptMode oMode) throws IOException {
-        ValidateFormLexer lexer = new ValidateFormLexer(CharStreams.fromString(strFileContent));
+        AutoTaskLexer lexer = new AutoTaskLexer(CharStreams.fromString(strFileContent));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        ExpressionsParser parser = new ExpressionsParser(tokens);
+        AutoTaskParser parser = new AutoTaskParser(tokens);
         ParseTree tree = parser.start();
 
         if(oMode.equals(ScriptMode.LISTENER)){ // TODO: implement AutoTaskVisitor and Listener
