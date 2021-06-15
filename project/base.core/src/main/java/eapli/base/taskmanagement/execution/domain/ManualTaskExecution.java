@@ -85,6 +85,7 @@ public class ManualTaskExecution extends TaskExecution{
 
     public void executeTask(Response response) {
         this.m_oResponse = response;
+        super.setResult(TaskExecutionResult.SUCCESS);
         setExecuted();
     }
 
