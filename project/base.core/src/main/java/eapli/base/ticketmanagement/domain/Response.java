@@ -62,6 +62,14 @@ public class Response implements  AggregateRoot<Long> {
         // for ORM
     }
 
+    public List<String> getResponses() {
+        return m_lstResponses;
+    }
+
+    public Form getForm() {
+        return m_oForm;
+    }
+
     @Override
     public boolean equals(final Object o) {
         return DomainEntities.areEqual(this, o);
