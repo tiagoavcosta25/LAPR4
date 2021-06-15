@@ -25,5 +25,16 @@ public class AdvanceFluxService {
 
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
 
+    public boolean advanceFlux(ActivityFluxExecution af) {
+        m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
 
+        ActivityFlowClient oActivityFlow = new ActivityFlowClient(SERVER_IP);
+
+        SDP2021 packet = oActivityFlow.retrieveInformation(String.valueOf(af.id()),
+                SDP2021Code.FLUX_ADVANCE_REQUEST.getCode());
+
+        oActivityFlow.retrieveInformation("", SDP2021Code.END.getCode());
+
+        return packet.getData().equals("SUCCESS");
+    }
 }
