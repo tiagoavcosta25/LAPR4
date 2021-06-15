@@ -1,5 +1,6 @@
 package eapli.base.grammar.antlr.validateform;
 
+import eapli.base.grammartesting.eapli.base.grammartesting.ExpressionsParser;
 import eapli.base.ticketmanagement.domain.Response;
 
 import java.util.ArrayList;
@@ -68,5 +69,41 @@ public class FormListener extends ValidateFormBaseListener {
     public void exitExecAssert(ValidateFormParser.ExecAssertContext ctx) {
         this.stack.push(this.stack.pop());
     }
+
+    @Override
+    public void exitMultipleConditions(ValidateFormParser.MultipleConditionsContext ctx) {
+        Boolean blnLeft = Boolean.valueOf(this.stack.pop());
+        Boolean blnRight = Boolean.valueOf(this.stack.pop());
+
+        switch (ctx.conjSign.getText()) {
+            case "&&" : this.stack.push(String.valueOf(Boolean.logicalAnd(blnLeft, blnRight)));
+            case "||" : this.stack.push(String.valueOf(Boolean.logicalOr(blnLeft, blnRight)));
+        }
+    }
+
+    @Override
+    public void exitSingleConditions(ValidateFormParser.SingleConditionsContext ctx) {
+        //this.stack.push(ctx.cond.getText());
+    }
+
+    @Override
+    public void exitCond(ValidateFormParser.CondContext ctx) {
+        Integer intLeft = Integer.parseInt(this.stack.pop());
+        Integer intRight = Integer.parseInt(this.stack.pop());
+
+        switch (ctx.compSign.getText()) {
+            case "==" : this.stack.push(String.valueOf(intLeft == intRight));
+            case "!=" : this.stack.push(String.valueOf(intLeft != intRight));
+            case ">" : this.stack.push(String.valueOf(intLeft > intRight));
+            case "<" : this.stack.push(String.valueOf(intLeft < intRight));
+            case ">=" : this.stack.push(String.valueOf(intLeft >= intRight));
+            case "<=" : this.stack.push(String.valueOf(intLeft <= intRight));
+        }
+    }
+
+    //@Override
+    //public void enterObjectNumber(ValidateFormParser.ObjectNumberContext ctx) {
+        //this.stack.push(ctx.number.getText());
+    //}
 
 }
