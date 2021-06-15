@@ -13,24 +13,25 @@ import java.util.Optional;
 /**
  *
  * @author Pedro Santos 1190967@isep.ipp.pt
+ *  @author Beatriz Seixas 1190424@isep.ipp.pt
  */
 class JpaActivityFluxExecutionRepository
         extends JpaAutoTxRepository<ActivityFluxExecution, Long, Long>
         implements ActivityFluxExecutionRepository {
 
     public JpaActivityFluxExecutionRepository(TransactionalContext autoTx) {
-        super(autoTx, "fluxExecID");
+        super(autoTx, "m_oID");
     }
 
     public JpaActivityFluxExecutionRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "fluxExecID");
+                "m_oID");
     }
 
     @Override
     public Optional<ActivityFluxExecution> findById(Long lngID) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("fluxExecID", lngID);
-        return matchOne("e.id=:fluxExecID", params);
+        params.put("m_oID", lngID);
+        return matchOne("e.id=:m_oID", params);
     }
 }
