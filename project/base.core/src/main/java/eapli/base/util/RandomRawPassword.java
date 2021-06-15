@@ -17,5 +17,9 @@ public class RandomRawPassword {
         ALLOWED_CHARS = LOWER_CHARS + UPPER_CHARS + NUMBERS + SPECIAL;
     }
 
+    public RandomRawPassword() {
+        this(DEFAULT_LENGTH);
+    }
+
 
 }
