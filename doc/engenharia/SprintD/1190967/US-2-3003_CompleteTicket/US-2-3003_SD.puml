@@ -6,21 +6,25 @@ actor "User" as US
 
 participant "<<presentation>>\nServiceSolicitationUI" as UI
 participant "<<application>>\nServiceSolicitationController" as CTRL
+participant "<<application>>\nServiceSolicitationService" as SRV
 database "<<repository>>\nCatalogueRepository" as CR
 database "<<repository>>\nServiceRepository" as SR
 participant "<<domain>>\nResponse" as RS
 database "<<repository>>\nResponseRepository" as RR
 participant "<<domain>>\nTicket" as T
+database "<<repository>>\nCollaboratorRepository" as COLLABR
 database "<<repository>>\nTicketRepository" as TR
 participant "<<persistence>>\nPersistenceContext" as PC
 participant "<<persistence>>\nAppSettings" as AS
 participant "<<factory>>\nRepositoryFactory" as RF
-participant "<<domain>>\nCatalogue" as C
 participant "<<domain>>\nService" as S
+participant "<<domain>>\nActivityFlux" as AF
+participant "<<domain>>\nCatalogue" as C
 participant "<<domain>>\nTicketUrgency" as TU
 participant "<<domain>>\nTicketLimitDate" as TD
 participant "<<domain>>\nTicketCreationDate" as TC
 participant "<<domain>>\nTicketFile" as TF
+participant "<<domain>>\nTicketStatus" as TS
 participant "<<domain>>\nAttribute" as A
 participant "<<domain>>\nForm" as F
 
@@ -33,10 +37,18 @@ UI -> CTRL** : create
 activate CTRL
 
 ref over CTRL
-  US-1-2002_SD_Repo
+  US-2-3003_SD_Repo
+end ref
+
+CTRL -> SRV** : create
+activate SRV
+
+ref over SRV
+  US-2-3003_SD_Repo
 end ref
 
 UI -> CTRL : getCataloguesByUser()
+deactivate SRV
 
 CTRL -> CR : findByUser(user)
 activate CR
@@ -114,7 +126,19 @@ end
 UI -> CTRL : addTicket(service, urgency, limitDate, creationDate)
 activate CTRL
 
-CTRL -> T** : create(urgency, limitDate, creationDate, lstResponses, lstFiles, service)
+CTRL -> SRV : fluxExecution = createActivityFluxExecution(service)
+activate SRV
+
+ref over SRV
+  US-2-3003_SD_CreateFlux
+end ref
+deactivate SRV
+
+CTRL -> COLLABR : collab = findByUsername(username)
+activate COLLABR
+deactivate COLLABR
+
+CTRL -> T** : create(urgency, limitDate, creationDate, lstResponses, fluxExecution, lstFiles, service, collab)
 
 CTRL --> UI : ticket
 deactivate CTRL
