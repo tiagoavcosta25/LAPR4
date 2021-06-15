@@ -18,6 +18,11 @@ class ServiceSolicitationController<<application>>{
 +saveTicket(ticket)
 }
 
+class ServiceSolicitationService<<application>>{
++create()
++createActivityFluxExecution(service)
+}
+
 }
 
 
@@ -35,6 +40,38 @@ class Attribute<<Entity>>{
 }
 
 class Catalogue<<Entity>><<Root>>{
++create()
+}
+
+class ActivityFlux<<Entity>><<Root>>{
++create()
+}
+
+class ActivityFluxExecution<<Entity>><<Root>>{
++create()
+}
+
+class Task<<Entity>><<Root>>{
++create(description, priority)
+}
+
+class ManualTask<<Entity>>{
++create(description, priority, form)
+}
+
+class AutomaticTask<<Entity>>{
++create(description, priority, script)
+}
+
+class TaskExecution<<Entity>><<Root>>{
++create()
+}
+
+class ManualTaskExecution<<Entity>>{
++create()
+}
+
+class AutomaticTaskExecution<<Entity>>{
 +create()
 }
 
@@ -106,7 +143,47 @@ class ResponseRepository<<repository>>{
 
 class CatalogueRepository<<repository>>{
 +create()
+}
+
+class CollaboratorRepository<<repository>>{
++create()
 +findByUser(user)
+}
+
+class TaskRepository<<repository>>{
++create()
+}
+
+class TaskExecutionRepository<<repository>>{
++create()
+}
+
+class ManualTaskRepository<<repository>>{
++create()
+}
+
+class AutomaticTaskRepository<<repository>>{
++create()
+}
+
+interface AutomaticTaskRepositoryInterface{
+
+}
+
+interface ManualTaskRepositoryInterface{
+
+}
+
+interface TaskExecutionRepositoryInterface{
+
+}
+
+interface TaskRepositoryInterface{
+
+}
+
+interface CollaboratorRepositoryInterface{
+
 }
 
 interface CatalogueRepositoryInterface{
@@ -131,10 +208,22 @@ interface ResponseRepositoryInterface{
 
 ServiceSolicitationUI ..> ServiceSolicitationController
 ServiceSolicitationController ..> PersistenceContext
+ServiceSolicitationController ..> ServiceSolicitationService
+
+
+ServiceSolicitationService ..> TaskRepository
+ServiceSolicitationService ..> ManualTaskRepository
+ServiceSolicitationService ..> AutomaticTaskRepository
+ServiceSolicitationService ..> TaskExecutionRepository
 
 ServiceRepository ..> ServiceRepositoryInterface
 TicketRepository ..> TicketRepositoryInterface
 CatalogueRepository ..> CatalogueRepositoryInterface
+CollaboratorRepository ..> CollaboratorRepositoryInterface
+TaskRepository ..> TaskRepositoryInterface
+ManualTaskRepository ..> ManualTaskRepositoryInterface
+AutomaticTaskRepository ..> AutomaticTaskRepositoryInterface
+TaskExecutionRepository ..> TaskExecutionRepositoryInterface
 ResponseRepository ..> ResponseRepositoryInterface
 
 AppSettings -> RepositoryFactory : creates
@@ -143,7 +232,12 @@ PersistenceContext -> AppSettings : implements
 RepositoryFactory "1" -> "1" ServiceRepository : has
 RepositoryFactory "1" -> "1" TicketRepository : has
 RepositoryFactory "1" -> "1" CatalogueRepository : has
+RepositoryFactory "1" -> "1" CollaboratorRepository : has
 RepositoryFactory "1" -> "1" ResponseRepository : has
+RepositoryFactory "1" -> "1" TaskRepository : has
+RepositoryFactory "1" -> "1" ManualTaskRepository : has
+RepositoryFactory "1" -> "1" AutomaticTaskRepository : has
+RepositoryFactory "1" -> "1" TaskExecutionRepository : has
 
 ServiceRepository "1" -> "*" Service : saves
 TicketRepository "1" -> "*" Ticket : saves
@@ -160,5 +254,14 @@ Ticket "1" -> "1..*" TicketLimitDate : has
 Ticket "1" -> "1..*" TicketCreationDate : has
 Ticket "1" -> "1..*" TicketFile : has
 Ticket "1" -> "1..*" Response : has
+
+ManualTask -|> Task : is a
+AutomaticTask -|> Task : is a
+
+ManualTaskExecution -|> TaskExecution : is a
+AutomaticTaskExecution -|> TaskExecution : is a
+
+ActivityFlux "1" -> "1..*" Task : has
+ActivityFluxExecution "1" -> "1..*" TaskExecution : has
 
 @enduml

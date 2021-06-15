@@ -4,37 +4,35 @@ start: header type BLOCK_START statements BLOCK_END;
 
 statements: statement+;
 
-statement: function;
-
 header: HASHTAG HELPDESK;
 
 type: VALIDATE_FORM;
 
-function: HASHTAG mandatory END
+statement: HASHTAG mandatory END
         | HASHTAG regex END
         | HASHTAG assert_func END
         | HASHTAG get_attribute END
         | HASHTAG if_func
         | assign END;
 
-mandatory: MANDATORY_LABEL STMT_START nums STMT_END #exec_mandatory;
+mandatory: MANDATORY_LABEL STMT_START agr=nums STMT_END #execMandatory;
 
-regex: REGEX_LABEL STMT_START NUM+ COMMA re=string STMT_END #exec_regex;
+regex: REGEX_LABEL STMT_START agr=NUM+ COMMA re=string STMT_END #execRegex;
 
-assert_func: ASSERT_LABEL STMT_START conditions STMT_END #exec_assert;
+assert_func: ASSERT_LABEL STMT_START cond=conditions STMT_END #execAssert;
 
-get_attribute: GET_ATTRIBUTE_LABEL STMT_START NUM+ STMT_END #exec_get_attribute;
+get_attribute: GET_ATTRIBUTE_LABEL STMT_START attribute=NUM+ STMT_END #execGetAttribute;
 
 nums: NUM+ COMMA nums
     | NUM+;
 
-if_func: IF_LABEL STMT_START conditions STMT_END BLOCK_START statements #only_if
-        | IF_LABEL STMT_START conditions STMT_END BLOCK_START statements BLOCK_END ELSE BLOCK_START statements BLOCK_END #if_else;
+if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements #onlyIf
+        | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END ELSE BLOCK_START stmt_else=statements BLOCK_END #ifElse;
 
-conditions: condition conjunction conditions #multiple_conditions
-          | condition #single_conditions;
+conditions: right=condition conjSign=conjunction left=conditions #multipleConditions
+          | condition #singleConditions;
 
-condition: object comp object #cond;
+condition: left=object compSign=comp right=object #cond;
 
 comp: COMP_EQUAL
     | DIFF
@@ -46,22 +44,24 @@ comp: COMP_EQUAL
 conjunction: AND
            | OR;
 
-assign: variable EQUAL op #exec_assign;
+assign: var=variable EQUAL res=op #execAssign;
 
-variable : DOLLAR var_label;
+variable : DOLLAR label=var_label #execVar;
 
-op: object sign op
-    | object
-    | STMT_START op STMT_END;
+op: left=object sign_td right=op #execOpTimesDivision
+    | left=object sign_pm right=op #execOpPlusMinus
+    | atom=object #exec_op_atom
+    | STMT_START result=op STMT_END #execOpParenthesis;
 
 object: variable
        | NUM+
        | HASHTAG get_attribute;
        
-sign: PLUS
-    | HYPHEN
-    | TIMES
+sign_td: TIMES
     | FOWARD_SLASH;
+
+sign_pm: PLUS
+    | HYPHEN;
 
 var_label: LOWERCASE alphanumeric*;
 
@@ -72,7 +72,7 @@ alphanumeric: LOWERCASE
 alpha: LOWERCASE
      | UPPERCASE;
 
-string: QUOTATION_MARKS character+ QUOTATION_MARKS;
+string: QUOTATION_MARKS str=character+ QUOTATION_MARKS #execString;
 
 character: LOWERCASE
      | UPPERCASE
