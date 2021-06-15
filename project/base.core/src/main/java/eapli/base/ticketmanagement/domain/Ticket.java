@@ -2,7 +2,10 @@ package eapli.base.ticketmanagement.domain;
 
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.formmanagement.domain.Attribute;
+import eapli.base.formmanagement.domain.Form;
 import eapli.base.servicemanagement.domain.*;
+import eapli.base.taskmanagement.execution.domain.TaskExecution;
 import eapli.base.taskmanagement.execution.domain.TaskExecutionStatus;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
@@ -155,6 +158,41 @@ public class Ticket implements AggregateRoot<Long> {
     @Override
     public Long identity() {
         return this.m_lngID;
+    }
+
+    public String detailedView() {
+        StringBuilder strBody = new StringBuilder(String.format("_______________________________________%n%n\t\t\tTicket Details:%n"));
+
+        strBody.append(String.format("%nTicket Urgency > %s",m_oUrgency));
+        strBody.append(String.format("%nLimit Date > %s", m_oLimitDate));
+        strBody.append(String.format("%nCreation Date > %s", m_oCreationDate));
+        strBody.append(String.format("%nCollaborator Name > %s", m_oCollaborator.shortName()));
+        strBody.append(String.format("%nService Description > %s", m_oService.briefDescription()));
+        strBody.append(String.format("%n%n---------------------------------------"));
+        strBody.append(String.format("%n\t\tActivity Flux Execution:%n---------------------------------------%n"));
+        for (TaskExecution t : m_oFluxExecution.flux()){
+            strBody.append(String.format("%nTask #%d > Status: %s | Result: %s", t.identity(), t.status(), t.result()));
+        }
+        strBody.append(String.format("%n%n---------------------------------------"));
+        strBody.append(String.format("%n\t\t\tFiles List:%n---------------------------------------%n%n"));
+        for (TicketFile f : m_lstFiles) {
+            strBody.append(String.format("%s\n", f.toString()));
+        }
+        strBody.append(String.format("%n---------------------------------------"));
+        strBody.append(String.format("%n\t\t\tResponses List:%n---------------------------------------"));
+        int i;
+        for (Response r : m_lstResponse) {
+            i = 0;
+            strBody.append(String.format("%n%nForm: %s%n%n---------------------------------------%n%n", r.getForm().name()));
+            for (Attribute a : r.getForm().attributes()) {
+                strBody.append(String.format("- %s: %s\n", a.label(), r.getResponses().get(i)));
+                i++;
+            }
+            strBody.append(String.format("%n---------------------------------------"));
+        }
+        strBody.append(String.format("%n%n"));
+
+        return strBody.toString();
     }
 
     @Override
