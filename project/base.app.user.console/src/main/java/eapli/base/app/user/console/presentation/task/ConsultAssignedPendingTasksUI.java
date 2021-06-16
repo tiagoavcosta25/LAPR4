@@ -36,6 +36,10 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
         return this.elements;
     }
 
+    @Override
+    protected Visitor<Ticket> elementPrinter() {
+        return new TicketManualTaskPrinter();
+    }
 
 
 
