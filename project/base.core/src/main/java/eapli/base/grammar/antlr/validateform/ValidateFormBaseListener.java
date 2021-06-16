@@ -364,6 +364,18 @@ public class ValidateFormBaseListener implements ValidateFormListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNum(ValidateFormParser.NumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNum(ValidateFormParser.NumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterVar_label(ValidateFormParser.Var_labelContext ctx) { }
 	/**
 	 * {@inheritDoc}

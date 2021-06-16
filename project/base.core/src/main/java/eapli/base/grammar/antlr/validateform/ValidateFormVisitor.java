@@ -206,6 +206,12 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSign_pm(ValidateFormParser.Sign_pmContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ValidateFormParser#num}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNum(ValidateFormParser.NumContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ValidateFormParser#var_label}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
