@@ -124,6 +124,13 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecOpTimesDivision(AutoTaskParser.ExecOpTimesDivisionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code execOpParenthesis}
+	 * labeled alternative in {@link AutoTaskParser#op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code execOpPlusMinus}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
@@ -137,13 +144,6 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExecOpAtom(AutoTaskParser.ExecOpAtomContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code execOpParenthesis}
-	 * labeled alternative in {@link AutoTaskParser#op}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code objectVariable}
 	 * labeled alternative in {@link AutoTaskParser#object}.

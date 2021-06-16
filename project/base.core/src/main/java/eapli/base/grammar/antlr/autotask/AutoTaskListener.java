@@ -200,6 +200,18 @@ public interface AutoTaskListener extends ParseTreeListener {
 	 */
 	void exitExecOpTimesDivision(AutoTaskParser.ExecOpTimesDivisionContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code execOpParenthesis}
+	 * labeled alternative in {@link AutoTaskParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void enterExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code execOpParenthesis}
+	 * labeled alternative in {@link AutoTaskParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void exitExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code execOpPlusMinus}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
@@ -223,18 +235,6 @@ public interface AutoTaskListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExecOpAtom(AutoTaskParser.ExecOpAtomContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code execOpParenthesis}
-	 * labeled alternative in {@link AutoTaskParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void enterExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code execOpParenthesis}
-	 * labeled alternative in {@link AutoTaskParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void exitExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code objectVariable}
 	 * labeled alternative in {@link AutoTaskParser#object}.

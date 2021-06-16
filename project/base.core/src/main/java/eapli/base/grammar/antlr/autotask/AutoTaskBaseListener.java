@@ -220,6 +220,18 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExecOpPlusMinus(AutoTaskParser.ExecOpPlusMinusContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -239,18 +251,6 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExecOpAtom(AutoTaskParser.ExecOpAtomContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
