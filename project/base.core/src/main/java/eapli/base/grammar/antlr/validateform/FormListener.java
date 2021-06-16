@@ -24,9 +24,17 @@ public class FormListener extends ValidateFormBaseListener {
 
     @Override
     public void exitExecStatements(ValidateFormParser.ExecStatementsContext ctx) {
-        if(this.stack.size() > 1){
-            Boolean blnRight = Boolean.valueOf(this.stack.pop());
-            Boolean blnLeft = Boolean.valueOf(this.stack.pop());
+        while(this.stack.size() > 1){
+            Boolean blnRight = true;
+            Boolean blnLeft = true;
+            String strLeft = this.stack.pop();
+            String strRight = this.stack.pop();
+            if(strLeft.equalsIgnoreCase("false") || strLeft.equalsIgnoreCase("true")){
+                blnRight = Boolean.valueOf(strLeft);
+            }
+            if(strRight.equalsIgnoreCase("false") || strRight.equalsIgnoreCase("true")){
+                blnLeft = Boolean.valueOf(strRight);
+            }
 
             this.stack.push(String.valueOf(Boolean.logicalAnd(blnLeft, blnRight)));
         }
@@ -154,6 +162,18 @@ public class FormListener extends ValidateFormBaseListener {
         if(this.m_oMapVariables.containsKey(strLabel)){
             this.m_oMapVariables.put(strLabel, this.stack.pop());
         }
+    }
+
+    @Override
+    public void exitExecGetAttribute(ValidateFormParser.ExecGetAttributeContext ctx) {
+        Integer intAttribute = Integer.parseInt(ctx.attribute.getText());
+
+        if(intAttribute >= this.m_oResponse.getResponses().size()) {
+            this.stack.push(Boolean.FALSE.toString());
+            return;
+        }
+
+        this.stack.push(this.m_oResponse.getResponses().get(intAttribute));
     }
 
 }
