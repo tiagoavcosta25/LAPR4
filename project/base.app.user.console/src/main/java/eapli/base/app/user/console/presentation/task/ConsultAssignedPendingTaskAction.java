@@ -5,6 +5,9 @@ import eapli.framework.actions.Action;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class ConsultAssignedPendingTaskAction  {
-
+public class ConsultAssignedPendingTaskAction implements Action {
+    @Override
+    public boolean execute() {
+        return new ConsultAssignedPendingTasksUI().show();
+    }
 }
