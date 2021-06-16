@@ -26,6 +26,11 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
         return "List Pending Tasks";
     }
 
+    @Override
+    protected String emptyMessage() {
+        return "No data.";
+    }
+
 
 
 
