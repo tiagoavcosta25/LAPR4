@@ -31,6 +31,11 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
         return "No data.";
     }
 
+    @Override
+    protected Iterable<Ticket> elements() {
+        return this.elements;
+    }
+
 
 
 
