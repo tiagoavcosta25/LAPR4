@@ -93,5 +93,31 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
         return true;
     }
 
-
+    private String getStringFilters(String typeOfFilter) {
+        StringBuilder filters = new StringBuilder();
+        switch(typeOfFilter) {
+            case "TaskFilter":
+                Iterable<TaskFilterFields> filterFields = this.theController.getTaskFilterFields();
+                for(TaskFilterFields tff : filterFields) {
+                    filters.append(tff.toString()).append("/");
+                }
+                filters.deleteCharAt(filters.length() - 1);
+                break;
+            case "Priority":
+                Iterable<TicketUrgency> priorityFilters = this.theController.getPriorityFilters();
+                for(TicketUrgency tf : priorityFilters) {
+                    filters.append(tf.toString()).append("/");
+                }
+                filters.deleteCharAt(filters.length() - 1);
+                break;
+            case "TaskOrder":
+                Iterable<TaskOrderFields> taskOrder = this.theController.getTaskOrderFields();
+                for(TaskOrderFields tf : taskOrder) {
+                    filters.append(tf.toString()).append("/");
+                }
+                filters.deleteCharAt(filters.length() - 1);
+                break;
+        }
+        return filters.toString();
+    }
 }
