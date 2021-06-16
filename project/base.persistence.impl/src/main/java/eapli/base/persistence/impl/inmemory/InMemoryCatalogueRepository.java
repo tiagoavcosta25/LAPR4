@@ -13,6 +13,11 @@ import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainR
 
 import java.util.Optional;
 
+/**
+ *
+ *
+ * @author Beatriz Seixas 1190424@isep.ipp.pt
+ */
 
 public class InMemoryCatalogueRepository
         extends InMemoryDomainRepository<Catalogue, Long>
