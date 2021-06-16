@@ -24,7 +24,7 @@ public class AutoTaskBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStatements(AutoTaskParser.StatementsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExecStatements(AutoTaskParser.ExecStatementsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -66,28 +66,28 @@ public class AutoTaskBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOnly_if(AutoTaskParser.Only_ifContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOnlyIf(AutoTaskParser.OnlyIfContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIf_else(AutoTaskParser.If_elseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIfElse(AutoTaskParser.IfElseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMultiple_conditions(AutoTaskParser.Multiple_conditionsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMultipleConditions(AutoTaskParser.MultipleConditionsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSingle_conditions(AutoTaskParser.Single_conditionsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSingleConditions(AutoTaskParser.SingleConditionsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -115,49 +115,63 @@ public class AutoTaskBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExec_assign(AutoTaskParser.Exec_assignContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExecAssign(AutoTaskParser.ExecAssignContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExec_var(AutoTaskParser.Exec_varContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExecVar(AutoTaskParser.ExecVarContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExec_op_times_division(AutoTaskParser.Exec_op_times_divisionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExecOpTimesDivision(AutoTaskParser.ExecOpTimesDivisionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExec_op_plus_minus(AutoTaskParser.Exec_op_plus_minusContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExecOpPlusMinus(AutoTaskParser.ExecOpPlusMinusContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExec_op_atom(AutoTaskParser.Exec_op_atomContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExecOpAtom(AutoTaskParser.ExecOpAtomContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExec_op_parenthesis(AutoTaskParser.Exec_op_parenthesisContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitObject(AutoTaskParser.ObjectContext ctx) { return visitChildren(ctx); }
+	@Override public T visitObjectVariable(AutoTaskParser.ObjectVariableContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitObjectNumber(AutoTaskParser.ObjectNumberContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitObjectFileSearch(AutoTaskParser.ObjectFileSearchContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -172,6 +186,13 @@ public class AutoTaskBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitSign_pm(AutoTaskParser.Sign_pmContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitNum(AutoTaskParser.NumContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

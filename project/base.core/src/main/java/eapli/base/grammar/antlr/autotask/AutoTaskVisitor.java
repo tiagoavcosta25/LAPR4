@@ -17,11 +17,12 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStart(AutoTaskParser.StartContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AutoTaskParser#statements}.
+	 * Visit a parse tree produced by the {@code execStatements}
+	 * labeled alternative in {@link AutoTaskParser#statements}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatements(AutoTaskParser.StatementsContext ctx);
+	T visitExecStatements(AutoTaskParser.ExecStatementsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AutoTaskParser#header}.
 	 * @param ctx the parse tree
@@ -55,33 +56,33 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecFileSearch(AutoTaskParser.ExecFileSearchContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code only_if}
+	 * Visit a parse tree produced by the {@code onlyIf}
 	 * labeled alternative in {@link AutoTaskParser#if_func}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOnly_if(AutoTaskParser.Only_ifContext ctx);
+	T visitOnlyIf(AutoTaskParser.OnlyIfContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code if_else}
+	 * Visit a parse tree produced by the {@code ifElse}
 	 * labeled alternative in {@link AutoTaskParser#if_func}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIf_else(AutoTaskParser.If_elseContext ctx);
+	T visitIfElse(AutoTaskParser.IfElseContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code multiple_conditions}
+	 * Visit a parse tree produced by the {@code multipleConditions}
 	 * labeled alternative in {@link AutoTaskParser#conditions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMultiple_conditions(AutoTaskParser.Multiple_conditionsContext ctx);
+	T visitMultipleConditions(AutoTaskParser.MultipleConditionsContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code single_conditions}
+	 * Visit a parse tree produced by the {@code singleConditions}
 	 * labeled alternative in {@link AutoTaskParser#conditions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSingle_conditions(AutoTaskParser.Single_conditionsContext ctx);
+	T visitSingleConditions(AutoTaskParser.SingleConditionsContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code cond}
 	 * labeled alternative in {@link AutoTaskParser#condition}.
@@ -102,53 +103,68 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConjunction(AutoTaskParser.ConjunctionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_assign}
+	 * Visit a parse tree produced by the {@code execAssign}
 	 * labeled alternative in {@link AutoTaskParser#assign}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_assign(AutoTaskParser.Exec_assignContext ctx);
+	T visitExecAssign(AutoTaskParser.ExecAssignContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_var}
+	 * Visit a parse tree produced by the {@code execVar}
 	 * labeled alternative in {@link AutoTaskParser#variable}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_var(AutoTaskParser.Exec_varContext ctx);
+	T visitExecVar(AutoTaskParser.ExecVarContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_op_times_division}
+	 * Visit a parse tree produced by the {@code execOpTimesDivision}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_op_times_division(AutoTaskParser.Exec_op_times_divisionContext ctx);
+	T visitExecOpTimesDivision(AutoTaskParser.ExecOpTimesDivisionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_op_plus_minus}
+	 * Visit a parse tree produced by the {@code execOpPlusMinus}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_op_plus_minus(AutoTaskParser.Exec_op_plus_minusContext ctx);
+	T visitExecOpPlusMinus(AutoTaskParser.ExecOpPlusMinusContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_op_atom}
+	 * Visit a parse tree produced by the {@code execOpAtom}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_op_atom(AutoTaskParser.Exec_op_atomContext ctx);
+	T visitExecOpAtom(AutoTaskParser.ExecOpAtomContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exec_op_parenthesis}
+	 * Visit a parse tree produced by the {@code execOpParenthesis}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExec_op_parenthesis(AutoTaskParser.Exec_op_parenthesisContext ctx);
+	T visitExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AutoTaskParser#object}.
+	 * Visit a parse tree produced by the {@code objectVariable}
+	 * labeled alternative in {@link AutoTaskParser#object}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitObject(AutoTaskParser.ObjectContext ctx);
+	T visitObjectVariable(AutoTaskParser.ObjectVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code objectNumber}
+	 * labeled alternative in {@link AutoTaskParser#object}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjectNumber(AutoTaskParser.ObjectNumberContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code objectFileSearch}
+	 * labeled alternative in {@link AutoTaskParser#object}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjectFileSearch(AutoTaskParser.ObjectFileSearchContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AutoTaskParser#sign_td}.
 	 * @param ctx the parse tree
@@ -161,6 +177,12 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSign_pm(AutoTaskParser.Sign_pmContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AutoTaskParser#num}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNum(AutoTaskParser.NumContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AutoTaskParser#path}.
 	 * @param ctx the parse tree
