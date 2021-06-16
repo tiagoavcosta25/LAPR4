@@ -77,13 +77,19 @@ public class FormListener extends ValidateFormBaseListener {
 
     @Override
     public void exitExecRegex(ValidateFormParser.ExecRegexContext ctx) {
-        Integer intAttribute = Integer.parseInt(this.stack.pop());
+        Integer intAttribute = Integer.parseInt(ctx.agr.getText());
 
-        String strRegex = this.stack.pop();
+        String strRegex = ctx.re.getText().substring(1, ctx.re.getText().length() - 1);
 
         Boolean flag = true;
 
-        if(!this.m_oResponse.getResponses().get(intAttribute - 1).matches(strRegex)){
+        if(intAttribute >= this.m_oResponse.getResponses().size()){
+            flag = false;
+            this.stack.push(flag.toString());
+            return;
+        }
+
+        if(!this.m_oResponse.getResponses().get(intAttribute).matches(strRegex)){
             flag = false;
         }
 

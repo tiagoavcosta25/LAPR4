@@ -2,15 +2,10 @@
 
 validateForm{
 
-$var1 = 2;
-
-#if($var1 == 3){
-	#mandatory(1);
-	#regex(2,"[0-9]");
-	#assert(1 < 19);
-	#getAttribute(1);
-} else{
-	$var1 = 19;
-}
+$var1 = 19;
+$var2 = 1;
+#assert($var1 > $var2 && 2 != 1);
+#mandatory(0);
+#regex(0,"[0-9]");
 
 }
