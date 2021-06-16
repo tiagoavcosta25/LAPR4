@@ -67,7 +67,19 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
                 this.elements = theController.getTasksOfCollaborator(TaskFilterFields.PRIORITY, filterBy);
                 super.doShow();
             } else if(filterBy.compareToIgnoreCase("FinishDate") == 0) {
-
+                String Year = Console.readLine("\n\nInput year:");
+                String Month = Console.readLine("\nInput month:");
+                String Day = Console.readLine("\nInput day:");
+                if(Month.length() == 1) {
+                    Month = "0" + Month;
+                }
+                if(Day.length() == 1) {
+                    Day = "0" + Day;
+                }
+                filterBy = Year + Month + Day;
+                System.out.println("\n");
+                this.elements = theController.getTasksOfCollaborator(TaskFilterFields.FINISHDATE, filterBy);
+                super.doShow();
             } else {
                 System.out.println("Unrecognized filter.");
             }
