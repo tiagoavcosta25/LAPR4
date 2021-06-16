@@ -12,7 +12,15 @@ import eapli.framework.visitor.Visitor;
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
-public class ConsultAssignedPendingTasksUI  {
+public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
+
+    private final ConsultAssignedPendingTasksController theController = new ConsultAssignedPendingTasksController();
+    private Iterable<Ticket> elements;
+
+    public ConsultAssignedPendingTasksUI() {
+        //Casual constructor
+    }
+
 
 
 
