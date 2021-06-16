@@ -1,12 +1,16 @@
 package eapli.base.persistence.impl.inmemory;
 
+import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
+import eapli.base.taskmanagement.execution.domain.TaskExecution;
 import eapli.base.taskmanagement.execution.domain.TaskExecutionStatus;
 import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.base.ticketmanagement.domain.TicketStatus;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,5 +41,11 @@ public class InMemoryTicketRepository
     public Iterable<Ticket> getOnGoingTickets(SystemUser oUser) {
         return match(e -> e.collaborator().user().username().equals(oUser.username())
                 && e.status().equals(TicketStatus.OPEN));
+    }
+
+    @Override
+    public Iterable<Ticket> getPendingManualTasksByTicket(Username oUsername) {
+
+        return null;
     }
 }
