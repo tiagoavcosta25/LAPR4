@@ -21,6 +21,11 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
         //Casual constructor
     }
 
+    @Override
+    public String headline() {
+        return "List Pending Tasks";
+    }
+
 
 
 
