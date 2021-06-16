@@ -10,7 +10,12 @@ import eapli.framework.visitor.Visitor;
  */
 public class TicketManualTaskPrinter implements Visitor<Ticket> {
 
-
+    @Override
+    public void visit(Ticket visitee) {
+        ManualTaskExecution mte = manualTaskToPrint(visitee);
+        System.out.printf("%-5sTask %-40s%-20s%-30s", mte.id(), mte.getM_oManualTask().description(), visitee.urgency(),
+                visitee.limitDate().toString());
+    }
 
 
 }
