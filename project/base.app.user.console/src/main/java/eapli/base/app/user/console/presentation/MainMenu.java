@@ -26,9 +26,7 @@ package eapli.base.app.user.console.presentation;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.app.user.console.net.dashboard.HttpAjaxDashboardRequest;
 import eapli.base.app.user.console.net.dashboard.HttpServerAjaxDashboard;
-import eapli.base.app.user.console.presentation.task.AssignTasksAction;
-import eapli.base.app.user.console.presentation.task.ExecuteAutomaticTaskAction;
-import eapli.base.app.user.console.presentation.task.ExecuteManualTaskAction;
+import eapli.base.app.user.console.presentation.task.*;
 import eapli.base.app.user.console.presentation.ticket.SearchTicketsAction;
 import eapli.base.app.user.console.presentation.ticket.ServiceSolicitationAction;
 import eapli.framework.actions.Actions;
@@ -67,6 +65,7 @@ class MainMenu extends ClientUserBaseUI {
     private static final int ASSIGN_TASKS = 1;
     private static final int EXECUTE_MANUAL_TASK = 2;
     private static final int EXECUTE_AUTOMATIC_TASK = 3;
+    private static final int CONSULT_PENDING_TASKS = 4;
 
     // SETTINGS
     private static final int SET_USER_ALERT_LIMIT_OPTION = 1;
@@ -147,6 +146,7 @@ class MainMenu extends ClientUserBaseUI {
         menu.addItem(ASSIGN_TASKS, "Assign Task", new AssignTasksAction());
         menu.addItem(EXECUTE_MANUAL_TASK, "Execute Manual Task", new ExecuteManualTaskAction());
         menu.addItem(EXECUTE_AUTOMATIC_TASK, "Execute Automatic Task", new ExecuteAutomaticTaskAction());
+        menu.addItem(CONSULT_PENDING_TASKS, "Consult Pending Tasks", new ConsultAssignedPendingTaskAction());
         menu.addItem(EXIT_OPTION, RETURN, Actions.SUCCESS);
         return menu;
     }
