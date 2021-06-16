@@ -73,7 +73,19 @@ public class ConsultAssignedPendingTasksController {
                 }
                 break;
             case FINISHDATE:
-
+                if(value.length() != 8) return lstT;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+                LocalDate filterDate = LocalDate.parse(value, formatter);
+                for(Ticket t : iRegular) {
+                    for(TaskExecution te : t.executionFlux().flux()) {
+                        if (te.getClass().equals(ManualTaskExecution.class)) {
+                            ManualTaskExecution mte = (ManualTaskExecution) te;
+                            LocalDate ticketDate = t.limitDate().getM_dtLimitDate().toLocalDate();
+                            if (t.executionFlux().currentProgress().currentProgress().equals(mte.id())
+                                    && ticketDate.equals(filterDate)) lstT.add(t);
+                        }
+                    }
+                }
                 break;
         }
         return lstT;
