@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
  */
-public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
+public class FormVisitor extends ValidateFormBaseVisitor<String> {
 
     private Response m_oResponse;
     private Map<String,String> m_oMapVariables;
@@ -23,17 +23,47 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitStart(ValidateFormParser.StartContext ctx) {
-        return visitChildren(ctx);
+    public String visitExecStart(ValidateFormParser.ExecStartContext ctx) {
+        return visit(ctx.stmts);
     }
 
-    /*@Override
-    public Boolean visitExecStatements(ValidateFormParser.ExecStatementsContext ctx) {
-        return true;
-    }*/
+    @Override
+    public String visitExecStatements(ValidateFormParser.ExecStatementsContext ctx) {
+        return visit(ctx.stmt);
+    }
 
     @Override
-    public Boolean visitExecMandatory(ValidateFormParser.ExecMandatoryContext ctx) {
+    public String visitStmtMandatory(ValidateFormParser.StmtMandatoryContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitStmtRegex(ValidateFormParser.StmtRegexContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitStmtAssert(ValidateFormParser.StmtAssertContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitStmtAttribute(ValidateFormParser.StmtAttributeContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitStmtIf(ValidateFormParser.StmtIfContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitStmtAssign(ValidateFormParser.StmtAssignContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitExecMandatory(ValidateFormParser.ExecMandatoryContext ctx) {
         String str = ctx.agr.getText();
         Boolean flag = true;
         List<Integer> lstAttributes = new ArrayList<>();
@@ -57,36 +87,56 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
                 break;
             }
         }
-        return flag;
+        return flag.toString();
     }
 
     @Override
-    public Boolean visitExecRegex(ValidateFormParser.ExecRegexContext ctx) {
+    public String visitExecRegex(ValidateFormParser.ExecRegexContext ctx) {
         Integer intAttribute = Integer.parseInt(ctx.agr.getText());
         String strRegex = ctx.re.getText().substring(1, ctx.re.getText().length() - 1);
 
         if(intAttribute >= this.m_oResponse.getResponses().size()){
-            return false;
+            return Boolean.FALSE.toString();
         }
         if(!this.m_oResponse.getResponses().get(intAttribute).matches(strRegex)){
-            return false;
+            return Boolean.FALSE.toString();
         }
-        return true;
+        return Boolean.TRUE.toString();
     }
 
     @Override
-    public Boolean visitExecGetAttribute(ValidateFormParser.ExecGetAttributeContext ctx) {
+    public String visitExecAssert(ValidateFormParser.ExecAssertContext ctx) {
+        return visit(ctx.cond);
+    }
+
+    @Override
+    public String visitExecGetAttribute(ValidateFormParser.ExecGetAttributeContext ctx) {
         Integer intAttribute = Integer.parseInt(ctx.attribute.getText());
         if(intAttribute >= this.m_oResponse.getResponses().size() ){
-            return false;
+            return Boolean.FALSE.toString();
         }
-        return true;
+        return Boolean.TRUE.toString();
     }
 
     @Override
-    public Boolean visitOnlyIf(ValidateFormParser.OnlyIfContext ctx) {
+    public String visitExecMultipleNumbers(ValidateFormParser.ExecMultipleNumbersContext ctx) {
+        return ctx.number.getText() + "," + ctx.multipleNumbers.getText();
+    }
+
+    @Override
+    public String visitExecNum(ValidateFormParser.ExecNumContext ctx) {
+        return ctx.number.getText();
+    }
+
+    @Override
+    public String visitExecVar(ValidateFormParser.ExecVarContext ctx) {
+        return ctx.label.getText();
+    }
+
+    @Override
+    public String visitOnlyIf(ValidateFormParser.OnlyIfContext ctx) {
         if(!Boolean.valueOf(ctx.if_cond.getText())){
-            return false;
+            return Boolean.FALSE.toString();
         } else {
             switch (ctx.stmt_if.getText()){
                 case "#mandatory;" : return visit(ctx);
@@ -97,13 +147,13 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
                 case "#assign;" : return visit(ctx);
             }
         }
-        return false;
+        return Boolean.FALSE.toString();
     }
 
     @Override
-    public Boolean visitIfElse(ValidateFormParser.IfElseContext ctx) {
+    public String visitIfElse(ValidateFormParser.IfElseContext ctx) {
         if(!Boolean.valueOf(ctx.if_cond.getText())){
-            return false;
+            return Boolean.FALSE.toString();
         } else if (Boolean.valueOf(ctx.if_cond.getText())){
             switch (ctx.stmt_if.getText()){
                 case "#mandatory;" : return visit(ctx.stmt_if);
@@ -114,7 +164,7 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
                 case "#assign;" : return visit(ctx.stmt_if);
             }
         } else if (!Boolean.valueOf(ctx.stmt_if.getText())){
-            return false;
+            return Boolean.FALSE.toString();
         } else {
             switch (ctx.stmt_if.getText()){
                 case "#mandatory;" : return visit(ctx.stmt_else);
@@ -125,29 +175,29 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
                 case "#assign;" : return visit(ctx.stmt_else);
             }
         }
-        return false;
+        return Boolean.FALSE.toString();
     }
 
     @Override
-    public Boolean visitMultipleConditions(ValidateFormParser.MultipleConditionsContext ctx) {
-        Boolean blnRight = visit(ctx.right);
-        Boolean blnLeft = visit(ctx.left);
+    public String visitMultipleConditions(ValidateFormParser.MultipleConditionsContext ctx) {
+        Boolean blnRight = Boolean.valueOf(visit(ctx.right));
+        Boolean blnLeft = Boolean.valueOf(visit(ctx.left));
 
         switch (ctx.conjSign.getText()) {
-            case "&&" : return Boolean.logicalAnd(blnLeft, blnRight);
-            case "||" : return Boolean.logicalOr(blnLeft, blnRight);
+            case "&&" : return String.valueOf(Boolean.logicalAnd(blnLeft, blnRight));
+            case "||" : return String.valueOf(Boolean.logicalOr(blnLeft, blnRight));
         }
 
-        return false;
+        return Boolean.FALSE.toString();
     }
 
     @Override
-    public Boolean visitSingleConditions(ValidateFormParser.SingleConditionsContext ctx) {
+    public String visitSingleConditions(ValidateFormParser.SingleConditionsContext ctx) {
         return visit(ctx.cond);
     }
 
     @Override
-    public Boolean visitCond(ValidateFormParser.CondContext ctx) {
+    public String visitCond(ValidateFormParser.CondContext ctx) {
         Integer intLeft, intRight;
         if(this.m_oMapVariables.containsKey(ctx.left.getText().substring(1))){
             intLeft = Integer.parseInt(this.m_oMapVariables.get(ctx.left.getText().substring(1)));
@@ -162,79 +212,76 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
         }
 
         switch (ctx.compSign.getText()) {
-            case "==" : return Boolean.valueOf(String.valueOf(intLeft == intRight));
-            case "!=" : return Boolean.valueOf(String.valueOf(intLeft != intRight));
-            case ">" : return Boolean.valueOf(String.valueOf(intLeft > intRight));
-            case "<" : return Boolean.valueOf(String.valueOf(intLeft < intRight));
-            case ">=" : return Boolean.valueOf(String.valueOf(intLeft >= intRight));
-            case "<=" : return Boolean.valueOf(String.valueOf(intLeft <= intRight));
+            case "==" : return String.valueOf(intLeft == intRight);
+            case "!=" : return String.valueOf(intLeft != intRight);
+            case ">" : return String.valueOf(intLeft > intRight);
+            case "<" : return String.valueOf(intLeft < intRight);
+            case ">=" : return String.valueOf(intLeft >= intRight);
+            case "<=" : return String.valueOf(intLeft <= intRight);
         }
-        return false;
+        return Boolean.FALSE.toString();
     }
 
     @Override
-    public Boolean visitExecAssign(ValidateFormParser.ExecAssignContext ctx) {
+    public String visitExecAssign(ValidateFormParser.ExecAssignContext ctx) {
         String strLabel = ctx.var.getText().substring(1);
         this.m_oMapVariables.put(strLabel, ctx.res.getText());
-        return true;
+        return Boolean.TRUE.toString();
     }
 
     @Override
-    public Boolean visitExecOpTimesDivision(ValidateFormParser.ExecOpTimesDivisionContext ctx) {
-        Integer intLeft = Integer.parseInt(ctx.left.getText());
-        Integer intRight = Integer.parseInt(ctx.right.getText());
-        //Integer intResult = 0;
-
-        switch (ctx.sign.getText()) {
-            case "*" : intResult = intLeft * intRight;
-                return true;
-            case "/" : intResult = intLeft / intRight;
-                return true;
-        }
-        return false;
-    }
-
-    @Override
-    public Boolean visitExecOpPlusMinus(ValidateFormParser.ExecOpPlusMinusContext ctx) {
+    public String visitExecOpTimesDivision(ValidateFormParser.ExecOpTimesDivisionContext ctx) {
         Integer intLeft = Integer.parseInt(ctx.left.getText());
         Integer intRight = Integer.parseInt(ctx.right.getText());
 
         switch (ctx.sign.getText()) {
-            case "+" : return Boolean.valueOf(String.valueOf(intLeft + intRight));
-            case "-" : return Boolean.valueOf(String.valueOf(intLeft - intRight));
+            case "*" : return String.valueOf(intLeft * intRight);
+            case "/" : return String.valueOf(intLeft / intRight);
         }
-        return false;
+        return Boolean.FALSE.toString();
     }
 
     @Override
-    public Boolean visitExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx) {
-        return Boolean.valueOf(String.valueOf(ctx.atom.getText()));
+    public String visitExecOpPlusMinus(ValidateFormParser.ExecOpPlusMinusContext ctx) {
+        Integer intLeft = Integer.parseInt(ctx.left.getText());
+        Integer intRight = Integer.parseInt(ctx.right.getText());
+
+        switch (ctx.sign.getText()) {
+            case "+" : return String.valueOf(intLeft + intRight);
+            case "-" : return String.valueOf(intLeft - intRight);
+        }
+        return Boolean.FALSE.toString();
     }
 
     @Override
-    public Boolean visitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx) {
-        return Boolean.valueOf(String.valueOf(ctx.result.getText()));
+    public String visitExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx) {
+        return ctx.atom.getText();
     }
 
     @Override
-    public Boolean visitObjectVariable(ValidateFormParser.ObjectVariableContext ctx) {
-        return Boolean.valueOf(this.m_oMapVariables.get(ctx.var.getText().substring(1)));
+    public String visitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx) {
+        return ctx.result.getText();
     }
 
     @Override
-    public Boolean visitObjectNumber(ValidateFormParser.ObjectNumberContext ctx) {
-        return Boolean.valueOf(String.valueOf(ctx.objNumber.getText()));
+    public String visitObjectVariable(ValidateFormParser.ObjectVariableContext ctx) {
+        return this.m_oMapVariables.get(ctx.var.getText().substring(1));
     }
 
-    /*@Override
-
-    public Boolean visitObjectAttribute(ValidateFormParser.ObjectAttributeContext ctx) {
-        return Boolean.valueOf(String.valueOf(ctx.str.getText()));
-    }*/
+    @Override
+    public String visitObjectNumber(ValidateFormParser.ObjectNumberContext ctx) {
+        return ctx.objNumber.getText();
+    }
 
     @Override
-    public Boolean visitExecString(ValidateFormParser.ExecStringContext ctx) {
-        return Boolean.valueOf(String.valueOf(ctx.str.getText()));
+
+    public String visitObjectAttribute(ValidateFormParser.ObjectAttributeContext ctx) {
+        return ctx.att.getText();
+    }
+
+    @Override
+    public String visitExecString(ValidateFormParser.ExecStringContext ctx) {
+        return ctx.str.getText();
     }
 
 }
