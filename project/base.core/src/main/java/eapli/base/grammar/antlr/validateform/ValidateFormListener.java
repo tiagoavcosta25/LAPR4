@@ -50,15 +50,77 @@ public interface ValidateFormListener extends ParseTreeListener {
 	 */
 	void exitType(ValidateFormParser.TypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ValidateFormParser#statement}.
+	 * Enter a parse tree produced by the {@code stmtMandatory}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterStatement(ValidateFormParser.StatementContext ctx);
+	void enterStmtMandatory(ValidateFormParser.StmtMandatoryContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ValidateFormParser#statement}.
+	 * Exit a parse tree produced by the {@code stmtMandatory}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitStatement(ValidateFormParser.StatementContext ctx);
+	void exitStmtMandatory(ValidateFormParser.StmtMandatoryContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code stmtRegex}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStmtRegex(ValidateFormParser.StmtRegexContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stmtRegex}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStmtRegex(ValidateFormParser.StmtRegexContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code stmtAssert}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStmtAssert(ValidateFormParser.StmtAssertContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stmtAssert}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStmtAssert(ValidateFormParser.StmtAssertContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code stmtAttribute}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStmtAttribute(ValidateFormParser.StmtAttributeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stmtAttribute}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStmtAttribute(ValidateFormParser.StmtAttributeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code stmtIf}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStmtIf(ValidateFormParser.StmtIfContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stmtIf}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStmtIf(ValidateFormParser.StmtIfContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code stmtAssign}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStmtAssign(ValidateFormParser.StmtAssignContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stmtAssign}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStmtAssign(ValidateFormParser.StmtAssignContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code execMandatory}
 	 * labeled alternative in {@link ValidateFormParser#mandatory}.
