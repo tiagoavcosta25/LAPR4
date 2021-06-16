@@ -39,7 +39,7 @@ public class JpaManualTaskExecutionRepository extends HelpDeskJpaRepositoryBase<
                         "INNER JOIN TaskExecution te ON te.id = lst.id " +
                         "INNER JOIN ManualTaskExecution mte ON mte.id = te.id " +
                         "WHERE mte.m_oCollaborator.m_oSystemUser.username =: uname AND te.m_oTaskStatus =: pending " +
-                        "AND afe.id =: idflux",
+                        "AND afe.id =: idflux AND afe.m_oProgress.m_LongProgress = mte.id",
                 ManualTaskExecution.class);
         q.setParameter("idflux", idFlux);
         q.setParameter("pending", TaskExecutionStatus.PENDING);
