@@ -248,6 +248,18 @@ public interface ValidateFormListener extends ParseTreeListener {
 	 */
 	void exitExecOpTimesDivision(ValidateFormParser.ExecOpTimesDivisionContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code execOpParenthesis}
+	 * labeled alternative in {@link ValidateFormParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void enterExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code execOpParenthesis}
+	 * labeled alternative in {@link ValidateFormParser#op}.
+	 * @param ctx the parse tree
+	 */
+	void exitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code execOpPlusMinus}
 	 * labeled alternative in {@link ValidateFormParser#op}.
 	 * @param ctx the parse tree
@@ -271,18 +283,6 @@ public interface ValidateFormListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code execOpParenthesis}
-	 * labeled alternative in {@link ValidateFormParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void enterExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code execOpParenthesis}
-	 * labeled alternative in {@link ValidateFormParser#op}.
-	 * @param ctx the parse tree
-	 */
-	void exitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code objectVariable}
 	 * labeled alternative in {@link ValidateFormParser#object}.

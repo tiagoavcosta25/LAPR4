@@ -152,6 +152,13 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecOpTimesDivision(ValidateFormParser.ExecOpTimesDivisionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code execOpParenthesis}
+	 * labeled alternative in {@link ValidateFormParser#op}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code execOpPlusMinus}
 	 * labeled alternative in {@link ValidateFormParser#op}.
 	 * @param ctx the parse tree
@@ -165,13 +172,6 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code execOpParenthesis}
-	 * labeled alternative in {@link ValidateFormParser#op}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code objectVariable}
 	 * labeled alternative in {@link ValidateFormParser#object}.

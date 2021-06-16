@@ -268,6 +268,18 @@ public class ValidateFormBaseListener implements ValidateFormListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExecOpPlusMinus(ValidateFormParser.ExecOpPlusMinusContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -287,18 +299,6 @@ public class ValidateFormBaseListener implements ValidateFormListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
