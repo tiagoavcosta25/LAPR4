@@ -2,7 +2,7 @@ grammar AutoTask;
 
 start: header type BLOCK_START statements BLOCK_END;
 
-statements: statement+;
+statements: statement+ #execStatements;
 
 header: HASHTAG HELPDESK;
 
@@ -17,13 +17,13 @@ sendEmail : SEND_EMAIL_LABEL STMT_START QUOTATION_MARKS em=email QUOTATION_MARKS
 
 fileSearch : FILE_SEARCH_LABEL STMT_START QUOTATION_MARKS fp=path QUOTATION_MARKS COMMA QUOTATION_MARKS key=keyword QUOTATION_MARKS STMT_END #execFileSearch;
 
-if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements #only_if
-        | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END ELSE BLOCK_START stmt_else=statements BLOCK_END #if_else;
+if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements #onlyIf
+        | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END ELSE BLOCK_START stmt_else=statements BLOCK_END #ifElse;
 
-conditions: right=condition conj_sign=conjunction left=conditions #multiple_conditions
-          | condition #single_conditions;
+conditions: right=condition conjSign=conjunction left=conditions #multipleConditions
+          | cond=condition #singleConditions;
 
-condition: left=object comp_sign=comp right=object #cond;
+condition: left=object compSign=comp right=object #cond;
 
 comp: COMP_EQUAL
     | DIFF
@@ -35,24 +35,26 @@ comp: COMP_EQUAL
 conjunction: AND
            | OR;
 
-assign: var=variable EQUAL res=op #exec_assign;
+assign: var=variable EQUAL res=op #execAssign;
 
-variable : DOLLAR label=var_label #exec_var;
+variable : DOLLAR label=var_label #execVar;
 
-op: left=object sign_td right=op #exec_op_times_division
-    | left=object sign_pm right=op #exec_op_plus_minus
-    | atom=object #exec_op_atom
-    | STMT_START result=op STMT_END #exec_op_parenthesis;
+op: left=object sign=sign_td right=op #execOpTimesDivision
+    | left=object sign=sign_pm right=op #execOpPlusMinus
+    | atom=object #execOpAtom
+    | STMT_START result=op STMT_END #execOpParenthesis;
 
-object: variable
-       | NUM+
-       | HASHTAG fileSearch;
+object: var=variable #objectVariable
+      | objNumber=num #objectNumber
+      | HASHTAG fileSearch #objectFileSearch;
 
 sign_td: TIMES
     | FOWARD_SLASH;
 
 sign_pm: PLUS
     | HYPHEN;
+
+num: NUM+;
 
 path : port? folder* file;
 
@@ -121,4 +123,4 @@ HASHTAG: '#';
 UNDERSCORE: '_';
 QUOTATION_MARKS: '"';
 END: ';';
-WS : [ \t\r\n]+ -> skip;n]+ -> skip;
+WS : [ \t\r\n]+ -> skip;
