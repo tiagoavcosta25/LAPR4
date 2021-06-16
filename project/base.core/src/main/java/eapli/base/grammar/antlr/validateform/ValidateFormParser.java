@@ -337,41 +337,137 @@ public class ValidateFormParser extends Parser {
 	}
 
 	public static class StatementContext extends ParserRuleContext {
+		public StatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_statement; }
+	 
+		public StatementContext() { }
+		public void copyFrom(StatementContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class StmtAssertContext extends StatementContext {
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
+		public Assert_funcContext assert_func() {
+			return getRuleContext(Assert_funcContext.class,0);
+		}
+		public TerminalNode END() { return getToken(ValidateFormParser.END, 0); }
+		public StmtAssertContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterStmtAssert(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitStmtAssert(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitStmtAssert(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StmtIfContext extends StatementContext {
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
+		public If_funcContext if_func() {
+			return getRuleContext(If_funcContext.class,0);
+		}
+		public StmtIfContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterStmtIf(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitStmtIf(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitStmtIf(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StmtMandatoryContext extends StatementContext {
 		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public MandatoryContext mandatory() {
 			return getRuleContext(MandatoryContext.class,0);
 		}
 		public TerminalNode END() { return getToken(ValidateFormParser.END, 0); }
-		public RegexContext regex() {
-			return getRuleContext(RegexContext.class,0);
-		}
-		public Assert_funcContext assert_func() {
-			return getRuleContext(Assert_funcContext.class,0);
-		}
-		public Get_attributeContext get_attribute() {
-			return getRuleContext(Get_attributeContext.class,0);
-		}
-		public If_funcContext if_func() {
-			return getRuleContext(If_funcContext.class,0);
-		}
-		public AssignContext assign() {
-			return getRuleContext(AssignContext.class,0);
-		}
-		public StatementContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_statement; }
+		public StmtMandatoryContext(StatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterStatement(this);
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterStmtMandatory(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitStatement(this);
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitStmtMandatory(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitStatement(this);
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitStmtMandatory(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StmtAttributeContext extends StatementContext {
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
+		public Get_attributeContext get_attribute() {
+			return getRuleContext(Get_attributeContext.class,0);
+		}
+		public TerminalNode END() { return getToken(ValidateFormParser.END, 0); }
+		public StmtAttributeContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterStmtAttribute(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitStmtAttribute(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitStmtAttribute(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StmtRegexContext extends StatementContext {
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
+		public RegexContext regex() {
+			return getRuleContext(RegexContext.class,0);
+		}
+		public TerminalNode END() { return getToken(ValidateFormParser.END, 0); }
+		public StmtRegexContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterStmtRegex(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitStmtRegex(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitStmtRegex(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StmtAssignContext extends StatementContext {
+		public AssignContext assign() {
+			return getRuleContext(AssignContext.class,0);
+		}
+		public TerminalNode END() { return getToken(ValidateFormParser.END, 0); }
+		public StmtAssignContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterStmtAssign(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitStmtAssign(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitStmtAssign(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -384,6 +480,7 @@ public class ValidateFormParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
+				_localctx = new StmtMandatoryContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(70);
@@ -395,6 +492,7 @@ public class ValidateFormParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new StmtRegexContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(74);
@@ -406,6 +504,7 @@ public class ValidateFormParser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new StmtAssertContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(78);
@@ -417,6 +516,7 @@ public class ValidateFormParser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new StmtAttributeContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(82);
@@ -428,6 +528,7 @@ public class ValidateFormParser extends Parser {
 				}
 				break;
 			case 5:
+				_localctx = new StmtIfContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(86);
@@ -437,6 +538,7 @@ public class ValidateFormParser extends Parser {
 				}
 				break;
 			case 6:
+				_localctx = new StmtAssignContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(88);

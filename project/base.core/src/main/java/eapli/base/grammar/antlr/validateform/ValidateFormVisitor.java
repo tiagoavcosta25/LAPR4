@@ -36,11 +36,47 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(ValidateFormParser.TypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#statement}.
+	 * Visit a parse tree produced by the {@code stmtMandatory}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatement(ValidateFormParser.StatementContext ctx);
+	T visitStmtMandatory(ValidateFormParser.StmtMandatoryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stmtRegex}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtRegex(ValidateFormParser.StmtRegexContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stmtAssert}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtAssert(ValidateFormParser.StmtAssertContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stmtAttribute}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtAttribute(ValidateFormParser.StmtAttributeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stmtIf}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtIf(ValidateFormParser.StmtIfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stmtAssign}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtAssign(ValidateFormParser.StmtAssignContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code execMandatory}
 	 * labeled alternative in {@link ValidateFormParser#mandatory}.
