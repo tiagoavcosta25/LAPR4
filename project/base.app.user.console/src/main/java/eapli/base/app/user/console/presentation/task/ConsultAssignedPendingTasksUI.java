@@ -51,7 +51,28 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
         return String.format("#  %-5s%-45s%-20s%-30s", "ID" , "NAME", "PRIORITY", "FINISH DATE");
     }
 
+    @Override
+    protected boolean doShow() {
+        this.elements = theController.getTasksOfCollaborator();
+        super.doShow();
 
+        String strOp = Console.readLine("\n\nDo you wish to filter/Order this results? (Filter/Order/N) ");
+        if (strOp.compareToIgnoreCase("Filter") == 0) {
+
+            if(filterBy.compareToIgnoreCase("Priority") == 0) {
+
+            } else if(filterBy.compareToIgnoreCase("FinishDate") == 0) {
+
+            } else {
+                System.out.println("Unrecognized filter.");
+            }
+        } else if(strOp.compareToIgnoreCase("Order") == 0) {
+
+        }else{
+            System.out.println();
+        }
+        return true;
+    }
 
 
 }
