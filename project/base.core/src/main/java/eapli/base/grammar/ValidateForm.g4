@@ -1,19 +1,19 @@
 grammar ValidateForm;
 
-start: header type BLOCK_START statements BLOCK_END;
+start: header type BLOCK_START stmts=statements BLOCK_END #execStart;
 
-statements: statement+ #execStatements;
+statements: stmt=statement+ #execStatements;
 
-header: HASHTAG HELPDESK;
+header: HASHTAG HELPDESK #execHeader;
 
-type: VALIDATE_FORM;
+type: VALIDATE_FORM #execType;
 
-statement: HASHTAG mandatory END #stmtMandatory
-        | HASHTAG regex END #stmtRegex
-        | HASHTAG assert_func END #stmtAssert
-        | HASHTAG get_attribute END #stmtAttribute
-        | HASHTAG if_func #stmtIf
-        | assign END #stmtAssign;
+statement: HASHTAG stmt=mandatory END #stmtMandatory
+        | HASHTAG stmt=regex END #stmtRegex
+        | HASHTAG stmt=assert_func END #stmtAssert
+        | HASHTAG stmt=get_attribute END #stmtAttribute
+        | HASHTAG stmt=if_func #stmtIf
+        | stmt=assign END #stmtAssign;
 
 mandatory: MANDATORY_LABEL STMT_START agr=nums STMT_END #execMandatory;
 
@@ -50,12 +50,12 @@ variable : DOLLAR label=var_label #execVar;
 
 op: left=op sign=sign_td right=op #execOpTimesDivision
     | left=op sign=sign_pm right=op #execOpPlusMinus
-    | atom=object #execOpAtom
-    | STMT_START result=op STMT_END #execOpParenthesis;
+    | STMT_START result=op STMT_END #execOpParenthesis
+    | atom=object #execOpAtom;
 
 object: var=variable #objectVariable
        | objNumber=num #objectNumber
-       | HASHTAG get_attribute #objectAttribute;
+       | HASHTAG att=get_attribute #objectAttribute;
 
 sign_td: TIMES
     | FOWARD_SLASH;

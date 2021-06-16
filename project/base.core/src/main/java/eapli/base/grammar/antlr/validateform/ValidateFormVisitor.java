@@ -11,11 +11,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#start}.
+	 * Visit a parse tree produced by the {@code execStart}
+	 * labeled alternative in {@link ValidateFormParser#start}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStart(ValidateFormParser.StartContext ctx);
+	T visitExecStart(ValidateFormParser.ExecStartContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code execStatements}
 	 * labeled alternative in {@link ValidateFormParser#statements}.
@@ -24,17 +25,19 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecStatements(ValidateFormParser.ExecStatementsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#header}.
+	 * Visit a parse tree produced by the {@code execHeader}
+	 * labeled alternative in {@link ValidateFormParser#header}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitHeader(ValidateFormParser.HeaderContext ctx);
+	T visitExecHeader(ValidateFormParser.ExecHeaderContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ValidateFormParser#type}.
+	 * Visit a parse tree produced by the {@code execType}
+	 * labeled alternative in {@link ValidateFormParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitType(ValidateFormParser.TypeContext ctx);
+	T visitExecType(ValidateFormParser.ExecTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code stmtMandatory}
 	 * labeled alternative in {@link ValidateFormParser#statement}.
