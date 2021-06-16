@@ -46,6 +46,11 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
         return "Manual Task";
     }
 
+    @Override
+    protected String listHeader() {
+        return String.format("#  %-5s%-45s%-20s%-30s", "ID" , "NAME", "PRIORITY", "FINISH DATE");
+    }
+
 
 
 
