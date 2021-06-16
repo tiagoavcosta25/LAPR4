@@ -1,12 +1,15 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.cataloguemanagement.domain.Catalogue;
+import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
+import eapli.base.taskmanagement.execution.domain.TaskExecutionStatus;
 import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.base.ticketmanagement.domain.TicketStatus;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.util.Application;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import javax.persistence.TypedQuery;
@@ -54,5 +57,11 @@ class JpaTicketRepository
         q.setParameter("username", oUser.identity());
         q.setParameter("status", TicketStatus.OPEN);
         return q.getResultList();
+    }
+
+    @Override
+    public Iterable<Ticket> getPendingManualTasksByTicket(Username oUsername) {
+
+        return null;
     }
 }
