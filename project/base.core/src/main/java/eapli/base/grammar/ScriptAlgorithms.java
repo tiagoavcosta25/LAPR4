@@ -60,7 +60,7 @@ public class ScriptAlgorithms {
             return eListener.getResult();
         } else if(oMode.equals(ScriptMode.VISITOR)){
             FormVisitor eval = new FormVisitor(oResponse);
-            return eval.visit(tree);
+            return Boolean.valueOf(eval.visit(tree));
         }
         return false;
     }
