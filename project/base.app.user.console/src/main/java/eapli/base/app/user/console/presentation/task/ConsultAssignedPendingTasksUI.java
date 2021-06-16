@@ -1,0 +1,19 @@
+package eapli.base.app.user.console.presentation.task;
+
+import eapli.base.taskmanagement.execution.application.ConsultAssignedPendingTasksController;
+import eapli.base.taskmanagement.specification.domain.TaskFilterFields;
+import eapli.base.taskmanagement.specification.domain.TaskOrderFields;
+import eapli.base.ticketmanagement.domain.Ticket;
+import eapli.base.ticketmanagement.domain.TicketUrgency;
+import eapli.framework.io.util.Console;
+import eapli.framework.presentation.console.AbstractListUI;
+import eapli.framework.visitor.Visitor;
+
+/**
+ * @author Tiago Costa 1191460@isep.ipp.pt
+ */
+public class ConsultAssignedPendingTasksUI  {
+
+
+
+}
