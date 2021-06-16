@@ -25,13 +25,13 @@ public class AssignTasksUI extends AbstractUI {
             do{
                 ManualTaskExecution oManualTask = PrintList.chooseOne(itTasks, "Choose a Task", "Task");
                 if (oManualTask == null)
-                    throw new Exception("Error assigning task");
+                    throw new Exception("Error assigning task!");
                 theController.assignTask(oManualTask);
                 op = Console.readLine("Do you want to assign more task (Y/N) >");
             } while(op.compareToIgnoreCase("y") == 0);
 
         } catch(Exception e){
-            System.out.println("Error in assigning a Task.");
+            System.out.println("Error in assigning a Task!");
         }
 
         return false;
