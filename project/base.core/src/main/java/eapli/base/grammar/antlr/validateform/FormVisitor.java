@@ -197,7 +197,7 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
 
     @Override
     public Boolean visitObjectNumber(ValidateFormParser.ObjectNumberContext ctx) {
-        return Boolean.valueOf(String.valueOf(ctx.number.getText()));
+        return Boolean.valueOf(String.valueOf(ctx.objNumber.getText()));
     }
 
     /*@Override

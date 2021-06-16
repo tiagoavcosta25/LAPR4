@@ -340,6 +340,16 @@ public interface ValidateFormListener extends ParseTreeListener {
 	 */
 	void exitSign_pm(ValidateFormParser.Sign_pmContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ValidateFormParser#num}.
+	 * @param ctx the parse tree
+	 */
+	void enterNum(ValidateFormParser.NumContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ValidateFormParser#num}.
+	 * @param ctx the parse tree
+	 */
+	void exitNum(ValidateFormParser.NumContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ValidateFormParser#var_label}.
 	 * @param ctx the parse tree
 	 */
