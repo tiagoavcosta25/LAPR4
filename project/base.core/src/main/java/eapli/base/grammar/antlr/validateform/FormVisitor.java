@@ -3,6 +3,7 @@ package eapli.base.grammar.antlr.validateform;
 import eapli.base.ticketmanagement.domain.Response;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,18 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
 
     public FormVisitor(Response r){
         this.m_oResponse = r;
+        this.m_oMapVariables = new HashMap<>();
     }
+
+    @Override
+    public Boolean visitStart(ValidateFormParser.StartContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    /*@Override
+    public Boolean visitExecStatements(ValidateFormParser.ExecStatementsContext ctx) {
+        return true;
+    }*/
 
     @Override
     public Boolean visitExecMandatory(ValidateFormParser.ExecMandatoryContext ctx) {
@@ -50,18 +62,18 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
     @Override
     public Boolean visitExecRegex(ValidateFormParser.ExecRegexContext ctx) {
         Integer intAttribute = Integer.parseInt(ctx.agr.getText());
-        String strRegex = ctx.re.getText();
-        Boolean flag = true;
 
-        if(!this.m_oResponse.getResponses().get(intAttribute - 1).matches(strRegex)){
-            flag = false;
+        String strRegex = ctx.re.getText().substring(1, ctx.re.getText().length() - 1);
+
+        if(intAttribute >= this.m_oResponse.getResponses().size()){
+            return false;
         }
-        return flag;
-    }
 
-    @Override
-    public Boolean visitExecAssert(ValidateFormParser.ExecAssertContext ctx) {
-        return Boolean.valueOf(ctx.cond.getText());
+        if(!this.m_oResponse.getResponses().get(intAttribute).matches(strRegex)){
+            return false;
+        }
+
+        return true;
     }
 
     /*@Override
@@ -102,8 +114,8 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
 
     @Override
     public Boolean visitMultipleConditions(ValidateFormParser.MultipleConditionsContext ctx) {
-        Boolean blnLeft = Boolean.valueOf(ctx.left.getText());
-        Boolean blnRight = Boolean.valueOf(ctx.right.getText());
+        Boolean blnRight = visit(ctx.right);
+        Boolean blnLeft = visit(ctx.left);
 
         switch (ctx.conjSign.getText()) {
             case "&&" : return Boolean.logicalAnd(blnLeft, blnRight);
@@ -115,13 +127,23 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
 
     @Override
     public Boolean visitSingleConditions(ValidateFormParser.SingleConditionsContext ctx) {
-        return Boolean.valueOf(ctx.cond.getText()); //falta associar na gramatica
+        return visit(ctx.cond);
     }
 
     @Override
     public Boolean visitCond(ValidateFormParser.CondContext ctx) {
-        Integer intLeft = Integer.parseInt(ctx.left.getText());
-        Integer intRight = Integer.parseInt(ctx.right.getText());
+        Integer intLeft, intRight;
+        if(this.m_oMapVariables.containsKey(ctx.left.getText().substring(1))){
+            intLeft = Integer.parseInt(this.m_oMapVariables.get(ctx.left.getText().substring(1)));
+        } else{
+            intLeft = Integer.parseInt(ctx.left.getText());
+        }
+
+        if(this.m_oMapVariables.containsKey(ctx.right.getText().substring(1))){
+            intRight = Integer.parseInt(this.m_oMapVariables.get(ctx.right.getText().substring(1)));
+        } else{
+            intRight = Integer.parseInt(ctx.right.getText());
+        }
 
         switch (ctx.compSign.getText()) {
             case "==" : return Boolean.valueOf(String.valueOf(intLeft == intRight));
@@ -137,19 +159,8 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
     @Override
     public Boolean visitExecAssign(ValidateFormParser.ExecAssignContext ctx) {
         String strLabel = ctx.var.getText().substring(1);
-        if(this.m_oMapVariables.containsKey(strLabel)){
-             return Boolean.valueOf(this.m_oMapVariables.put(strLabel, ctx.res.getText()));
-        }
-        return false;
-    }
-
-    @Override
-    public Boolean visitExecVar(ValidateFormParser.ExecVarContext ctx) {
-        String strLabel = ctx.label.getText();
-        if(!this.m_oMapVariables.containsKey(strLabel)){
-            return Boolean.valueOf(this.m_oMapVariables.put(strLabel, ""));
-        }
-        return false;
+        this.m_oMapVariables.put(strLabel, ctx.res.getText());
+        return true;
     }
 
     @Override
