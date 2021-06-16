@@ -84,7 +84,9 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
                 System.out.println("Unrecognized filter.");
             }
         } else if(strOp.compareToIgnoreCase("Order") == 0) {
-
+            String orders = getStringFilters("TaskOrder");
+            String filterBy = Console.readLine("\n\nWhat do you wish to order by? (" + orders + ") ");
+            //TODO: complete
         }else{
             System.out.println();
         }
