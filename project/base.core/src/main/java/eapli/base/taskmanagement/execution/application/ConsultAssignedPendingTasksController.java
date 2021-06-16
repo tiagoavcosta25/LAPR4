@@ -57,7 +57,17 @@ public class ConsultAssignedPendingTasksController {
     }
 
     public Iterable<Ticket> getTasksOfCollaborator(TaskFilterFields filterBy, String value) {
+        Iterable<Ticket> iRegular = getTasksOfCollaborator();
+        List<Ticket> lstT = new ArrayList<>();
+        switch(filterBy) {
+            case PRIORITY:
 
+                break;
+            case FINISHDATE:
+
+                break;
+        }
+        return lstT;
     }
 
     public Iterable<ManualTask> getTasksOfCollaborator(TaskOrderFields orderBy) {
