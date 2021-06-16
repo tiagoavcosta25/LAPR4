@@ -61,7 +61,16 @@ class JpaTicketRepository
 
     @Override
     public Iterable<Ticket> getPendingManualTasksByTicket(Username oUsername) {
-
-        return null;
+        final TypedQuery<Ticket> q = entityManager().createQuery(
+                "SELECT DISTINCT t FROM ActivityFluxExecution afe JOIN afe.m_lstFlux lst " +
+                        "INNER JOIN Ticket t ON t.m_oFluxExecution = afe.id " +
+                        "INNER JOIN ManualTaskExecution mte ON mte.id = lst.id " +
+                        "INNER JOIN TaskExecution te ON te.id = mte.id " +
+                        "WHERE mte.m_oCollaborator.m_oSystemUser.username =: uname AND te.m_oTaskStatus =: pending " +
+                        "AND afe.m_oProgress = mte.id",
+                Ticket.class);
+        q.setParameter("pending", TaskExecutionStatus.PENDING);
+        q.setParameter("uname", oUsername);
+        return q.getResultList();
     }
 }
