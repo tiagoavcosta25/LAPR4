@@ -140,7 +140,7 @@ public class FormListener extends ValidateFormBaseListener {
 
     @Override
     public void enterObjectNumber(ValidateFormParser.ObjectNumberContext ctx) {
-        this.stack.push(ctx.number.getText());
+        this.stack.push(ctx.objNumber.getText());
     }
 
     @Override
