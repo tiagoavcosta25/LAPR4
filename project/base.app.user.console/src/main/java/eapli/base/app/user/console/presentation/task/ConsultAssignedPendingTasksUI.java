@@ -58,7 +58,8 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
 
         String strOp = Console.readLine("\n\nDo you wish to filter/Order this results? (Filter/Order/N) ");
         if (strOp.compareToIgnoreCase("Filter") == 0) {
-
+            String filters = getStringFilters("TaskFilter");
+            String filterBy = Console.readLine("\n\nWhat do you wish to filter by? (" + filters + ") ");
             if(filterBy.compareToIgnoreCase("Priority") == 0) {
 
             } else if(filterBy.compareToIgnoreCase("FinishDate") == 0) {
