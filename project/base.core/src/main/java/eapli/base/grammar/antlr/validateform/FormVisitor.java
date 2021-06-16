@@ -50,7 +50,6 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
                 flag = false;
                 break;
             }
-
             if(this.m_oResponse.getResponses().get(i).isEmpty()){
                 flag = false;
                 break;
@@ -62,31 +61,25 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
     @Override
     public Boolean visitExecRegex(ValidateFormParser.ExecRegexContext ctx) {
         Integer intAttribute = Integer.parseInt(ctx.agr.getText());
-
         String strRegex = ctx.re.getText().substring(1, ctx.re.getText().length() - 1);
 
         if(intAttribute >= this.m_oResponse.getResponses().size()){
             return false;
         }
-
         if(!this.m_oResponse.getResponses().get(intAttribute).matches(strRegex)){
             return false;
         }
-
         return true;
     }
 
-    /*@Override
+    @Override
     public Boolean visitExecGetAttribute(ValidateFormParser.ExecGetAttributeContext ctx) {
         Integer intAttribute = Integer.parseInt(ctx.attribute.getText());
-        Boolean flag = true;
-
-        if(!this.m_oResponse.getResponses().get(intAttribute - 1) ){
-            flag = false;
+        if(intAttribute >= this.m_oResponse.getResponses().size() ){
+            return false;
         }
-
-        return flag;
-    }*/
+        return true;
+    }
 
     @Override
     public Boolean visitOnlyIf(ValidateFormParser.OnlyIfContext ctx) {
@@ -208,6 +201,7 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
     }
 
     /*@Override
+
     public Boolean visitObjectAttribute(ValidateFormParser.ObjectAttributeContext ctx) {
         return Boolean.valueOf(String.valueOf(ctx.str.getText()));
     }*/
