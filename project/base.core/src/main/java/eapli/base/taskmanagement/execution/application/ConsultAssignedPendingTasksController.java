@@ -61,7 +61,16 @@ public class ConsultAssignedPendingTasksController {
         List<Ticket> lstT = new ArrayList<>();
         switch(filterBy) {
             case PRIORITY:
-
+                TicketUrgency priority = TicketUrgency.stringToTicketUrgency(value);
+                for(Ticket t : iRegular) {
+                    for(TaskExecution te : t.executionFlux().flux()) {
+                        if (te.getClass().equals(ManualTaskExecution.class)) {
+                            ManualTaskExecution mte = (ManualTaskExecution) te;
+                            if (t.executionFlux().currentProgress().currentProgress().equals(mte.id())
+                                    && t.urgency().equals(priority)) lstT.add(t);
+                        }
+                    }
+                }
                 break;
             case FINISHDATE:
 
