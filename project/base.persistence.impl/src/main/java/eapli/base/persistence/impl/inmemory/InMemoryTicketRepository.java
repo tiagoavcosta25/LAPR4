@@ -45,7 +45,20 @@ public class InMemoryTicketRepository
 
     @Override
     public Iterable<Ticket> getPendingManualTasksByTicket(Username oUsername) {
-
-        return null;
+        Iterable<Ticket> tLst = findAll();
+        List<Ticket> tFinalLst = new ArrayList<>();
+        for(Ticket t : tLst) {
+            for(TaskExecution te : t.executionFlux().flux()) {
+                if(te.getClass().equals(ManualTaskExecution.class)) {
+                    ManualTaskExecution mte = (ManualTaskExecution) te;
+                    if (mte.getM_oCollaborator().user().username().equals(oUsername)
+                            && te.status().equals(TaskExecutionStatus.PENDING)
+                            && t.executionFlux().currentProgress().currentProgress().equals(te.id())) {
+                        tFinalLst.add(t);
+                    }
+                }
+            }
+        }
+        return tFinalLst;
     }
 }
