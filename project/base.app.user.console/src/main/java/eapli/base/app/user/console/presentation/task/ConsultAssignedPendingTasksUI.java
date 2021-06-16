@@ -61,7 +61,11 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
             String filters = getStringFilters("TaskFilter");
             String filterBy = Console.readLine("\n\nWhat do you wish to filter by? (" + filters + ") ");
             if(filterBy.compareToIgnoreCase("Priority") == 0) {
-
+                String priorities = getStringFilters("Priority");
+                filterBy = Console.readLine("\n\nInsert priority to filter by. (" + priorities + ") ");
+                System.out.println("\n");
+                this.elements = theController.getTasksOfCollaborator(TaskFilterFields.PRIORITY, filterBy);
+                super.doShow();
             } else if(filterBy.compareToIgnoreCase("FinishDate") == 0) {
 
             } else {
