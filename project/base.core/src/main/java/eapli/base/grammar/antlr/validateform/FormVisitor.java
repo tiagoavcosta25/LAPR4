@@ -15,6 +15,8 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
     private Response m_oResponse;
     private Map<String,String> m_oMapVariables;
 
+    private Integer intResult = 0;
+
     public FormVisitor(Response r){
         this.m_oResponse = r;
         this.m_oMapVariables = new HashMap<>();
@@ -83,27 +85,48 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
 
     @Override
     public Boolean visitOnlyIf(ValidateFormParser.OnlyIfContext ctx) {
-        Boolean blCondition = Boolean.valueOf(ctx.if_cond.getText()), flag = true;
-        if(!blCondition){
-            flag = false;
+        if(!Boolean.valueOf(ctx.if_cond.getText())){
+            return false;
         } else {
-            String str = ctx.stmt_if.getText();
+            switch (ctx.stmt_if.getText()){
+                case "#mandatory;" : return visit(ctx);
+                case "#regex;" : return visit(ctx);
+                case "#assert_func;" : return visit(ctx);
+                case "#get_attribute;" : return visit(ctx);
+                case "#if_func;" : return visit(ctx);
+                case "#assign;" : return visit(ctx);
+            }
         }
-        return flag;
+        return false;
     }
 
-    /*@Override
-    public Boolean visitOnlyIfElse(ValidateFormParser.OnlyIfElseContext ctx) {
-        Boolean blCondition = Boolean.valueOf(ctx.if_cond.getText()), flag = true;
-
-        if(!blCondition){
-            flag = false;
+    @Override
+    public Boolean visitIfElse(ValidateFormParser.IfElseContext ctx) {
+        if(!Boolean.valueOf(ctx.if_cond.getText())){
+            return false;
+        } else if (Boolean.valueOf(ctx.if_cond.getText())){
+            switch (ctx.stmt_if.getText()){
+                case "#mandatory;" : return visit(ctx.stmt_if);
+                case "#regex;" : return visit(ctx.stmt_if);
+                case "#assert_func;" : return visit(ctx.stmt_if);
+                case "#get_attribute;" : return visit(ctx.stmt_if);
+                case "#if_func;" : return visit(ctx.stmt_if);
+                case "#assign;" : return visit(ctx.stmt_if);
+            }
+        } else if (!Boolean.valueOf(ctx.stmt_if.getText())){
+            return false;
         } else {
-            String str = ctx.stmt_if.getText();
+            switch (ctx.stmt_if.getText()){
+                case "#mandatory;" : return visit(ctx.stmt_else);
+                case "#regex;" : return visit(ctx.stmt_else);
+                case "#assert_func;" : return visit(ctx.stmt_else);
+                case "#get_attribute;" : return visit(ctx.stmt_else);
+                case "#if_func;" : return visit(ctx.stmt_else);
+                case "#assign;" : return visit(ctx.stmt_else);
+            }
         }
-
-        return flag;
-    }*/
+        return false;
+    }
 
     @Override
     public Boolean visitMultipleConditions(ValidateFormParser.MultipleConditionsContext ctx) {
@@ -160,10 +183,13 @@ public class FormVisitor extends ValidateFormBaseVisitor<Boolean> {
     public Boolean visitExecOpTimesDivision(ValidateFormParser.ExecOpTimesDivisionContext ctx) {
         Integer intLeft = Integer.parseInt(ctx.left.getText());
         Integer intRight = Integer.parseInt(ctx.right.getText());
+        //Integer intResult = 0;
 
         switch (ctx.sign.getText()) {
-            case "*" : return Boolean.valueOf(String.valueOf(intLeft * intRight));
-            case "/" : return Boolean.valueOf(String.valueOf(intLeft / intRight));
+            case "*" : intResult = intLeft * intRight;
+                return true;
+            case "/" : intResult = intLeft / intRight;
+                return true;
         }
         return false;
     }
