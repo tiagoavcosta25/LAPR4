@@ -48,8 +48,8 @@ assign: var=variable EQUAL res=op #execAssign;
 
 variable : DOLLAR label=var_label #execVar;
 
-op: left=object sign=sign_td right=op #execOpTimesDivision
-    | left=object sign=sign_pm right=op #execOpPlusMinus
+op: left=op sign=sign_td right=op #execOpTimesDivision
+    | left=op sign=sign_pm right=op #execOpPlusMinus
     | atom=object #execOpAtom
     | STMT_START result=op STMT_END #execOpParenthesis;
 
