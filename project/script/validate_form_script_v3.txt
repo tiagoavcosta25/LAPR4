@@ -1,0 +1,9 @@
+#helpdesk
+
+validateForm{
+
+$var1 = 0;
+$var2 = 1;
+#assert($var1 > $var2 && 2 != 1);
+
+}

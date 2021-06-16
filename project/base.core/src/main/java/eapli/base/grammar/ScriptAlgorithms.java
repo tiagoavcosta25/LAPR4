@@ -46,8 +46,8 @@ public class ScriptAlgorithms {
         return !syntaxError.isError();
     }
 
-    public static boolean executeValidateForm(String strFileContent, Response oResponse, ScriptMode oMode) throws IOException {
-        ValidateFormLexer lexer = new ValidateFormLexer(CharStreams.fromString(strFileContent));
+    public static boolean executeValidateForm(Response oResponse, ScriptMode oMode) throws IOException {
+        ValidateFormLexer lexer = new ValidateFormLexer(CharStreams.fromString(oResponse.getForm().script().toString()));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ValidateFormParser parser = new ValidateFormParser(tokens);
         ParseTree tree = parser.start(); // parse
