@@ -10,6 +10,6 @@ import eapli.framework.visitor.Visitor;
 public class ActivityFluxPrinter implements Visitor<ActivityFluxExecution> {
     @Override
     public void visit(ActivityFluxExecution visitee) {
-        System.out.println("Activity Flux " +  visitee.toString());
+        System.out.printf("Activity Flux %s", visitee.toString());
     }
 }
