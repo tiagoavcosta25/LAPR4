@@ -119,5 +119,9 @@ public class ActivityFluxExecution implements AggregateRoot<Long> {
         return this.m_oID;
     }
 
-
+    // TODO: Finish ToString
+    @Override
+    public String toString() {
+        return "Title";
+    }
 }
