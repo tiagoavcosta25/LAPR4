@@ -54,7 +54,7 @@ op: left=object sign=sign_td right=op #execOpTimesDivision
     | STMT_START result=op STMT_END #execOpParenthesis;
 
 object: var=variable #objectVariable
-       | number=NUM+ #objectNumber
+       | objNumber=num #objectNumber
        | HASHTAG get_attribute #objectAttribute;
 
 sign_td: TIMES
@@ -62,6 +62,8 @@ sign_td: TIMES
 
 sign_pm: PLUS
     | HYPHEN;
+
+num: NUM+;
 
 var_label: LOWERCASE alphanumeric*;
 
