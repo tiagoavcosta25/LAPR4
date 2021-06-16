@@ -53,7 +53,8 @@ public class JpaManualTaskExecutionRepository extends HelpDeskJpaRepositoryBase<
                 "SELECT distinct afe FROM ActivityFluxExecution afe JOIN afe.m_lstFlux lst " +
                         "INNER JOIN TaskExecution te ON te.id = lst.id " +
                         "INNER JOIN ManualTaskExecution mte ON mte.id = te.id " +
-                        "WHERE mte.m_oCollaborator.m_oSystemUser.username =: uname AND te.m_oTaskStatus =: pending",
+                        "WHERE mte.m_oCollaborator.m_oSystemUser.username =: uname AND te.m_oTaskStatus =: pending " +
+                        "AND afe.m_oProgress.m_LongProgress = mte.id",
                 ActivityFluxExecution.class);
         q.setParameter("pending", TaskExecutionStatus.PENDING);
         q.setParameter("uname", oUsername);
