@@ -3,6 +3,7 @@ package eapli.base.ticketmanagement.repository;
 import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +24,6 @@ public interface TicketRepository
     Iterable<Ticket> getTicketHistory(final SystemUser oUser);
 
     Iterable<Ticket> getOnGoingTickets(final SystemUser oUser);
+
+    Iterable<Ticket> getPendingManualTasksByTicket(final Username oUsername);
 }
