@@ -3,7 +3,7 @@
 validateForm{
 
 $var1 = 19;
-$var2 = 11;
+$var2 = 4 * 2 - 24 / 3 + 1;
 $var3 = #getAttribute(0);
 #assert($var1 > $var2 && #getAttribute(0) == $var3);
 #mandatory(0);

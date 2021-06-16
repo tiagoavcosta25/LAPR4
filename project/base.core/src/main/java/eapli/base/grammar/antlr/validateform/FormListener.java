@@ -176,4 +176,30 @@ public class FormListener extends ValidateFormBaseListener {
         this.stack.push(this.m_oResponse.getResponses().get(intAttribute));
     }
 
+    @Override
+    public void exitExecOpTimesDivision(ValidateFormParser.ExecOpTimesDivisionContext ctx) {
+        Integer intRight = Integer.parseInt(this.stack.pop());
+        Integer intLeft = Integer.parseInt(this.stack.pop());
+
+        switch (ctx.sign.getText()) {
+            case "*" : this.stack.push(String.valueOf(intLeft * intRight));
+                return;
+            case "/" : this.stack.push(String.valueOf(intLeft / intRight));
+                return;
+        }
+    }
+
+    @Override
+    public void exitExecOpPlusMinus(ValidateFormParser.ExecOpPlusMinusContext ctx) {
+        Integer intRight = Integer.parseInt(this.stack.pop());
+        Integer intLeft = Integer.parseInt(this.stack.pop());
+
+        switch (ctx.sign.getText()) {
+            case "+" : this.stack.push(String.valueOf(intLeft + intRight));
+                return;
+            case "-" : this.stack.push(String.valueOf(intLeft - intRight));
+                return;
+        }
+    }
+
 }
