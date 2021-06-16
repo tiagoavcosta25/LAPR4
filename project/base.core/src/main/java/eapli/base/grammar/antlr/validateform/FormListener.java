@@ -19,11 +19,11 @@ public class FormListener extends ValidateFormBaseListener {
     }
 
     public Boolean getResult() {
+        this.mergeResults();
         return Boolean.valueOf(stack.peek());
     }
 
-    @Override
-    public void exitExecStatements(ValidateFormParser.ExecStatementsContext ctx) {
+    public void mergeResults(){
         while(this.stack.size() > 1){
             Boolean blnRight = true;
             Boolean blnLeft = true;
@@ -199,6 +199,25 @@ public class FormListener extends ValidateFormBaseListener {
                 return;
             case "-" : this.stack.push(String.valueOf(intLeft - intRight));
                 return;
+        }
+    }
+
+    @Override
+    public void exitOnlyIf(ValidateFormParser.OnlyIfContext ctx) {
+        Boolean blnStatements = Boolean.valueOf(this.stack.pop());
+        if(Boolean.valueOf(this.stack.pop())){
+            this.stack.push(blnStatements.toString());
+        }
+    }
+
+    @Override
+    public void exitIfElse(ValidateFormParser.IfElseContext ctx) {
+        Boolean blnElseStatements = Boolean.valueOf(this.stack.pop());
+        Boolean blnIfStatements = Boolean.valueOf(this.stack.pop());
+        if(Boolean.valueOf(this.stack.pop())){
+            this.stack.push(blnIfStatements.toString());
+        } else{
+            this.stack.push(blnElseStatements.toString());
         }
     }
 
