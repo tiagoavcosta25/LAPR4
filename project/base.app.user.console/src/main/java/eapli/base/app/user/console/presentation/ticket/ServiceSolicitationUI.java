@@ -51,13 +51,13 @@ public class ServiceSolicitationUI extends AbstractUI {
             } while (strOp.compareToIgnoreCase("Y") == 0);
 
             for(Form f : oService.forms()) {
-                LOGGER.info("\nForm: %s\n\n------------------------------------------------\n\n", f.name().toString());
+                System.out.printf("\nForm: %s\n\n------------------------------------------------\n\n", f.name().toString());
                 for(Attribute a : f.attributes()) {
                     String strQuestion = a.label() + " >";
                     String strResponse = Console.readLine(strQuestion);
                     theController.addResponse(strResponse);
                 }
-                LOGGER.info("\n\n------------------------------------------------\n\n");
+                System.out.printf("\n\n------------------------------------------------\n\n");
                 theController.createResponse(f);
             }
 
@@ -69,7 +69,7 @@ public class ServiceSolicitationUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 oTicket = this.theController.saveTicket(oTicket);
-                LOGGER.info("\nOperation Successful. The Following Ticket was created successfully > %s\n\n", oTicket.toString());
+                LOGGER.info("\nOperation Successful. The Following Ticket was created successfully > {}\n\n", oTicket.toString());
             } else{
                 LOGGER.info("\nOperation Cancelled.\n\n");
             }
@@ -84,14 +84,14 @@ public class ServiceSolicitationUI extends AbstractUI {
         try{
             Integer i = 1;
             List<T> lstTemp = new ArrayList<>();
-            LOGGER.info("\n==========================================\n%s\n==========================================\n\n", strHeader);
+            System.out.printf("\n==========================================\n%s\n==========================================\n\n", strHeader);
             for(T t : itElements){
-                LOGGER.info("[%d] %s\n", i, t.toString());
+                System.out.printf("[%d] %s\n", i, t.toString());
                 i++;
                 lstTemp.add(t);
             }
             if(lstTemp.isEmpty()){
-                LOGGER.info("There is no " + strElementName + "s in the Database.\n\n");
+                System.out.printf("There is no " + strElementName + "s in the Database.\n\n");
                 return null;
             }
             Integer intOp = Integer.parseInt(Console.readLine("\n\n\nSelect " + strElementName + " Number >"));
