@@ -107,7 +107,11 @@ class JpaTicketRepository
                 lstT.sort(SortByPriority);
                 return lstT;
             case REVERSEPRIORITY:
-                return null;
+                Iterable<Ticket> iTicket = getPendingManualTasksByTicket(oUsername);
+                List<Ticket> lstTicket = new ArrayList<>();
+                iTicket.forEach(lstTicket::add);
+                lstTicket.sort(SortByPriority.reversed());
+                return lstTicket;
         }
         final TypedQuery<Ticket> q = entityManager().createQuery(query.toString(), Ticket.class);
         q.setParameter("pending", TaskExecutionStatus.PENDING);
