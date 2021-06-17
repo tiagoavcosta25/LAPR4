@@ -36,7 +36,10 @@ public class ExecuteManualTaskUI extends AbstractUI {
             int id = Math.toIntExact(manualTask.identity());
             List<String> responses = new ArrayList<>();
             System.out.println("");
-
+            Optional<Ticket> oT = theController.getTicketFromFlux(af);
+            oT.ifPresent(ticket -> System.out.println(ticket.detailedView()));
+            System.out.println("Complete the form");
+            System.out.println();
             for(Attribute attr : manualTask.getM_oManualTask().form().attributes()) {
                 responses.add(Console.readLine(attr.label().toString() + " >"));
                 System.out.println();
