@@ -81,7 +81,9 @@ character: LOWERCASE
      | PARENTHESIS_OPEN
      | PARENTHESIS_CLOSE
      | HYPHEN
-     | NUM;
+     | NUM
+     | PLUS
+     | TIMES;
 
 VALIDATE_FORM: 'validateForm';
 MANDATORY_LABEL: 'mandatory';
