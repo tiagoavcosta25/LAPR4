@@ -8,12 +8,15 @@ import eapli.base.teammanagement.domain.Team;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
 public class AddCollabToTeamUI extends AbstractUI {
 
+    private static final Logger LOGGER = LogManager.getLogger(AddCollabToTeamUI.class);
     private final AddCollabToTeamController theController = new AddCollabToTeamController();
 
     @Override
@@ -26,13 +29,13 @@ public class AddCollabToTeamUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.addCollabToTeam(theCollaborator, theTeam);
-                System.out.print("Operation Successful. Collaborator " + theCollaborator.id() + " " +
+                LOGGER.info("Operation Successful. Collaborator " + theCollaborator.id() + " " +
                         theCollaborator.completeName() + " was added to team " + theTeam.identity() + ".");
             } else{
-                System.out.println("Operation Cancelled.");
+                LOGGER.error("Operation cancelled");
             }
         } catch (final Exception ex) {
-            System.out.println("Error while adding Collaborator to the team.");
+            LOGGER.error("Error while adding collaborator to the team.");
         }
         return false;
     }

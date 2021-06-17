@@ -11,6 +11,6 @@ public class ManualTaskPrinter implements Visitor<ManualTaskExecution> {
 
     @Override
     public void visit(ManualTaskExecution visitee) {
-        System.out.printf("Manual Task %s", visitee.toString());
+        System.out.printf("Manual Task - %s", visitee.toString());
     }
 }

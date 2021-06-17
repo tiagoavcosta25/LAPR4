@@ -8,13 +8,15 @@ import eapli.base.teammanagement.domain.Team;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
 
-
 public class CreateCatalogueUI extends AbstractUI {
 
+    private static final Logger LOGGER = LogManager.getLogger(CreateCatalogueUI.class);
     private final CatalogueSpecificationController theController = new CatalogueSpecificationController();
 
     @Override
@@ -26,20 +28,20 @@ public class CreateCatalogueUI extends AbstractUI {
             final Collaborator collaborator = selectCollaborator();
             Set<Team> access = selectTeams();
             if(access.isEmpty()) {
-                System.out.println("Catalogue needs atleast one team to access!");
+                LOGGER.error("Catalogue needs atleast one team to access!");
                 access = selectTeams();
             }
             String strOp = Console.readLine("Confirm the catalogue with title " + title + " creation? (Y/N) ");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.createCatalog(title, briefDescription, completeDescription, collaborator,access);
-                System.out.printf("Operation Successful. The Following Catalogue was created successfully > title:" +
-                        " %s\tBrief Description :%s\n\n", title, briefDescription);
+                LOGGER.info("Operation Successful. The Following Catalogue was created successfully > title:" +
+                        " {}\tBrief Description :{}\n\n", title, briefDescription);
             } else{
-                System.out.println("Operation Cancelled.");
+                LOGGER.error("Operation Cancelled.");
             }
         } catch (final IllegalArgumentException ex) {
-            System.out.println("Something went wrong");
+            LOGGER.error("Something went wrong");
         }
         return false;
     }
@@ -73,11 +75,11 @@ public class CreateCatalogueUI extends AbstractUI {
                 setTeam.add(team);
                 decision = Console.readLine("Do you wish to add another Team? (Y\\N)");
             } else if(team == null && setTeam.isEmpty()) {
-                System.out.println("Didn't select a team!");
+                LOGGER.error("Didn't select a team!");
             } else if(team == null) {
                 break;
             } else if(setTeam.contains(team)) {
-                System.out.println("Team already selected!");
+                LOGGER.error("Team already selected!");
             }
         }
         return setTeam;

@@ -6,12 +6,15 @@ import eapli.base.collaboratormanagement.application.ListCollaboratorTeamsContro
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
 public class ListCollaboratorTeamsUI extends AbstractUI {
 
+    private static final Logger LOGGER = LogManager.getLogger(ListCollaboratorTeamsUI.class);
     private final ListCollaboratorTeamsController theController = new ListCollaboratorTeamsController();
 
     @Override
@@ -21,7 +24,7 @@ public class ListCollaboratorTeamsUI extends AbstractUI {
             ListTeamsUI listTeamsUI = new ListTeamsUI(theCollab);
             listTeamsUI.show();
         } catch (final Exception ex) {
-            System.out.println("Error while listing teams.");
+            LOGGER.error("Error while listing teams.");
         }
         return false;
     }

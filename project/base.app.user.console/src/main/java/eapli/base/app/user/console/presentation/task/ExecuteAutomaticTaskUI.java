@@ -9,11 +9,15 @@ import eapli.base.taskmanagement.specification.domain.AutomaticTask;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
 public class ExecuteAutomaticTaskUI extends AbstractUI {
+
+    private static final Logger LOGGER = LogManager.getLogger(ExecuteAutomaticTaskUI.class);
     private final ExecuteAutomaticTaskController theController = new ExecuteAutomaticTaskController();
 
     @Override
@@ -29,19 +33,19 @@ public class ExecuteAutomaticTaskUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.executeTask(autoTask, af);
-                System.out.printf("Operation Successful. The Following Automatic Task was executed successfully > id:" +
-                        " %s\n\n", id);
+                LOGGER.info("Operation Successful. The Following Automatic Task was executed successfully > id: {}\n\n", id);
             } else{
-                System.out.println("Operation Cancelled.");
+                LOGGER.error("Operation Cancelled.");
             }
         } catch (final Exception ex) {
-            System.out.println("Error while executing an Automatic Task. " + ex.getMessage());
+            LOGGER.error("Error while executing an Automatic Task.");
         }
         return false;
     }
 
     private AutomaticTaskExecution selectAutomaticTask(ActivityFluxExecution af) {
         System.out.println();
+        LOGGER.info("List of Pending Automatic Tasks - Select an Automatic Task");
         System.out.println("List of Pending Automatic Tasks - Select an Automatic Task");
         final Iterable<AutomaticTaskExecution> listTasks = theController.getPendingTasks(af);
         if(!listTasks.iterator().hasNext())

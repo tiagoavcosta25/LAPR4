@@ -5,11 +5,15 @@ import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
 import eapli.base.taskmanagement.execution.repositories.ManualTaskExecutionRepository;
 import eapli.base.ticketmanagement.domain.Response;
+import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
+import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+
+import java.util.Optional;
 
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
@@ -19,6 +23,7 @@ public class ExecuteManualTaskController {
 
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
     private final ManualTaskExecutionRepository mTaskExecRep = PersistenceContext.repositories().manualTaskExec();
+    private final TicketRepository mTicketRep = PersistenceContext.repositories().tickets();
     private final ResponseRepository responseRepository = PersistenceContext.repositories().responses();
     private final AdvanceFluxService adAFService = new AdvanceFluxService();
 
@@ -38,6 +43,11 @@ public class ExecuteManualTaskController {
         mTaskExecution.executeTask(savedResponse);
         adAFService.advanceFlux(af);
         return mTaskExecRep.save(mTaskExecution);
+    }
+
+    public Optional<Ticket> getTicketFromFlux(ActivityFluxExecution afe) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
+        return mTicketRep.getTicketFromFlux(afe);
     }
 
 }

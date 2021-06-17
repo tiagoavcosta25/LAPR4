@@ -1,11 +1,8 @@
 package eapli.base.app.backoffice.console.presentation.collaborator;
 
-import eapli.base.app.backoffice.console.presentation.team.TeamPrinter;
 import eapli.base.collaboratormanagement.application.ListCollaboratorsController;
 import eapli.base.collaboratormanagement.domain.Collaborator;
-import eapli.base.teammanagement.domain.Team;
 import eapli.framework.presentation.console.AbstractListUI;
-import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.visitor.Visitor;
 
 /**
