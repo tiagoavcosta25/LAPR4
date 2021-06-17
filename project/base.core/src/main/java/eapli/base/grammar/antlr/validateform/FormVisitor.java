@@ -17,8 +17,6 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
     private Response m_oResponse;
     private Map<String,String> m_oMapVariables;
 
-    private Integer intResult = 0;
-
     public FormVisitor(Response r){
         this.m_oResponse = r;
         this.m_oMapVariables = new HashMap<>();
