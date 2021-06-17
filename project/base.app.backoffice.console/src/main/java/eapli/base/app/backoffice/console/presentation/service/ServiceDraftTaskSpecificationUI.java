@@ -99,8 +99,8 @@ public class ServiceDraftTaskSpecificationUI extends AbstractUI {
             strOp = Console.readLine("Confirm the changes made on the Draft (Y/N) >");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
-                this.theController.saveServiceDraft();
-                LOGGER.info("\nService Drafted.\n\n");
+                oServiceDraft = this.theController.saveServiceDraft();
+                LOGGER.info("\nOperation Successful. New Draft > {}\n\n", oServiceDraft.toString());
             } else{
                 LOGGER.info("\nOperation Cancelled.\n");
             }
