@@ -87,7 +87,28 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
                 LOGGER.error("Unrecognized filter.");
             }
         } else if(strOp.compareToIgnoreCase("Order") == 0) {
-
+            String orders = getStringFilters("TaskOrder");
+            String orderBy = Console.readLine("\n\nWhat do you wish to order by? (" + orders + ") ");
+            if(orderBy.compareToIgnoreCase(TaskOrderFields.PRIORITY.toString()) == 0) {
+                System.out.println("\n");
+                this.elements = theController.getTasksOfCollaborator(TaskOrderFields.PRIORITY);
+                super.doShow();
+            } else if(orderBy.compareToIgnoreCase(TaskOrderFields.REVERSEPRIORITY.toString()) == 0) {
+                System.out.println("\n");
+                this.elements = theController.getTasksOfCollaborator(TaskOrderFields.REVERSEPRIORITY);
+                super.doShow();
+            } else if(orderBy.compareToIgnoreCase(TaskOrderFields.FINISHDATE.toString()) == 0) {
+                System.out.println("\n");
+                this.elements = theController.getTasksOfCollaborator(TaskOrderFields.FINISHDATE);
+                super.doShow();
+            } else if(orderBy.compareToIgnoreCase(TaskOrderFields.REVERSEFINISHDATE.toString()) == 0) {
+                System.out.println("\n");
+                this.elements = theController.getTasksOfCollaborator(TaskOrderFields.REVERSEFINISHDATE);
+                super.doShow();
+            }
+            else {
+                LOGGER.error("Unrecognized filter.");
+            }
         }else{
             System.out.println();
         }
