@@ -2,18 +2,18 @@ package eapli.base.app.backoffice.console.presentation.catalogue;
 
 import eapli.base.app.backoffice.console.presentation.team.TeamPrinter;
 import eapli.base.cataloguemanagement.application.CatalogueSearchController;
-import eapli.base.cataloguemanagement.domain.CatalogueCompleteDescription;
 import eapli.base.teammanagement.domain.Team;
-import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
 public class CatalogueSearchByTeamUI extends AbstractUI {
 
-
+    private static final Logger LOGGER = LogManager.getLogger(CatalogueSearchByTeamUI.class);
     private final CatalogueSearchController theController = new CatalogueSearchController();
 
     @Override
@@ -23,7 +23,7 @@ public class CatalogueSearchByTeamUI extends AbstractUI {
             ListCatalogueUI listCatalogueUI = new ListCatalogueUI(theTeam);
             listCatalogueUI.show();
         } catch (final Exception ex) {
-            System.out.println("Error while listing catalogues.");
+            LOGGER.error("Error while listing catalogues.");
         }
         return false;
     }
