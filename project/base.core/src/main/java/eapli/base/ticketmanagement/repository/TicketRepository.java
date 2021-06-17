@@ -30,6 +30,5 @@ public interface TicketRepository
 
     Iterable<Ticket> getPendingManualTasksByTicketOrdered(final Username oUsername, final TaskOrderFields orderField);
 
-
-
+    Optional<Ticket> getTicketFromFlux(final ActivityFluxExecution afe);
 }
