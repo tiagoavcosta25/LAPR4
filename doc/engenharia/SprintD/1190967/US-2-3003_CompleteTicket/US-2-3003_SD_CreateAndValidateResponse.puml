@@ -1,0 +1,33 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<application>>\nServiceSolicitationService" as SRV
+participant "<<domain>>\nResponse" as RS
+database "<<repository>>\nResponseRepository" as RR
+participant "<<persistence>>\nPersistenceContext" as PC
+participant "<<persistence>>\nAppSettings" as AS
+participant "<<factory>>\nRepositoryFactory" as RF
+participant "<<domain>>\nAttribute" as A
+participant "<<domain>>\nForm" as F
+
+[o-> SRV : createAndValidateResponse(form, lstAnswer)
+activate SRV
+
+SRV -> RS** : res = createResponse(form, lstReponses)
+
+alt if the responses are valid after executing the validation script
+
+SRV -> RR : save(res)
+activate RR
+
+RR --> SRV : response
+deactivate RR
+
+end
+
+<- SRV : response
+deactivate SRV
+
+@enduml
+
