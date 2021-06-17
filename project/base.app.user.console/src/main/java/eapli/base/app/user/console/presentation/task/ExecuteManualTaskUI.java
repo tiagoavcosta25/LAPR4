@@ -9,33 +9,34 @@ import eapli.base.taskmanagement.execution.application.ExecuteManualTaskControll
 import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
 import eapli.base.taskmanagement.specification.domain.ManualTask;
 import eapli.base.ticketmanagement.domain.Response;
+import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
 public class ExecuteManualTaskUI extends AbstractUI {
 
+    private static final Logger LOGGER = LogManager.getLogger(ExecuteManualTaskUI.class);
     private final ExecuteManualTaskController theController = new ExecuteManualTaskController();
 
     @Override
     protected boolean doShow() {
         try {
-
-            //TODO : inserir ticket detailed view aqui para o user ver antes de preencher
             final ActivityFluxExecution af = selectActivityFlux();
-
             final ManualTaskExecution manualTask = selectManualTask(af);
             int id = Math.toIntExact(manualTask.identity());
             List<String> responses = new ArrayList<>();
-            System.out.println();
-            System.out.println("Complete the form:");
-            System.out.println();
+            System.out.println("");
+
             for(Attribute attr : manualTask.getM_oManualTask().form().attributes()) {
                 responses.add(Console.readLine(attr.label().toString() + " >"));
                 System.out.println();
@@ -45,13 +46,13 @@ public class ExecuteManualTaskUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.executeTask(manualTask, rp, af);
-                System.out.printf("Operation Successful. The Following Manual Task was executed successfully > id:" +
-                        " %s\n\n", id);
+                LOGGER.info("Operation Successful. The Following Manual Task was executed successfully > id:" +
+                        " {}\n\n", id);
             } else{
-                System.out.println("Operation Cancelled.");
+                LOGGER.info("Operation Cancelled");
             }
         } catch (final Exception ex) {
-            System.out.println("Error while executing a Manual Task. " + ex.getMessage());
+            LOGGER.error("Error while executing a Manual Task.");
         }
         return false;
     }
@@ -61,7 +62,7 @@ public class ExecuteManualTaskUI extends AbstractUI {
         System.out.println("List of Pending Manual Tasks - Select a Manual Task");
         final Iterable<ManualTaskExecution> listTasks = theController.getUserPendingTasks(af);
         if(!listTasks.iterator().hasNext())
-            throw new IllegalArgumentException("No Pending Tasks avaiable!");
+            throw new IllegalArgumentException("No Pending Tasks available!");
         final SelectWidget<ManualTaskExecution> selectorManualTask = new SelectWidget<>("Select a Manual Task",
                 listTasks, new ManualTaskPrinter());
         selectorManualTask.show();
