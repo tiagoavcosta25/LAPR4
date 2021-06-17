@@ -11,6 +11,6 @@ public class AutomaticTaskPrinter implements Visitor<AutomaticTaskExecution> {
 
     @Override
     public void visit(AutomaticTaskExecution visitee) {
-        System.out.printf("Automatic Task %s", visitee.toString());
+        System.out.printf("Automatic Task - %s", visitee.toString());
     }
 }
