@@ -65,7 +65,7 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 oServiceDraft = this.theController.saveServiceDraft();
-                LOGGER.info("\nNew Draft > %s\n\n", oServiceDraft.toString());
+                LOGGER.info("\nOperation Successful. New Draft > {}\n\n", oServiceDraft.toString());
             } else{
                 LOGGER.info("\nOperation Cancelled.\n\n");
             }
