@@ -119,5 +119,13 @@ class JpaTicketRepository
         return q.getResultList();
     }
 
-
+    @Override
+    public Optional<Ticket> getTicketFromFlux(ActivityFluxExecution afe) {
+        final TypedQuery<Ticket> q = entityManager().createQuery(
+                "SELECT t FROM Ticket t " +
+                        "WHERE t.m_oFluxExecution =: afe",
+                Ticket.class);
+        q.setParameter("afe", afe);
+        return Optional.ofNullable(q.getSingleResult());
+    }
 }
