@@ -10,11 +10,9 @@ import org.apache.logging.log4j.Logger;
  */
 public class ServiceDraftPrinter implements Visitor<ServiceDraft> {
 
-    private static final Logger LOGGER = LogManager.getLogger(ServiceDraftPrinter.class);
-
     @Override
     public void visit(final ServiceDraft visitee) {
-        LOGGER.info("%-10s%-30s%-50s", visitee.identity(), visitee.getTitle(), visitee.getBriefDescription());
+        System.out.printf("%-10s%-30s%-50s", visitee.identity(), visitee.getTitle(), visitee.getBriefDescription());
     }
 
 }
