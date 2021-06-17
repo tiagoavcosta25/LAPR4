@@ -6,6 +6,8 @@ import eapli.base.teammanagement.domain.TeamType;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.SelectWidget;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +17,7 @@ import java.util.Set;
  */
 public class CreateTeamUI extends AbstractUI {
 
+    private static final Logger LOGGER = LogManager.getLogger(CreateTeamUI.class);
     private final TeamCreatorController theController = new TeamCreatorController();
 
     @Override
@@ -26,20 +29,20 @@ public class CreateTeamUI extends AbstractUI {
             final String teamDescription = Console.readLine("Team Description:");
             Set<Collaborator> representation = selectCollaborators();
             if(representation.isEmpty()) {
-                System.out.println("Team needs atleast one representative!");
+                LOGGER.error("Team needs at least one representative!");
                 representation = selectCollaborators();
             }
             String strOp = Console.readLine("Confirm the team with code " + id + " creation? (Y/N) ");
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.createTeam(id, theTeamType, acronym, teamDescription, representation);
-                System.out.printf("Operation Successful. The Following Team was created successfully > id:" +
-                        " %s\tacronym :%s\n\n", id, acronym);
+                LOGGER.info("Operation Successful. The Following Team was created successfully > id:" +
+                        " {}\tacronym :{}\n\n", id, acronym);
             } else{
-                System.out.println("Operation Cancelled.");
+                LOGGER.error("Operation cancelled");
             }
         } catch (final Exception ex) {
-            System.out.println("Error while creating a team. " + ex.getMessage());
+            LOGGER.error("Error while creating a team.");
         }
         return false;
     }
@@ -63,11 +66,11 @@ public class CreateTeamUI extends AbstractUI {
                 setCollab.add(collab);
                 decision = Console.readLine("Do you wish to add another representative? (Y\\N) ");
             } else if(collab == null && setCollab.isEmpty()) {
-                System.out.println("Didn't select a representative!");
+                LOGGER.error("Didn't select a representative!");
             } else if(collab == null) {
                 break;
             } else if(setCollab.contains(collab)) {
-                System.out.println("Representative already selected!");
+                LOGGER.error("Representative already selected!");
             }
         }
         return setCollab;
