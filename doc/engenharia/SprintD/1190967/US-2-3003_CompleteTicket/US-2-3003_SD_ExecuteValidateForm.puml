@@ -2,43 +2,67 @@
 autonumber
 hide footbox
 
-participant "<<application>>\nServiceSolicitationService" as SRV
-participant "<<domain>>\nResponse" as RS
 participant "<<grammar>>\nScriptAlgorithms" as SA
-database "<<repository>>\nResponseRepository" as RR
-participant "<<persistence>>\nPersistenceContext" as PC
-participant "<<persistence>>\nAppSettings" as AS
-participant "<<factory>>\nRepositoryFactory" as RF
-participant "<<domain>>\nAttribute" as A
+participant "<<domain>>\nResponse" as RS
 participant "<<domain>>\nForm" as F
+participant "<<validateform>>\nlexer\nValidateFormLexer" as VFL
+participant "<<antlr>>\ntokens\nCommonTokenStream" as CTS
+participant "<<validateform>>\nparser\nValidateFormParser" as VFP
+participant "<<antlr>>\ntree\nParseTree" as PT
+participant "<<antlr>>\nwalker\nParseTreeWalker" as PTW
+participant "<<validateform>>\nlistener\nFormListener" as FL
+participant "<<validateform>>\nvisitor\nFormVisitor" as FV
 
-[o-> SRV : createAndValidateResponse(form, lstAnswer)
-activate SRV
-
-SRV -> RS** : res = createResponse(form, lstReponses)
-
-SRV -> SA : executeValidateForm(response, mode)
+[o-> SA : executeValidateForm(response, mode)
 activate SA
 
-ref over SA
-  US-2-3003_SD_ExecuteValidateForm
-end ref
+SA -> RS : getForm()
+activate RS
 
-SA --> SRV : flag
-deactivate SA
+RS -> F : script()
+activate F
 
-alt if the responses are valid after executing the validation script (flag == true)
+F --> RS : script
+deactivate F
 
-SRV -> RR : save(res)
-activate RR
+RS --> SA : script
+deactivate RS
 
-RR --> SRV : response
-deactivate RR
+SA -> VFL** : create(script)
 
-<- SRV : response
-deactivate SRV
+SA -> CTS** : create(lexer)
+
+SA -> VFP** : create(tokens)
+
+SA -> VFP : tree = start()
+activate VFP
+deactivate VFP
+
+alt if the mode is listener
+
+SA -> PTW** : create()
+SA -> FL** : create(response)
+
+SA -> PTW : flag = walk(listener, tree)
+activate PTW
+deactivate PTW
+
+<- SA : flag
+
+else
+
+SA -> FV** : create(response)
+
+SA -> FV : flag = visit(tree)
+activate FV
+deactivate FV
+
+<- SA : flag
 
 end
+
+<- SA : false
+deactivate SA
 
 @enduml
 
