@@ -47,7 +47,7 @@ public class SaveDraftUI extends AbstractUI {
             ServiceDraft oServiceDraft = PrintList.chooseOne(itDrafts, "Choose the Service Draft to Save", "Service Draft");
 
             if(oServiceDraft == null){
-                LOGGER.info("\nNo Drafts to be saved.");
+                LOGGER.error("\nNo Drafts to be saved.");
                 throw new IllegalArgumentException();
             }
 
