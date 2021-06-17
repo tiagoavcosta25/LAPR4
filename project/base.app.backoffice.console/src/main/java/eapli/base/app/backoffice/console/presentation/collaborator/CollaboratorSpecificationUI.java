@@ -94,7 +94,7 @@ public class CollaboratorSpecificationUI extends AbstractUI {
                     Collaborator oCollaborator = this.theController.saveCollaborator();
                     LOGGER.info("Operation Successful. The Following Collaborator was created successfully > %s\n\n", oCollaborator.shortName());
                 } else {
-                    LOGGER.error("Operation Cancelled.");
+                    LOGGER.info("Operation Cancelled.");
                 }
             }
 
