@@ -28,7 +28,8 @@ import eapli.base.servicemanagement.application.ServiceDraftSpecificationControl
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,7 @@ import java.util.List;
  */
 public class ServiceDraftFieldSpecificationUI extends AbstractUI {
 
+    private static final Logger LOGGER = LogManager.getLogger(ServiceDraftFieldSpecificationUI.class);
     private final ServiceDraftSpecificationController theController = new ServiceDraftSpecificationController();
 
     @Override
@@ -63,12 +65,12 @@ public class ServiceDraftFieldSpecificationUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 oServiceDraft = this.theController.saveServiceDraft();
-                System.out.printf("\nNew Draft > %s\n\n", oServiceDraft.toString());
+                LOGGER.info("\nNew Draft > %s\n\n", oServiceDraft.toString());
             } else{
-                System.out.println("\nOperation Cancelled.\n\n");
+                LOGGER.info("\nOperation Cancelled.\n\n");
             }
         } catch (Exception e){
-            System.out.println("\nError in creating a service.\n\n");
+            LOGGER.error("\nError in creating a service.\n\n");
         }
 
         return false;
