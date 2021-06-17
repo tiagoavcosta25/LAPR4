@@ -33,6 +33,8 @@ import eapli.base.taskmanagement.specification.domain.ManualTask;
 import eapli.base.taskmanagement.specification.domain.TaskPriority;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ import java.util.List;
  */
 public class ServiceDraftTaskSpecificationUI extends AbstractUI {
 
+    private static final Logger LOGGER = LogManager.getLogger(ServiceDraftTaskSpecificationUI.class);
     private final ServiceDraftSpecificationController theController = new ServiceDraftSpecificationController();
 
     @Override
@@ -97,13 +100,13 @@ public class ServiceDraftTaskSpecificationUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.saveServiceDraft();
-                System.out.printf("\nService Drafted.\n\n");
+                LOGGER.info("\nService Drafted.\n\n");
             } else{
-                System.out.println("\nOperation Cancelled.\n");
+                LOGGER.info("\nOperation Cancelled.\n");
             }
 
         } catch (Exception e){
-            System.out.println("\nError in adding tasks to a service draft.\n");
+            LOGGER.error("\nError in adding tasks to a service draft.\n");
         }
 
         return false;
