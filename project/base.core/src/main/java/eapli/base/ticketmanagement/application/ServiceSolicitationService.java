@@ -26,6 +26,9 @@ package eapli.base.ticketmanagement.application;
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecutionProgress;
 import eapli.base.activityfluxmanagement.execution.repositories.ActivityFluxExecutionRepository;
+import eapli.base.formmanagement.domain.Form;
+import eapli.base.grammar.ScriptAlgorithms;
+import eapli.base.grammar.ScriptMode;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.taskmanagement.execution.domain.AutomaticTaskExecution;
@@ -38,8 +41,11 @@ import eapli.base.taskmanagement.specification.domain.Task;
 import eapli.base.taskmanagement.specification.repositories.AutomaticTaskRepository;
 import eapli.base.taskmanagement.specification.repositories.ManualTaskRepository;
 import eapli.base.taskmanagement.specification.repositories.TaskRepository;
+import eapli.base.ticketmanagement.domain.Response;
+import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.framework.application.ApplicationService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +60,7 @@ public class ServiceSolicitationService {
     private final AutomaticTaskRepository m_oAutoTaskRepo = PersistenceContext.repositories().automaticTask();
     private final TaskExecutionRepository m_oTaskExecRepo = PersistenceContext.repositories().taskExecs();
     private final ActivityFluxExecutionRepository m_oFluxExecRepo = PersistenceContext.repositories().fluxExecs();
+    private final ResponseRepository m_oRespRepo = PersistenceContext.repositories().responses();
 
     public ActivityFluxExecution createActivityFluxExecution(Service oService){
 
@@ -80,5 +87,14 @@ public class ServiceSolicitationService {
         oFlux = this.m_oFluxExecRepo.save(oFlux);
 
         return oFlux;
+    }
+
+    public Response createAndValidateResponse(Form oForm, List<String> lstAnswer) throws IOException {
+        List<String> lstResp = new ArrayList<>(lstAnswer);
+        Response oResponse = new Response(oForm, lstResp);
+        if(!ScriptAlgorithms.executeValidateForm(oResponse, ScriptMode.VISITOR)){
+            throw new IOException();
+        }
+        return this.m_oRespRepo.save(oResponse);
     }
 }

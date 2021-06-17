@@ -31,7 +31,6 @@ public class AssignTasksUI extends AbstractUI {
                 theController.assignTask(oManualTask);
                 op = Console.readLine("Do you want to assign more task (Y/N) >");
             } while(op.compareToIgnoreCase("y") == 0);
-
         } catch(Exception e){
             LOGGER.error("Error in assigning a task.");
         }

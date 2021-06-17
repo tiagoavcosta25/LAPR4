@@ -2,6 +2,7 @@ package eapli.base.grammar;
 
 import eapli.base.grammar.antlr.autotask.AutoTaskLexer;
 import eapli.base.grammar.antlr.autotask.AutoTaskParser;
+import eapli.base.grammar.antlr.autotask.TaskListener;
 import eapli.base.grammar.antlr.validateform.FormListener;
 import eapli.base.grammar.antlr.validateform.FormVisitor;
 import eapli.base.grammar.antlr.validateform.ValidateFormLexer;
@@ -46,7 +47,7 @@ public class ScriptAlgorithms {
         return !syntaxError.isError();
     }
 
-    public static boolean executeValidateForm(Response oResponse, ScriptMode oMode) throws IOException {
+    public static boolean executeValidateForm(Response oResponse, ScriptMode oMode) {
         ValidateFormLexer lexer = new ValidateFormLexer(CharStreams.fromString(oResponse.getForm().script().toString()));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         ValidateFormParser parser = new ValidateFormParser(tokens);
@@ -59,22 +60,23 @@ public class ScriptAlgorithms {
             return eListener.getResult();
         } else if(oMode.equals(ScriptMode.VISITOR)){
             FormVisitor eval = new FormVisitor(oResponse);
-            return eval.visit(tree);
+            String strResult = eval.visit(tree);
+            return Boolean.valueOf(strResult);
         }
         return false;
     }
 
-    public static boolean executeAutoTask(String strFileContent, ScriptMode oMode) throws IOException {
+    public static boolean executeAutoTask(String strFileContent, ScriptMode oMode) {
         AutoTaskLexer lexer = new AutoTaskLexer(CharStreams.fromString(strFileContent));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         AutoTaskParser parser = new AutoTaskParser(tokens);
         ParseTree tree = parser.start();
 
-        if(oMode.equals(ScriptMode.LISTENER)){ // TODO: implement AutoTaskVisitor and Listener
-            /*ParseTreeWalker walker = new ParseTreeWalker();
-            FormListener eListener = new FormListener();
+        if(oMode.equals(ScriptMode.LISTENER)){ // TODO: implement AutoTaskVisitor
+            ParseTreeWalker walker = new ParseTreeWalker();
+            TaskListener eListener = new TaskListener();
             walker.walk(eListener, tree);
-            return eListener.getResult();*/
+            //return eListener.getResult();
         } else if(oMode.equals(ScriptMode.VISITOR)){
             /*EvalVisitor eval = new EvalVisitor();
             return eval.visit(tree);*/

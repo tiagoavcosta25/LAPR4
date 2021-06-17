@@ -39,7 +39,7 @@ public class TCPServerAutoTaskExecutor {
             sock.setNeedClientAuth(true);
         }
         catch(IOException ex) {
-            System.out.println("Server failed to open local port " + intPort);
+            LOGGER.error("Server failed to open local port " + intPort);
             System.exit(1);
         }
 
@@ -58,45 +58,45 @@ public class TCPServerAutoTaskExecutor {
             InetAddress clientIP;
 
             clientIP=s.getInetAddress();
-            System.out.println("New client connection from " + clientIP.getHostAddress() +
+            LOGGER.trace("New client connection from " + clientIP.getHostAddress() +
                     ", port number " + s.getPort());
 
             try(DataOutputStream sOut = new DataOutputStream(s.getOutputStream());
                 DataInputStream sIn = new DataInputStream(s.getInputStream())){
 
-                SDP2021 request; // usa o protocolo sdp criado pela equipa
+                SDP2021 request;
                 SDP2021 response;
 
-                while((request = new SDP2021(sIn)).getCode() != SDP2021Code.END.getCode()) { // enquanto nao receber o codigo END
+                while((request = new SDP2021(sIn)).getCode() != SDP2021Code.END.getCode()) {
 
-                    System.out.println("Executing Automatic Task...");
+                    LOGGER.trace("Executing Automatic Task...");
 
                     ExecuteAutomaticTaskController autoTaskController = new ExecuteAutomaticTaskController();
-                    boolean blnTaskSuccessful = autoTaskController.executeAutomaticTaskMock(request.getData()); // excetudar a task automatica
+                    boolean blnTaskSuccessful = autoTaskController.executeAutomaticTaskMock(request.getData());
 
                     if(blnTaskSuccessful){
                         response = new SDP2021(SDP2021Code.AUTOTASK_RESPONSE_SUCCESS.getCode());
-                        System.out.println("Automatic Task Executed Successfully.");
+                        LOGGER.trace("Automatic Task Executed Successfully.");
 
                         response.send(sOut, "Success");
                     } else{
                         response = new SDP2021(SDP2021Code.AUTOTASK_RESPONSE_FAILURE.getCode());
-                        System.out.println("Error Executing Automatic Task.");
+                        LOGGER.error("Error Executing Automatic Task.");
 
                         response.send(sOut, "Error");
                     }
                 }
                 LOGGER.trace("Asked to close");
-                response = new SDP2021(SDP2021Code.ROGER.getCode()); // envia codigo ENTENDIDO para o cliente
+                response = new SDP2021(SDP2021Code.ROGER.getCode());
                 response.send(sOut, "Goodbye");
-                System.out.println("Client " + clientIP.getHostAddress() + ", port number: " + s.getPort() +
+                LOGGER.trace("Client " + clientIP.getHostAddress() + ", port number: " + s.getPort() +
                         " disconnected");
-                s.close(); // fecha a conexao
+                s.close();
             } catch (IOException e) {
                 //e.printStackTrace();
             } finally {
                 try {
-                    System.out.println("Client " + clientIP.getHostAddress() + ", port number: " + s.getPort() +
+                    LOGGER.trace("Client " + clientIP.getHostAddress() + ", port number: " + s.getPort() +
                             " disconnected");
                     s.close();
                 } catch (final IOException e) {

@@ -19,14 +19,22 @@ public class FormListener extends ValidateFormBaseListener {
     }
 
     public Boolean getResult() {
+        this.mergeResults();
         return Boolean.valueOf(stack.peek());
     }
 
-    @Override
-    public void exitExecStatements(ValidateFormParser.ExecStatementsContext ctx) {
-        if(this.stack.size() > 1){
-            Boolean blnRight = Boolean.valueOf(this.stack.pop());
-            Boolean blnLeft = Boolean.valueOf(this.stack.pop());
+    public void mergeResults(){
+        while(this.stack.size() > 1){
+            Boolean blnRight = true;
+            Boolean blnLeft = true;
+            String strLeft = this.stack.pop();
+            String strRight = this.stack.pop();
+            if(strLeft.equalsIgnoreCase("false") || strLeft.equalsIgnoreCase("true")){
+                blnRight = Boolean.valueOf(strLeft);
+            }
+            if(strRight.equalsIgnoreCase("false") || strRight.equalsIgnoreCase("true")){
+                blnLeft = Boolean.valueOf(strRight);
+            }
 
             this.stack.push(String.valueOf(Boolean.logicalAnd(blnLeft, blnRight)));
         }
@@ -132,7 +140,7 @@ public class FormListener extends ValidateFormBaseListener {
 
     @Override
     public void enterObjectNumber(ValidateFormParser.ObjectNumberContext ctx) {
-        this.stack.push(ctx.number.getText());
+        this.stack.push(ctx.objNumber.getText());
     }
 
     @Override
@@ -153,6 +161,63 @@ public class FormListener extends ValidateFormBaseListener {
         String strLabel = ctx.var.getText().substring(1);
         if(this.m_oMapVariables.containsKey(strLabel)){
             this.m_oMapVariables.put(strLabel, this.stack.pop());
+        }
+    }
+
+    @Override
+    public void exitExecGetAttribute(ValidateFormParser.ExecGetAttributeContext ctx) {
+        Integer intAttribute = Integer.parseInt(ctx.attribute.getText());
+
+        if(intAttribute >= this.m_oResponse.getResponses().size()) {
+            this.stack.push(Boolean.FALSE.toString());
+            return;
+        }
+
+        this.stack.push(this.m_oResponse.getResponses().get(intAttribute));
+    }
+
+    @Override
+    public void exitExecOpTimesDivision(ValidateFormParser.ExecOpTimesDivisionContext ctx) {
+        Integer intRight = Integer.parseInt(this.stack.pop());
+        Integer intLeft = Integer.parseInt(this.stack.pop());
+
+        switch (ctx.sign.getText()) {
+            case "*" : this.stack.push(String.valueOf(intLeft * intRight));
+                return;
+            case "/" : this.stack.push(String.valueOf(intLeft / intRight));
+                return;
+        }
+    }
+
+    @Override
+    public void exitExecOpPlusMinus(ValidateFormParser.ExecOpPlusMinusContext ctx) {
+        Integer intRight = Integer.parseInt(this.stack.pop());
+        Integer intLeft = Integer.parseInt(this.stack.pop());
+
+        switch (ctx.sign.getText()) {
+            case "+" : this.stack.push(String.valueOf(intLeft + intRight));
+                return;
+            case "-" : this.stack.push(String.valueOf(intLeft - intRight));
+                return;
+        }
+    }
+
+    @Override
+    public void exitOnlyIf(ValidateFormParser.OnlyIfContext ctx) {
+        Boolean blnStatements = Boolean.valueOf(this.stack.pop());
+        if(Boolean.valueOf(this.stack.pop())){
+            this.stack.push(blnStatements.toString());
+        }
+    }
+
+    @Override
+    public void exitIfElse(ValidateFormParser.IfElseContext ctx) {
+        Boolean blnElseStatements = Boolean.valueOf(this.stack.pop());
+        Boolean blnIfStatements = Boolean.valueOf(this.stack.pop());
+        if(Boolean.valueOf(this.stack.pop())){
+            this.stack.push(blnIfStatements.toString());
+        } else{
+            this.stack.push(blnElseStatements.toString());
         }
     }
 

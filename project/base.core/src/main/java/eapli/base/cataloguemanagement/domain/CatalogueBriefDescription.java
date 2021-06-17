@@ -51,14 +51,15 @@ public class CatalogueBriefDescription implements ValueObject, Comparable<eapli.
         return this.m_strBriefDescription.equals(that.m_strBriefDescription);
     }
 
-    @Override
-    public int hashCode() {
-        return this.m_strBriefDescription.hashCode();
-    }
 
     @Override
     public String toString() {
         return this.m_strBriefDescription;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.m_strBriefDescription.hashCode();
     }
 
     @Override

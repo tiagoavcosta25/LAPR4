@@ -18,15 +18,17 @@ public interface AutoTaskListener extends ParseTreeListener {
 	 */
 	void exitStart(AutoTaskParser.StartContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AutoTaskParser#statements}.
+	 * Enter a parse tree produced by the {@code execStatements}
+	 * labeled alternative in {@link AutoTaskParser#statements}.
 	 * @param ctx the parse tree
 	 */
-	void enterStatements(AutoTaskParser.StatementsContext ctx);
+	void enterExecStatements(AutoTaskParser.ExecStatementsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AutoTaskParser#statements}.
+	 * Exit a parse tree produced by the {@code execStatements}
+	 * labeled alternative in {@link AutoTaskParser#statements}.
 	 * @param ctx the parse tree
 	 */
-	void exitStatements(AutoTaskParser.StatementsContext ctx);
+	void exitExecStatements(AutoTaskParser.ExecStatementsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AutoTaskParser#header}.
 	 * @param ctx the parse tree
@@ -82,53 +84,53 @@ public interface AutoTaskListener extends ParseTreeListener {
 	 */
 	void exitExecFileSearch(AutoTaskParser.ExecFileSearchContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code only_if}
+	 * Enter a parse tree produced by the {@code onlyIf}
 	 * labeled alternative in {@link AutoTaskParser#if_func}.
 	 * @param ctx the parse tree
 	 */
-	void enterOnly_if(AutoTaskParser.Only_ifContext ctx);
+	void enterOnlyIf(AutoTaskParser.OnlyIfContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code only_if}
+	 * Exit a parse tree produced by the {@code onlyIf}
 	 * labeled alternative in {@link AutoTaskParser#if_func}.
 	 * @param ctx the parse tree
 	 */
-	void exitOnly_if(AutoTaskParser.Only_ifContext ctx);
+	void exitOnlyIf(AutoTaskParser.OnlyIfContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code if_else}
+	 * Enter a parse tree produced by the {@code ifElse}
 	 * labeled alternative in {@link AutoTaskParser#if_func}.
 	 * @param ctx the parse tree
 	 */
-	void enterIf_else(AutoTaskParser.If_elseContext ctx);
+	void enterIfElse(AutoTaskParser.IfElseContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code if_else}
+	 * Exit a parse tree produced by the {@code ifElse}
 	 * labeled alternative in {@link AutoTaskParser#if_func}.
 	 * @param ctx the parse tree
 	 */
-	void exitIf_else(AutoTaskParser.If_elseContext ctx);
+	void exitIfElse(AutoTaskParser.IfElseContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code multiple_conditions}
+	 * Enter a parse tree produced by the {@code multipleConditions}
 	 * labeled alternative in {@link AutoTaskParser#conditions}.
 	 * @param ctx the parse tree
 	 */
-	void enterMultiple_conditions(AutoTaskParser.Multiple_conditionsContext ctx);
+	void enterMultipleConditions(AutoTaskParser.MultipleConditionsContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code multiple_conditions}
+	 * Exit a parse tree produced by the {@code multipleConditions}
 	 * labeled alternative in {@link AutoTaskParser#conditions}.
 	 * @param ctx the parse tree
 	 */
-	void exitMultiple_conditions(AutoTaskParser.Multiple_conditionsContext ctx);
+	void exitMultipleConditions(AutoTaskParser.MultipleConditionsContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code single_conditions}
+	 * Enter a parse tree produced by the {@code singleConditions}
 	 * labeled alternative in {@link AutoTaskParser#conditions}.
 	 * @param ctx the parse tree
 	 */
-	void enterSingle_conditions(AutoTaskParser.Single_conditionsContext ctx);
+	void enterSingleConditions(AutoTaskParser.SingleConditionsContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code single_conditions}
+	 * Exit a parse tree produced by the {@code singleConditions}
 	 * labeled alternative in {@link AutoTaskParser#conditions}.
 	 * @param ctx the parse tree
 	 */
-	void exitSingle_conditions(AutoTaskParser.Single_conditionsContext ctx);
+	void exitSingleConditions(AutoTaskParser.SingleConditionsContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code cond}
 	 * labeled alternative in {@link AutoTaskParser#condition}.
@@ -162,87 +164,113 @@ public interface AutoTaskListener extends ParseTreeListener {
 	 */
 	void exitConjunction(AutoTaskParser.ConjunctionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code exec_assign}
+	 * Enter a parse tree produced by the {@code execAssign}
 	 * labeled alternative in {@link AutoTaskParser#assign}.
 	 * @param ctx the parse tree
 	 */
-	void enterExec_assign(AutoTaskParser.Exec_assignContext ctx);
+	void enterExecAssign(AutoTaskParser.ExecAssignContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code exec_assign}
+	 * Exit a parse tree produced by the {@code execAssign}
 	 * labeled alternative in {@link AutoTaskParser#assign}.
 	 * @param ctx the parse tree
 	 */
-	void exitExec_assign(AutoTaskParser.Exec_assignContext ctx);
+	void exitExecAssign(AutoTaskParser.ExecAssignContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code exec_var}
+	 * Enter a parse tree produced by the {@code execVar}
 	 * labeled alternative in {@link AutoTaskParser#variable}.
 	 * @param ctx the parse tree
 	 */
-	void enterExec_var(AutoTaskParser.Exec_varContext ctx);
+	void enterExecVar(AutoTaskParser.ExecVarContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code exec_var}
+	 * Exit a parse tree produced by the {@code execVar}
 	 * labeled alternative in {@link AutoTaskParser#variable}.
 	 * @param ctx the parse tree
 	 */
-	void exitExec_var(AutoTaskParser.Exec_varContext ctx);
+	void exitExecVar(AutoTaskParser.ExecVarContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code exec_op_times_division}
+	 * Enter a parse tree produced by the {@code execOpTimesDivision}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void enterExec_op_times_division(AutoTaskParser.Exec_op_times_divisionContext ctx);
+	void enterExecOpTimesDivision(AutoTaskParser.ExecOpTimesDivisionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code exec_op_times_division}
+	 * Exit a parse tree produced by the {@code execOpTimesDivision}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void exitExec_op_times_division(AutoTaskParser.Exec_op_times_divisionContext ctx);
+	void exitExecOpTimesDivision(AutoTaskParser.ExecOpTimesDivisionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code exec_op_plus_minus}
+	 * Enter a parse tree produced by the {@code execOpParenthesis}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void enterExec_op_plus_minus(AutoTaskParser.Exec_op_plus_minusContext ctx);
+	void enterExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code exec_op_plus_minus}
+	 * Exit a parse tree produced by the {@code execOpParenthesis}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void exitExec_op_plus_minus(AutoTaskParser.Exec_op_plus_minusContext ctx);
+	void exitExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code exec_op_atom}
+	 * Enter a parse tree produced by the {@code execOpPlusMinus}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void enterExec_op_atom(AutoTaskParser.Exec_op_atomContext ctx);
+	void enterExecOpPlusMinus(AutoTaskParser.ExecOpPlusMinusContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code exec_op_atom}
+	 * Exit a parse tree produced by the {@code execOpPlusMinus}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void exitExec_op_atom(AutoTaskParser.Exec_op_atomContext ctx);
+	void exitExecOpPlusMinus(AutoTaskParser.ExecOpPlusMinusContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code exec_op_parenthesis}
+	 * Enter a parse tree produced by the {@code execOpAtom}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void enterExec_op_parenthesis(AutoTaskParser.Exec_op_parenthesisContext ctx);
+	void enterExecOpAtom(AutoTaskParser.ExecOpAtomContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code exec_op_parenthesis}
+	 * Exit a parse tree produced by the {@code execOpAtom}
 	 * labeled alternative in {@link AutoTaskParser#op}.
 	 * @param ctx the parse tree
 	 */
-	void exitExec_op_parenthesis(AutoTaskParser.Exec_op_parenthesisContext ctx);
+	void exitExecOpAtom(AutoTaskParser.ExecOpAtomContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AutoTaskParser#object}.
+	 * Enter a parse tree produced by the {@code objectVariable}
+	 * labeled alternative in {@link AutoTaskParser#object}.
 	 * @param ctx the parse tree
 	 */
-	void enterObject(AutoTaskParser.ObjectContext ctx);
+	void enterObjectVariable(AutoTaskParser.ObjectVariableContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AutoTaskParser#object}.
+	 * Exit a parse tree produced by the {@code objectVariable}
+	 * labeled alternative in {@link AutoTaskParser#object}.
 	 * @param ctx the parse tree
 	 */
-	void exitObject(AutoTaskParser.ObjectContext ctx);
+	void exitObjectVariable(AutoTaskParser.ObjectVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code objectNumber}
+	 * labeled alternative in {@link AutoTaskParser#object}.
+	 * @param ctx the parse tree
+	 */
+	void enterObjectNumber(AutoTaskParser.ObjectNumberContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code objectNumber}
+	 * labeled alternative in {@link AutoTaskParser#object}.
+	 * @param ctx the parse tree
+	 */
+	void exitObjectNumber(AutoTaskParser.ObjectNumberContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code objectFileSearch}
+	 * labeled alternative in {@link AutoTaskParser#object}.
+	 * @param ctx the parse tree
+	 */
+	void enterObjectFileSearch(AutoTaskParser.ObjectFileSearchContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code objectFileSearch}
+	 * labeled alternative in {@link AutoTaskParser#object}.
+	 * @param ctx the parse tree
+	 */
+	void exitObjectFileSearch(AutoTaskParser.ObjectFileSearchContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AutoTaskParser#sign_td}.
 	 * @param ctx the parse tree
@@ -263,6 +291,16 @@ public interface AutoTaskListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSign_pm(AutoTaskParser.Sign_pmContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AutoTaskParser#num}.
+	 * @param ctx the parse tree
+	 */
+	void enterNum(AutoTaskParser.NumContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AutoTaskParser#num}.
+	 * @param ctx the parse tree
+	 */
+	void exitNum(AutoTaskParser.NumContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AutoTaskParser#path}.
 	 * @param ctx the parse tree
