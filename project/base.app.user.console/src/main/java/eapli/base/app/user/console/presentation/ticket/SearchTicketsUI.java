@@ -40,7 +40,7 @@ public class SearchTicketsUI extends AbstractUI {
 
             do {
                 Ticket oTicket = chooseOne(itTickets, "Your Tickets", "Ticket");
-                LOGGER.info(oTicket.detailedView());
+                System.out.println(oTicket.detailedView());
                 strOp = Console.readLine("Do you want to see a detailed view of some more tickets? (Y/N) >");
             } while (strOp.compareToIgnoreCase("Y") == 0);
 
@@ -54,14 +54,14 @@ public class SearchTicketsUI extends AbstractUI {
         try{
             Integer i = 1;
             List<T> lstTemp = new ArrayList<>();
-            LOGGER.info("\n==========================================\n%s\n==========================================\n\n", strHeader);
+            System.out.printf("\n==========================================\n%s\n==========================================\n\n", strHeader);
             for(T t : itElements){
-                LOGGER.info("[%d] %s\n", i, t.toString());
+                System.out.printf("[%d] %s\n", i, t.toString());
                 i++;
                 lstTemp.add(t);
             }
             if(lstTemp.isEmpty()){
-                LOGGER.info("There is no " + strElementName + "s in the Database.\n\n");
+                System.out.println("There is no " + strElementName + "s in the Database.\n\n");
                 return null;
             }
             Integer intOp = Integer.parseInt(Console.readLine("\n\n\nChoose " + strElementName + " Number For a Detailed View >"));
