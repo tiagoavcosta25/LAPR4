@@ -29,12 +29,15 @@ import eapli.base.servicemanagement.application.SaveDraftController;
 import eapli.base.servicemanagement.domain.*;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
 public class SaveDraftUI extends AbstractUI {
 
+    private static final Logger LOGGER = LogManager.getLogger(SaveDraftUI.class);
     private final SaveDraftController theController = new SaveDraftController();
 
     @Override
@@ -44,7 +47,7 @@ public class SaveDraftUI extends AbstractUI {
             ServiceDraft oServiceDraft = PrintList.chooseOne(itDrafts, "Choose the Service Draft to Save", "Service Draft");
 
             if(oServiceDraft == null){
-                System.out.println("\nNo Drafts to be saved.");
+                LOGGER.info("\nNo Drafts to be saved.");
                 throw new IllegalArgumentException();
             }
 
@@ -56,13 +59,13 @@ public class SaveDraftUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.saveService(oServiceDraft, oCatalogue);
-                System.out.println("\nOperation Successful.\n");
+                LOGGER.info("\nOperation Successful.\n");
             } else{
-                System.out.println("\nOperation Cancelled.\n");
+                LOGGER.info("\nOperation Cancelled.\n");
             }
 
         } catch (Exception e){
-            System.out.println("\nError in saving a service.\n");
+            LOGGER.error("\nError in saving a service.\n");
         }
 
         return false;
