@@ -1,0 +1,17 @@
+#helpdesk
+
+validateForm{
+
+$var1 = 0;
+$var2 = 4 * 2 - 24 / 3 + 255;
+#assert(#getAttribute(0) > $var1 && #getAttribute(0) < $var2);
+#mandatory(0);
+#regex(0,"[0-9]+");
+
+#if(#getAttribute(0) > $var2){
+#assert(#getAttribute(0) < 1000);
+} else{
+#mandatory(1);
+}
+
+}

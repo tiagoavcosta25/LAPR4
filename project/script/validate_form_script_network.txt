@@ -1,0 +1,19 @@
+#helpdesk
+
+validateForm{
+
+#mandatory(0,1);
+#regex(1,"[0-9]+");
+$var1 = 19 * 0;
+$var2 = #getAttribute(1);
+#assert($var2 != $var1);
+
+#if($var2 == 19){
+$var1 = 1;
+} else{
+$var1 = 2;
+}
+
+#assert($var2 != $var1);
+
+}
