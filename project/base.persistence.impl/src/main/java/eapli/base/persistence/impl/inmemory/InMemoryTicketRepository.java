@@ -1,8 +1,10 @@
 package eapli.base.persistence.impl.inmemory;
 
+import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
 import eapli.base.taskmanagement.execution.domain.TaskExecution;
 import eapli.base.taskmanagement.execution.domain.TaskExecutionStatus;
+import eapli.base.taskmanagement.specification.domain.TaskOrderFields;
 import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.base.ticketmanagement.domain.TicketStatus;
 import eapli.base.ticketmanagement.repository.TicketRepository;
@@ -10,11 +12,10 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
+ * @author Tiago Costa 1191460@isep.ipp.pt
  * @author Jéssica Alves 1190682@isep.ipp.pt
  * @author Pedro Santos 1190967@isep.ipp.pt
  */
@@ -61,4 +62,30 @@ public class InMemoryTicketRepository
         }
         return tFinalLst;
     }
+
+    @Override
+    public Iterable<Ticket> getPendingManualTasksByTicketOrdered(Username oUsername, TaskOrderFields orderField) {
+        Iterable<Ticket> iT = getPendingManualTasksByTicket(oUsername);
+        List<Ticket> lstT = new ArrayList<>();
+        iT.forEach(lstT::add);
+        Comparator<Ticket> SortByFinishDate = Comparator.comparingInt(a -> a.limitDate().getM_dtLimitDate().getNano());
+        Comparator<Ticket> SortByPriority = Comparator.comparing(Ticket::urgency);
+        switch(orderField) {
+            case FINISHDATE:
+                lstT.sort(SortByFinishDate);
+                break;
+            case REVERSEFINISHDATE:
+                lstT.sort(SortByFinishDate.reversed());
+                break;
+            case PRIORITY:
+                lstT.sort(SortByPriority);
+                break;
+            case REVERSEPRIORITY:
+                lstT.sort(SortByPriority.reversed());
+                break;
+        }
+        return lstT;
+    }
+
+
 }
