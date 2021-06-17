@@ -101,7 +101,11 @@ class JpaTicketRepository
                 query.append("ORDER BY t.m_oLimitDate DESC");
                 break;
             case PRIORITY:
-                return null;
+                Iterable<Ticket> iT = getPendingManualTasksByTicket(oUsername);
+                List<Ticket> lstT = new ArrayList<>();
+                iT.forEach(lstT::add);
+                lstT.sort(SortByPriority);
+                return lstT;
             case REVERSEPRIORITY:
                 return null;
         }
