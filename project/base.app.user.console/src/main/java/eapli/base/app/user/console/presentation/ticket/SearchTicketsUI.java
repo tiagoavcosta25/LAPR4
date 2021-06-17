@@ -10,6 +10,8 @@ import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.base.ticketmanagement.domain.TicketUrgency;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 public class SearchTicketsUI extends AbstractUI {
 
+    private static final Logger LOGGER = LogManager.getLogger(SearchTicketsUI.class);
     private final SearchTicketsController theController = new SearchTicketsController();
 
     @Override
@@ -37,12 +40,12 @@ public class SearchTicketsUI extends AbstractUI {
 
             do {
                 Ticket oTicket = chooseOne(itTickets, "Your Tickets", "Ticket");
-                System.out.println(oTicket.detailedView());
+                LOGGER.info(oTicket.detailedView());
                 strOp = Console.readLine("Do you want to see a detailed view of some more tickets? (Y/N) >");
             } while (strOp.compareToIgnoreCase("Y") == 0);
 
         } catch(Exception e){
-            System.out.println("Error in searching a Ticket.");
+            LOGGER.error("Error in searching a Ticket.");
         }
         return false;
     }
@@ -51,14 +54,14 @@ public class SearchTicketsUI extends AbstractUI {
         try{
             Integer i = 1;
             List<T> lstTemp = new ArrayList<>();
-            System.out.printf("\n==========================================\n%s\n==========================================\n\n", strHeader);
+            LOGGER.info("\n==========================================\n%s\n==========================================\n\n", strHeader);
             for(T t : itElements){
-                System.out.printf("[%d] %s\n", i, t.toString());
+                LOGGER.info("[%d] %s\n", i, t.toString());
                 i++;
                 lstTemp.add(t);
             }
             if(lstTemp.isEmpty()){
-                System.out.println("There is no " + strElementName + "s in the Database.\n\n");
+                LOGGER.info("There is no " + strElementName + "s in the Database.\n\n");
                 return null;
             }
             Integer intOp = Integer.parseInt(Console.readLine("\n\n\nChoose " + strElementName + " Number For a Detailed View >"));
@@ -66,7 +69,7 @@ public class SearchTicketsUI extends AbstractUI {
             return lstTemp.get(intOp - 1);
 
         } catch (Exception e){
-            System.out.println("Error in selecting.\n\n");
+            LOGGER.error("Error in selecting.\n\n");
             return null;
         }
     }
