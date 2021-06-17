@@ -1,6 +1,8 @@
 package eapli.base.grammar.antlr.validateform;
 
 import eapli.base.ticketmanagement.domain.Response;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.RuleNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,13 +25,27 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
     }
 
     @Override
+    public String visitChildren(RuleNode node) {
+        String result = "true";
+        int n = node.getChildCount();
+
+        for(int i = 0; i < n && this.shouldVisitNextChild(node, result); ++i) {
+            ParseTree c = node.getChild(i);
+            String childResult = c.accept(this);
+            result = String.valueOf(Boolean.logicalAnd(Boolean.valueOf(result), Boolean.valueOf(childResult)));
+        }
+
+        return result;
+    }
+
+    @Override
     public String visitExecStart(ValidateFormParser.ExecStartContext ctx) {
         return visit(ctx.stmts);
     }
 
     @Override
     public String visitExecStatements(ValidateFormParser.ExecStatementsContext ctx) {
-        return visit(ctx.stmt);
+        return visitChildren(ctx);
     }
 
     @Override
@@ -115,7 +131,7 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
         if(intAttribute >= this.m_oResponse.getResponses().size() ){
             return Boolean.FALSE.toString();
         }
-        return Boolean.TRUE.toString();
+        return this.m_oResponse.getResponses().get(intAttribute);
     }
 
     @Override
@@ -135,47 +151,19 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
 
     @Override
     public String visitOnlyIf(ValidateFormParser.OnlyIfContext ctx) {
-        if(!Boolean.valueOf(ctx.if_cond.getText())){
-            return Boolean.FALSE.toString();
-        } else {
-            switch (ctx.stmt_if.getText()){
-                case "#mandatory;" : return visit(ctx);
-                case "#regex;" : return visit(ctx);
-                case "#assert_func;" : return visit(ctx);
-                case "#get_attribute;" : return visit(ctx);
-                case "#if_func;" : return visit(ctx);
-                case "#assign;" : return visit(ctx);
-            }
+        if(Boolean.parseBoolean(visit(ctx.if_cond))){
+            return visit(ctx.stmt_if);
         }
-        return Boolean.FALSE.toString();
+        return Boolean.TRUE.toString();
     }
 
     @Override
     public String visitIfElse(ValidateFormParser.IfElseContext ctx) {
-        if(!Boolean.valueOf(ctx.if_cond.getText())){
-            return Boolean.FALSE.toString();
-        } else if (Boolean.valueOf(ctx.if_cond.getText())){
-            switch (ctx.stmt_if.getText()){
-                case "#mandatory;" : return visit(ctx.stmt_if);
-                case "#regex;" : return visit(ctx.stmt_if);
-                case "#assert_func;" : return visit(ctx.stmt_if);
-                case "#get_attribute;" : return visit(ctx.stmt_if);
-                case "#if_func;" : return visit(ctx.stmt_if);
-                case "#assign;" : return visit(ctx.stmt_if);
-            }
-        } else if (!Boolean.valueOf(ctx.stmt_if.getText())){
-            return Boolean.FALSE.toString();
-        } else {
-            switch (ctx.stmt_if.getText()){
-                case "#mandatory;" : return visit(ctx.stmt_else);
-                case "#regex;" : return visit(ctx.stmt_else);
-                case "#assert_func;" : return visit(ctx.stmt_else);
-                case "#get_attribute;" : return visit(ctx.stmt_else);
-                case "#if_func;" : return visit(ctx.stmt_else);
-                case "#assign;" : return visit(ctx.stmt_else);
-            }
+        if(Boolean.parseBoolean(visit(ctx.if_cond))){
+            return visit(ctx.stmt_if);
+        } else{
+            return visit(ctx.stmt_else);
         }
-        return Boolean.FALSE.toString();
     }
 
     @Override
@@ -198,18 +186,9 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
 
     @Override
     public String visitCond(ValidateFormParser.CondContext ctx) {
-        Integer intLeft, intRight;
-        if(this.m_oMapVariables.containsKey(ctx.left.getText().substring(1))){
-            intLeft = Integer.parseInt(this.m_oMapVariables.get(ctx.left.getText().substring(1)));
-        } else{
-            intLeft = Integer.parseInt(ctx.left.getText());
-        }
 
-        if(this.m_oMapVariables.containsKey(ctx.right.getText().substring(1))){
-            intRight = Integer.parseInt(this.m_oMapVariables.get(ctx.right.getText().substring(1)));
-        } else{
-            intRight = Integer.parseInt(ctx.right.getText());
-        }
+        Integer intLeft = Integer.parseInt(visit(ctx.left));
+        Integer intRight = Integer.parseInt(visit(ctx.right));
 
         switch (ctx.compSign.getText()) {
             case "==" : return String.valueOf(intLeft == intRight);
@@ -225,14 +204,16 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
     @Override
     public String visitExecAssign(ValidateFormParser.ExecAssignContext ctx) {
         String strLabel = ctx.var.getText().substring(1);
-        this.m_oMapVariables.put(strLabel, ctx.res.getText());
+
+        this.m_oMapVariables.put(strLabel, visit(ctx.res));
+
         return Boolean.TRUE.toString();
     }
 
     @Override
     public String visitExecOpTimesDivision(ValidateFormParser.ExecOpTimesDivisionContext ctx) {
-        Integer intLeft = Integer.parseInt(ctx.left.getText());
-        Integer intRight = Integer.parseInt(ctx.right.getText());
+        Integer intLeft = Integer.parseInt(visit(ctx.left));
+        Integer intRight = Integer.parseInt(visit(ctx.right));
 
         switch (ctx.sign.getText()) {
             case "*" : return String.valueOf(intLeft * intRight);
@@ -243,8 +224,8 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
 
     @Override
     public String visitExecOpPlusMinus(ValidateFormParser.ExecOpPlusMinusContext ctx) {
-        Integer intLeft = Integer.parseInt(ctx.left.getText());
-        Integer intRight = Integer.parseInt(ctx.right.getText());
+        Integer intLeft = Integer.parseInt(visit(ctx.left));
+        Integer intRight = Integer.parseInt(visit(ctx.right));
 
         switch (ctx.sign.getText()) {
             case "+" : return String.valueOf(intLeft + intRight);
@@ -255,12 +236,12 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
 
     @Override
     public String visitExecOpAtom(ValidateFormParser.ExecOpAtomContext ctx) {
-        return ctx.atom.getText();
+        return visit(ctx.atom);
     }
 
     @Override
     public String visitExecOpParenthesis(ValidateFormParser.ExecOpParenthesisContext ctx) {
-        return ctx.result.getText();
+        return visit(ctx.result);
     }
 
     @Override
@@ -276,7 +257,7 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
     @Override
 
     public String visitObjectAttribute(ValidateFormParser.ObjectAttributeContext ctx) {
-        return ctx.att.getText();
+        return visit(ctx.att);
     }
 
     @Override
