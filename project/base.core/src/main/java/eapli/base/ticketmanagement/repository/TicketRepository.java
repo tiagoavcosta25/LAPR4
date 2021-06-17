@@ -1,11 +1,12 @@
 package eapli.base.ticketmanagement.repository;
 
+import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
+import eapli.base.taskmanagement.specification.domain.TaskOrderFields;
 import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface TicketRepository
@@ -26,4 +27,9 @@ public interface TicketRepository
     Iterable<Ticket> getOnGoingTickets(final SystemUser oUser);
 
     Iterable<Ticket> getPendingManualTasksByTicket(final Username oUsername);
+
+    Iterable<Ticket> getPendingManualTasksByTicketOrdered(final Username oUsername, final TaskOrderFields orderField);
+
+
+
 }
