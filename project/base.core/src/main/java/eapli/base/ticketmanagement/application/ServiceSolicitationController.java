@@ -5,6 +5,8 @@ import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.formmanagement.domain.Form;
+import eapli.base.grammar.ScriptAlgorithms;
+import eapli.base.grammar.ScriptMode;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
@@ -15,6 +17,7 @@ import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,10 +59,8 @@ public class ServiceSolicitationController {
         return strResponse;
     }
 
-    public Response createResponse(Form oForm){
-        List<String> lstResp = new ArrayList<>(this.m_lstAnswer);
-        Response oResponse = new Response(oForm, lstResp);
-        oResponse = this.m_oRespRepo.save(oResponse);
+    public Response createResponse(Form oForm) throws IOException {
+        Response oResponse = this.m_oServiceSolicitationService.createAndValidateResponse(oForm, this.m_lstAnswer);
         this.m_lstResponses.add(oResponse);
         this.m_lstAnswer.clear();
         return oResponse;
