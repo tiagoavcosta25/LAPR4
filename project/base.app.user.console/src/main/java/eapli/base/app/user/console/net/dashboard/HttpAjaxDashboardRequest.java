@@ -4,6 +4,8 @@ import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
 import eapli.base.net.motorflux.ActivityFlowClient;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.Socket;
@@ -13,6 +15,8 @@ import java.net.Socket;
  * @author Pedro Santos (1190967@isep.ipp.pt)
  */
 public class HttpAjaxDashboardRequest extends Thread {
+
+	private static final Logger LOGGER = LogManager.getLogger(HttpAjaxDashboardRequest.class);
 	private static final String SERVER_IP = "10.9.20.133";
 	String baseFolder;
 	Socket sock;
@@ -27,7 +31,7 @@ public class HttpAjaxDashboardRequest extends Thread {
 		try {
 			outS = new DataOutputStream(sock.getOutputStream());
 			inS = new DataInputStream(sock.getInputStream());
-		} catch(IOException ex) { System.out.println("Thread error on data streams creation"); }
+		} catch(IOException ex) { LOGGER.error("Thread error on data streams creation"); }
 
 		try{
 			HTTPmessage request = new HTTPmessage(inS);
@@ -82,14 +86,14 @@ public class HttpAjaxDashboardRequest extends Thread {
 			}
 
         } catch(Exception ex) {
-			//System.out.println("Thread error when reading request");
+			//LOGGER.error("Thread error when reading request");
 		}
 
 		try {
 			sock.close();
 		}
 		catch(IOException ex) {
-			//System.out.println("CLOSE IOException");
+			//LOGGER.error("CLOSE IOException");
 		}
 	}
 }
