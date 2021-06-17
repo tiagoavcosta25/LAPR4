@@ -2283,7 +2283,7 @@ public class ValidateFormParser extends Parser {
 				setState(231); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUM) | (1L << LOWERCASE) | (1L << UPPERCASE) | (1L << HYPHEN) | (1L << PARENTHESIS_OPEN) | (1L << PARENTHESIS_CLOSE))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUM) | (1L << LOWERCASE) | (1L << UPPERCASE) | (1L << PLUS) | (1L << HYPHEN) | (1L << TIMES) | (1L << PARENTHESIS_OPEN) | (1L << PARENTHESIS_CLOSE))) != 0) );
 			setState(233);
 			match(QUOTATION_MARKS);
 			}
@@ -2306,6 +2306,8 @@ public class ValidateFormParser extends Parser {
 		public TerminalNode PARENTHESIS_CLOSE() { return getToken(ValidateFormParser.PARENTHESIS_CLOSE, 0); }
 		public TerminalNode HYPHEN() { return getToken(ValidateFormParser.HYPHEN, 0); }
 		public TerminalNode NUM() { return getToken(ValidateFormParser.NUM, 0); }
+		public TerminalNode PLUS() { return getToken(ValidateFormParser.PLUS, 0); }
+		public TerminalNode TIMES() { return getToken(ValidateFormParser.TIMES, 0); }
 		public CharacterContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2334,7 +2336,7 @@ public class ValidateFormParser extends Parser {
 			{
 			setState(235);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUM) | (1L << LOWERCASE) | (1L << UPPERCASE) | (1L << HYPHEN) | (1L << PARENTHESIS_OPEN) | (1L << PARENTHESIS_CLOSE))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUM) | (1L << LOWERCASE) | (1L << UPPERCASE) | (1L << PLUS) | (1L << HYPHEN) | (1L << TIMES) | (1L << PARENTHESIS_OPEN) | (1L << PARENTHESIS_CLOSE))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -2392,11 +2394,11 @@ public class ValidateFormParser extends Parser {
 		"\3\30\3\30\7\30\u00dd\n\30\f\30\16\30\u00e0\13\30\3\31\3\31\3\32\3\32"+
 		"\3\33\3\33\6\33\u00e8\n\33\r\33\16\33\u00e9\3\33\3\33\3\34\3\34\3\34\2"+
 		"\3$\35\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\66\2\t"+
-		"\3\2\33 \3\2!\"\4\2\20\20\32\32\3\2\16\17\3\2\13\r\3\2\f\r\5\2\13\r\17"+
-		"\17\'(\2\u00e9\28\3\2\2\2\4?\3\2\2\2\6C\3\2\2\2\bF\3\2\2\2\n]\3\2\2\2"+
-		"\f_\3\2\2\2\16d\3\2\2\2\20o\3\2\2\2\22t\3\2\2\2\24\u0089\3\2\2\2\26\u009e"+
-		"\3\2\2\2\30\u00a5\3\2\2\2\32\u00a7\3\2\2\2\34\u00ab\3\2\2\2\36\u00ad\3"+
-		"\2\2\2 \u00af\3\2\2\2\"\u00b3\3\2\2\2$\u00bc\3\2\2\2&\u00cf\3\2\2\2(\u00d1"+
+		"\3\2\33 \3\2!\"\4\2\20\20\32\32\3\2\16\17\3\2\13\r\3\2\f\r\4\2\13\20\'"+
+		"(\2\u00e9\28\3\2\2\2\4?\3\2\2\2\6C\3\2\2\2\bF\3\2\2\2\n]\3\2\2\2\f_\3"+
+		"\2\2\2\16d\3\2\2\2\20o\3\2\2\2\22t\3\2\2\2\24\u0089\3\2\2\2\26\u009e\3"+
+		"\2\2\2\30\u00a5\3\2\2\2\32\u00a7\3\2\2\2\34\u00ab\3\2\2\2\36\u00ad\3\2"+
+		"\2\2 \u00af\3\2\2\2\"\u00b3\3\2\2\2$\u00bc\3\2\2\2&\u00cf\3\2\2\2(\u00d1"+
 		"\3\2\2\2*\u00d3\3\2\2\2,\u00d6\3\2\2\2.\u00da\3\2\2\2\60\u00e1\3\2\2\2"+
 		"\62\u00e3\3\2\2\2\64\u00e5\3\2\2\2\66\u00ed\3\2\2\289\5\6\4\29:\5\b\5"+
 		"\2:;\7\21\2\2;<\5\4\3\2<=\7\22\2\2=\3\3\2\2\2>@\5\n\6\2?>\3\2\2\2@A\3"+
