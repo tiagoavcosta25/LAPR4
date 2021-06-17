@@ -8,12 +8,15 @@ import eapli.base.ticketmanagement.domain.TicketUrgency;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractListUI;
 import eapli.framework.visitor.Visitor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
 public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
 
+    private static final Logger LOGGER = LogManager.getLogger(ConsultAssignedPendingTasksUI.class);
     private final ConsultAssignedPendingTasksController theController = new ConsultAssignedPendingTasksController();
     private Iterable<Ticket> elements;
 
@@ -55,18 +58,18 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
     protected boolean doShow() {
         this.elements = theController.getTasksOfCollaborator();
         super.doShow();
-
+        if(!elements.iterator().hasNext()) return true;
         String strOp = Console.readLine("\n\nDo you wish to filter/Order this results? (Filter/Order/N) ");
         if (strOp.compareToIgnoreCase("Filter") == 0) {
             String filters = getStringFilters("TaskFilter");
             String filterBy = Console.readLine("\n\nWhat do you wish to filter by? (" + filters + ") ");
-            if(filterBy.compareToIgnoreCase("Priority") == 0) {
-                String priorities = getStringFilters("Priority");
+            if(filterBy.compareToIgnoreCase(TaskFilterFields.PRIORITY.toString()) == 0) {
+                String priorities = getStringFilters(TaskFilterFields.PRIORITY.toString());
                 filterBy = Console.readLine("\n\nInsert priority to filter by. (" + priorities + ") ");
                 System.out.println("\n");
                 this.elements = theController.getTasksOfCollaborator(TaskFilterFields.PRIORITY, filterBy);
                 super.doShow();
-            } else if(filterBy.compareToIgnoreCase("FinishDate") == 0) {
+            } else if(filterBy.compareToIgnoreCase(TaskFilterFields.FINISHDATE.toString()) == 0) {
                 String Year = Console.readLine("\n\nInput year:");
                 String Month = Console.readLine("\nInput month:");
                 String Day = Console.readLine("\nInput day:");
@@ -81,12 +84,10 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
                 this.elements = theController.getTasksOfCollaborator(TaskFilterFields.FINISHDATE, filterBy);
                 super.doShow();
             } else {
-                System.out.println("Unrecognized filter.");
+                LOGGER.error("Unrecognized filter.");
             }
         } else if(strOp.compareToIgnoreCase("Order") == 0) {
-            String orders = getStringFilters("TaskOrder");
-            String filterBy = Console.readLine("\n\nWhat do you wish to order by? (" + orders + ") ");
-            //TODO: complete
+
         }else{
             System.out.println();
         }
@@ -120,4 +121,6 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
         }
         return filters.toString();
     }
+
+
 }
