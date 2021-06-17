@@ -53,14 +53,14 @@ public class PrintList {
         try{
             Integer i = 1;
             List<T> lstTemp = new ArrayList<>();
-            LOGGER.info("\n==========================================\n%s\n==========================================\n\n", strHeader);
+            System.out.printf("\n==========================================\n%s\n==========================================\n\n", strHeader);
             for(T t : itElements){
-                LOGGER.info("[%d] %s\n", i, t.toString());
+                System.out.printf("[%d] %s\n", i, t.toString());
                 i++;
                 lstTemp.add(t);
             }
             if(lstTemp.isEmpty()){
-                LOGGER.error("There is no " + strElementName + "s in the Database.\n\n");
+                System.out.println("There is no " + strElementName + "s in the Database.\n\n");
                 return null;
             }
             Integer intOp = Integer.parseInt(Console.readLine("\n\n\nSelect " + strElementName + " Number >"));
@@ -80,13 +80,13 @@ public class PrintList {
             List<T> lstReturn = new ArrayList<>();
             do{
                 Integer i = 1;
-                LOGGER.info("\n---------------------------------\n%s\n---------------------------------\n\n", strHeader);
+                System.out.printf("\n---------------------------------\n%s\n---------------------------------\n\n", strHeader);
                 for(T t : itElements){
-                    LOGGER.info("[%d] %s\n", i, t.toString());
+                    System.out.printf("[%d] %s\n", i, t.toString());
                     i++;
                     lstTemp.add(t);
                 }
-                LOGGER.info("\n[0] Exit\n");
+                System.out.printf("\n[0] Exit\n");
                 intOp = Integer.parseInt(Console.readLine("\n\n[" + j + " x] Select " + strElementName + " Number >"));
                 j++;
                 if(intOp == 0){
