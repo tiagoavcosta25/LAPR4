@@ -1,9 +1,9 @@
 package eapli.base.app.user.console.net.dashboard;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.awt.*;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.net.ssl.SSLServerSocket;
@@ -16,6 +16,8 @@ import javax.net.ssl.SSLSocket;
  */
 
 public class HttpServerAjaxDashboard extends Thread {
+
+    private static final Logger LOGGER = LogManager.getLogger(HttpServerAjaxDashboard.class);
     static private final String BASE_FOLDER = System.getProperty("user.dir") + "\\base.app.user.console\\src\\main\\java\\eapli\\base\\app\\user\\console\\net\\dashboard\\www";
     static private SSLServerSocket sock;
 
@@ -32,7 +34,7 @@ public class HttpServerAjaxDashboard extends Thread {
             sock = (SSLServerSocket) sslF.createServerSocket(intPort);
         }
         catch(IOException ex) {
-            System.out.println("Server failed to open local port " + intPort);
+            LOGGER.error("Server failed to open local port " + intPort);
         }
 
         Desktop desktop = java.awt.Desktop.getDesktop();
@@ -41,7 +43,7 @@ public class HttpServerAjaxDashboard extends Thread {
                     "https://127.0.0.1:8000/");
             desktop.browse(oURL);
         } catch (URISyntaxException e) {
-            System.out.println("Error Opening the Browser");
+            LOGGER.error("Error Opening the Browser");
         }
 
         while(true) {

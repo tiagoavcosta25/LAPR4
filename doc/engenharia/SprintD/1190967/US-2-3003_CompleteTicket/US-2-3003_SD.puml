@@ -115,11 +115,13 @@ end
 UI -> CTRL : createResponse(form)
 activate CTRL
 
-CTRL -> RS** : res = createResponse(form)
+CTRL -> SRV : fluxExecution = createAndValidateResponse(form, lstAnswer)
+activate SRV
 
-CTRL -> RR : save(res)
-activate RR
-deactivate RR
+ref over SRV
+  US-2-3003_SD_CreateAndValidateResponse
+end ref
+deactivate SRV
 deactivate CTRL
 end
 

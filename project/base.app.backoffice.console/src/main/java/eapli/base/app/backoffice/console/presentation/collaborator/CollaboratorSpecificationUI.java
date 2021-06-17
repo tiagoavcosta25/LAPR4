@@ -29,6 +29,8 @@ import eapli.base.collaboratormanagement.domain.*;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -38,6 +40,7 @@ import java.util.*;
  */
 public class CollaboratorSpecificationUI extends AbstractUI {
 
+    private static final Logger LOGGER = LogManager.getLogger(CollaboratorSpecificationUI.class);
     private final CollaboratorSpecificationController theController = new CollaboratorSpecificationController();
 
     @Override
@@ -50,9 +53,9 @@ public class CollaboratorSpecificationUI extends AbstractUI {
                 final ImportCollaboratorCSV oImport = new ImportCollaboratorCSV();
                 final String strFileName = Console.readLine("File Name >");
                 if(oImport.run(strFileName)){
-                    System.out.printf("Operation Successful. The Collaborator was imported successfully.\n\n");
+                    LOGGER.info("Operation Successful. The Collaborator was imported successfully.\n\n");
                 } else {
-                    System.out.printf("There was a error during the file importation.\n\n");
+                    LOGGER.error("There was a error during the file importation.\n\n");
                 }
             } else {
 
@@ -89,14 +92,14 @@ public class CollaboratorSpecificationUI extends AbstractUI {
 
                 if (strOp.compareToIgnoreCase("Y") == 0) {
                     Collaborator oCollaborator = this.theController.saveCollaborator();
-                    System.out.printf("Operation Successful. The Following Collaborator was created successfully > %s\n\n", oCollaborator.shortName());
+                    LOGGER.info("Operation Successful. The Following Collaborator was created successfully > %s\n\n", oCollaborator.shortName());
                 } else {
-                    System.out.println("Operation Cancelled.");
+                    LOGGER.error("Operation Cancelled.");
                 }
             }
 
             } catch(Exception e){
-                System.out.println("Error in creating a Colaborador.");
+            LOGGER.error("Error in creating a Colaborador.");
             }
 
             return false;
