@@ -9,6 +9,8 @@ import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.base.ticketmanagement.domain.TicketUrgency;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.List;
  */
 public class ServiceSolicitationUI extends AbstractUI {
 
+    private static final Logger LOGGER = LogManager.getLogger(ServiceSolicitationUI.class);
     private final ServiceSolicitationController theController = new ServiceSolicitationController();
 
     @Override
@@ -48,13 +51,13 @@ public class ServiceSolicitationUI extends AbstractUI {
             } while (strOp.compareToIgnoreCase("Y") == 0);
 
             for(Form f : oService.forms()) {
-                System.out.printf("\nForm: %s\n\n------------------------------------------------\n\n", f.name().toString());
+                LOGGER.info("\nForm: %s\n\n------------------------------------------------\n\n", f.name().toString());
                 for(Attribute a : f.attributes()) {
                     String strQuestion = a.label() + " >";
                     String strResponse = Console.readLine(strQuestion);
                     theController.addResponse(strResponse);
                 }
-                System.out.printf("\n\n------------------------------------------------\n\n");
+                LOGGER.info("\n\n------------------------------------------------\n\n");
                 theController.createResponse(f);
             }
 
@@ -66,12 +69,12 @@ public class ServiceSolicitationUI extends AbstractUI {
 
             if(strOp.compareToIgnoreCase("Y") == 0){
                 oTicket = this.theController.saveTicket(oTicket);
-                System.out.printf("\nOperation Successful. The Following Ticket was created successfully > %s\n\n", oTicket.toString());
+                LOGGER.info("\nOperation Successful. The Following Ticket was created successfully > %s\n\n", oTicket.toString());
             } else{
-                System.out.println("\nOperation Cancelled.\n\n");
+                LOGGER.info("\nOperation Cancelled.\n\n");
             }
         } catch(Exception e){
-            System.out.println("Error in creating a Ticket.");
+            LOGGER.error("Error in creating a Ticket.");
         }
 
         return false;
@@ -81,14 +84,14 @@ public class ServiceSolicitationUI extends AbstractUI {
         try{
             Integer i = 1;
             List<T> lstTemp = new ArrayList<>();
-            System.out.printf("\n==========================================\n%s\n==========================================\n\n", strHeader);
+            LOGGER.info("\n==========================================\n%s\n==========================================\n\n", strHeader);
             for(T t : itElements){
-                System.out.printf("[%d] %s\n", i, t.toString());
+                LOGGER.info("[%d] %s\n", i, t.toString());
                 i++;
                 lstTemp.add(t);
             }
             if(lstTemp.isEmpty()){
-                System.out.println("There is no " + strElementName + "s in the Database.\n\n");
+                LOGGER.info("There is no " + strElementName + "s in the Database.\n\n");
                 return null;
             }
             Integer intOp = Integer.parseInt(Console.readLine("\n\n\nSelect " + strElementName + " Number >"));
@@ -96,7 +99,7 @@ public class ServiceSolicitationUI extends AbstractUI {
             return lstTemp.get(intOp - 1);
 
         } catch (Exception e){
-            System.out.println("Error in selecting.\n\n");
+            LOGGER.error("Error in selecting.\n\n");
             return null;
         }
     }
