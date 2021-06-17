@@ -92,7 +92,7 @@ public class ServiceSolicitationService {
     public Response createAndValidateResponse(Form oForm, List<String> lstAnswer) throws IOException {
         List<String> lstResp = new ArrayList<>(lstAnswer);
         Response oResponse = new Response(oForm, lstResp);
-        if(!ScriptAlgorithms.executeValidateForm(oResponse, ScriptMode.LISTENER)){
+        if(!ScriptAlgorithms.executeValidateForm(oResponse, ScriptMode.VISITOR)){
             throw new IOException();
         }
         return this.m_oRespRepo.save(oResponse);
