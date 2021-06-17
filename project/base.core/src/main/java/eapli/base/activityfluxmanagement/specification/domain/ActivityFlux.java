@@ -69,6 +69,12 @@ public class ActivityFlux implements AggregateRoot<Long> {
         this.m_lstFlux.add(oTask);
     }
 
+    public boolean taskIsApproval(Task task) {
+        if(this.m_lstFlux.size() < 2) return false;
+        if(!this.m_lstFlux.contains(task)) return false;
+        return this.m_lstFlux.indexOf(task) == 1;
+    }
+
     @Override
     public boolean equals(final Object o) {
         return DomainEntities.areEqual(this, o);
