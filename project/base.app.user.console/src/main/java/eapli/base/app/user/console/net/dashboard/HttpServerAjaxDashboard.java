@@ -34,7 +34,7 @@ public class HttpServerAjaxDashboard extends Thread {
             sock = (SSLServerSocket) sslF.createServerSocket(intPort);
         }
         catch(IOException ex) {
-            LOGGER.error("Server failed to open local port " + intPort);
+            LOGGER.error("Server failed to open local port {}\n", intPort);
         }
 
         Desktop desktop = java.awt.Desktop.getDesktop();
