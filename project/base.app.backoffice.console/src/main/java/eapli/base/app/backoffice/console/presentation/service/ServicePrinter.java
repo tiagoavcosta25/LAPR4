@@ -14,7 +14,7 @@ public class ServicePrinter implements Visitor<Service> {
 
     @Override
     public void visit(final Service visitee) {
-        LOGGER.info("%-10s%-30s%-50s", visitee.identity(), visitee.title(), visitee.briefDescription());
+        System.out.printf("%-10s%-30s%-50s", visitee.identity(), visitee.title(), visitee.briefDescription());
     }
 
 }
