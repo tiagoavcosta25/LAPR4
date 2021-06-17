@@ -21,6 +21,7 @@ class ServiceSolicitationController<<application>>{
 class ServiceSolicitationService<<application>>{
 +create()
 +createActivityFluxExecution(service)
++createAndValidateResponse(form, lstAnswer)
 }
 
 }
@@ -124,6 +125,42 @@ class RepositoryFactory<<persistence>>{
 }
 }
 
+package "Grammar" #DDDDDD {
+
+class ScriptAlgorithms<<grammar>>{
++executeValidateForm(response, mode)
+}
+
+class ValidateFormLexer<<grammar>>{
++create()
+}
+
+class CommonTokenStream<<grammar>>{
++create()
+}
+
+class ValidateFormParser<<grammar>>{
++create()
+}
+
+class ParseTree<<grammar>>{
++create()
+}
+
+class ParseTreeWalker<<grammar>>{
++create()
+}
+
+class FormListener<<grammar>>{
++create()
+}
+
+class FormVisitor<<grammar>>{
+ +create()
+ }
+
+}
+
 package "Repository" #DDDDDD {
 
 class ServiceRepository<<repository>>{
@@ -215,6 +252,7 @@ ServiceSolicitationService ..> TaskRepository
 ServiceSolicitationService ..> ManualTaskRepository
 ServiceSolicitationService ..> AutomaticTaskRepository
 ServiceSolicitationService ..> TaskExecutionRepository
+ServiceSolicitationService ..> ScriptAlgorithms
 
 ServiceRepository ..> ServiceRepositoryInterface
 TicketRepository ..> TicketRepositoryInterface
@@ -225,6 +263,14 @@ ManualTaskRepository ..> ManualTaskRepositoryInterface
 AutomaticTaskRepository ..> AutomaticTaskRepositoryInterface
 TaskExecutionRepository ..> TaskExecutionRepositoryInterface
 ResponseRepository ..> ResponseRepositoryInterface
+
+ScriptAlgorithms ..> ValidateFormLexer
+ScriptAlgorithms ..> CommonTokenStream
+ScriptAlgorithms ..> ValidateFormParser
+ScriptAlgorithms ..> ParseTree
+ScriptAlgorithms ..> ParseTreeWalker
+ScriptAlgorithms ..> FormListener
+ScriptAlgorithms ..> FormVisitor
 
 AppSettings -> RepositoryFactory : creates
 PersistenceContext -> AppSettings : implements
