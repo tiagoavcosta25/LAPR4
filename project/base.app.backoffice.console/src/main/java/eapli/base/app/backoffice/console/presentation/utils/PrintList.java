@@ -23,6 +23,7 @@
  */
 package eapli.base.app.backoffice.console.presentation.utils;
 
+import eapli.base.app.backoffice.console.presentation.service.ServiceDraftTaskSpecificationUI;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.domain.ServiceDraft;
@@ -34,6 +35,8 @@ import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,20 +47,20 @@ import java.util.Scanner;
  */
 public class PrintList {
 
-    final static Scanner sc = new Scanner(System.in);
+    private static final Logger LOGGER = LogManager.getLogger(PrintList.class);
 
     public static <T> T chooseOne(Iterable<T> itElements, String strHeader, String strElementName) {
         try{
             Integer i = 1;
             List<T> lstTemp = new ArrayList<>();
-            System.out.printf("\n==========================================\n%s\n==========================================\n\n", strHeader);
+            LOGGER.info("\n==========================================\n%s\n==========================================\n\n", strHeader);
             for(T t : itElements){
-                System.out.printf("[%d] %s\n", i, t.toString());
+                LOGGER.info("[%d] %s\n", i, t.toString());
                 i++;
                 lstTemp.add(t);
             }
             if(lstTemp.isEmpty()){
-                System.out.println("There is no " + strElementName + "s in the Database.\n\n");
+                LOGGER.error("There is no " + strElementName + "s in the Database.\n\n");
                 return null;
             }
             Integer intOp = Integer.parseInt(Console.readLine("\n\n\nSelect " + strElementName + " Number >"));
@@ -65,7 +68,7 @@ public class PrintList {
             return lstTemp.get(intOp - 1);
 
         } catch (Exception e){
-            System.out.println("Error in selecting.\n\n");
+            LOGGER.error("Error in selecting.\n\n");
             return null;
         }
     }
@@ -77,13 +80,13 @@ public class PrintList {
             List<T> lstReturn = new ArrayList<>();
             do{
                 Integer i = 1;
-                System.out.printf("\n---------------------------------\n%s\n---------------------------------\n\n", strHeader);
+                LOGGER.info("\n---------------------------------\n%s\n---------------------------------\n\n", strHeader);
                 for(T t : itElements){
-                    System.out.printf("[%d] %s\n", i, t.toString());
+                    LOGGER.info("[%d] %s\n", i, t.toString());
                     i++;
                     lstTemp.add(t);
                 }
-                System.out.printf("\n[0] Exit\n");
+                LOGGER.info("\n[0] Exit\n");
                 intOp = Integer.parseInt(Console.readLine("\n\n[" + j + " x] Select " + strElementName + " Number >"));
                 j++;
                 if(intOp == 0){
@@ -96,7 +99,7 @@ public class PrintList {
             return lstReturn;
 
         } catch (Exception e){
-            System.out.printf("Error in selecting.\n", strElementName);
+            LOGGER.error("Error in selecting.\n", strElementName);
             return null;
         }
     }
