@@ -72,19 +72,19 @@ public class ScriptAlgorithms {
         return false;
     }
 
-    public static boolean executeAutoTask(String strFileContent, ScriptMode oMode) {
+    public static boolean executeAutoTask(Ticket oTicket, String strFileContent, ScriptMode oMode) {
         AutoTaskLexer lexer = new AutoTaskLexer(CharStreams.fromString(strFileContent));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         AutoTaskParser parser = new AutoTaskParser(tokens);
         ParseTree tree = parser.start();
 
-        if(oMode.equals(ScriptMode.LISTENER)){ // TODO: implement AutoTaskVisitor
+        if(oMode.equals(ScriptMode.LISTENER)){
             ParseTreeWalker walker = new ParseTreeWalker();
             TaskListener eListener = new TaskListener();
             walker.walk(eListener, tree);
             //return eListener.getResult();
         } else if(oMode.equals(ScriptMode.VISITOR)){
-            TaskVisitor eval = new TaskVisitor();
+            TaskVisitor eval = new TaskVisitor(oTicket);
             return Boolean.parseBoolean(eval.visit(tree));
         }
         return false;
