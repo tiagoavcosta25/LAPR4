@@ -26,6 +26,7 @@ package eapli.base.ticketmanagement.application;
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecutionProgress;
 import eapli.base.activityfluxmanagement.execution.repositories.ActivityFluxExecutionRepository;
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.formmanagement.domain.Form;
 import eapli.base.grammar.ScriptAlgorithms;
 import eapli.base.grammar.ScriptMode;
@@ -62,13 +63,19 @@ public class ServiceSolicitationService {
     private final ActivityFluxExecutionRepository m_oFluxExecRepo = PersistenceContext.repositories().fluxExecs();
     private final ResponseRepository m_oRespRepo = PersistenceContext.repositories().responses();
 
-    public ActivityFluxExecution createActivityFluxExecution(Service oService){
+    public ActivityFluxExecution createActivityFluxExecution(Service oService, Collaborator oCollaborator){
 
         List<TaskExecution> lstFlux = new ArrayList<>();
 
         for(Task t : oService.flux().flux()){
+
             if(this.m_oManualTaskRepo.isManualTask(t.id())){
                 ManualTaskExecution oManualExec = new ManualTaskExecution((ManualTask) t);
+
+                if(oService.flux().taskIsApproval(t)){
+                    oManualExec.assignCollaborator(oCollaborator);
+                }
+
                 oManualExec = this.m_oTaskExecRepo.save(oManualExec);
                 lstFlux.add(oManualExec);
             } else if(this.m_oAutoTaskRepo.isAutoTask(t.id())){
