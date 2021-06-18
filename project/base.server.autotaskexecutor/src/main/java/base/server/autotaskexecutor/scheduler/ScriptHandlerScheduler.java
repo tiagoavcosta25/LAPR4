@@ -25,17 +25,12 @@ public class ScriptHandlerScheduler extends Thread {
 
     public void run(){
         while(true){
-            while (this.m_oQueue.getSize(this.m_intThreadNumber) < 1){
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
             LOGGER.trace("Executing Automatic Task...");
 
-            ScriptAlgorithms.executeAutoTask(this.m_oQueue.getScriptForExecution(this.m_intThreadNumber).toString(), ScriptMode.LISTENER);
+            try {
+                ScriptAlgorithms.executeAutoTask(this.m_oQueue.getScriptForExecution(this.m_intThreadNumber).toString(), ScriptMode.LISTENER);
+            } catch (InterruptedException e) {
+            }
         }
     }
 }
