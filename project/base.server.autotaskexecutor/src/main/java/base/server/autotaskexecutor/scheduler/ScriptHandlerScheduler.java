@@ -1,5 +1,10 @@
 package base.server.autotaskexecutor.scheduler;
 
+import eapli.base.grammar.ScriptAlgorithms;
+import eapli.base.grammar.ScriptMode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  *
  * @author Pedro Santos 1190967@isep.ipp.pt
@@ -7,6 +12,8 @@ package base.server.autotaskexecutor.scheduler;
  */
 
 public class ScriptHandlerScheduler extends Thread {
+
+    private static final Logger LOGGER = LogManager.getLogger(ScriptHandlerScheduler.class);
 
     private ScriptQueueScheduler m_oQueue;
     private Integer m_intThreadNumber;
@@ -26,13 +33,9 @@ public class ScriptHandlerScheduler extends Thread {
                 }
             }
 
-            System.out.printf("Thread %d: %s\n", this.m_intThreadNumber, this.m_oQueue.getScriptForExecution(this.m_intThreadNumber).toString());
+            LOGGER.trace("Executing Automatic Task...");
 
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            ScriptAlgorithms.executeAutoTask(this.m_oQueue.getScriptForExecution(this.m_intThreadNumber).toString(), ScriptMode.LISTENER);
         }
     }
 }
