@@ -24,6 +24,9 @@ public class AppSettings {
     private static final String PERSISTENCE_UNIT_KEY = "persistence.persistenceUnit";
     private static final String SCHEMA_GENERATION_KEY = "javax.persistence.schema-generation.database.action";
     private static final String HIGH_CALORIES_DISH_LIMIT = "HighCaloriesDishLimit";
+    private static final String FLUX_SERVER_IP = "flux.server.ip";
+    private static final String EXECUTE_SERVER_IP = "execute.server.ip";
+    private static final String TCP_SERVER_PORT = "tcp.server.port";
 
     private final Properties applicationProperties = new Properties();
 
@@ -54,6 +57,9 @@ public class AppSettings {
         this.applicationProperties.setProperty(PERSISTENCE_UNIT_KEY, "eapli"
                 + ".base");
         this.applicationProperties.setProperty(HIGH_CALORIES_DISH_LIMIT, "300");
+        this.applicationProperties.setProperty(FLUX_SERVER_IP, "10.9.20.133");
+        this.applicationProperties.setProperty(EXECUTE_SERVER_IP, "10.9.21.104");
+        this.applicationProperties.setProperty(TCP_SERVER_PORT, "32507");
     }
 
     public Boolean isMenuLayoutHorizontal() {
@@ -71,6 +77,18 @@ public class AppSettings {
 
     public Integer getHighCaloriesDishLimit() {
         return Integer.valueOf(this.applicationProperties.getProperty(HIGH_CALORIES_DISH_LIMIT));
+    }
+
+    public String getFluxServerIp() {
+        return this.applicationProperties.getProperty(FLUX_SERVER_IP);
+    }
+
+    public String getExecuteServerIp() {
+        return this.applicationProperties.getProperty(EXECUTE_SERVER_IP);
+    }
+
+    public int getTcpServerPort() {
+        return Integer.parseInt(this.applicationProperties.getProperty(FLUX_SERVER_IP));
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
