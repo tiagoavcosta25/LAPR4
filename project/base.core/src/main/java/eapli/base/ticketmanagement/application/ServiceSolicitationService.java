@@ -72,7 +72,7 @@ public class ServiceSolicitationService {
             if(this.m_oManualTaskRepo.isManualTask(t.id())){
                 ManualTaskExecution oManualExec = new ManualTaskExecution((ManualTask) t);
 
-                if(oService.flux().taskIsApproval(t)){
+                if(oService.flux().taskIsApproval(t) && oCollaborator != null){
                     oManualExec.assignCollaborator(oCollaborator);
                 }
 
