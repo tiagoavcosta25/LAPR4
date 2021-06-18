@@ -24,7 +24,7 @@ public class HttpServerAjaxDashboard extends Thread {
     public static void main(Integer intPort) throws Exception {
         SSLSocket cliSock;
 
-        System.setProperty("javax.net.ssl.keyStore", "server.jks");
+        System.setProperty("javax.net.ssl.keyStore", System.getProperty("user.dir") +  "\\base.app.user.console\\src\\main\\java\\eapli\\base\\app\\user\\console\\net\\dashboard\\server.jks");
         System.setProperty("javax.net.ssl.keyStorePassword", "forgotten");
         
         accessesCounter = 0;
