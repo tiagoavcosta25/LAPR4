@@ -38,7 +38,7 @@ public class ScriptHandlerFCFS extends Thread {
             try {
                 Pair<Long, AutomaticTaskScript> oPair = this.m_oQueue.firstComeFirstServed();
 
-                Boolean blnFLag = ScriptAlgorithms.executeAutoTask(oPair.getValue().toString(), ScriptMode.LISTENER);
+                Boolean blnFLag = ScriptAlgorithms.executeAutoTask(null, oPair.getValue().toString(), ScriptMode.LISTENER);
 
                 TaskExecution oTask = this.m_oTaskExecRepo.findByID(oPair.getKey()).get();
                 oTask.setExecuted();
