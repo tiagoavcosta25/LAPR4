@@ -1,10 +1,12 @@
-package base.server.autotaskexecutor.scheduler;
+package base.server.autotaskexecutor.fcfs;
 
+import base.server.autotaskexecutor.scheduler.ScriptTakerScheduler;
 import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
 import eapli.base.taskmanagement.specification.domain.AutomaticTaskScript;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,18 +15,18 @@ import java.net.Socket;
 
 /**
  *
- * @author Pedro Santos 1190967@isep.ipp.pt
+ * @author Jéssica Alves 1190682@isep.ipp.pt
  *
  */
 
-public class ScriptTakerScheduler extends Thread {
+public class ScriptTakerFCFS extends Thread {
 
-    private static final Logger LOGGER = LogManager.getLogger(ScriptTakerScheduler.class);
+    private static final Logger LOGGER = LogManager.getLogger(ScriptTakerFCFS.class);
 
     private Socket m_oSocket;
-    private ScriptQueueScheduler m_oQueue;
+    private ScriptQueueFCFS m_oQueue;
 
-    public ScriptTakerScheduler(Socket oSocket, ScriptQueueScheduler oQueue) {
+    public ScriptTakerFCFS(Socket oSocket, ScriptQueueFCFS oQueue) {
         this.m_oSocket = oSocket;
         this.m_oQueue = oQueue;
     }
