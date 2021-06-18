@@ -2,6 +2,7 @@ package eapli.base.net.motorflux;
 
 import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
+import eapli.base.util.Application;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,20 +14,9 @@ import java.net.Socket;
  */
 public class ActivityFlowClient {
 
-    public static void main(String[] args) {
-        ActivityFlowClient oActivityFlow = new ActivityFlowClient(LOCAL_SERVER_IP);
-
-        SDP2021 oProtocol = oActivityFlow.retrieveInformation("doe", SDP2021Code.INFO_REQUEST.getCode());
-
-        //LEMBRAR DE VERIFICAR SE PACKET É NULL
-        String strMessage = oProtocol.getData();
-        System.out.println(strMessage);
-    }
-
-    private static final int TCP_PORT = 32507;
-    private static final String FLUX_SERVER_IP = "10.9.20.133";
-    private static final String LOCAL_SERVER_IP = "127.0.0.1";
-    private static final String EXECUTE_SERVER_IP = "10.9.21.104";
+    private static final int TCP_PORT = Application.settings().getTcpServerPort();
+    private static final String FLUX_SERVER_IP = Application.settings().getFluxServerIp();
+    private static final String EXECUTE_SERVER_IP = Application.settings().getExecuteServerIp();
 
     private Socket clientSocket;
     private DataOutputStream out;
@@ -35,7 +25,7 @@ public class ActivityFlowClient {
 
     public ActivityFlowClient(String serverIP) {
         this.ip = serverIP;
-        startConnection(); //10.9.20.133 ip server
+        startConnection();
     }
 
     public SDP2021 retrieveInformation(String strMessage, int intCode) {
