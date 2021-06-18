@@ -12,6 +12,7 @@ statement: HASHTAG stmt=mandatory END #stmtMandatory
         | HASHTAG stmt=regex END #stmtRegex
         | HASHTAG stmt=assert_func END #stmtAssert
         | HASHTAG stmt=get_attribute END #stmtAttribute
+        | HASHTAG stmt=date_comp END #stmtDateComp
         | HASHTAG stmt=if_func #stmtIf
         | stmt=assign END #stmtAssign;
 
@@ -22,6 +23,8 @@ regex: REGEX_LABEL STMT_START agr=NUM+ COMMA re=string STMT_END #execRegex;
 assert_func: ASSERT_LABEL STMT_START cond=conditions STMT_END #execAssert;
 
 get_attribute: GET_ATTRIBUTE_LABEL STMT_START attribute=NUM+ STMT_END #execGetAttribute;
+
+date_comp: DATE_COMPARE_LABEL STMT_START HASHTAG date1=get_attribute comp HASHTAG date2=get_attribute STMT_END #execDateCompare;
 
 nums: number=NUM+ COMMA multipleNumbers=nums #execMultipleNumbers
     | number=NUM+ #execNum;
@@ -90,6 +93,7 @@ MANDATORY_LABEL: 'mandatory';
 REGEX_LABEL: 'regex';
 ASSERT_LABEL: 'assert';
 GET_ATTRIBUTE_LABEL: 'getAttribute';
+DATE_COMPARE_LABEL: 'dateCompare';
 HELPDESK: 'helpdesk';
 IF_LABEL: 'if';
 ELSE: 'else';
