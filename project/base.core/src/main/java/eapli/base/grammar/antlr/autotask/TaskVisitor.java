@@ -99,4 +99,42 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
         EmailSender.send(email, email, subject, body, email);
         return Boolean.TRUE.toString();
     }
+
+    @Override
+    public String visitExecFileSearch(AutoTaskParser.ExecFileSearchContext ctx) {
+        String path = ctx.fp.getText();
+        String expression = visit(ctx.search);
+        String result;
+        try {
+            result = XmlFileReader.searchFor(path, expression);
+        } catch (Exception e) {
+            return Boolean.FALSE.toString();
+        }
+        return result;
+    }
+
+    @Override
+    public String visitExecSearchIn(AutoTaskParser.ExecSearchInContext ctx) {
+        return "/" + ctx.search_in.getText() + visit(ctx.search);
+    }
+
+    @Override
+    public String visitExecSearchInFile(AutoTaskParser.ExecSearchInFileContext ctx) {
+        StringBuilder sb = new StringBuilder();
+        String searchBy = ctx.search_by.getText();
+        String searchValue = ctx.search_value.getText();
+        String searchFor = ctx.search_for.getText();
+        sb.append("[").append(searchBy).append("='").append(searchValue).append("']")
+                .append("/").append(searchFor).append("/text()");
+        return sb.toString();
+    }
+
+    @Override
+    public String visitOnlyIf(AutoTaskParser.OnlyIfContext ctx) {
+        if(Boolean.parseBoolean(visit(ctx.if_cond))){
+            return visit(ctx.stmt_if);
+        }
+        return Boolean.TRUE.toString();
+    }
+
 }
