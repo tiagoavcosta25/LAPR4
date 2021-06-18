@@ -112,6 +112,18 @@ public class ValidateFormBaseListener implements ValidateFormListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStmtDateComp(ValidateFormParser.StmtDateCompContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStmtDateComp(ValidateFormParser.StmtDateCompContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterStmtIf(ValidateFormParser.StmtIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -179,6 +191,18 @@ public class ValidateFormBaseListener implements ValidateFormListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExecGetAttribute(ValidateFormParser.ExecGetAttributeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExecDateCompare(ValidateFormParser.ExecDateCompareContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExecDateCompare(ValidateFormParser.ExecDateCompareContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

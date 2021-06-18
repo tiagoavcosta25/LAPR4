@@ -104,6 +104,18 @@ public interface ValidateFormListener extends ParseTreeListener {
 	 */
 	void exitStmtAttribute(ValidateFormParser.StmtAttributeContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code stmtDateComp}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterStmtDateComp(ValidateFormParser.StmtDateCompContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stmtDateComp}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitStmtDateComp(ValidateFormParser.StmtDateCompContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code stmtIf}
 	 * labeled alternative in {@link ValidateFormParser#statement}.
 	 * @param ctx the parse tree
@@ -175,6 +187,18 @@ public interface ValidateFormListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExecGetAttribute(ValidateFormParser.ExecGetAttributeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code execDateCompare}
+	 * labeled alternative in {@link ValidateFormParser#date_comp}.
+	 * @param ctx the parse tree
+	 */
+	void enterExecDateCompare(ValidateFormParser.ExecDateCompareContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code execDateCompare}
+	 * labeled alternative in {@link ValidateFormParser#date_comp}.
+	 * @param ctx the parse tree
+	 */
+	void exitExecDateCompare(ValidateFormParser.ExecDateCompareContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code execMultipleNumbers}
 	 * labeled alternative in {@link ValidateFormParser#nums}.

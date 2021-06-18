@@ -67,6 +67,13 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStmtAttribute(ValidateFormParser.StmtAttributeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code stmtDateComp}
+	 * labeled alternative in {@link ValidateFormParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtDateComp(ValidateFormParser.StmtDateCompContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code stmtIf}
 	 * labeled alternative in {@link ValidateFormParser#statement}.
 	 * @param ctx the parse tree
@@ -108,6 +115,13 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExecGetAttribute(ValidateFormParser.ExecGetAttributeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code execDateCompare}
+	 * labeled alternative in {@link ValidateFormParser#date_comp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecDateCompare(ValidateFormParser.ExecDateCompareContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code execMultipleNumbers}
 	 * labeled alternative in {@link ValidateFormParser#nums}.
