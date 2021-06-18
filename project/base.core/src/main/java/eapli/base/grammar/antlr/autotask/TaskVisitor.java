@@ -1,10 +1,6 @@
 package eapli.base.grammar.antlr.autotask;
 
-import eapli.base.formmanagement.domain.Form;
-import eapli.base.formmanagement.domain.FormName;
-import eapli.base.formmanagement.domain.FormScript;
-import eapli.base.formmanagement.domain.FormType;
-import eapli.base.ticketmanagement.domain.Response;
+import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.base.util.EmailSender;
 import eapli.base.util.XmlFileReader;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -12,9 +8,7 @@ import org.antlr.v4.runtime.tree.RuleNode;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,20 +16,12 @@ import java.util.Map;
  */
 public class TaskVisitor extends AutoTaskBaseVisitor<String> {
 
-    //TODO: remover m_oResponse da classe
     private final Map<String, String> m_oMapVariables;
-    //private final Ticket m_oTicket;
-    private final Response m_oResponse;
+    private final Ticket m_oTicket;
 
-    public TaskVisitor() {
+    public TaskVisitor(Ticket oTicket) {
         this.m_oMapVariables = new HashMap<>();
-        //this.m_oTicket = oTicket;
-        List<String> lst = new ArrayList<>();
-        lst.add("XYJ123"); //Codigo do produto
-        lst.add("3"); //Quantidade pretendida
-        lst.add("Nacional"); //Tipo do cliente
-        this.m_oResponse = new Response(new Form(new FormName("name"), FormType.MANUALTASK,
-                new FormScript("D:/teste/teste.bat"), new ArrayList<>()), lst);
+        this.m_oTicket = oTicket;
     }
 
 
@@ -86,17 +72,16 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
         String email = ctx.em.getText();
         String subject = visit(ctx.sub);
         String body = visit(ctx.email_body);
-        EmailSender.send(email, email, subject, body, email);
+        EmailSender.send("no-reply@helpdesk.com", email, subject, body, email);
         return Boolean.TRUE.toString();
     }
 
     @Override
     public String visitExecSendEmailCollab(AutoTaskParser.ExecSendEmailCollabContext ctx) {
-        //String email = m_oTicket.collaborator().user().email().toString();
-        String email = "colaborador@teste.com";
+        String email = m_oTicket.collaborator().user().email().toString();
         String subject = visit(ctx.sub);
         String body = visit(ctx.email_body);
-        EmailSender.send(email, email, subject, body, email);
+        EmailSender.send("no-reply@helpdesk.com", email, subject, body, email);
         return Boolean.TRUE.toString();
     }
 
@@ -256,8 +241,9 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
 
     @Override
     public String visitExecGetValue(AutoTaskParser.ExecGetValueContext ctx) {
-        int index = Integer.parseInt(ctx.value.getText());
-        return this.m_oResponse.getResponses().get(index - 1);
+        int form = Integer.parseInt(ctx.form.getText());
+        int attribute = Integer.parseInt(ctx.attribute.getText());
+        return this.m_oTicket.responses().get(form - 1).getResponses().get(attribute - 1);
     }
 
     @Override
