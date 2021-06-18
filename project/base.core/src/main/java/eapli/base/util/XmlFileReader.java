@@ -16,6 +16,12 @@ import org.w3c.dom.NodeList;
 
 public class XmlFileReader {
 
+    public static String searchFor(String path, String expression)
+            throws Exception {
+        Document document = getDocument(path);
+        return evaluateXPath(document, expression).get(0);
+
+    }
 
 
 }
