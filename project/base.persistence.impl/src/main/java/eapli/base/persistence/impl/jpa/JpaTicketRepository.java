@@ -128,4 +128,15 @@ class JpaTicketRepository
         q.setParameter("afe", afe);
         return Optional.ofNullable(q.getSingleResult());
     }
+
+    @Override
+    public Optional<Ticket> getTicketByTaskExec(Long lngId) {
+        final TypedQuery<Ticket> q = entityManager().createQuery(
+                "SELECT t FROM Ticket t INNER JOIN ActivityFluxExecution af ON t.m_oFluxExecution.id = af.id " +
+                        "JOIN af.m_lstFlux lst INNER JOIN AutomaticTaskExecution ate ON ate.id = lst.id " +
+                        "INNER JOIN TaskExecution te ON te.id =: lngId",
+                Ticket.class);
+        q.setParameter("lngId", lngId);
+        return Optional.ofNullable(q.getSingleResult());
+    }
 }
