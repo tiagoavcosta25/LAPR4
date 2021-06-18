@@ -5,6 +5,8 @@
  */
 package base.server.autotaskexecutor;
 
+import eapli.base.ticketmanagement.domain.TicketStatus;
+
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
  * @author Pedro Santos 1190967@isep.ipp.pt
@@ -35,5 +37,12 @@ public enum AlgorithmMode {
 
     public boolean equals(AlgorithmMode oMode){
         return this.getMode() == oMode.getMode();
+    }
+
+    public static AlgorithmMode getMode(Integer intMode) {
+        if(intMode == AlgorithmMode.FCFS.getMode()){
+            return AlgorithmMode.FCFS;
+        }
+        return AlgorithmMode.SCHEDULER;
     }
 }
