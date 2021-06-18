@@ -1,4 +1,4 @@
-// Generated from D:/Escola/Uni/_Year-02/LAPR4/ProjetoIntegrador/project/base.core/src/main/java/eapli/base/grammar\AutoTask.g4 by ANTLR 4.9.1
+// Generated from D:/Universidade/2/2/LAPR/lei20_21_s4_2di_03/project/base.core/src/main/java/eapli/base/grammar\AutoTask.g4 by ANTLR 4.9.1
 package eapli.base.grammar.antlr.autotask;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -11,11 +11,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link AutoTaskParser#start}.
+	 * Visit a parse tree produced by the {@code execStart}
+	 * labeled alternative in {@link AutoTaskParser#start}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStart(AutoTaskParser.StartContext ctx);
+	T visitExecStart(AutoTaskParser.ExecStartContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code execStatements}
 	 * labeled alternative in {@link AutoTaskParser#statements}.
@@ -36,11 +37,40 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(AutoTaskParser.TypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AutoTaskParser#statement}.
+	 * Visit a parse tree produced by the {@code stmtSendEmail}
+	 * labeled alternative in {@link AutoTaskParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatement(AutoTaskParser.StatementContext ctx);
+	T visitStmtSendEmail(AutoTaskParser.StmtSendEmailContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stmtFileSearch}
+	 * labeled alternative in {@link AutoTaskParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtFileSearch(AutoTaskParser.StmtFileSearchContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stmtIf}
+	 * labeled alternative in {@link AutoTaskParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtIf(AutoTaskParser.StmtIfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stmtGetValue}
+	 * labeled alternative in {@link AutoTaskParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtGetValue(AutoTaskParser.StmtGetValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stmtAssign}
+	 * labeled alternative in {@link AutoTaskParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtAssign(AutoTaskParser.StmtAssignContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code execSendEmail}
 	 * labeled alternative in {@link AutoTaskParser#sendEmail}.
@@ -49,12 +79,33 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecSendEmail(AutoTaskParser.ExecSendEmailContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code execSendEmailCollab}
+	 * labeled alternative in {@link AutoTaskParser#sendEmail}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecSendEmailCollab(AutoTaskParser.ExecSendEmailCollabContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code execFileSearch}
 	 * labeled alternative in {@link AutoTaskParser#fileSearch}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitExecFileSearch(AutoTaskParser.ExecFileSearchContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code execSearchIn}
+	 * labeled alternative in {@link AutoTaskParser#searchInFile}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecSearchIn(AutoTaskParser.ExecSearchInContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code execSearchInFile}
+	 * labeled alternative in {@link AutoTaskParser#searchInFile}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecSearchInFile(AutoTaskParser.ExecSearchInFileContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code onlyIf}
 	 * labeled alternative in {@link AutoTaskParser#if_func}.
@@ -102,6 +153,13 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitConjunction(AutoTaskParser.ConjunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code execGetValue}
+	 * labeled alternative in {@link AutoTaskParser#get_value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecGetValue(AutoTaskParser.ExecGetValueContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code execAssign}
 	 * labeled alternative in {@link AutoTaskParser#assign}.
@@ -159,12 +217,26 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitObjectNumber(AutoTaskParser.ObjectNumberContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code objectText}
+	 * labeled alternative in {@link AutoTaskParser#object}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjectText(AutoTaskParser.ObjectTextContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code objectFileSearch}
 	 * labeled alternative in {@link AutoTaskParser#object}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitObjectFileSearch(AutoTaskParser.ObjectFileSearchContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code objectGetValue}
+	 * labeled alternative in {@link AutoTaskParser#object}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjectGetValue(AutoTaskParser.ObjectGetValueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AutoTaskParser#sign_td}.
 	 * @param ctx the parse tree
@@ -183,6 +255,18 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNum(AutoTaskParser.NumContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AutoTaskParser#string}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(AutoTaskParser.StringContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AutoTaskParser#characters}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCharacters(AutoTaskParser.CharactersContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AutoTaskParser#path}.
 	 * @param ctx the parse tree
@@ -220,17 +304,33 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitKeyword(AutoTaskParser.KeywordContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AutoTaskParser#subject}.
+	 * Visit a parse tree produced by the {@code execSubject}
+	 * labeled alternative in {@link AutoTaskParser#subject}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSubject(AutoTaskParser.SubjectContext ctx);
+	T visitExecSubject(AutoTaskParser.ExecSubjectContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AutoTaskParser#body}.
+	 * Visit a parse tree produced by the {@code execBody}
+	 * labeled alternative in {@link AutoTaskParser#body}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBody(AutoTaskParser.BodyContext ctx);
+	T visitExecBody(AutoTaskParser.ExecBodyContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code bodySpacesObject}
+	 * labeled alternative in {@link AutoTaskParser#email_text}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBodySpacesObject(AutoTaskParser.BodySpacesObjectContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code bodyObject}
+	 * labeled alternative in {@link AutoTaskParser#email_text}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBodyObject(AutoTaskParser.BodyObjectContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AutoTaskParser#var_label}.
 	 * @param ctx the parse tree
