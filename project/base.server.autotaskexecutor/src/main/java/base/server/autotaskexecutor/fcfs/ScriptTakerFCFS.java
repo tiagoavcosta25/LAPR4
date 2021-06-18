@@ -1,6 +1,17 @@
 package base.server.autotaskexecutor.fcfs;
 
+import base.server.autotaskexecutor.scheduler.ScriptTakerScheduler;
+import eapli.base.net.SDP2021;
+import eapli.base.net.SDP2021Code;
 import eapli.base.taskmanagement.specification.domain.AutomaticTaskScript;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 
 /**
  *
@@ -10,15 +21,55 @@ import eapli.base.taskmanagement.specification.domain.AutomaticTaskScript;
 
 public class ScriptTakerFCFS extends Thread {
 
-    private ScriptQueueFCFS m_oQueue;
-    private AutomaticTaskScript m_oScript;
+    private static final Logger LOGGER = LogManager.getLogger(ScriptTakerFCFS.class);
 
-    public ScriptTakerFCFS(ScriptQueueFCFS oQueue, String strScript) {
+    private Socket m_oSocket;
+    private ScriptQueueFCFS m_oQueue;
+
+    public ScriptTakerFCFS(Socket oSocket, ScriptQueueFCFS oQueue) {
+        this.m_oSocket = oSocket;
         this.m_oQueue = oQueue;
-        this.m_oScript = AutomaticTaskScript.valueOf(strScript);
     }
 
     public void run(){
-        this.m_oQueue.addScript(m_oScript);
+        InetAddress clientIP;
+
+        clientIP = m_oSocket.getInetAddress();
+        LOGGER.trace("New client connection from " + clientIP.getHostAddress() +
+                ", port number " + m_oSocket.getPort());
+
+        try(DataOutputStream sOut = new DataOutputStream(m_oSocket.getOutputStream());
+            DataInputStream sIn = new DataInputStream(m_oSocket.getInputStream())){
+
+            SDP2021 request;
+            SDP2021 response;
+
+            while((request = new SDP2021(sIn)).getCode() != SDP2021Code.END.getCode()) {
+
+                LOGGER.trace("Adding Automatic Task to Executing Queue...");
+
+                String strData = request.getData();
+                Long lngID = Long.parseLong(strData.substring(0, strData.indexOf(',')));
+                AutomaticTaskScript oScript = AutomaticTaskScript.valueOf(strData.substring(strData.indexOf(',') + 1));
+
+                this.m_oQueue.addScript(lngID, oScript);
+            }
+            LOGGER.trace("Asked to close");
+            response = new SDP2021(SDP2021Code.ROGER.getCode());
+            response.send(sOut, "Goodbye");
+            LOGGER.trace("Client " + clientIP.getHostAddress() + ", port number: " + m_oSocket.getPort() +
+                    " disconnected");
+            m_oSocket.close();
+        } catch (IOException e) {
+            //e.printStackTrace();
+        } finally {
+            try {
+                LOGGER.trace("Client " + clientIP.getHostAddress() + ", port number: " + m_oSocket.getPort() +
+                        " disconnected");
+                m_oSocket.close();
+            } catch (final IOException e) {
+                LOGGER.error("While closing the client socket", e);
+            }
+        }
     }
 }
