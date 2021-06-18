@@ -3,6 +3,7 @@ package eapli.base.ticketmanagement.application;
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.cataloguemanagement.domain.Catalogue;
 import eapli.base.cataloguemanagement.repositories.CatalogueRepository;
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.formmanagement.domain.Form;
 import eapli.base.grammar.ScriptAlgorithms;
@@ -31,6 +32,7 @@ public class ServiceSolicitationController {
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
     private final TicketRepository m_oTicketRepo = PersistenceContext.repositories().tickets();
     private final CatalogueRepository m_oCatRepo = PersistenceContext.repositories().catalogues();
+    private final CollaboratorRepository m_oCollabRepo = PersistenceContext.repositories().collaborators();
     private final ServiceRepository m_oServRepo = PersistenceContext.repositories().services();
     private final ResponseRepository m_oRespRepo = PersistenceContext.repositories().responses();
     private final CollaboratorRepository m_oCollaboratorRepo = PersistenceContext.repositories().collaborators();
@@ -74,7 +76,9 @@ public class ServiceSolicitationController {
 
     public Ticket addTicket(Service oService, String strUrgency, LocalDateTime dtLimitDate, LocalDateTime dtCreationDate){
 
-        ActivityFluxExecution oFlux = this.m_oServiceSolicitationService.createActivityFluxExecution(oService);
+        Collaborator oCollaborator = this.m_oCollabRepo.findByUsername(this.m_oAuthz.session().get().authenticatedUser().username()).get().manager();
+
+        ActivityFluxExecution oFlux = this.m_oServiceSolicitationService.createActivityFluxExecution(oService, oCollaborator);
         return new Ticket(TicketUrgency.stringToTicketUrgency(strUrgency),
                 new TicketLimitDate(dtLimitDate), new TicketCreationDate(dtCreationDate), this.m_lstResponses, oFlux, this.m_lstFiles, oService,
                 this.m_oCollaboratorRepo.findByUsername(this.m_oAuthz.session().get().authenticatedUser().username()).get());
