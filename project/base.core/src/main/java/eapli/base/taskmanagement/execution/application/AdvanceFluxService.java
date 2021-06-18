@@ -9,6 +9,7 @@ import eapli.base.net.motorflux.ActivityFlowClient;
 import eapli.base.taskmanagement.specification.domain.TaskFilterFields;
 import eapli.base.taskmanagement.specification.repositories.TaskRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.base.util.Application;
 import eapli.framework.application.ApplicationService;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -21,7 +22,7 @@ import java.util.Arrays;
 @ApplicationService
 public class AdvanceFluxService {
 
-    private static final String SERVER_IP = "127.0.0.1"; //"10.9.20.133"
+    private static final String SERVER_IP = Application.settings().getFluxServerIp();
 
     private final AuthorizationService m_oAuthz = AuthzRegistry.authorizationService();
 
