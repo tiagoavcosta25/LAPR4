@@ -37,4 +37,22 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
         this.m_oResponse = new Response(new Form(new FormName("name"), FormType.MANUALTASK,
                 new FormScript("D:/teste/teste.bat"), new ArrayList<>()), lst);
     }
+
+
+    @Override
+    public String visitChildren(RuleNode node) {
+        String result = "true";
+        int n = node.getChildCount();
+        for(int i = 0; i < n && this.shouldVisitNextChild(node, result); ++i) {
+            ParseTree c = node.getChild(i);
+            String childResult = c.accept(this);
+            result = String.valueOf(Boolean.logicalAnd(Boolean.parseBoolean(result), Boolean.parseBoolean(childResult)));
+        }
+        return result;
+    }
+
+    @Override
+    public String visitExecStart(AutoTaskParser.ExecStartContext ctx) {
+        return visit(ctx.stmts);
+    }
 }
