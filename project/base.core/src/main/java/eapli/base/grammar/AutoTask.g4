@@ -1,29 +1,34 @@
 grammar AutoTask;
 
-start: header type BLOCK_START statements BLOCK_END;
+start: header type BLOCK_START stmts=statements BLOCK_END #execStart;
 
-statements: statement+ #execStatements;
+statements: stmt=statement+ #execStatements;
 
 header: HASHTAG HELPDESK;
 
 type: AUTO_TASK;
 
-statement: HASHTAG sendEmail END
-        | HASHTAG fileSearch END
-        | HASHTAG if_func
-        | assign END;
+statement: SPACE* HASHTAG stmt=sendEmail END #stmtSendEmail
+        | SPACE* HASHTAG stmt=fileSearch END #stmtFileSearch
+        | SPACE* HASHTAG stmt=if_func #stmtIf
+        | SPACE* HASHTAG stmt=get_value #stmtGetValue
+        | SPACE* stmt=assign END #stmtAssign;
 
-sendEmail : SEND_EMAIL_LABEL STMT_START QUOTATION_MARKS em=email QUOTATION_MARKS COMMA QUOTATION_MARKS sub=subject QUOTATION_MARKS COMMA QUOTATION_MARKS email_body=body QUOTATION_MARKS STMT_END #execSendEmail;
+sendEmail : SEND_EMAIL_LABEL STMT_START QUOTATION_MARKS em=email QUOTATION_MARKS COMMA SPACE? sub=subject COMMA SPACE? email_body=body STMT_END #execSendEmail
+        | SEND_EMAIL_LABEL STMT_START sub=subject COMMA SPACE? email_body=body STMT_END #execSendEmailCollab;
 
-fileSearch : FILE_SEARCH_LABEL STMT_START QUOTATION_MARKS fp=path QUOTATION_MARKS COMMA QUOTATION_MARKS key=keyword QUOTATION_MARKS STMT_END #execFileSearch;
+fileSearch : FILE_SEARCH_LABEL STMT_START QUOTATION_MARKS fp=path QUOTATION_MARKS COMMA SPACE? search=searchInFile #execFileSearch;
 
-if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements #onlyIf
-        | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END ELSE BLOCK_START stmt_else=statements BLOCK_END #ifElse;
+searchInFile: QUOTATION_MARKS search_in = keyword QUOTATION_MARKS COMMA SPACE? search=searchInFile #execSearchIn
+            | QUOTATION_MARKS search_by=keyword QUOTATION_MARKS COMMA SPACE? QUOTATION_MARKS search_value=keyword QUOTATION_MARKS COMMA SPACE? QUOTATION_MARKS  search_for=keyword QUOTATION_MARKS STMT_END #execSearchInFile;
 
-conditions: right=condition conjSign=conjunction left=conditions #multipleConditions
+if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END #onlyIf
+        | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END SPACE* ELSE BLOCK_START stmt_else=statements BLOCK_END #ifElse;
+
+conditions: right=condition SPACE? conjSign=conjunction SPACE? left=conditions #multipleConditions
           | cond=condition #singleConditions;
 
-condition: left=object compSign=comp right=object #cond;
+condition: left=object SPACE? compSign=comp SPACE? right=object #cond;
 
 comp: COMP_EQUAL
     | DIFF
@@ -35,42 +40,61 @@ comp: COMP_EQUAL
 conjunction: AND
            | OR;
 
-assign: var=variable EQUAL res=op #execAssign;
+get_value: GET_VALUE_LABEL STMT_START value=num STMT_END #execGetValue;
+
+assign: var=variable SPACE? EQUAL SPACE? res=op #execAssign;
 
 variable : DOLLAR label=var_label #execVar;
 
-op: left=op sign=sign_td right=op #execOpTimesDivision
-    | left=op sign=sign_pm right=op #execOpPlusMinus
+op: left=op SPACE? sign=sign_td SPACE? right=op #execOpTimesDivision
+    | left=op SPACE? sign=sign_pm SPACE? right=op #execOpPlusMinus
     | atom=object #execOpAtom
     | STMT_START result=op STMT_END #execOpParenthesis;
 
 object: var=variable #objectVariable
       | objNumber=num #objectNumber
-      | HASHTAG fileSearch #objectFileSearch;
+      | QUOTATION_MARKS objText=string QUOTATION_MARKS #objectText
+      | HASHTAG res=fileSearch #objectFileSearch
+      | HASHTAG res=get_value #objectGetValue;
 
 sign_td: TIMES
-    | FOWARD_SLASH;
+    | FORWARD_SLASH;
 
 sign_pm: PLUS
     | HYPHEN;
 
-num: NUM+;
+num: NUM+
+    | NUM+ DOT NUM+;
 
-path : port? folder* file;
+string: alphanumeric+ string
+        | characters string
+        | alphanumeric+
+        | characters;
 
-port: alpha+ COLON;
+characters: SPACE
+        | COLON
+        | COMMA
+        | HYPHEN
+        | EUR;
 
-folder: FOWARD_SLASH system_name+ FOWARD_SLASH;
+path: port? folder* file;
 
-file: system_name+ DOT XML;
+port: alpha+ COLON FORWARD_SLASH;
+
+folder: system_name+ FORWARD_SLASH;
+
+file: system_name+ XML_FILE;
 
 email: alphanumeric+ AT alphanumeric+ DOT alphanumeric+;
 
 keyword : alphanumeric+;
 
-subject: alphanumeric+;
+subject: text=email_text #execSubject;
 
-body: alphanumeric+;
+body: text=email_text #execBody;
+
+email_text: obj=object spaces=SPACE+ rest=body #bodySpacesObject
+        | obj=object #bodyObject;
 
 var_label: LOWERCASE alphanumeric*;
 
@@ -89,13 +113,15 @@ alpha: LOWERCASE
 AUTO_TASK: 'autoTask';
 FILE_SEARCH_LABEL: 'fileSearch';
 SEND_EMAIL_LABEL: 'sendEmail';
+GET_VALUE_LABEL: 'getValue';
 HELPDESK: 'helpdesk';
 IF_LABEL: 'if';
 ELSE: 'else';
-XML: 'xml';
+XML_FILE: '.xml';
 NUM: [0-9];
 LOWERCASE: [a-z];
 UPPERCASE: [A-Z];
+EUR: '€';
 PLUS: '+';
 HYPHEN: '-';
 TIMES: '*';
@@ -108,7 +134,7 @@ DOT: '.';
 EQUAL: '=';
 PERC: '%';
 DOLLAR: '$';
-FOWARD_SLASH: '/';
+FORWARD_SLASH: '/';
 COMP_EQUAL: '==';
 DIFF: '!=';
 BIGGER: '>';
@@ -123,4 +149,5 @@ HASHTAG: '#';
 UNDERSCORE: '_';
 QUOTATION_MARKS: '"';
 END: ';';
-WS : [ \t\r\n]+ -> skip;
+SPACE: ' ';
+WS: [\t\r\n]+ -> skip;
