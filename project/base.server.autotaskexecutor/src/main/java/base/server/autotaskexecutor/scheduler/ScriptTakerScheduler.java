@@ -46,7 +46,12 @@ public class ScriptTakerScheduler extends Thread {
 
                 LOGGER.trace("Adding Automatic Task to Executing Queue...");
 
-                this.m_oQueue.addScript(AutomaticTaskScript.valueOf(request.getData()));
+                String strData = request.getData();
+
+                Long lngID = Long.parseLong(strData.substring(0, strData.indexOf(',') - 1));
+                AutomaticTaskScript oScript = AutomaticTaskScript.valueOf(strData.substring(strData.indexOf(',') + 1));
+
+                this.m_oQueue.addScript(lngID, oScript);
             }
             LOGGER.trace("Asked to close");
             response = new SDP2021(SDP2021Code.ROGER.getCode());
