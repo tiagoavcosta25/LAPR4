@@ -42,7 +42,9 @@ public enum AlgorithmMode {
     public static AlgorithmMode getMode(Integer intMode) {
         if(intMode == AlgorithmMode.FCFS.getMode()){
             return AlgorithmMode.FCFS;
+        } else if(intMode == AlgorithmMode.SCHEDULER.getMode()){
+            return AlgorithmMode.SCHEDULER;
         }
-        return AlgorithmMode.SCHEDULER;
+        return null;
     }
 }
