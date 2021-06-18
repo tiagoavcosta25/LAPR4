@@ -55,4 +55,48 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
     public String visitExecStart(AutoTaskParser.ExecStartContext ctx) {
         return visit(ctx.stmts);
     }
+
+    @Override
+    public String visitExecStatements(AutoTaskParser.ExecStatementsContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public String visitStmtSendEmail(AutoTaskParser.StmtSendEmailContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitStmtFileSearch(AutoTaskParser.StmtFileSearchContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitStmtIf(AutoTaskParser.StmtIfContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitStmtAssign(AutoTaskParser.StmtAssignContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitExecSendEmail(AutoTaskParser.ExecSendEmailContext ctx) {
+        String email = ctx.em.getText();
+        String subject = visit(ctx.sub);
+        String body = visit(ctx.email_body);
+        EmailSender.send(email, email, subject, body, email);
+        return Boolean.TRUE.toString();
+    }
+
+    @Override
+    public String visitExecSendEmailCollab(AutoTaskParser.ExecSendEmailCollabContext ctx) {
+        //String email = m_oTicket.collaborator().user().email().toString();
+        String email = "colaborador@teste.com";
+        String subject = visit(ctx.sub);
+        String body = visit(ctx.email_body);
+        EmailSender.send(email, email, subject, body, email);
+        return Boolean.TRUE.toString();
+    }
 }
