@@ -137,4 +137,31 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
         return Boolean.TRUE.toString();
     }
 
+    @Override
+    public String visitIfElse(AutoTaskParser.IfElseContext ctx) {
+        if(Boolean.parseBoolean(visit(ctx.if_cond))){
+            return visit(ctx.stmt_if);
+        } else{
+            return visit(ctx.stmt_else);
+        }
+    }
+
+    @Override
+    public String visitMultipleConditions(AutoTaskParser.MultipleConditionsContext ctx) {
+        boolean blnRight = Boolean.parseBoolean(visit(ctx.right));
+        boolean blnLeft = Boolean.parseBoolean(visit(ctx.left));
+
+        switch (ctx.conjSign.getText()) {
+            case "||" : return String.valueOf(Boolean.logicalOr(blnLeft, blnRight));
+            case "&&" : return String.valueOf(Boolean.logicalAnd(blnLeft, blnRight));
+        }
+
+        return Boolean.FALSE.toString();
+    }
+
+    @Override
+    public String visitSingleConditions(AutoTaskParser.SingleConditionsContext ctx) {
+        return visit(ctx.cond);
+    }
+
 }
