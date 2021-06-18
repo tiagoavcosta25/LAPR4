@@ -12,6 +12,7 @@ import eapli.base.taskmanagement.execution.repositories.AutomaticTaskExecutionRe
 import eapli.base.taskmanagement.specification.domain.AutomaticTask;
 import eapli.base.taskmanagement.specification.repositories.AutomaticTaskRepository;
 import eapli.base.taskmanagement.specification.repositories.TaskRepository;
+import eapli.base.util.Application;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
@@ -22,7 +23,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 @UseCaseController
 public class ExecuteAutomaticTaskController {
 
-    private static final String EXECUTE_SERVER_IP = "10.9.21.104";
+    private static final String EXECUTE_SERVER_IP = Application.settings().getExecuteServerIp();
 
     private final ExecuteAutomaticTaskService executeAutomaticTaskService = new ExecuteAutomaticTaskService();
     private final AutomaticTaskExecutionRepository autoTaskRepo = PersistenceContext.repositories().automaticTaskExec();
