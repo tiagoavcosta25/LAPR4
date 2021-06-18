@@ -6,7 +6,7 @@ $preco = #fileSearch("D:/Universidade/2/2/LAPR/lei20_21_s4_2di_03/project/xml/pr
 
 $categoria = #fileSearch("D:/Universidade/2/2/LAPR/lei20_21_s4_2di_03/project/xml/products.xml", "products", "product", "id", "XYJ123", "category");
 
-$total = $preco * #getValue(2);
+$total = $preco * #getAttribute(1, 2);
 
 #if($total > 10){
     $desconto = 3;
@@ -23,7 +23,7 @@ $valorDesconto = $total * $desconto / 100;
 
 $valorPosDesconto = $total - $valorDesconto;
 
-#if(#getValue(3) == "Nacional"){
+#if(#getAttribute(1, 3) == "Nacional"){
     $texto = "Valor total: " + $total + ", Valor de desconto: " + $valorDesconto + ", Valor pos desconto: " + $valorPosDesconto;
 }
 
