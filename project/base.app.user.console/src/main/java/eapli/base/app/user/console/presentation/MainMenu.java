@@ -29,6 +29,7 @@ import eapli.base.app.user.console.net.dashboard.HttpServerAjaxDashboard;
 import eapli.base.app.user.console.presentation.task.*;
 import eapli.base.app.user.console.presentation.ticket.SearchTicketsAction;
 import eapli.base.app.user.console.presentation.ticket.ServiceSolicitationAction;
+import eapli.base.util.OsUtils;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -38,6 +39,8 @@ import eapli.framework.presentation.console.ExitWithMessageAction;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
+
+import java.io.File;
 
 /**
  * @author Paulo Gandra Sousa
@@ -85,6 +88,20 @@ class MainMenu extends ClientUserBaseUI {
             Runnable r = new Runnable() {
                 public void run() {
                     try {
+                        /*String strHomeDir = System.getProperty("user.dir") + "\\base.app.user.console\\src\\main\\java\\eapli\\base\\app\\user\\console\\net\\dashboard\\certification";
+                        Process oProcess;
+
+                        System.out.println(strHomeDir);
+
+                        if (OsUtils.isWindows()) {
+                            oProcess = Runtime.getRuntime()
+                                    .exec(String.format("cmd.exe /c dir %s", strHomeDir));
+                        } else {
+                            oProcess = Runtime.getRuntime()
+                                    .exec(String.format("sh -c ls %s", strHomeDir));
+                        }
+
+                        oProcess.waitFor();*/
                         HttpServerAjaxDashboard.main(HTTP_SERVER_PORT);
                     } catch (Exception e) {
                         //e.printStackTrace();
