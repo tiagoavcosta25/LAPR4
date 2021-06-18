@@ -1,9 +1,14 @@
 package eapli.base.persistence.impl.inmemory;
 
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
+import eapli.base.activityfluxmanagement.execution.repositories.ActivityFluxExecutionRepository;
+import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.taskmanagement.execution.domain.AutomaticTaskExecution;
 import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
 import eapli.base.taskmanagement.execution.domain.TaskExecution;
 import eapli.base.taskmanagement.execution.domain.TaskExecutionStatus;
+import eapli.base.taskmanagement.execution.repositories.AutomaticTaskExecutionRepository;
+import eapli.base.taskmanagement.execution.repositories.TaskExecutionRepository;
 import eapli.base.taskmanagement.specification.domain.TaskOrderFields;
 import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.base.ticketmanagement.domain.TicketStatus;
@@ -90,5 +95,27 @@ public class InMemoryTicketRepository
     @Override
     public Optional<Ticket> getTicketFromFlux(ActivityFluxExecution afe) {
         return matchOne(ticket -> ticket.executionFlux().equals(afe));
+    }
+
+    @Override
+    public Optional<Ticket> getTicketByTaskExec(Long lngId) {
+        TaskExecutionRepository oTaskRepo = PersistenceContext.repositories().taskExecs();
+        TicketRepository oTicketRepo = PersistenceContext.repositories().tickets();
+        Optional<TaskExecution> oOptional = oTaskRepo.findByID(lngId);
+        Iterable<Ticket> itTickets = oTicketRepo.findAll();
+        if(oOptional.isPresent()) {
+            return Optional.ofNullable(null);
+        }
+
+        TaskExecution oTask = oOptional.get();
+
+        for(Ticket oTicket : itTickets) {
+            for(TaskExecution t : oTicket.executionFlux().flux()){
+                if(t.sameAs(oTask)){
+                    return Optional.ofNullable(oTicket);
+                }
+            }
+        }
+        return Optional.ofNullable(null);
     }
 }
