@@ -23,5 +23,26 @@ public class XmlFileReader {
 
     }
 
+    private static List<String> evaluateXPath(Document document, String xpathExpression) throws Exception {
+        XPathFactory xpathFactory = XPathFactory.newInstance();
+
+        XPath xpath = xpathFactory.newXPath();
+
+        List<String> values = new ArrayList<>();
+        try {
+            XPathExpression expr = xpath.compile(xpathExpression);
+
+            NodeList nodes = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
+
+            for (int i = 0; i < nodes.getLength(); i++) {
+                values.add(nodes.item(i).getNodeValue());
+            }
+
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
+        }
+        return values;
+    }
+
 
 }
