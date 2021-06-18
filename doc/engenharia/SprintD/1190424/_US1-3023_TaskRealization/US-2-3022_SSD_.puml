@@ -7,17 +7,13 @@ hide footbox
 
 actor "User" as USER
 
-participant "<<presentation>>\nAssignPendingTasksUI" as UI
+participant "<<presentation>>\nTaskRealizationUI" as UI
 
 
 activate USER
-USER -> UI : Initiates the request to check the pending tasks
+USER -> UI : Iniciates the request to accomplish a task
 
 activate UI
-
-
-
-
 
 UI --> USER: show list of tasks pendants
 
