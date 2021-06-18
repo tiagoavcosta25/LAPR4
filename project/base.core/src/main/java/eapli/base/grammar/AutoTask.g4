@@ -40,7 +40,7 @@ comp: COMP_EQUAL
 conjunction: AND
            | OR;
 
-get_value: GET_VALUE_LABEL STMT_START value=num STMT_END #execGetValue;
+get_value: GET_VALUE_LABEL STMT_START form=num COMMA SPACE? attribute=num STMT_END #execGetValue;
 
 assign: var=variable SPACE? EQUAL SPACE? res=op #execAssign;
 
@@ -113,7 +113,7 @@ alpha: LOWERCASE
 AUTO_TASK: 'autoTask';
 FILE_SEARCH_LABEL: 'fileSearch';
 SEND_EMAIL_LABEL: 'sendEmail';
-GET_VALUE_LABEL: 'getValue';
+GET_VALUE_LABEL: 'getAttribute';
 HELPDESK: 'helpdesk';
 IF_LABEL: 'if';
 ELSE: 'else';
