@@ -1,6 +1,7 @@
 package base.server.autotaskexecutor.scheduler;
 
 import eapli.base.taskmanagement.specification.domain.AutomaticTaskScript;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -15,7 +16,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ScriptQueueScheduler {
 
-    private List<LinkedList<AutomaticTaskScript>> m_lstQueues;
+    private List<LinkedList<Pair<Long, AutomaticTaskScript>>> m_lstQueues;
     private List<ReentrantLock> m_lstLocks;
 
     public ScriptQueueScheduler(Integer intNumberHandlers) {
@@ -28,9 +29,9 @@ public class ScriptQueueScheduler {
         }
     }
 
-    public void addScript(AutomaticTaskScript oScript) {
+    public void addScript(Long lngID, AutomaticTaskScript oScript) {
         int i = 0, intSize = Integer.MAX_VALUE, intThreadNum = -1;
-        for(LinkedList<AutomaticTaskScript> lst : m_lstQueues){
+        for(LinkedList<Pair<Long, AutomaticTaskScript>> lst : m_lstQueues){
             if(lst.size() < intSize){
                 intSize = lst.size();
                 intThreadNum = i;
@@ -38,24 +39,24 @@ public class ScriptQueueScheduler {
             i++;
         }
 
-        this.m_lstQueues.get(intThreadNum).add(oScript);
+        this.m_lstQueues.get(intThreadNum).add(new Pair<>(lngID, oScript));
 
         synchronized (this.m_lstLocks.get(intThreadNum)){
             this.m_lstLocks.get(intThreadNum).notify();
         }
     }
 
-    public synchronized LinkedList<AutomaticTaskScript> getQueue(Integer intThreadNum) { return this.m_lstQueues.get(intThreadNum); }
+    public synchronized LinkedList<Pair<Long, AutomaticTaskScript>> getQueue(Integer intThreadNum) { return this.m_lstQueues.get(intThreadNum); }
 
     public synchronized Integer getSize(Integer intThreadNum) { return this.m_lstQueues.get(intThreadNum).size(); }
 
-    public AutomaticTaskScript getScriptForExecution(Integer intThreadNum) throws InterruptedException {
+    public Pair<Long, AutomaticTaskScript> getScriptForExecution(Integer intThreadNum) throws InterruptedException {
         synchronized (this.m_lstLocks.get(intThreadNum)){
             this.m_lstLocks.get(intThreadNum).wait();
         }
 
-        AutomaticTaskScript oScript = this.m_lstQueues.get(intThreadNum).getFirst();
-        this.m_lstQueues.get(intThreadNum).remove(oScript);
-        return oScript;
+        Pair<Long, AutomaticTaskScript> oPair = this.m_lstQueues.get(intThreadNum).getFirst();
+        this.m_lstQueues.get(intThreadNum).remove(oPair);
+        return oPair;
     }
 }
