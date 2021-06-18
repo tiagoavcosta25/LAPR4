@@ -198,4 +198,115 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
         return ctx.label.getText();
     }
 
+    @Override
+    public String visitExecOpTimesDivision(AutoTaskParser.ExecOpTimesDivisionContext ctx) {
+        String strLeft = visit(ctx.left);
+        String strRight = visit(ctx.right);
+        if(areNotNumbers(strLeft, strRight)) return Boolean.FALSE.toString();
+        double left = Double.parseDouble(strLeft);
+        double right = Double.parseDouble(strRight);
+        switch(ctx.sign.getText()) {
+            case "*": return String.valueOf(round(left * right, 2));
+            case "/": return String.valueOf(round(left / right, 2));
+        }
+        return Boolean.FALSE.toString();
+    }
+
+    @Override
+    public String visitExecOpPlusMinus(AutoTaskParser.ExecOpPlusMinusContext ctx) {
+        String strLeft = visit(ctx.left);
+        String strRight = visit(ctx.right);
+        if(areNotNumbers(strLeft, strRight)) {
+            return strLeft + strRight;
+        }
+        double left = Double.parseDouble(strLeft);
+        double right = Double.parseDouble(strRight);
+        switch(ctx.sign.getText()) {
+            case "+": return String.valueOf(round(left + right,2));
+            case "-": return String.valueOf(round(left - right,2));
+        }
+        return Boolean.FALSE.toString();
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    private boolean areNotNumbers(String... strs) {
+        for(String str : strs) {
+            if(!str.matches("[0-9]+(.[0-9]+)?"))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String visitExecOpParenthesis(AutoTaskParser.ExecOpParenthesisContext ctx) {
+        return visit(ctx.result);
+    }
+
+    @Override
+    public String visitStmtGetValue(AutoTaskParser.StmtGetValueContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitExecGetValue(AutoTaskParser.ExecGetValueContext ctx) {
+        int index = Integer.parseInt(ctx.value.getText());
+        return this.m_oResponse.getResponses().get(index - 1);
+    }
+
+    @Override
+    public String visitObjectGetValue(AutoTaskParser.ObjectGetValueContext ctx) {
+        return visit(ctx.res);
+    }
+
+    @Override
+    public String visitExecOpAtom(AutoTaskParser.ExecOpAtomContext ctx) {
+        return visit(ctx.atom);
+    }
+
+    @Override
+    public String visitObjectVariable(AutoTaskParser.ObjectVariableContext ctx) {
+        return this.m_oMapVariables.get(ctx.var.getText().substring(1));
+    }
+
+    @Override
+    public String visitObjectNumber(AutoTaskParser.ObjectNumberContext ctx) {
+        return ctx.objNumber.getText();
+    }
+
+    @Override
+    public String visitObjectText(AutoTaskParser.ObjectTextContext ctx) {
+        return ctx.objText.getText();
+    }
+
+    @Override
+    public String visitObjectFileSearch(AutoTaskParser.ObjectFileSearchContext ctx) {
+        return visit(ctx.res);
+    }
+
+    @Override
+    public String visitExecSubject(AutoTaskParser.ExecSubjectContext ctx) {
+        return visit(ctx.text);
+    }
+
+    @Override
+    public String visitExecBody(AutoTaskParser.ExecBodyContext ctx) {
+        return visit(ctx.text);
+    }
+
+    @Override
+    public String visitBodySpacesObject(AutoTaskParser.BodySpacesObjectContext ctx) {
+        return visit(ctx.obj) + ctx.spaces.getText() + visit(ctx.rest);
+    }
+
+    @Override
+    public String visitBodyObject(AutoTaskParser.BodyObjectContext ctx) {
+        return visit(ctx.obj);
+    }
 }
