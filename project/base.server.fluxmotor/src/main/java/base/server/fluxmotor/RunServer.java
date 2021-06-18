@@ -9,6 +9,7 @@ package base.server.fluxmotor;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 
+import eapli.base.util.Application;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
 import base.server.fluxmotor.domain.ActivityFlowEngine;
@@ -22,8 +23,7 @@ import org.apache.logging.log4j.Logger;
 @SuppressWarnings("squid:S106")
 public final class RunServer {
 
-    //TODO: read port from properties file
-    private static final int TCP_PORT = 32507;
+    private static final int TCP_PORT = Application.settings().getTcpServerPort();
     private static final Logger LOGGER = LogManager.getLogger(RunServer.class);
 
     /**
