@@ -1,8 +1,8 @@
-package base.server.autotaskexecutor.scheduler;
+package base.server.autotaskexecutor.algorithms.scheduler;
 
+import base.server.autotaskexecutor.algorithms.ScriptQueue;
 import eapli.base.taskmanagement.specification.domain.AutomaticTaskScript;
 import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  */
 
-public class ScriptQueueScheduler {
+public class ScriptQueueScheduler implements ScriptQueue {
 
     private List<LinkedList<Pair<Long, AutomaticTaskScript>>> m_lstQueues;
     private List<ReentrantLock> m_lstLocks;
