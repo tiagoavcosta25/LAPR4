@@ -37,7 +37,7 @@ public class ScriptHandlerScheduler extends Thread {
             try {
                 Pair<Long, AutomaticTaskScript> oPair = this.m_oQueue.getScriptForExecution(this.m_intThreadNumber);
 
-                Boolean blnFLag = ScriptAlgorithms.executeAutoTask(oPair.getValue().toString(), ScriptMode.LISTENER);
+                Boolean blnFLag = ScriptAlgorithms.executeAutoTask(null, oPair.getValue().toString(), ScriptMode.LISTENER);
 
                 TaskExecution oTask = this.m_oTaskExecRepo.findByID(oPair.getKey()).get();
                 oTask.setExecuted();
