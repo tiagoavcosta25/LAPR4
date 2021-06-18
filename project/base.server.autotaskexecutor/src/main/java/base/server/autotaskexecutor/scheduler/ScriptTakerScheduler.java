@@ -47,8 +47,7 @@ public class ScriptTakerScheduler extends Thread {
                 LOGGER.trace("Adding Automatic Task to Executing Queue...");
 
                 String strData = request.getData();
-
-                Long lngID = Long.parseLong(strData.substring(0, strData.indexOf(',') - 1));
+                Long lngID = Long.parseLong(strData.substring(0, strData.indexOf(',')));
                 AutomaticTaskScript oScript = AutomaticTaskScript.valueOf(strData.substring(strData.indexOf(',') + 1));
 
                 this.m_oQueue.addScript(lngID, oScript);
