@@ -164,4 +164,38 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
         return visit(ctx.cond);
     }
 
+    @Override
+    public String visitCond(AutoTaskParser.CondContext ctx) {
+        String strLeft = visit(ctx.left);
+        String strRight = visit(ctx.right);
+        String sign = ctx.compSign.getText();
+        if(areNotNumbers(strLeft, strRight)) {
+            if(sign.equals("=="))
+                return String.valueOf(strLeft.equals(strRight));
+        }
+        double intLeft = Double.parseDouble(strLeft);
+        double intRight = Double.parseDouble(strRight);
+        switch (sign) {
+            case "==" : return String.valueOf(intLeft == intRight);
+            case "!=" : return String.valueOf(intLeft != intRight);
+            case ">" : return String.valueOf(intLeft > intRight);
+            case "<" : return String.valueOf(intLeft < intRight);
+            case "<=" : return String.valueOf(intLeft <= intRight);
+            case ">=" : return String.valueOf(intLeft >= intRight);
+        }
+        return Boolean.FALSE.toString();
+    }
+
+    @Override
+    public String visitExecAssign(AutoTaskParser.ExecAssignContext ctx) {
+        String strLabel = ctx.var.getText().substring(1);
+        this.m_oMapVariables.put(strLabel, visit(ctx.res));
+        return Boolean.TRUE.toString();
+    }
+
+    @Override
+    public String visitExecVar(AutoTaskParser.ExecVarContext ctx) {
+        return ctx.label.getText();
+    }
+
 }
