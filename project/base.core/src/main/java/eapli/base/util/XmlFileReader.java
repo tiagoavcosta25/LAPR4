@@ -44,5 +44,10 @@ public class XmlFileReader {
         return values;
     }
 
-
+    private static Document getDocument(String fileName) throws Exception {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        return builder.parse(fileName);
+    }
 }
