@@ -1,4 +1,4 @@
-// Generated from D:/Escola/Uni/_Year-02/LAPR4/ProjetoIntegrador/project/base.core/src/main/java/eapli/base/grammar\AutoTask.g4 by ANTLR 4.9.1
+// Generated from D:/Universidade/2/2/LAPR/lei20_21_s4_2di_03/project/base.core/src/main/java/eapli/base/grammar\AutoTask.g4 by ANTLR 4.9.1
 package eapli.base.grammar.antlr.autotask;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -16,13 +16,13 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStart(AutoTaskParser.StartContext ctx) { }
+	@Override public void enterExecStart(AutoTaskParser.ExecStartContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStart(AutoTaskParser.StartContext ctx) { }
+	@Override public void exitExecStart(AutoTaskParser.ExecStartContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -64,13 +64,61 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(AutoTaskParser.StatementContext ctx) { }
+	@Override public void enterStmtSendEmail(AutoTaskParser.StmtSendEmailContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatement(AutoTaskParser.StatementContext ctx) { }
+	@Override public void exitStmtSendEmail(AutoTaskParser.StmtSendEmailContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStmtFileSearch(AutoTaskParser.StmtFileSearchContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStmtFileSearch(AutoTaskParser.StmtFileSearchContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStmtIf(AutoTaskParser.StmtIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStmtIf(AutoTaskParser.StmtIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStmtGetValue(AutoTaskParser.StmtGetValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStmtGetValue(AutoTaskParser.StmtGetValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStmtAssign(AutoTaskParser.StmtAssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStmtAssign(AutoTaskParser.StmtAssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -88,6 +136,18 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExecSendEmailCollab(AutoTaskParser.ExecSendEmailCollabContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExecSendEmailCollab(AutoTaskParser.ExecSendEmailCollabContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExecFileSearch(AutoTaskParser.ExecFileSearchContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -95,6 +155,30 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExecFileSearch(AutoTaskParser.ExecFileSearchContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExecSearchIn(AutoTaskParser.ExecSearchInContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExecSearchIn(AutoTaskParser.ExecSearchInContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExecSearchInFile(AutoTaskParser.ExecSearchInFileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExecSearchInFile(AutoTaskParser.ExecSearchInFileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -179,6 +263,18 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConjunction(AutoTaskParser.ConjunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExecGetValue(AutoTaskParser.ExecGetValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExecGetValue(AutoTaskParser.ExecGetValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -280,6 +376,18 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterObjectText(AutoTaskParser.ObjectTextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitObjectText(AutoTaskParser.ObjectTextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterObjectFileSearch(AutoTaskParser.ObjectFileSearchContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -287,6 +395,18 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitObjectFileSearch(AutoTaskParser.ObjectFileSearchContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterObjectGetValue(AutoTaskParser.ObjectGetValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitObjectGetValue(AutoTaskParser.ObjectGetValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -323,6 +443,30 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNum(AutoTaskParser.NumContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterString(AutoTaskParser.StringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitString(AutoTaskParser.StringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCharacters(AutoTaskParser.CharactersContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCharacters(AutoTaskParser.CharactersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -400,25 +544,49 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSubject(AutoTaskParser.SubjectContext ctx) { }
+	@Override public void enterExecSubject(AutoTaskParser.ExecSubjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSubject(AutoTaskParser.SubjectContext ctx) { }
+	@Override public void exitExecSubject(AutoTaskParser.ExecSubjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBody(AutoTaskParser.BodyContext ctx) { }
+	@Override public void enterExecBody(AutoTaskParser.ExecBodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBody(AutoTaskParser.BodyContext ctx) { }
+	@Override public void exitExecBody(AutoTaskParser.ExecBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBodySpacesObject(AutoTaskParser.BodySpacesObjectContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBodySpacesObject(AutoTaskParser.BodySpacesObjectContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBodyObject(AutoTaskParser.BodyObjectContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBodyObject(AutoTaskParser.BodyObjectContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
