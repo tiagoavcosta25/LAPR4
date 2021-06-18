@@ -1,7 +1,10 @@
 package base.server.autotaskexecutor.fcfs;
 
 import eapli.base.taskmanagement.specification.domain.AutomaticTaskScript;
+import javafx.util.Pair;
+
 import java.util.LinkedList;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
@@ -10,23 +13,32 @@ import java.util.LinkedList;
  */
 
 public class ScriptQueueFCFS {
-    private LinkedList<AutomaticTaskScript> m_oQueue;
+
+    private LinkedList<Pair<Long, AutomaticTaskScript>> m_oQueue;
+    private ReentrantLock m_Lock;
 
     public ScriptQueueFCFS() {
         this.m_oQueue = new LinkedList<>();
+        this.m_Lock = new ReentrantLock();
     }
 
-    public synchronized void addScript(AutomaticTaskScript oScript) {
-        m_oQueue.add(oScript);
+    public void addScript(Long lngID, AutomaticTaskScript oScript) {
+        m_oQueue.add(new Pair<>(lngID, oScript));
+        synchronized (this.m_Lock){
+            this.m_Lock.notify();
+        }
     }
 
-    public synchronized LinkedList<AutomaticTaskScript> getQueue() { return m_oQueue; }
+    public synchronized LinkedList<Pair<Long, AutomaticTaskScript>> getQueue() { return m_oQueue; }
 
     public synchronized Integer getSize() { return m_oQueue.size(); }
 
-    public synchronized AutomaticTaskScript firstComeFirstServed() {
-        AutomaticTaskScript oScript = this.m_oQueue.getFirst();
-        this.m_oQueue.remove(oScript);
-        return oScript;
+    public Pair<Long, AutomaticTaskScript> firstComeFirstServed() throws InterruptedException {
+        synchronized (this.m_Lock){
+            this.m_Lock.wait();
+        }
+        Pair<Long, AutomaticTaskScript> oPair = this.m_oQueue.getFirst();
+        this.m_oQueue.remove(oPair);
+        return oPair;
     }
 }
