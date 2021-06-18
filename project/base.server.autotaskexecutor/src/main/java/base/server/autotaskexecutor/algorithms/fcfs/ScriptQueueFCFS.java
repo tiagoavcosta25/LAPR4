@@ -1,8 +1,8 @@
-package base.server.autotaskexecutor.fcfs;
+package base.server.autotaskexecutor.algorithms.fcfs;
 
+import base.server.autotaskexecutor.algorithms.ScriptQueue;
 import eapli.base.taskmanagement.specification.domain.AutomaticTaskScript;
 import javafx.util.Pair;
-
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  */
 
-public class ScriptQueueFCFS {
+public class ScriptQueueFCFS implements ScriptQueue {
 
     private LinkedList<Pair<Long, AutomaticTaskScript>> m_oQueue;
     private ReentrantLock m_Lock;
