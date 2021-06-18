@@ -2,17 +2,32 @@
 
 autoTask{
 
-$var1 = 2;
+$preco = #fileSearch("D:/Universidade/2/2/LAPR/lei20_21_s4_2di_03/project/xml/products.xml", "products", "product", "id", "XYJ123", "price");
 
-#fileSearch("D:test.xml", "key");
+$categoria = #fileSearch("D:/Universidade/2/2/LAPR/lei20_21_s4_2di_03/project/xml/products.xml", "products", "product", "id", "XYJ123", "category");
 
-$var1 = 2 + #fileSearch("D:test.xml", "key");
+$total = $preco * #getValue(2);
 
-#if($var1 == 3){
-	#sendEmail("email@isep.pt", "subject test", "body test");
-} else{
-	$var1 = 19;
+#if($total > 10){
+    $desconto = 3;
 }
+else{
+    $desconto = 1;
+}
+
+#if($categoria == "ABC"){
+    $desconto = $desconto + 0.5;
+}
+
+$valorDesconto = $total * $desconto / 100;
+
+$valorPosDesconto = $total - $valorDesconto;
+
+#if(#getValue(3) == "Nacional"){
+    $texto = "Valor total: " + $total + ", Valor de desconto: " + $valorDesconto + ", Valor pos desconto: " + $valorPosDesconto;
+}
+
+#sendEmail("email@isep.pt", "subject test", $texto);
 
 }
 
