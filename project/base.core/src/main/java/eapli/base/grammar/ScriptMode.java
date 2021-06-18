@@ -31,4 +31,8 @@ public enum ScriptMode {
     public int getMode() {
         return m_intMode;
     }
+
+    public boolean equals(ScriptMode oMode){
+        return this.getMode() == oMode.getMode();
+    }
 }

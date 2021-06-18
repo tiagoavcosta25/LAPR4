@@ -82,6 +82,9 @@ public class Collaborator implements AggregateRoot<CollaboratorMechanographicNum
     public CollaboratorAddress address() {
         return this.m_oAddress;
     }
+    public Collaborator manager() {
+        return this.m_oManager;
+    }
     public CollaboratorCompleteName completeName() { return this.m_oCompleteName; }
     public CollaboratorShortName shortName() {
         return this.m_oShortName;
