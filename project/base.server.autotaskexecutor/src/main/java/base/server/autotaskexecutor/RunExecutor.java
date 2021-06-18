@@ -10,8 +10,11 @@ import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
+import eapli.framework.io.util.Console;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+
 
 /**
  *
@@ -21,6 +24,7 @@ import org.apache.logging.log4j.Logger;
 public final class RunExecutor {
 
     private static final int BOOKING_PORT = 32507;
+    private static final int DEFAULT_NUM_THREADS = 3;
     private static final Logger LOGGER = LogManager.getLogger(RunExecutor.class);
 
     /**
@@ -36,9 +40,27 @@ public final class RunExecutor {
                 new BasePasswordPolicy(),
                 new PlainTextEncoder());
 
+        AlgorithmMode oMode;
+
+        do{
+            oMode = AlgorithmMode.getMode(Integer.parseInt(Console.readLine("\n\nAlgorithm Mode Setup:\n\n[0] First-Come-First-Served\n[1] Scheduler\n\nChoose Your Mode >")));
+        } while(oMode == null);
+
+        int intNumThreads = DEFAULT_NUM_THREADS;
+        boolean blnFlag = true;
+
+        do{
+            try{
+                intNumThreads = Integer.parseInt(Console.readLine("\nNumber of Handler Threads >"));
+                blnFlag = true;
+            } catch (NumberFormatException e){
+                blnFlag = false;
+            }
+        } while(!blnFlag);
+
         LOGGER.info("Starting the server socket");
         final TCPServerAutoTaskExecutor server = new TCPServerAutoTaskExecutor();
-        server.main(BOOKING_PORT);
+        server.main(BOOKING_PORT, intNumThreads, oMode);
 
         LOGGER.info("Exiting the daemon");
         System.exit(0);
