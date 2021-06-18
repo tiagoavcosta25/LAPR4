@@ -5,8 +5,6 @@
  */
 package base.server.autotaskexecutor;
 
-import eapli.base.ticketmanagement.domain.TicketStatus;
-
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
  * @author Pedro Santos 1190967@isep.ipp.pt
