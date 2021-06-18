@@ -20,12 +20,14 @@ public class HttpServerAjaxDashboard extends Thread {
     private static final Logger LOGGER = LogManager.getLogger(HttpServerAjaxDashboard.class);
     static private final String BASE_FOLDER = System.getProperty("user.dir") + "\\base.app.user.console\\src\\main\\java\\eapli\\base\\app\\user\\console\\net\\dashboard\\www";
     static private SSLServerSocket sock;
+    static final String TRUSTED_STORE = System.getProperty("user.dir") +  "\\base.app.user.console\\src\\main\\java\\eapli\\base\\app\\user\\console\\net\\dashboard\\server.jks";
+    static final String KEYSTORE_PASS = "forgotten";
 
     public static void main(Integer intPort) throws Exception {
         SSLSocket cliSock;
 
-        System.setProperty("javax.net.ssl.keyStore", System.getProperty("user.dir") +  "\\base.app.user.console\\src\\main\\java\\eapli\\base\\app\\user\\console\\net\\dashboard\\server.jks");
-        System.setProperty("javax.net.ssl.keyStorePassword", "forgotten");
+        System.setProperty("javax.net.ssl.keyStore", TRUSTED_STORE);
+        System.setProperty("javax.net.ssl.keyStorePassword", KEYSTORE_PASS);
         
         accessesCounter = 0;
 
