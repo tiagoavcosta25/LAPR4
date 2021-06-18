@@ -3,17 +3,23 @@ package eapli.base.grammar;
 import eapli.base.grammar.antlr.autotask.AutoTaskLexer;
 import eapli.base.grammar.antlr.autotask.AutoTaskParser;
 import eapli.base.grammar.antlr.autotask.TaskListener;
+import eapli.base.grammar.antlr.autotask.TaskVisitor;
 import eapli.base.grammar.antlr.validateform.FormListener;
 import eapli.base.grammar.antlr.validateform.FormVisitor;
 import eapli.base.grammar.antlr.validateform.ValidateFormLexer;
 import eapli.base.grammar.antlr.validateform.ValidateFormParser;
 import eapli.base.ticketmanagement.domain.Response;
+import eapli.base.ticketmanagement.domain.Ticket;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Grupo 03 - 2DI
@@ -78,9 +84,20 @@ public class ScriptAlgorithms {
             walker.walk(eListener, tree);
             //return eListener.getResult();
         } else if(oMode.equals(ScriptMode.VISITOR)){
-            /*EvalVisitor eval = new EvalVisitor();
-            return eval.visit(tree);*/
+            TaskVisitor eval = new TaskVisitor();
+            return Boolean.parseBoolean(eval.visit(tree));
         }
         return false;
+    }
+
+    public static void main(String[] args) throws IOException {
+        String strScriptName = "auto_task_script";
+        String path = System.getProperty("user.dir") + "\\script\\" + strScriptName + ".txt";
+
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        String result = new String(encoded);
+        //System.out.println(result);
+        System.out.println(executeAutoTask(result, ScriptMode.VISITOR));
+        //System.out.println(executeAutoTask());
     }
 }
