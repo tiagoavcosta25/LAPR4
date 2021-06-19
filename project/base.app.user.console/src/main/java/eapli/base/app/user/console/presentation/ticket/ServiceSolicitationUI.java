@@ -45,7 +45,7 @@ public class ServiceSolicitationUI extends AbstractUI {
             String strOp;
 
             do {
-                final String strFile = Console.readLine("File >");
+                final String strFile = Console.readLine("File Name (Present in the XML Folder) >");
                 this.theController.addFile(strFile);
                 strOp = Console.readLine("Do you want to add more files? (Y/N) >");
             } while (strOp.compareToIgnoreCase("Y") == 0);
