@@ -932,6 +932,7 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class ExecDateCompareContext extends Date_compContext {
 		public Get_attributeContext date1;
+		public CompContext conjSign;
 		public Get_attributeContext date2;
 		public TerminalNode DATE_COMPARE_LABEL() { return getToken(ValidateFormParser.DATE_COMPARE_LABEL, 0); }
 		public TerminalNode STMT_START() { return getToken(ValidateFormParser.STMT_START, 0); }
@@ -939,15 +940,15 @@ public class ValidateFormParser extends Parser {
 		public TerminalNode HASHTAG(int i) {
 			return getToken(ValidateFormParser.HASHTAG, i);
 		}
-		public CompContext comp() {
-			return getRuleContext(CompContext.class,0);
-		}
 		public TerminalNode STMT_END() { return getToken(ValidateFormParser.STMT_END, 0); }
 		public List<Get_attributeContext> get_attribute() {
 			return getRuleContexts(Get_attributeContext.class);
 		}
 		public Get_attributeContext get_attribute(int i) {
 			return getRuleContext(Get_attributeContext.class,i);
+		}
+		public CompContext comp() {
+			return getRuleContext(CompContext.class,0);
 		}
 		public ExecDateCompareContext(Date_compContext ctx) { copyFrom(ctx); }
 		@Override
@@ -981,7 +982,7 @@ public class ValidateFormParser extends Parser {
 			setState(132);
 			((ExecDateCompareContext)_localctx).date1 = get_attribute();
 			setState(133);
-			comp();
+			((ExecDateCompareContext)_localctx).conjSign = comp();
 			setState(134);
 			match(HASHTAG);
 			setState(135);
