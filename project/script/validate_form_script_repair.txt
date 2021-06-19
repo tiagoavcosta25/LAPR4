@@ -2,16 +2,21 @@
 
 validateForm{
 
-$var1 = 0;
-$var2 = 4 * 2 - 24 / 3 + 255;
-#assert(#getAttribute(0) > $var1 && #getAttribute(0) < $var2);
-#mandatory(0);
-#regex(0,"[0-9]+");
+    #if(#regex(0,"[a-z]+")){
+        #mandatory(1);
+    }
 
-#if(#getAttribute(0) > $var2){
-#assert(#getAttribute(0) < 1000);
-} else{
-#mandatory(1);
-}
+    $var1 = 0;
+    $var2 = 4 * 2 - 24 / 3 + 255;
+    #assert(#getAttribute(0) > $var1 && #getAttribute(0) < $var2);
+    #mandatory(0,2,3);
+    #regex(0,"[0-9]+");
+    #dateCompare(#getAttribute(2) >= #getAttribute(3));
+
+    #if(#getAttribute(0) > $var2){
+        #assert(#getAttribute(0) < 1000);
+    } else{
+        #mandatory(1);
+    }
 
 }
