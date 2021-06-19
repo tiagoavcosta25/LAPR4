@@ -2,11 +2,15 @@
 
 validateForm{
 
+#if(#regex(0,"[a-z]+")){
+#mandatory(1);
+}
+
 $var1 = 19;
 $var2 = 4 * 2 - 24 / 3 + 1;
 $var3 = #getAttribute(0);
 #assert($var1 > $var2 && #getAttribute(0) == $var3);
-#mandatory(0);
+#mandatory(0,2,3);
 #regex(0,"[0-9]+");
 #dateCompare(#getAttribute(2) >= #getAttribute(3));
 
