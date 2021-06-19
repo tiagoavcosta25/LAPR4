@@ -29,7 +29,7 @@ date_comp: HASHTAG DATE_COMPARE_LABEL STMT_START date1=get_attribute conjSign=co
 nums: number=NUM+ COMMA multipleNumbers=nums #execMultipleNumbers
     | number=NUM+ #execNum;
 
-if_func: HASHTAG IF_LABEL STMT_START if_cond=bool STMT_END BLOCK_START stmt_if=statements #onlyIf
+if_func: HASHTAG IF_LABEL STMT_START if_cond=bool STMT_END BLOCK_START stmt_if=statements BLOCK_END #onlyIf
         | HASHTAG IF_LABEL STMT_START if_cond=bool STMT_END BLOCK_START stmt_if=statements BLOCK_END ELSE BLOCK_START stmt_else=statements BLOCK_END #ifElse;
 
 bool: bl=mandatory #boolMandatory
