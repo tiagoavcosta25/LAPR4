@@ -27,10 +27,6 @@ public class ActivityFluxExecutionProgress implements ValueObject, Comparable<Ac
     private Long m_LongProgress;
 
     public ActivityFluxExecutionProgress(final Long longProgress) {
-        if (longProgress < 0) {
-            throw new IllegalArgumentException(
-                    "Activity Flux Execution Progress should not be created less than zero");
-        }
         this.m_LongProgress = longProgress;
     }
 
