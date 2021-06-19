@@ -220,6 +220,30 @@ public interface AutoTaskListener extends ParseTreeListener {
 	 */
 	void exitIfElse(AutoTaskParser.IfElseContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code execEndIf}
+	 * labeled alternative in {@link AutoTaskParser#end_if}.
+	 * @param ctx the parse tree
+	 */
+	void enterExecEndIf(AutoTaskParser.ExecEndIfContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code execEndIf}
+	 * labeled alternative in {@link AutoTaskParser#end_if}.
+	 * @param ctx the parse tree
+	 */
+	void exitExecEndIf(AutoTaskParser.ExecEndIfContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code execStartElse}
+	 * labeled alternative in {@link AutoTaskParser#start_else}.
+	 * @param ctx the parse tree
+	 */
+	void enterExecStartElse(AutoTaskParser.ExecStartElseContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code execStartElse}
+	 * labeled alternative in {@link AutoTaskParser#start_else}.
+	 * @param ctx the parse tree
+	 */
+	void exitExecStartElse(AutoTaskParser.ExecStartElseContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code multipleConditions}
 	 * labeled alternative in {@link AutoTaskParser#conditions}.
 	 * @param ctx the parse tree

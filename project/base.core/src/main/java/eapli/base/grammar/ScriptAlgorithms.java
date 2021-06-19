@@ -82,7 +82,7 @@ public class ScriptAlgorithms {
             ParseTreeWalker walker = new ParseTreeWalker();
             TaskListener eListener = new TaskListener(oTicket);
             walker.walk(eListener, tree);
-            //return eListener.getResult();
+            return eListener.getResult();
         } else if(oMode.equals(ScriptMode.VISITOR)){
             TaskVisitor eval = new TaskVisitor(oTicket);
             return Boolean.parseBoolean(eval.visit(tree));
