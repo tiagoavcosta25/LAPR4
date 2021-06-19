@@ -18,11 +18,10 @@ activate UI
 UI --> USER: show list of tasks pendants
 
 
-USER->UI: Chooses an taks to assign to himself
+USER->UI: choose task to accomplish
 
 UI --> USER: Requests confirmation
 
 USER -> UI: confirms
- UI-->USER : Assigns this activity to this user and informs him
-
+ UI-->USER : accomplish the task
 @enduml

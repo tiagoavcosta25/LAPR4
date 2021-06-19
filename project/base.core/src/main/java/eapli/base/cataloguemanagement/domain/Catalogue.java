@@ -8,6 +8,9 @@ import eapli.framework.domain.model.DomainEntities;
 
 import javax.persistence.*;
 import java.util.Set;
+/**
+ * @author Beatriz Seixas 1190424@isep.ipp.pt
+ */
 
 @Entity
 public class Catalogue implements AggregateRoot<Long> {

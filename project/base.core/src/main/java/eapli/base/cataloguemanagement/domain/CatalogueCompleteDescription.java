@@ -6,6 +6,10 @@ import eapli.framework.strings.util.StringPredicates;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/**
+ * @author Beatriz Seixas 1190424@isep.ipp.pt
+ */
+
 @Embeddable
 public class CatalogueCompleteDescription implements ValueObject, Comparable<CatalogueCompleteDescription> {
 
