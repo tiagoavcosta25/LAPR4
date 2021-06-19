@@ -80,7 +80,7 @@ public class ScriptAlgorithms {
 
         if(oMode.equals(ScriptMode.LISTENER)){
             ParseTreeWalker walker = new ParseTreeWalker();
-            TaskListener eListener = new TaskListener();
+            TaskListener eListener = new TaskListener(oTicket);
             walker.walk(eListener, tree);
             //return eListener.getResult();
         } else if(oMode.equals(ScriptMode.VISITOR)){
@@ -88,16 +88,5 @@ public class ScriptAlgorithms {
             return Boolean.parseBoolean(eval.visit(tree));
         }
         return false;
-    }
-
-    public static void main(String[] args) throws IOException {
-        String strScriptName = "auto_task_script";
-        String path = System.getProperty("user.dir") + "\\script\\" + strScriptName + ".txt";
-
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
-        String result = new String(encoded);
-        //System.out.println(result);
-        System.out.println(executeAutoTask(result, ScriptMode.VISITOR));
-        //System.out.println(executeAutoTask());
     }
 }
