@@ -17,7 +17,7 @@ statement: SPACE* HASHTAG stmt=sendEmail END #stmtSendEmail
 sendEmail : SEND_EMAIL_LABEL STMT_START QUOTATION_MARKS em=email QUOTATION_MARKS COMMA SPACE? sub=subject COMMA SPACE? email_body=body STMT_END #execSendEmail
         | SEND_EMAIL_LABEL STMT_START sub=subject COMMA SPACE? email_body=body STMT_END #execSendEmailCollab;
 
-fileSearch : FILE_SEARCH_LABEL STMT_START QUOTATION_MARKS fp=path QUOTATION_MARKS COMMA SPACE? search=searchInFile #execFileSearch;
+fileSearch : FILE_SEARCH_LABEL STMT_START fp=num COMMA SPACE? search=searchInFile #execFileSearch;
 
 searchInFile: QUOTATION_MARKS search_in = keyword QUOTATION_MARKS COMMA SPACE? search=searchInFile #execSearchIn
             | QUOTATION_MARKS search_by=keyword QUOTATION_MARKS COMMA SPACE? QUOTATION_MARKS search_value=keyword QUOTATION_MARKS COMMA SPACE? QUOTATION_MARKS  search_for=keyword QUOTATION_MARKS STMT_END #execSearchInFile;
@@ -76,14 +76,6 @@ characters: SPACE
         | COMMA
         | HYPHEN
         | EUR;
-
-path: port? folder* file;
-
-port: alpha+ COLON FORWARD_SLASH;
-
-folder: system_name+ FORWARD_SLASH;
-
-file: system_name+ XML_FILE;
 
 email: alphanumeric+ AT alphanumeric+ DOT alphanumeric+;
 
