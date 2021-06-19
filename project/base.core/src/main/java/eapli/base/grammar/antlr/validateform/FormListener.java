@@ -21,6 +21,9 @@ public class FormListener extends ValidateFormBaseListener {
     }
 
     public Boolean getResult() {
+        if(this.stack.size() < 1){
+            return false;
+        }
         this.mergeResults();
         return Boolean.valueOf(stack.peek());
     }
