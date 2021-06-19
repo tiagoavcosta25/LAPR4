@@ -30,7 +30,7 @@ activate CTRL
                   CTRL-> TR : getPendingTasks(username)
                   activate TR
 
-                  TR--> CTRL : pendingTasks
+      TR--> CTRL : pendingTasks
                   deactivate TR
 
                   CTRL-> CR : findByUserName(username)
