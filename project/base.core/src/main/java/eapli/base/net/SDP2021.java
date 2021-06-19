@@ -49,7 +49,9 @@ public class SDP2021 {
         StringBuilder tempData = new StringBuilder();
         int bytesToRead;
         do {
-            if(in.read() != VERSION) {
+            int tmpVersion = in.read();
+            if(tmpVersion != VERSION) {
+                System.out.println("tmpVersion = " + tmpVersion + " VERSION = " + VERSION);
                 throw new IllegalArgumentException("Version different from protocol!");
             }
             code = in.read();

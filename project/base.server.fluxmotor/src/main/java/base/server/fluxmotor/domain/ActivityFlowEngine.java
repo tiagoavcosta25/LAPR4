@@ -60,11 +60,7 @@ public class ActivityFlowEngine{
 
                     LOGGER.trace("Received message:----\n{}\n----", sdp2021PacketReceived.getData());
 
-                    Pair<Integer, String> dataForPacket = handleRequest(sdp2021PacketReceived);
-
-                    sdp2021Packet2Sent = new SDP2021(dataForPacket.getKey());
-                    sdp2021Packet2Sent.send(out, dataForPacket.getValue());
-                    LOGGER.trace("Sent message:----\n{}\n----", sdp2021Packet2Sent.getData());
+                   handleRequest(sdp2021PacketReceived, out);
                 }
                 LOGGER.trace("Asked to close");
                 sdp2021Packet2Sent = new SDP2021(SDP2021Code.ROGER.getCode());
@@ -81,26 +77,27 @@ public class ActivityFlowEngine{
             }
         }
 
-        private Pair<Integer, String> handleRequest(SDP2021 sdp2021Packet) {
+        private void handleRequest(SDP2021 sdp2021Packet, DataOutputStream out) {
             int pktCode = sdp2021Packet.getCode();
             Pair<Integer, String> dataPacket;
             switch(pktCode) {
                 case 0:
                     dataPacket = testHandler();
+                    sendResponse(dataPacket, out);
                     break;
                 case 6:
                     dataPacket = infoRequestHandler(sdp2021Packet);
+                    sendResponse(dataPacket, out);
                     break;
                 case 9:
-                    dataPacket = advanceFluxRequestHandler(sdp2021Packet);
+                    advanceFluxRequestHandler(sdp2021Packet, out);
                     break;
                 case 11:
-                    dataPacket = creationFluxRequestHandler(sdp2021Packet);
+                    creationFluxRequestHandler(sdp2021Packet, out);
                     break;
                 default:
                     throw new IllegalStateException("Unhandled code for packet: " + pktCode);
             }
-            return dataPacket;
         }
 
         private Pair<Integer, String> testHandler() {
@@ -114,16 +111,30 @@ public class ActivityFlowEngine{
             return new Pair<>(SDP2021Code.INFO_RESPONSE.getCode(), payload);
         }
 
-        private Pair<Integer, String> advanceFluxRequestHandler(SDP2021 sdp2021Packet) {
+        private void advanceFluxRequestHandler(SDP2021 sdp2021Packet, DataOutputStream out) {
             Long fluxID = Long.valueOf(sdp2021Packet.getData());
-            String payload = m_oActivityFlowController.advanceFluxData(fluxID);
-            return new Pair<>(SDP2021Code.FLUX_ADVANCE_RESPONSE.getCode(), payload);
+            String payload = "Advance flux request received for flux " + fluxID;
+            Pair<Integer, String> dataPacket = new Pair<>(SDP2021Code.FLUX_ADVANCE_RESPONSE.getCode(), payload);
+            sendResponse(dataPacket, out);
+            m_oActivityFlowController.advanceFluxData(fluxID);
         }
 
-        private Pair<Integer, String> creationFluxRequestHandler(SDP2021 sdp2021Packet) {
+        private void creationFluxRequestHandler(SDP2021 sdp2021Packet, DataOutputStream out) {
             Long fluxID = Long.valueOf(sdp2021Packet.getData());
-            String payload = m_oActivityFlowController.creationFluxData(fluxID);
-            return new Pair<>(SDP2021Code.FLUX_CREATION_RESPONSE.getCode(), payload);
+            String payload = "Create flux request received for flux " + fluxID;
+            Pair<Integer, String> dataPacket = new Pair<>(SDP2021Code.FLUX_CREATION_RESPONSE.getCode(), payload);
+            sendResponse(dataPacket, out);
+            m_oActivityFlowController.creationFluxData(fluxID);
+        }
+
+        private void sendResponse(Pair<Integer, String> dataForPacket, DataOutputStream out)  {
+            SDP2021 sdp2021Packet2Sent = new SDP2021(dataForPacket.getKey());
+            try {
+                sdp2021Packet2Sent.send(out, dataForPacket.getValue());
+            } catch (IOException e) {
+                // Does nothing
+            }
+            LOGGER.trace("Sent message:----\n{}\n----", sdp2021Packet2Sent.getData());
         }
 
     }
