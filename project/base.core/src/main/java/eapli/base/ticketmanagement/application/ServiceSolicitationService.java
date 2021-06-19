@@ -95,9 +95,9 @@ public class ServiceSolicitationService {
 
         oFlux = this.m_oFluxExecRepo.save(oFlux);
 
-        ActivityFlowClient oClient = new ActivityFlowClient(Application.settings().getFluxServerIp());
+        //ActivityFlowClient oClient = new ActivityFlowClient(Application.settings().getFluxServerIp());
+        ActivityFlowClient oClient = new ActivityFlowClient("127.0.0.1");
         oClient.retrieveInformation(oFlux.id().toString(), SDP2021Code.FLUX_CREATION_REQUEST.getCode());
-        oClient.retrieveInformation("", SDP2021Code.END.getCode());
 
         return oFlux;
     }
