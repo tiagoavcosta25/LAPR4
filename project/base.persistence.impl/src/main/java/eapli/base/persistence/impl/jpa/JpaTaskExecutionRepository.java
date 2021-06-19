@@ -18,19 +18,19 @@ public class JpaTaskExecutionRepository extends JpaAutoTxRepository<TaskExecutio
         implements TaskExecutionRepository {
 
     public JpaTaskExecutionRepository(TransactionalContext autoTx) {
-        super(autoTx, "executionTaskID");
+        super(autoTx, "m_oID");
     }
 
     public JpaTaskExecutionRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(),
-                "executionTaskID");
+                "m_oID");
     }
 
     @Override
     public Optional<TaskExecution> findById(Long lngID) {
         final Map<String, Object> params = new HashMap<>();
-        params.put("executionTaskID", lngID);
-        return matchOne("e.id=:executionTaskID", params);
+        params.put("m_oID", lngID);
+        return matchOne("e.id=:m_oID", params);
     }
 
 }
