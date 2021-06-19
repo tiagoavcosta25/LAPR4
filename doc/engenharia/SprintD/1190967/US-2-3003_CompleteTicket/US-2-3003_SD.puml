@@ -94,8 +94,12 @@ deactivate UI
 US -> UI : attaches a file
 activate UI
 
-UI -> CTRL : addFile(file)
+UI -> CTRL : addFile(fileName)
 activate CTRL
+
+CTRL -> SRV : file = getXMLContent(fileName)
+activate SRV
+deactivate SRV
 deactivate CTRL
 end
 
