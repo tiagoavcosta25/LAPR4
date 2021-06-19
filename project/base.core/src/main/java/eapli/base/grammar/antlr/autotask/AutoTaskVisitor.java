@@ -268,30 +268,6 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCharacters(AutoTaskParser.CharactersContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AutoTaskParser#path}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPath(AutoTaskParser.PathContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AutoTaskParser#port}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPort(AutoTaskParser.PortContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AutoTaskParser#folder}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFolder(AutoTaskParser.FolderContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AutoTaskParser#file}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFile(AutoTaskParser.FileContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link AutoTaskParser#email}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

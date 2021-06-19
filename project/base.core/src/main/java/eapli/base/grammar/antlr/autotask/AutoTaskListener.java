@@ -446,46 +446,6 @@ public interface AutoTaskListener extends ParseTreeListener {
 	 */
 	void exitCharacters(AutoTaskParser.CharactersContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AutoTaskParser#path}.
-	 * @param ctx the parse tree
-	 */
-	void enterPath(AutoTaskParser.PathContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AutoTaskParser#path}.
-	 * @param ctx the parse tree
-	 */
-	void exitPath(AutoTaskParser.PathContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AutoTaskParser#port}.
-	 * @param ctx the parse tree
-	 */
-	void enterPort(AutoTaskParser.PortContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AutoTaskParser#port}.
-	 * @param ctx the parse tree
-	 */
-	void exitPort(AutoTaskParser.PortContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AutoTaskParser#folder}.
-	 * @param ctx the parse tree
-	 */
-	void enterFolder(AutoTaskParser.FolderContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AutoTaskParser#folder}.
-	 * @param ctx the parse tree
-	 */
-	void exitFolder(AutoTaskParser.FolderContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AutoTaskParser#file}.
-	 * @param ctx the parse tree
-	 */
-	void enterFile(AutoTaskParser.FileContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AutoTaskParser#file}.
-	 * @param ctx the parse tree
-	 */
-	void exitFile(AutoTaskParser.FileContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link AutoTaskParser#email}.
 	 * @param ctx the parse tree
 	 */
