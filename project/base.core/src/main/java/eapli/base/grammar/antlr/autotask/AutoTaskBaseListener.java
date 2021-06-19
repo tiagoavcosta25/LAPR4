@@ -184,6 +184,30 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSearchKeyValue(AutoTaskParser.SearchKeyValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSearchKeyValue(AutoTaskParser.SearchKeyValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSearchKeyVar(AutoTaskParser.SearchKeyVarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSearchKeyVar(AutoTaskParser.SearchKeyVarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterOnlyIf(AutoTaskParser.OnlyIfContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -107,6 +107,20 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExecSearchInFile(AutoTaskParser.ExecSearchInFileContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code searchKeyValue}
+	 * labeled alternative in {@link AutoTaskParser#value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSearchKeyValue(AutoTaskParser.SearchKeyValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code searchKeyVar}
+	 * labeled alternative in {@link AutoTaskParser#value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSearchKeyVar(AutoTaskParser.SearchKeyVarContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code onlyIf}
 	 * labeled alternative in {@link AutoTaskParser#if_func}.
 	 * @param ctx the parse tree

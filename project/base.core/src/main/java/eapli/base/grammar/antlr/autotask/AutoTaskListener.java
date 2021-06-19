@@ -172,6 +172,30 @@ public interface AutoTaskListener extends ParseTreeListener {
 	 */
 	void exitExecSearchInFile(AutoTaskParser.ExecSearchInFileContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code searchKeyValue}
+	 * labeled alternative in {@link AutoTaskParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void enterSearchKeyValue(AutoTaskParser.SearchKeyValueContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code searchKeyValue}
+	 * labeled alternative in {@link AutoTaskParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void exitSearchKeyValue(AutoTaskParser.SearchKeyValueContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code searchKeyVar}
+	 * labeled alternative in {@link AutoTaskParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void enterSearchKeyVar(AutoTaskParser.SearchKeyVarContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code searchKeyVar}
+	 * labeled alternative in {@link AutoTaskParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void exitSearchKeyVar(AutoTaskParser.SearchKeyVarContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code onlyIf}
 	 * labeled alternative in {@link AutoTaskParser#if_func}.
 	 * @param ctx the parse tree
