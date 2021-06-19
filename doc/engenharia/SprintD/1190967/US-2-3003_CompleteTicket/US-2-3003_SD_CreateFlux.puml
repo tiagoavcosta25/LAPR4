@@ -14,6 +14,7 @@ participant "<<domain>>\nTaskExecution" as TASKE
 participant "<<domain>>\nActivityFluxExecution" as AFE
 database "<<repository>>\nTaskExecutionRepository" as TER
 database "<<repository>>\nActivityFluxExecutionRepository" as AFER
+participant "<<domain>>\nActivityFlowClient" as AFC
 participant "<<domain>>\nAutomaticTaskExecutionProgress" as PROG
 participant "<<domain>>\nManualTask" as MT
 participant "<<domain>>\nAutomaticTask" as AT
@@ -97,7 +98,6 @@ end
 end
 
 SRV -> AFE** : create(progress, lstFlux)
-activate AFE
 
 
 SRV -> AFER : save(activityFluxExec)
@@ -105,6 +105,12 @@ activate AFER
 
 AFER --> SRV : activityFluxExec
 deactivate AFER
+
+SRV -> AFC** : create(ip)
+
+SRV -> AFC : retrieveInformation(fluxId, code)
+activate AFC
+deactivate AFC
 
 <- SRV : activityFluxExec
 deactivate SRV
