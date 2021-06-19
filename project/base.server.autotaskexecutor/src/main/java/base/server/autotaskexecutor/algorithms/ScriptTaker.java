@@ -53,6 +53,9 @@ public class ScriptTaker extends Thread {
                 AutomaticTaskScript oScript = AutomaticTaskScript.valueOf(strData.substring(strData.indexOf(',') + 1));
 
                 this.m_oQueue.addScript(lngID, oScript);
+
+                response = new SDP2021(SDP2021Code.AUTOTASK_RESPONSE_SUCCESS.getCode());
+                response.send(sOut, "Goodbye");
             }
             LOGGER.trace("Asked to close");
             response = new SDP2021(SDP2021Code.ROGER.getCode());

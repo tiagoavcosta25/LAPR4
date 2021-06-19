@@ -33,11 +33,15 @@ public class ScriptQueueFCFS implements ScriptQueue {
 
     public synchronized Integer getSize() { return m_oQueue.size(); }
 
+    public synchronized Boolean isEmpty() { return m_oQueue.isEmpty(); }
+
     public Pair<Long, AutomaticTaskScript> firstComeFirstServed() throws InterruptedException {
-        synchronized (this.m_Lock){
-            this.m_Lock.wait();
+        if(isEmpty()){
+            synchronized (this.m_Lock){
+                this.m_Lock.wait();
+            }
         }
-        Pair<Long, AutomaticTaskScript> oPair = this.m_oQueue.getFirst();
+        Pair<Long, AutomaticTaskScript> oPair = getQueue().getFirst();
         this.m_oQueue.remove(oPair);
         return oPair;
     }
