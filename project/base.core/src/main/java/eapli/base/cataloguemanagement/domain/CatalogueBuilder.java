@@ -8,6 +8,9 @@ import eapli.framework.domain.model.DomainFactory;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author Beatriz Seixas 1190424@isep.ipp.pt
+ */
 public class CatalogueBuilder implements DomainFactory<Catalogue> {
 
     private CatalogueTitle m_oCatalogueTitle;

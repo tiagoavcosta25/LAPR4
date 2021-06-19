@@ -7,6 +7,9 @@ import eapli.base.cataloguemanagement.domain.CatalogueTitle;
 import eapli.base.teammanagement.domain.Team;
 import eapli.framework.domain.repositories.DomainRepository;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+/**
+ * @author Beatriz Seixas 1190424@isep.ipp.pt
+ */
 
 public interface CatalogueRepository
         extends DomainRepository<Long, Catalogue> {
