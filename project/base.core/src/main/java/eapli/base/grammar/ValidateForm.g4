@@ -24,7 +24,7 @@ assert_func: ASSERT_LABEL STMT_START cond=conditions STMT_END #execAssert;
 
 get_attribute: GET_ATTRIBUTE_LABEL STMT_START attribute=NUM+ STMT_END #execGetAttribute;
 
-date_comp: DATE_COMPARE_LABEL STMT_START HASHTAG date1=get_attribute comp HASHTAG date2=get_attribute STMT_END #execDateCompare;
+date_comp: DATE_COMPARE_LABEL STMT_START HASHTAG date1=get_attribute conjSign=comp HASHTAG date2=get_attribute STMT_END #execDateCompare;
 
 nums: number=NUM+ COMMA multipleNumbers=nums #execMultipleNumbers
     | number=NUM+ #execNum;
