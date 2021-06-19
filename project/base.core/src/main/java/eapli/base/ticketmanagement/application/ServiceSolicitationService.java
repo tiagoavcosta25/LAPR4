@@ -49,8 +49,11 @@ import eapli.base.ticketmanagement.domain.Response;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.base.util.Application;
 import eapli.framework.application.ApplicationService;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,6 +103,16 @@ public class ServiceSolicitationService {
         oClient.retrieveInformation(oFlux.id().toString(), SDP2021Code.FLUX_CREATION_REQUEST.getCode());
 
         return oFlux;
+    }
+
+    public String getXMLContent(String strScriptName) throws IOException {
+        String strPath = System.getProperty("user.dir") + "\\xml\\" + strScriptName + ".xml";
+        File oFile = new File(strPath);
+
+        if(oFile.exists() && !oFile.isDirectory()) {
+          return FileUtils.readFileToString(oFile, StandardCharsets.UTF_8);
+        }
+        throw new IOException();
     }
 
     public Response createAndValidateResponse(Form oForm, List<String> lstAnswer) throws IOException {
