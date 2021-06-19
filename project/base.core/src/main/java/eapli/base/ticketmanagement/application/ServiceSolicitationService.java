@@ -31,6 +31,9 @@ import eapli.base.formmanagement.domain.Form;
 import eapli.base.grammar.ScriptAlgorithms;
 import eapli.base.grammar.ScriptMode;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.net.SDP2021;
+import eapli.base.net.SDP2021Code;
+import eapli.base.net.motorflux.ActivityFlowClient;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.taskmanagement.execution.domain.AutomaticTaskExecution;
 import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
@@ -44,6 +47,7 @@ import eapli.base.taskmanagement.specification.repositories.ManualTaskRepository
 import eapli.base.taskmanagement.specification.repositories.TaskRepository;
 import eapli.base.ticketmanagement.domain.Response;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
+import eapli.base.util.Application;
 import eapli.framework.application.ApplicationService;
 
 import java.io.IOException;
@@ -90,6 +94,10 @@ public class ServiceSolicitationService {
         ActivityFluxExecution oFlux = new ActivityFluxExecution(lstFlux);
 
         oFlux = this.m_oFluxExecRepo.save(oFlux);
+
+        ActivityFlowClient oClient = new ActivityFlowClient(Application.settings().getFluxServerIp());
+        oClient.retrieveInformation(oFlux.id().toString(), SDP2021Code.FLUX_CREATION_REQUEST.getCode());
+        oClient.retrieveInformation("", SDP2021Code.END.getCode());
 
         return oFlux;
     }
