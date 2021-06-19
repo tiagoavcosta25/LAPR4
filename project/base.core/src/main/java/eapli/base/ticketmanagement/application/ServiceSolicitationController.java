@@ -68,8 +68,8 @@ public class ServiceSolicitationController {
         return oResponse;
     }
 
-    public TicketFile addFile(String strFile){
-        TicketFile oFile = new TicketFile(strFile);
+    public TicketFile addFile(String strFileName) throws IOException {
+        TicketFile oFile = new TicketFile(this.m_oServiceSolicitationService.getXMLContent(strFileName));
         this.m_lstFiles.add(oFile);
         return oFile;
     }
