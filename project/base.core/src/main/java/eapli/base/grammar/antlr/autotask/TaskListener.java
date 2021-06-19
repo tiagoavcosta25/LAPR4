@@ -120,30 +120,20 @@ public class TaskListener extends AutoTaskBaseListener{
             return;
         }
         try {
-            File myObj = new File("file.xml");
-            Files.deleteIfExists(myObj.toPath());
-        } catch (IOException e) {
-            //Do nothing
-        }
-        try {
-
+            File myObj = File.createTempFile("auto_task_", ".xml");
             String s = m_oTicket.files().get(Integer.parseInt(ctx.fp.getText()) - 1).toString();
-            FileWriter myWriter = new FileWriter("file.xml");
+            FileWriter myWriter = new FileWriter(myObj.getAbsolutePath());
             myWriter.write(s);
             myWriter.close();
-        } catch (IOException e) {
-            //Do nothing
-        }
-        String path = "file.xml";
-        String expression = this.stack.pop();
-        String result;
-        try {
+            String path = myObj.getAbsolutePath();
+            String expression = this.stack.pop();
+            String result;
             result = XmlFileReader.searchFor(path, expression);
+            myObj.delete();
+            this.stack.push(result);
         } catch (Exception e) {
             this.stack.push(Boolean.FALSE.toString());
-            return;
         }
-        this.stack.push(result);
     }
     
     @Override
