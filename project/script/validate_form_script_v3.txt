@@ -7,8 +7,8 @@ $var2 = 4 * 2 - 24 / 3 + 1;
 $var3 = #getAttribute(0);
 #assert($var1 > $var2 && #getAttribute(0) == $var3);
 #mandatory(0);
-#regex(0,"[0-9]");
-#dateCompare(#getAttribute(0) == #getAttribute(0));
+#regex(0,"[0-9]+");
+#dateCompare(#getAttribute(2) >= #getAttribute(3));
 
 #if($var1 == $var2){
 #assert(1 == #getAttribute(0));
