@@ -8,29 +8,34 @@ header: HASHTAG HELPDESK #execHeader;
 
 type: VALIDATE_FORM #execType;
 
-statement: HASHTAG stmt=mandatory END #stmtMandatory
-        | HASHTAG stmt=regex END #stmtRegex
-        | HASHTAG stmt=assert_func END #stmtAssert
-        | HASHTAG stmt=get_attribute END #stmtAttribute
-        | HASHTAG stmt=date_comp END #stmtDateComp
-        | HASHTAG stmt=if_func #stmtIf
+statement: stmt=mandatory END #stmtMandatory
+        | stmt=regex END #stmtRegex
+        | stmt=assert_func END #stmtAssert
+        | stmt=get_attribute END #stmtAttribute
+        | stmt=date_comp END #stmtDateComp
+        | stmt=if_func #stmtIf
         | stmt=assign END #stmtAssign;
 
-mandatory: MANDATORY_LABEL STMT_START agr=nums STMT_END #execMandatory;
+mandatory: HASHTAG MANDATORY_LABEL STMT_START agr=nums STMT_END #execMandatory;
 
-regex: REGEX_LABEL STMT_START agr=NUM+ COMMA re=string STMT_END #execRegex;
+regex: HASHTAG REGEX_LABEL STMT_START agr=NUM+ COMMA re=string STMT_END #execRegex;
 
-assert_func: ASSERT_LABEL STMT_START cond=conditions STMT_END #execAssert;
+assert_func: HASHTAG ASSERT_LABEL STMT_START cond=conditions STMT_END #execAssert;
 
-get_attribute: GET_ATTRIBUTE_LABEL STMT_START attribute=NUM+ STMT_END #execGetAttribute;
+get_attribute: HASHTAG GET_ATTRIBUTE_LABEL STMT_START attribute=NUM+ STMT_END #execGetAttribute;
 
-date_comp: DATE_COMPARE_LABEL STMT_START HASHTAG date1=get_attribute conjSign=comp HASHTAG date2=get_attribute STMT_END #execDateCompare;
+date_comp: HASHTAG DATE_COMPARE_LABEL STMT_START date1=get_attribute conjSign=comp date2=get_attribute STMT_END #execDateCompare;
 
 nums: number=NUM+ COMMA multipleNumbers=nums #execMultipleNumbers
     | number=NUM+ #execNum;
 
-if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements #onlyIf
-        | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END ELSE BLOCK_START stmt_else=statements BLOCK_END #ifElse;
+if_func: HASHTAG IF_LABEL STMT_START if_cond=bool STMT_END BLOCK_START stmt_if=statements #onlyIf
+        | HASHTAG IF_LABEL STMT_START if_cond=bool STMT_END BLOCK_START stmt_if=statements BLOCK_END ELSE BLOCK_START stmt_else=statements BLOCK_END #ifElse;
+
+bool: bl=mandatory #boolMandatory
+    | bl=regex #boolRegex
+    | bl=date_comp #boolDateComp
+    | bl=conditions #boolConditions;
 
 conditions: right=condition conjSign=conjunction left=conditions #multipleConditions
           | cond=condition #singleConditions;
@@ -58,7 +63,7 @@ op: left=op sign=sign_td right=op #execOpTimesDivision
 
 object: var=variable #objectVariable
        | objNumber=num #objectNumber
-       | HASHTAG att=get_attribute #objectAttribute;
+       | att=get_attribute #objectAttribute;
 
 sign_td: TIMES
     | FOWARD_SLASH;
