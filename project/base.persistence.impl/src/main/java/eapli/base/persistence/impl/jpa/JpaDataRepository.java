@@ -70,10 +70,10 @@ public class JpaDataRepository extends HelpDeskJpaRepositoryBase<Ticket, Long, L
                 "Select count(mte) from ActivityFluxExecution a join a.m_lstFlux lst " +
                         "inner join Ticket t on t.m_oFluxExecution.id = a.id " +
                         "inner join TaskExecution te on te.id = lst.id " +
-                        "inner join Task ts on ts.id = te.m_oTask.id " +
                         "inner join ManualTaskExecution mte on mte.id = te.id " +
+                        "inner join ManualTask mt on mt.id = mte.m_oManualTask.id " +
                         "where mte.m_oCollaborator.m_oSystemUser.username.value =: un and te.m_oTaskStatus = 'PENDING' " +
-                        "and ts.m_oTaskPriority =: lowPrio",
+                        "and mt.m_oTaskPriority =: lowPrio",
                 Long.class);
         q.setParameter("un", oUserName);
         q.setParameter("lowPrio", TaskPriority.LOW);
@@ -86,10 +86,10 @@ public class JpaDataRepository extends HelpDeskJpaRepositoryBase<Ticket, Long, L
                 "Select count(mte) from ActivityFluxExecution a join a.m_lstFlux lst " +
                         "inner join Ticket t on t.m_oFluxExecution.id = a.id " +
                         "inner join TaskExecution te on te.id = lst.id " +
-                        "inner join Task ts on ts.id = te.m_oTask.id " +
                         "inner join ManualTaskExecution mte on mte.id = te.id " +
+                        "inner join ManualTask mt on mt.id = mte.m_oManualTask.id " +
                         "where mte.m_oCollaborator.m_oSystemUser.username.value =: un and te.m_oTaskStatus = 'PENDING' " +
-                        "and ts.m_oTaskPriority =: midPrio",
+                        "and mt.m_oTaskPriority =: midPrio",
                 Long.class);
         q.setParameter("un", oUserName);
         q.setParameter("midPrio", TaskPriority.MEDIUM);
@@ -102,10 +102,10 @@ public class JpaDataRepository extends HelpDeskJpaRepositoryBase<Ticket, Long, L
                 "Select count(mte) from ActivityFluxExecution a join a.m_lstFlux lst " +
                         "inner join Ticket t on t.m_oFluxExecution.id = a.id " +
                         "inner join TaskExecution te on te.id = lst.id " +
-                        "inner join Task ts on ts.id = te.m_oTask.id " +
                         "inner join ManualTaskExecution mte on mte.id = te.id " +
+                        "inner join ManualTask mt on mt.id = mte.m_oManualTask.id " +
                         "where mte.m_oCollaborator.m_oSystemUser.username.value =: un and te.m_oTaskStatus = 'PENDING' " +
-                        "and ts.m_oTaskPriority =: highPrio",
+                        "and mt.m_oTaskPriority =: highPrio",
                 Long.class);
         q.setParameter("un", oUserName);
         q.setParameter("highPrio", TaskPriority.HIGH);
