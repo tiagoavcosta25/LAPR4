@@ -93,25 +93,17 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
 
     @Override
     public String visitExecFileSearch(AutoTaskParser.ExecFileSearchContext ctx) {
-        try {
-            File myObj = new File("file.xml");
-            Files.deleteIfExists(myObj.toPath());
-        } catch (IOException e) {
-            //Do nothing
-        }
-        try {
-            String s = m_oTicket.files().get(Integer.parseInt(ctx.fp.getText()) - 1).toString();
-            FileWriter myWriter = new FileWriter("file.xml");
-            myWriter.write(s);
-            myWriter.close();
-        } catch (IOException e) {
-            //Do nothing
-        }
-        String path = "file.xml";
-        String expression = visit(ctx.search);
         String result;
         try {
+            File myObj = File.createTempFile("auto_task_", ".xml");
+            String s = m_oTicket.files().get(Integer.parseInt(ctx.fp.getText()) - 1).toString();
+            FileWriter myWriter = new FileWriter(myObj.getAbsolutePath());
+            myWriter.write(s);
+            myWriter.close();
+            String path = myObj.getAbsolutePath();
+            String expression = visit(ctx.search);
             result = XmlFileReader.searchFor(path, expression);
+            myObj.delete();
         } catch (Exception e) {
             return Boolean.FALSE.toString();
         }
