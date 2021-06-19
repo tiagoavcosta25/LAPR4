@@ -3,6 +3,7 @@ package eapli.base.app.user.console.net.dashboard;
 import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
 import eapli.base.net.motorflux.ActivityFlowClient;
+import eapli.base.util.Application;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +18,6 @@ import java.net.Socket;
 public class HttpAjaxDashboardRequest extends Thread {
 
 	private static final Logger LOGGER = LogManager.getLogger(HttpAjaxDashboardRequest.class);
-	private static final String SERVER_IP = "10.9.20.133";
 	String baseFolder;
 	Socket sock;
 	DataInputStream inS;
@@ -42,7 +42,7 @@ public class HttpAjaxDashboardRequest extends Thread {
 
 					String strUsername = AuthzRegistry.authorizationService().session().get().authenticatedUser().username().toString();
 
-					ActivityFlowClient oActivityFlow = new ActivityFlowClient(SERVER_IP);
+					ActivityFlowClient oActivityFlow = new ActivityFlowClient(Application.settings().getFluxServerIp());
 
 					SDP2021 oProtocol = oActivityFlow.retrieveInformation(strUsername, SDP2021Code.INFO_REQUEST.getCode());
 
