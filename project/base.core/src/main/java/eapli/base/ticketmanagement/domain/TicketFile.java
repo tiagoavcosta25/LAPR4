@@ -8,10 +8,7 @@ package eapli.base.ticketmanagement.domain;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 /**
  * @author Jéssica Alves 1190682@isep.ipp.pt
@@ -21,18 +18,19 @@ import javax.persistence.Embeddable;
 public class TicketFile implements ValueObject, Comparable<TicketFile> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "([a-zA-Z]:)?(/[a-zA-Z0-9_.-]+)+/[a-zA-Z0-9_.-]+.[a-z]";
+    //private static final String m_strRegex = "([a-zA-Z]:)?(/[a-zA-Z0-9_.-]+)+/[a-zA-Z0-9_.-]+.xml";
 
-    @Column(name = "ticketFilePath")
-    private String m_strFilePath;
+    @Lob
+    @Column(name = "ticketFile")
+    private String m_strFile;
 
-    public TicketFile(final String strFilePath) {
-        if (StringPredicates.isNullOrEmpty(strFilePath) || !strFilePath.matches(m_strRegex)) {
+    public TicketFile(final String strFileContent) {
+        if (StringPredicates.isNullOrEmpty(strFileContent)) {
             throw new IllegalArgumentException(
-                    "Ticket File Path should neither be null nor empty and be a valid file path");
+                    "Ticket File should be a valid");
         }
         // expression
-        this.m_strFilePath = strFilePath;
+        this.m_strFile = strFileContent;
     }
 
     protected TicketFile() {
@@ -53,21 +51,21 @@ public class TicketFile implements ValueObject, Comparable<TicketFile> {
         }
 
         final TicketFile that = (TicketFile) o;
-        return this.m_strFilePath.equals(that.m_strFilePath);
+        return this.m_strFile.equals(that.m_strFile);
     }
 
     @Override
     public int hashCode() {
-        return this.m_strFilePath.hashCode();
+        return this.m_strFile.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.m_strFilePath;
+        return this.m_strFile;
     }
 
     @Override
     public int compareTo(final TicketFile arg0) {
-        return m_strFilePath.compareTo(arg0.m_strFilePath);
+        return m_strFile.compareTo(arg0.m_strFile);
     }
 }
