@@ -43,10 +43,10 @@ O sistema mostra a lista de tarefas pendentes
 O utilizador escolhe uma tarefa
 O sistema valida o formulario e completa a tarefa.
 
-![US_2_3022_SSD_](US_2_3022_SSD_.svg)
+![US_2_3022_SSD_](US_2_3022_SSD_.png)
 ### Parte do Modelo de Domínio Relevante para esta User Story
 
-![US-2-3023_MD](US-2-3023_MD.svg)
+![US-2-3023_MD](US-2-3022_MD.svg)
 
 # 3. Design
 ## 3.1. Realização da Funcionalidade
