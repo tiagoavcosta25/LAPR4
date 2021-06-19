@@ -88,7 +88,7 @@ public class AppSettings {
     }
 
     public int getTcpServerPort() {
-        return Integer.parseInt(this.applicationProperties.getProperty(FLUX_SERVER_IP));
+        return Integer.parseInt(this.applicationProperties.getProperty(TCP_SERVER_PORT));
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

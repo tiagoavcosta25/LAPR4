@@ -24,6 +24,8 @@ public enum SDP2021Code {
         AUTOTASK_RESPONSE_FAILURE(7),
         FLUX_ADVANCE_RESPONSE(8),
         FLUX_ADVANCE_REQUEST(9),
+        FLUX_CREATION_RESPONSE(10),
+        FLUX_CREATION_REQUEST(11),
         SEGMENT(255);
 
         /**
