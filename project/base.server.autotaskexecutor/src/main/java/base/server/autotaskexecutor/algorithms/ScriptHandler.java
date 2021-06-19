@@ -40,7 +40,7 @@ public abstract class ScriptHandler extends Thread {
 
             Optional<TaskExecution> oOptionalTask = this.m_oTaskExecRepo.findByID(oPair.getKey());
 
-            if(oOptionalTask.isPresent()){
+            if(!oOptionalTask.isPresent()){
                 throw new Exception();
             }
 
@@ -48,7 +48,7 @@ public abstract class ScriptHandler extends Thread {
 
             Optional<Ticket> oOptionalTicket = this.m_oTicketRepo.getTicketByTaskExec(oTask.id());
 
-            if(oOptionalTicket.isPresent()){
+            if(!oOptionalTicket.isPresent()){
                 throw new Exception();
             }
 
