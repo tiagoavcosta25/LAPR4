@@ -20,7 +20,10 @@ sendEmail : SEND_EMAIL_LABEL STMT_START QUOTATION_MARKS em=email QUOTATION_MARKS
 fileSearch : FILE_SEARCH_LABEL STMT_START fp=num COMMA SPACE? search=searchInFile #execFileSearch;
 
 searchInFile: QUOTATION_MARKS search_in = keyword QUOTATION_MARKS COMMA SPACE? search=searchInFile #execSearchIn
-            | QUOTATION_MARKS search_by=keyword QUOTATION_MARKS COMMA SPACE? QUOTATION_MARKS search_value=keyword QUOTATION_MARKS COMMA SPACE? QUOTATION_MARKS  search_for=keyword QUOTATION_MARKS STMT_END #execSearchInFile;
+            | QUOTATION_MARKS search_by=keyword QUOTATION_MARKS COMMA SPACE? search_value=value COMMA SPACE? QUOTATION_MARKS  search_for=keyword QUOTATION_MARKS STMT_END #execSearchInFile;
+
+value: QUOTATION_MARKS key=keyword QUOTATION_MARKS #searchKeyValue
+    | var=variable #searchKeyVar;
 
 if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END #onlyIf
         | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END SPACE* ELSE BLOCK_START stmt_else=statements BLOCK_END #ifElse;
