@@ -1,6 +1,6 @@
 <products>
     <product>
-        <id>XYJ123</id>
+        <id>123</id>
         <name>Product One</name>
         <description>This is the description for product one.</description>
         <price>19.99</price>
