@@ -22,7 +22,7 @@ import javax.persistence.Embeddable;
 public class AttributeLabel implements ValueObject, Comparable<AttributeLabel> {
 
     private static final long serialVersionUID = 1L;
-    private static final String m_strRegex = "[a-zA-Z0-9 ]{1,50}";
+    private static final String m_strRegex = "[a-zA-Z0-9 /(),]{1,50}";
 
     @Column(name = "attributeLabel")
     private String m_strLabel;
