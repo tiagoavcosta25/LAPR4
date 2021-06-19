@@ -50,12 +50,16 @@ public class ScriptQueueScheduler implements ScriptQueue {
 
     public synchronized Integer getSize(Integer intThreadNum) { return this.m_lstQueues.get(intThreadNum).size(); }
 
+    public synchronized Boolean isEmpty(Integer intThreadNum) { return this.m_lstQueues.get(intThreadNum).isEmpty(); }
+
     public Pair<Long, AutomaticTaskScript> getScriptForExecution(Integer intThreadNum) throws InterruptedException {
-        synchronized (this.m_lstLocks.get(intThreadNum)){
-            this.m_lstLocks.get(intThreadNum).wait();
+        if(isEmpty(intThreadNum)){
+            synchronized (this.m_lstLocks.get(intThreadNum)){
+                this.m_lstLocks.get(intThreadNum).wait();
+            }
         }
 
-        Pair<Long, AutomaticTaskScript> oPair = this.m_lstQueues.get(intThreadNum).getFirst();
+        Pair<Long, AutomaticTaskScript> oPair = getQueue(intThreadNum).getFirst();
         this.m_lstQueues.get(intThreadNum).remove(oPair);
         return oPair;
     }
