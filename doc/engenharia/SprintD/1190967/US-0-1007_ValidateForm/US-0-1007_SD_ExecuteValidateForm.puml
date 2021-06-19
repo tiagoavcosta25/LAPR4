@@ -1,0 +1,68 @@
+@startuml
+autonumber
+hide footbox
+
+participant "<<grammar>>\nScriptAlgorithms" as SA
+participant "<<domain>>\nResponse" as RS
+participant "<<domain>>\nForm" as F
+participant "<<validateform>>\nlexer\nValidateFormLexer" as VFL
+participant "<<antlr>>\ntokens\nCommonTokenStream" as CTS
+participant "<<validateform>>\nparser\nValidateFormParser" as VFP
+participant "<<antlr>>\ntree\nParseTree" as PT
+participant "<<antlr>>\nwalker\nParseTreeWalker" as PTW
+participant "<<validateform>>\nlistener\nFormListener" as FL
+participant "<<validateform>>\nvisitor\nFormVisitor" as FV
+
+[o-> SA : executeValidateForm(response, mode)
+activate SA
+
+SA -> RS : getForm()
+activate RS
+
+RS -> F : script()
+activate F
+
+F --> RS : script
+deactivate F
+
+RS --> SA : script
+deactivate RS
+
+SA -> VFL** : create(script)
+
+SA -> CTS** : create(lexer)
+
+SA -> VFP** : create(tokens)
+
+SA -> VFP : tree = start()
+activate VFP
+deactivate VFP
+
+alt if the mode is listener
+
+SA -> PTW** : create()
+SA -> FL** : create(response)
+
+SA -> PTW : flag = walk(listener, tree)
+activate PTW
+deactivate PTW
+
+<- SA : flag
+
+else
+
+SA -> FV** : create(response)
+
+SA -> FV : flag = visit(tree)
+activate FV
+deactivate FV
+
+<- SA : flag
+
+end
+
+<- SA : false
+deactivate SA
+
+@enduml
+
