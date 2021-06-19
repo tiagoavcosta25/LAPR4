@@ -91,7 +91,12 @@ character: LOWERCASE
      | HYPHEN
      | NUM
      | PLUS
-     | TIMES;
+     | TIMES
+     | PIPE
+     | STMT_START
+     | STMT_END
+     | QUESTION_MARK
+     | DOT;
 
 VALIDATE_FORM: 'validateForm';
 MANDATORY_LABEL: 'mandatory';
@@ -107,6 +112,7 @@ LOWERCASE: [a-z];
 UPPERCASE: [A-Z];
 PLUS: '+';
 HYPHEN: '-';
+PIPE: '|';
 TIMES: '*';
 BLOCK_START: '{';
 BLOCK_END: '}';
@@ -129,6 +135,7 @@ OR: '||';
 COLON: ':';
 COMMA: ',';
 HASHTAG: '#';
+QUESTION_MARK: '?';
 UNDERSCORE: '_';
 PARENTHESIS_OPEN: '[';
 PARENTHESIS_CLOSE: ']';
