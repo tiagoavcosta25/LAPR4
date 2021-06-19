@@ -36,7 +36,7 @@ public abstract class ScriptHandler extends Thread {
 
     protected void executeTask(Pair<Long, AutomaticTaskScript> oPair){
         try{
-            LOGGER.trace("[Thread {}] Executing Automatic Task...", this.m_intThreadNumber);
+            LOGGER.trace("[Handler {}] Executing Automatic Task...", this.m_intThreadNumber);
 
             Optional<TaskExecution> oOptionalTask = this.m_oTaskExecRepo.findByID(oPair.getKey());
 
@@ -54,20 +54,20 @@ public abstract class ScriptHandler extends Thread {
 
             Ticket oTicket = oOptionalTicket.get();
 
-            Boolean blnFLag = ScriptAlgorithms.executeAutoTask(oTicket, oPair.getValue().toString(), ScriptMode.LISTENER);
+            Boolean blnFLag = ScriptAlgorithms.executeAutoTask(oTicket, oPair.getValue().toString(), ScriptMode.VISITOR);
 
             oTask.setExecuted();
 
             if(blnFLag){
                 oTask.setResult(TaskExecutionResult.SUCCESS);
-                LOGGER.trace("[Thread {}] Automatic Task Result: Success.", this.m_intThreadNumber);
+                LOGGER.trace("[Handler {}] Automatic Task Result: Success.", this.m_intThreadNumber);
             } else{
                 oTask.setResult(TaskExecutionResult.ERROR);
-                LOGGER.trace("[Thread {}] Automatic Task Result: Error.", this.m_intThreadNumber);
+                LOGGER.trace("[Handler-{}] Automatic Task Result: Error.", this.m_intThreadNumber);
             }
             this.m_oTaskExecRepo.save(oTask);
         } catch(Exception e){
-            LOGGER.trace("[Thread {}] Error Executing a Task", this.m_intThreadNumber);
+            LOGGER.trace("[Handler {}] Error Executing a Task", this.m_intThreadNumber);
         }
     }
 

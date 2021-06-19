@@ -232,6 +232,30 @@ public class AutoTaskBaseListener implements AutoTaskListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExecEndIf(AutoTaskParser.ExecEndIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExecEndIf(AutoTaskParser.ExecEndIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExecStartElse(AutoTaskParser.ExecStartElseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExecStartElse(AutoTaskParser.ExecStartElseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMultipleConditions(AutoTaskParser.MultipleConditionsContext ctx) { }
 	/**
 	 * {@inheritDoc}

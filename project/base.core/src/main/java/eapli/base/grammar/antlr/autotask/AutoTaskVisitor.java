@@ -135,6 +135,20 @@ public interface AutoTaskVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfElse(AutoTaskParser.IfElseContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code execEndIf}
+	 * labeled alternative in {@link AutoTaskParser#end_if}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecEndIf(AutoTaskParser.ExecEndIfContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code execStartElse}
+	 * labeled alternative in {@link AutoTaskParser#start_else}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecStartElse(AutoTaskParser.ExecStartElseContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code multipleConditions}
 	 * labeled alternative in {@link AutoTaskParser#conditions}.
 	 * @param ctx the parse tree

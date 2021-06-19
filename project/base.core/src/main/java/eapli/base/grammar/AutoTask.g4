@@ -25,8 +25,12 @@ searchInFile: QUOTATION_MARKS search_in = keyword QUOTATION_MARKS COMMA SPACE? s
 value: QUOTATION_MARKS key=keyword QUOTATION_MARKS #searchKeyValue
     | var=variable #searchKeyVar;
 
-if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END #onlyIf
-        | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END SPACE* ELSE BLOCK_START stmt_else=statements BLOCK_END #ifElse;
+if_func: IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements end_if #onlyIf
+        | IF_LABEL STMT_START if_cond=conditions STMT_END BLOCK_START stmt_if=statements BLOCK_END SPACE* start_else BLOCK_START stmt_else=statements end_if #ifElse;
+
+end_if: BLOCK_END #execEndIf;
+
+start_else: ELSE #execStartElse;
 
 conditions: right=condition SPACE? conjSign=conjunction SPACE? left=conditions #multipleConditions
           | cond=condition #singleConditions;
