@@ -2,9 +2,11 @@
 
 autoTask{
 
-$price = #fileSearch(1, "products", "product", "id", "XYJ123", "price");
+$code = #getAttribute(1, 1);
 
-$category = #fileSearch(1, "products", "product", "id", "XYJ123", "category");
+$price = #fileSearch(1, "products", "product", "id", $code, "price");
+
+$category = #fileSearch(1, "products", "product", "id", $code, "category");
 
 $total = $price * #getAttribute(1, 2);
 
@@ -35,7 +37,7 @@ $valuePostDiscount = $total - $valueDiscount;
     $text = "World:      Total value: " + $total + ", Discount value: " + $valueDiscount + ", Post discount value: " + $valuePostDiscount;
 }
 
-#sendEmail("email@isep.pt", "Product price", $text);
+#sendEmail("Product price", $text);
 
 }
 
