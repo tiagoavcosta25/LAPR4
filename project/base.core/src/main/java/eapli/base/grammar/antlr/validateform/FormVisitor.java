@@ -4,6 +4,8 @@ import eapli.base.ticketmanagement.domain.Response;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +65,11 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
 
     @Override
     public String visitStmtAttribute(ValidateFormParser.StmtAttributeContext ctx) {
+        return visit(ctx.stmt);
+    }
+
+    @Override
+    public String visitStmtDateComp(ValidateFormParser.StmtDateCompContext ctx) {
         return visit(ctx.stmt);
     }
 
@@ -261,6 +268,35 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
     @Override
     public String visitExecString(ValidateFormParser.ExecStringContext ctx) {
         return ctx.str.getText();
+    }
+
+    @Override
+    public String visitExecDateCompare(ValidateFormParser.ExecDateCompareContext ctx) {
+        String strLeft = visit(ctx.date1);
+        String strRight = visit(ctx.date2);
+
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dateRight = LocalDate.parse(strRight, formatter);
+            LocalDate dateLeft = LocalDate.parse(strLeft, formatter);
+
+            switch (ctx.conjSign.getText()) {
+                case "==" : return String.valueOf(dateLeft.isEqual(dateRight));
+
+                case "!=" : return String.valueOf(!dateLeft.isEqual(dateRight));
+
+                case ">" : return String.valueOf(dateLeft.isAfter(dateRight));
+
+                case "<" : return String.valueOf(dateLeft.isBefore(dateRight));
+
+                case ">=" : return String.valueOf(dateLeft.isAfter(dateRight) || dateLeft.isEqual(dateRight));
+
+                case "<=" : return String.valueOf(dateLeft.isBefore(dateRight) || dateLeft.isEqual(dateRight));
+
+            }
+        } catch (Exception e){
+        }
+        return Boolean.FALSE.toString();
     }
 
 }
