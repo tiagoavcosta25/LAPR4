@@ -2,6 +2,8 @@ package eapli.base.grammar.antlr.validateform;
 
 import eapli.base.ticketmanagement.domain.Response;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -218,6 +220,35 @@ public class FormListener extends ValidateFormBaseListener {
             this.stack.push(blnIfStatements.toString());
         } else{
             this.stack.push(blnElseStatements.toString());
+        }
+    }
+
+    @Override
+    public void exitExecDateCompare(ValidateFormParser.ExecDateCompareContext ctx) {
+        String strRight = this.stack.pop();
+        String strLeft = this.stack.pop();
+
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dateRight = LocalDate.parse(strRight, formatter);
+            LocalDate dateLeft = LocalDate.parse(strLeft, formatter);
+
+            switch (ctx.conjSign.getText()) {
+                case "==" : this.stack.push(String.valueOf(dateLeft.isEqual(dateRight)));
+                    return;
+                case "!=" : this.stack.push(String.valueOf(!dateLeft.isEqual(dateRight)));
+                    return;
+                case ">" : this.stack.push(String.valueOf(dateLeft.isAfter(dateRight)));
+                    return;
+                case "<" : this.stack.push(String.valueOf(dateLeft.isBefore(dateRight)));
+                    return;
+                case ">=" : this.stack.push(String.valueOf(dateLeft.isAfter(dateRight) || dateLeft.isEqual(dateRight)));
+                    return;
+                case "<=" : this.stack.push(String.valueOf(dateLeft.isBefore(dateRight) || dateLeft.isEqual(dateRight)));
+                    return;
+            }
+        } catch (Exception e){
+            this.stack.push(Boolean.FALSE.toString());
         }
     }
 
