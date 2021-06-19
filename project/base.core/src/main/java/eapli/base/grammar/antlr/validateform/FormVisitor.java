@@ -190,6 +190,26 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
     }
 
     @Override
+    public String visitBoolMandatory(ValidateFormParser.BoolMandatoryContext ctx) {
+        return visit(ctx.bl);
+    }
+
+    @Override
+    public String visitBoolRegex(ValidateFormParser.BoolRegexContext ctx) {
+        return visit(ctx.bl);
+    }
+
+    @Override
+    public String visitBoolDateComp(ValidateFormParser.BoolDateCompContext ctx) {
+        return visit(ctx.bl);
+    }
+
+    @Override
+    public String visitBoolConditions(ValidateFormParser.BoolConditionsContext ctx) {
+        return visit(ctx.bl);
+    }
+
+    @Override
     public String visitCond(ValidateFormParser.CondContext ctx) {
 
         Integer intLeft = Integer.parseInt(visit(ctx.left));
@@ -260,7 +280,6 @@ public class FormVisitor extends ValidateFormBaseVisitor<String> {
     }
 
     @Override
-
     public String visitObjectAttribute(ValidateFormParser.ObjectAttributeContext ctx) {
         return visit(ctx.att);
     }
