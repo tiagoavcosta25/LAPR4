@@ -1,17 +1,15 @@
 package base.server.autotaskexecutor;
 
-import base.server.autotaskexecutor.fcfs.ScriptHandlerFCFS;
-import base.server.autotaskexecutor.fcfs.ScriptQueueFCFS;
-import base.server.autotaskexecutor.fcfs.ScriptTakerFCFS;
-import base.server.autotaskexecutor.scheduler.ScriptHandlerScheduler;
-import base.server.autotaskexecutor.scheduler.ScriptQueueScheduler;
-import base.server.autotaskexecutor.scheduler.ScriptTakerScheduler;
+import base.server.autotaskexecutor.algorithms.ScriptQueue;
+import base.server.autotaskexecutor.algorithms.ScriptTaker;
+import base.server.autotaskexecutor.algorithms.fcfs.ScriptHandlerFCFS;
+import base.server.autotaskexecutor.algorithms.fcfs.ScriptQueueFCFS;
+import base.server.autotaskexecutor.algorithms.scheduler.ScriptHandlerScheduler;
+import base.server.autotaskexecutor.algorithms.scheduler.ScriptQueueScheduler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 
@@ -37,28 +35,30 @@ public class TCPServerAutoTaskExecutor {
         SSLServerSocketFactory sslF = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 
 
-        ScriptQueueFCFS oQueueFCFS = new ScriptQueueFCFS();
-        ScriptQueueScheduler oQueueScheduler = new ScriptQueueScheduler(intThreads);
+        ScriptQueue oQueue;
 
 
-        if(oMode.equals(AlgorithmMode.FCFS)){
+        if(oMode.equals(AlgorithmMode.FCFS)){ // if the mode is First Come First Served
 
-            List<ScriptHandlerFCFS> lstHandlers = new ArrayList<>();
+            ScriptQueueFCFS oQueueFCFS = new ScriptQueueFCFS();
 
             for(int i = 0; i < intThreads; i++){
                 ScriptHandlerFCFS oHandler = new ScriptHandlerFCFS(oQueueFCFS, i);
-                lstHandlers.add(oHandler);
                 oHandler.start();
             }
-        } else{
 
-            List<ScriptHandlerScheduler> lstHandlers = new ArrayList<>();
+            oQueue = oQueueFCFS;
+
+        } else{ // if the mode is Scheduler
+
+            ScriptQueueScheduler oQueueScheduler = new ScriptQueueScheduler(intThreads);
 
             for(int i = 0; i < intThreads; i++){
                 ScriptHandlerScheduler oHandler = new ScriptHandlerScheduler(oQueueScheduler, i);
-                lstHandlers.add(oHandler);
                 oHandler.start();
             }
+
+            oQueue = oQueueScheduler;
         }
 
         try {
@@ -72,11 +72,7 @@ public class TCPServerAutoTaskExecutor {
 
         while(true) {
             cliSock = sock.accept();
-            if(oMode.equals(AlgorithmMode.FCFS)){
-                new ScriptTakerFCFS(cliSock, oQueueFCFS).start();
-            } else{
-                new ScriptTakerScheduler(cliSock, oQueueScheduler).start();
-            }
+            new ScriptTaker(cliSock, oQueue).start();
         }
     }
 }
