@@ -151,6 +151,34 @@ public interface ValidateFormVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfElse(ValidateFormParser.IfElseContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code boolMandatory}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolMandatory(ValidateFormParser.BoolMandatoryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code boolRegex}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolRegex(ValidateFormParser.BoolRegexContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code boolDateComp}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolDateComp(ValidateFormParser.BoolDateCompContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code boolConditions}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolConditions(ValidateFormParser.BoolConditionsContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code multipleConditions}
 	 * labeled alternative in {@link ValidateFormParser#conditions}.
 	 * @param ctx the parse tree

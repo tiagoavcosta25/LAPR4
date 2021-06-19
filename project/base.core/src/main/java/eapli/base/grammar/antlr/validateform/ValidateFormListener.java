@@ -248,6 +248,54 @@ public interface ValidateFormListener extends ParseTreeListener {
 	 */
 	void exitIfElse(ValidateFormParser.IfElseContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code boolMandatory}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolMandatory(ValidateFormParser.BoolMandatoryContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code boolMandatory}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolMandatory(ValidateFormParser.BoolMandatoryContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code boolRegex}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolRegex(ValidateFormParser.BoolRegexContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code boolRegex}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolRegex(ValidateFormParser.BoolRegexContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code boolDateComp}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolDateComp(ValidateFormParser.BoolDateCompContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code boolDateComp}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolDateComp(ValidateFormParser.BoolDateCompContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code boolConditions}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoolConditions(ValidateFormParser.BoolConditionsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code boolConditions}
+	 * labeled alternative in {@link ValidateFormParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoolConditions(ValidateFormParser.BoolConditionsContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code multipleConditions}
 	 * labeled alternative in {@link ValidateFormParser#conditions}.
 	 * @param ctx the parse tree

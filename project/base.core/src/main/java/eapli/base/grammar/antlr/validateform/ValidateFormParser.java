@@ -27,18 +27,18 @@ public class ValidateFormParser extends Parser {
 	public static final int
 		RULE_start = 0, RULE_statements = 1, RULE_header = 2, RULE_type = 3, RULE_statement = 4, 
 		RULE_mandatory = 5, RULE_regex = 6, RULE_assert_func = 7, RULE_get_attribute = 8, 
-		RULE_date_comp = 9, RULE_nums = 10, RULE_if_func = 11, RULE_conditions = 12, 
-		RULE_condition = 13, RULE_comp = 14, RULE_conjunction = 15, RULE_assign = 16, 
-		RULE_variable = 17, RULE_op = 18, RULE_object = 19, RULE_sign_td = 20, 
-		RULE_sign_pm = 21, RULE_num = 22, RULE_var_label = 23, RULE_alphanumeric = 24, 
-		RULE_alpha = 25, RULE_string = 26, RULE_character = 27;
+		RULE_date_comp = 9, RULE_nums = 10, RULE_if_func = 11, RULE_bool = 12, 
+		RULE_conditions = 13, RULE_condition = 14, RULE_comp = 15, RULE_conjunction = 16, 
+		RULE_assign = 17, RULE_variable = 18, RULE_op = 19, RULE_object = 20, 
+		RULE_sign_td = 21, RULE_sign_pm = 22, RULE_num = 23, RULE_var_label = 24, 
+		RULE_alphanumeric = 25, RULE_alpha = 26, RULE_string = 27, RULE_character = 28;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"start", "statements", "header", "type", "statement", "mandatory", "regex", 
-			"assert_func", "get_attribute", "date_comp", "nums", "if_func", "conditions", 
-			"condition", "comp", "conjunction", "assign", "variable", "op", "object", 
-			"sign_td", "sign_pm", "num", "var_label", "alphanumeric", "alpha", "string", 
-			"character"
+			"assert_func", "get_attribute", "date_comp", "nums", "if_func", "bool", 
+			"conditions", "condition", "comp", "conjunction", "assign", "variable", 
+			"op", "object", "sign_td", "sign_pm", "num", "var_label", "alphanumeric", 
+			"alpha", "string", "character"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -162,15 +162,15 @@ public class ValidateFormParser extends Parser {
 			_localctx = new ExecStartContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(56);
-			header();
-			setState(57);
-			type();
 			setState(58);
-			match(BLOCK_START);
+			header();
 			setState(59);
-			((ExecStartContext)_localctx).stmts = statements();
+			type();
 			setState(60);
+			match(BLOCK_START);
+			setState(61);
+			((ExecStartContext)_localctx).stmts = statements();
+			setState(62);
 			match(BLOCK_END);
 			}
 		}
@@ -228,7 +228,7 @@ public class ValidateFormParser extends Parser {
 			_localctx = new ExecStatementsContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(63); 
+			setState(65); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -236,7 +236,7 @@ public class ValidateFormParser extends Parser {
 				case 1:
 					{
 					{
-					setState(62);
+					setState(64);
 					((ExecStatementsContext)_localctx).stmt = statement();
 					}
 					}
@@ -244,7 +244,7 @@ public class ValidateFormParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(65); 
+				setState(67); 
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
@@ -298,9 +298,9 @@ public class ValidateFormParser extends Parser {
 			_localctx = new ExecHeaderContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(67);
+			setState(69);
 			match(HASHTAG);
-			setState(68);
+			setState(70);
 			match(HELPDESK);
 			}
 		}
@@ -351,7 +351,7 @@ public class ValidateFormParser extends Parser {
 			_localctx = new ExecTypeContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(70);
+			setState(72);
 			match(VALIDATE_FORM);
 			}
 		}
@@ -379,7 +379,6 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class StmtAssertContext extends StatementContext {
 		public Assert_funcContext stmt;
-		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode END() { return getToken(ValidateFormParser.END, 0); }
 		public Assert_funcContext assert_func() {
 			return getRuleContext(Assert_funcContext.class,0);
@@ -401,7 +400,6 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class StmtDateCompContext extends StatementContext {
 		public Date_compContext stmt;
-		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode END() { return getToken(ValidateFormParser.END, 0); }
 		public Date_compContext date_comp() {
 			return getRuleContext(Date_compContext.class,0);
@@ -423,7 +421,6 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class StmtIfContext extends StatementContext {
 		public If_funcContext stmt;
-		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public If_funcContext if_func() {
 			return getRuleContext(If_funcContext.class,0);
 		}
@@ -444,7 +441,6 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class StmtMandatoryContext extends StatementContext {
 		public MandatoryContext stmt;
-		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode END() { return getToken(ValidateFormParser.END, 0); }
 		public MandatoryContext mandatory() {
 			return getRuleContext(MandatoryContext.class,0);
@@ -466,7 +462,6 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class StmtAttributeContext extends StatementContext {
 		public Get_attributeContext stmt;
-		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode END() { return getToken(ValidateFormParser.END, 0); }
 		public Get_attributeContext get_attribute() {
 			return getRuleContext(Get_attributeContext.class,0);
@@ -488,7 +483,6 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class StmtRegexContext extends StatementContext {
 		public RegexContext stmt;
-		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode END() { return getToken(ValidateFormParser.END, 0); }
 		public RegexContext regex() {
 			return getRuleContext(RegexContext.class,0);
@@ -534,18 +528,16 @@ public class ValidateFormParser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_statement);
 		try {
-			setState(97);
+			setState(93);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
 				_localctx = new StmtMandatoryContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(72);
-				match(HASHTAG);
-				setState(73);
-				((StmtMandatoryContext)_localctx).stmt = mandatory();
 				setState(74);
+				((StmtMandatoryContext)_localctx).stmt = mandatory();
+				setState(75);
 				match(END);
 				}
 				break;
@@ -553,8 +545,6 @@ public class ValidateFormParser extends Parser {
 				_localctx = new StmtRegexContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(76);
-				match(HASHTAG);
 				setState(77);
 				((StmtRegexContext)_localctx).stmt = regex();
 				setState(78);
@@ -566,10 +556,8 @@ public class ValidateFormParser extends Parser {
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(80);
-				match(HASHTAG);
-				setState(81);
 				((StmtAssertContext)_localctx).stmt = assert_func();
-				setState(82);
+				setState(81);
 				match(END);
 				}
 				break;
@@ -577,11 +565,9 @@ public class ValidateFormParser extends Parser {
 				_localctx = new StmtAttributeContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(84);
-				match(HASHTAG);
-				setState(85);
+				setState(83);
 				((StmtAttributeContext)_localctx).stmt = get_attribute();
-				setState(86);
+				setState(84);
 				match(END);
 				}
 				break;
@@ -589,11 +575,9 @@ public class ValidateFormParser extends Parser {
 				_localctx = new StmtDateCompContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(88);
-				match(HASHTAG);
-				setState(89);
+				setState(86);
 				((StmtDateCompContext)_localctx).stmt = date_comp();
-				setState(90);
+				setState(87);
 				match(END);
 				}
 				break;
@@ -601,9 +585,7 @@ public class ValidateFormParser extends Parser {
 				_localctx = new StmtIfContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(92);
-				match(HASHTAG);
-				setState(93);
+				setState(89);
 				((StmtIfContext)_localctx).stmt = if_func();
 				}
 				break;
@@ -611,9 +593,9 @@ public class ValidateFormParser extends Parser {
 				_localctx = new StmtAssignContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(94);
+				setState(90);
 				((StmtAssignContext)_localctx).stmt = assign();
-				setState(95);
+				setState(91);
 				match(END);
 				}
 				break;
@@ -643,6 +625,7 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class ExecMandatoryContext extends MandatoryContext {
 		public NumsContext agr;
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode MANDATORY_LABEL() { return getToken(ValidateFormParser.MANDATORY_LABEL, 0); }
 		public TerminalNode STMT_START() { return getToken(ValidateFormParser.STMT_START, 0); }
 		public TerminalNode STMT_END() { return getToken(ValidateFormParser.STMT_END, 0); }
@@ -672,13 +655,15 @@ public class ValidateFormParser extends Parser {
 			_localctx = new ExecMandatoryContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(99);
+			setState(95);
+			match(HASHTAG);
+			setState(96);
 			match(MANDATORY_LABEL);
-			setState(100);
+			setState(97);
 			match(STMT_START);
-			setState(101);
+			setState(98);
 			((ExecMandatoryContext)_localctx).agr = nums();
-			setState(102);
+			setState(99);
 			match(STMT_END);
 			}
 		}
@@ -707,6 +692,7 @@ public class ValidateFormParser extends Parser {
 	public static class ExecRegexContext extends RegexContext {
 		public Token agr;
 		public StringContext re;
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode REGEX_LABEL() { return getToken(ValidateFormParser.REGEX_LABEL, 0); }
 		public TerminalNode STMT_START() { return getToken(ValidateFormParser.STMT_START, 0); }
 		public TerminalNode COMMA() { return getToken(ValidateFormParser.COMMA, 0); }
@@ -742,29 +728,31 @@ public class ValidateFormParser extends Parser {
 			_localctx = new ExecRegexContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(104);
+			setState(101);
+			match(HASHTAG);
+			setState(102);
 			match(REGEX_LABEL);
-			setState(105);
+			setState(103);
 			match(STMT_START);
-			setState(107); 
+			setState(105); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(106);
+				setState(104);
 				((ExecRegexContext)_localctx).agr = match(NUM);
 				}
 				}
-				setState(109); 
+				setState(107); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==NUM );
-			setState(111);
+			setState(109);
 			match(COMMA);
-			setState(112);
+			setState(110);
 			((ExecRegexContext)_localctx).re = string();
-			setState(113);
+			setState(111);
 			match(STMT_END);
 			}
 		}
@@ -792,6 +780,7 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class ExecAssertContext extends Assert_funcContext {
 		public ConditionsContext cond;
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode ASSERT_LABEL() { return getToken(ValidateFormParser.ASSERT_LABEL, 0); }
 		public TerminalNode STMT_START() { return getToken(ValidateFormParser.STMT_START, 0); }
 		public TerminalNode STMT_END() { return getToken(ValidateFormParser.STMT_END, 0); }
@@ -821,13 +810,15 @@ public class ValidateFormParser extends Parser {
 			_localctx = new ExecAssertContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(115);
+			setState(113);
+			match(HASHTAG);
+			setState(114);
 			match(ASSERT_LABEL);
-			setState(116);
+			setState(115);
 			match(STMT_START);
-			setState(117);
+			setState(116);
 			((ExecAssertContext)_localctx).cond = conditions();
-			setState(118);
+			setState(117);
 			match(STMT_END);
 			}
 		}
@@ -855,6 +846,7 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class ExecGetAttributeContext extends Get_attributeContext {
 		public Token attribute;
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode GET_ATTRIBUTE_LABEL() { return getToken(ValidateFormParser.GET_ATTRIBUTE_LABEL, 0); }
 		public TerminalNode STMT_START() { return getToken(ValidateFormParser.STMT_START, 0); }
 		public TerminalNode STMT_END() { return getToken(ValidateFormParser.STMT_END, 0); }
@@ -886,6 +878,8 @@ public class ValidateFormParser extends Parser {
 			_localctx = new ExecGetAttributeContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
+			setState(119);
+			match(HASHTAG);
 			setState(120);
 			match(GET_ATTRIBUTE_LABEL);
 			setState(121);
@@ -934,12 +928,9 @@ public class ValidateFormParser extends Parser {
 		public Get_attributeContext date1;
 		public CompContext conjSign;
 		public Get_attributeContext date2;
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode DATE_COMPARE_LABEL() { return getToken(ValidateFormParser.DATE_COMPARE_LABEL, 0); }
 		public TerminalNode STMT_START() { return getToken(ValidateFormParser.STMT_START, 0); }
-		public List<TerminalNode> HASHTAG() { return getTokens(ValidateFormParser.HASHTAG); }
-		public TerminalNode HASHTAG(int i) {
-			return getToken(ValidateFormParser.HASHTAG, i);
-		}
 		public TerminalNode STMT_END() { return getToken(ValidateFormParser.STMT_END, 0); }
 		public List<Get_attributeContext> get_attribute() {
 			return getRuleContexts(Get_attributeContext.class);
@@ -974,20 +965,18 @@ public class ValidateFormParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(129);
-			match(DATE_COMPARE_LABEL);
-			setState(130);
-			match(STMT_START);
-			setState(131);
 			match(HASHTAG);
+			setState(130);
+			match(DATE_COMPARE_LABEL);
+			setState(131);
+			match(STMT_START);
 			setState(132);
 			((ExecDateCompareContext)_localctx).date1 = get_attribute();
 			setState(133);
 			((ExecDateCompareContext)_localctx).conjSign = comp();
 			setState(134);
-			match(HASHTAG);
-			setState(135);
 			((ExecDateCompareContext)_localctx).date2 = get_attribute();
-			setState(136);
+			setState(135);
 			match(STMT_END);
 			}
 		}
@@ -1066,30 +1055,30 @@ public class ValidateFormParser extends Parser {
 		enterRule(_localctx, 20, RULE_nums);
 		int _la;
 		try {
-			setState(150);
+			setState(149);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
 				_localctx = new ExecMultipleNumbersContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(139); 
+				setState(138); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
 					{
 					{
-					setState(138);
+					setState(137);
 					((ExecMultipleNumbersContext)_localctx).number = match(NUM);
 					}
 					}
-					setState(141); 
+					setState(140); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( _la==NUM );
-				setState(143);
+				setState(142);
 				match(COMMA);
-				setState(144);
+				setState(143);
 				((ExecMultipleNumbersContext)_localctx).multipleNumbers = nums();
 				}
 				break;
@@ -1097,17 +1086,17 @@ public class ValidateFormParser extends Parser {
 				_localctx = new ExecNumContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(146); 
+				setState(145); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
 					{
 					{
-					setState(145);
+					setState(144);
 					((ExecNumContext)_localctx).number = match(NUM);
 					}
 					}
-					setState(148); 
+					setState(147); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( _la==NUM );
@@ -1138,14 +1127,15 @@ public class ValidateFormParser extends Parser {
 		}
 	}
 	public static class OnlyIfContext extends If_funcContext {
-		public ConditionsContext if_cond;
+		public BoolContext if_cond;
 		public StatementsContext stmt_if;
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode IF_LABEL() { return getToken(ValidateFormParser.IF_LABEL, 0); }
 		public TerminalNode STMT_START() { return getToken(ValidateFormParser.STMT_START, 0); }
 		public TerminalNode STMT_END() { return getToken(ValidateFormParser.STMT_END, 0); }
 		public TerminalNode BLOCK_START() { return getToken(ValidateFormParser.BLOCK_START, 0); }
-		public ConditionsContext conditions() {
-			return getRuleContext(ConditionsContext.class,0);
+		public BoolContext bool() {
+			return getRuleContext(BoolContext.class,0);
 		}
 		public StatementsContext statements() {
 			return getRuleContext(StatementsContext.class,0);
@@ -1166,9 +1156,10 @@ public class ValidateFormParser extends Parser {
 		}
 	}
 	public static class IfElseContext extends If_funcContext {
-		public ConditionsContext if_cond;
+		public BoolContext if_cond;
 		public StatementsContext stmt_if;
 		public StatementsContext stmt_else;
+		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public TerminalNode IF_LABEL() { return getToken(ValidateFormParser.IF_LABEL, 0); }
 		public TerminalNode STMT_START() { return getToken(ValidateFormParser.STMT_START, 0); }
 		public TerminalNode STMT_END() { return getToken(ValidateFormParser.STMT_END, 0); }
@@ -1181,8 +1172,8 @@ public class ValidateFormParser extends Parser {
 			return getToken(ValidateFormParser.BLOCK_END, i);
 		}
 		public TerminalNode ELSE() { return getToken(ValidateFormParser.ELSE, 0); }
-		public ConditionsContext conditions() {
-			return getRuleContext(ConditionsContext.class,0);
+		public BoolContext bool() {
+			return getRuleContext(BoolContext.class,0);
 		}
 		public List<StatementsContext> statements() {
 			return getRuleContexts(StatementsContext.class);
@@ -1210,19 +1201,21 @@ public class ValidateFormParser extends Parser {
 		If_funcContext _localctx = new If_funcContext(_ctx, getState());
 		enterRule(_localctx, 22, RULE_if_func);
 		try {
-			setState(171);
+			setState(172);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				_localctx = new OnlyIfContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
+				setState(151);
+				match(HASHTAG);
 				setState(152);
 				match(IF_LABEL);
 				setState(153);
 				match(STMT_START);
 				setState(154);
-				((OnlyIfContext)_localctx).if_cond = conditions();
+				((OnlyIfContext)_localctx).if_cond = bool();
 				setState(155);
 				match(STMT_END);
 				setState(156);
@@ -1236,27 +1229,173 @@ public class ValidateFormParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(159);
-				match(IF_LABEL);
+				match(HASHTAG);
 				setState(160);
-				match(STMT_START);
+				match(IF_LABEL);
 				setState(161);
-				((IfElseContext)_localctx).if_cond = conditions();
+				match(STMT_START);
 				setState(162);
-				match(STMT_END);
+				((IfElseContext)_localctx).if_cond = bool();
 				setState(163);
-				match(BLOCK_START);
+				match(STMT_END);
 				setState(164);
-				((IfElseContext)_localctx).stmt_if = statements();
-				setState(165);
-				match(BLOCK_END);
-				setState(166);
-				match(ELSE);
-				setState(167);
 				match(BLOCK_START);
-				setState(168);
-				((IfElseContext)_localctx).stmt_else = statements();
-				setState(169);
+				setState(165);
+				((IfElseContext)_localctx).stmt_if = statements();
+				setState(166);
 				match(BLOCK_END);
+				setState(167);
+				match(ELSE);
+				setState(168);
+				match(BLOCK_START);
+				setState(169);
+				((IfElseContext)_localctx).stmt_else = statements();
+				setState(170);
+				match(BLOCK_END);
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class BoolContext extends ParserRuleContext {
+		public BoolContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_bool; }
+	 
+		public BoolContext() { }
+		public void copyFrom(BoolContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class BoolMandatoryContext extends BoolContext {
+		public MandatoryContext bl;
+		public MandatoryContext mandatory() {
+			return getRuleContext(MandatoryContext.class,0);
+		}
+		public BoolMandatoryContext(BoolContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterBoolMandatory(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitBoolMandatory(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitBoolMandatory(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class BoolDateCompContext extends BoolContext {
+		public Date_compContext bl;
+		public Date_compContext date_comp() {
+			return getRuleContext(Date_compContext.class,0);
+		}
+		public BoolDateCompContext(BoolContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterBoolDateComp(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitBoolDateComp(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitBoolDateComp(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class BoolRegexContext extends BoolContext {
+		public RegexContext bl;
+		public RegexContext regex() {
+			return getRuleContext(RegexContext.class,0);
+		}
+		public BoolRegexContext(BoolContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterBoolRegex(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitBoolRegex(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitBoolRegex(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class BoolConditionsContext extends BoolContext {
+		public ConditionsContext bl;
+		public ConditionsContext conditions() {
+			return getRuleContext(ConditionsContext.class,0);
+		}
+		public BoolConditionsContext(BoolContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).enterBoolConditions(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ValidateFormListener ) ((ValidateFormListener)listener).exitBoolConditions(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ValidateFormVisitor ) return ((ValidateFormVisitor<? extends T>)visitor).visitBoolConditions(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final BoolContext bool() throws RecognitionException {
+		BoolContext _localctx = new BoolContext(_ctx, getState());
+		enterRule(_localctx, 24, RULE_bool);
+		try {
+			setState(178);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			case 1:
+				_localctx = new BoolMandatoryContext(_localctx);
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(174);
+				((BoolMandatoryContext)_localctx).bl = mandatory();
+				}
+				break;
+			case 2:
+				_localctx = new BoolRegexContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(175);
+				((BoolRegexContext)_localctx).bl = regex();
+				}
+				break;
+			case 3:
+				_localctx = new BoolDateCompContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(176);
+				((BoolDateCompContext)_localctx).bl = date_comp();
+				}
+				break;
+			case 4:
+				_localctx = new BoolConditionsContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(177);
+				((BoolConditionsContext)_localctx).bl = conditions();
 				}
 				break;
 			}
@@ -1334,20 +1473,20 @@ public class ValidateFormParser extends Parser {
 
 	public final ConditionsContext conditions() throws RecognitionException {
 		ConditionsContext _localctx = new ConditionsContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_conditions);
+		enterRule(_localctx, 26, RULE_conditions);
 		try {
-			setState(178);
+			setState(185);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				_localctx = new MultipleConditionsContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(173);
+				setState(180);
 				((MultipleConditionsContext)_localctx).right = condition();
-				setState(174);
+				setState(181);
 				((MultipleConditionsContext)_localctx).conjSign = conjunction();
-				setState(175);
+				setState(182);
 				((MultipleConditionsContext)_localctx).left = conditions();
 				}
 				break;
@@ -1355,7 +1494,7 @@ public class ValidateFormParser extends Parser {
 				_localctx = new SingleConditionsContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(177);
+				setState(184);
 				((SingleConditionsContext)_localctx).cond = condition();
 				}
 				break;
@@ -1414,16 +1553,16 @@ public class ValidateFormParser extends Parser {
 
 	public final ConditionContext condition() throws RecognitionException {
 		ConditionContext _localctx = new ConditionContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_condition);
+		enterRule(_localctx, 28, RULE_condition);
 		try {
 			_localctx = new CondContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(180);
+			setState(187);
 			((CondContext)_localctx).left = object();
-			setState(181);
+			setState(188);
 			((CondContext)_localctx).compSign = comp();
-			setState(182);
+			setState(189);
 			((CondContext)_localctx).right = object();
 			}
 		}
@@ -1466,12 +1605,12 @@ public class ValidateFormParser extends Parser {
 
 	public final CompContext comp() throws RecognitionException {
 		CompContext _localctx = new CompContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_comp);
+		enterRule(_localctx, 30, RULE_comp);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(184);
+			setState(191);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << COMP_EQUAL) | (1L << DIFF) | (1L << BIGGER) | (1L << LESSER) | (1L << BE) | (1L << LE))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1518,12 +1657,12 @@ public class ValidateFormParser extends Parser {
 
 	public final ConjunctionContext conjunction() throws RecognitionException {
 		ConjunctionContext _localctx = new ConjunctionContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_conjunction);
+		enterRule(_localctx, 32, RULE_conjunction);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(186);
+			setState(193);
 			_la = _input.LA(1);
 			if ( !(_la==AND || _la==OR) ) {
 			_errHandler.recoverInline(this);
@@ -1585,16 +1724,16 @@ public class ValidateFormParser extends Parser {
 
 	public final AssignContext assign() throws RecognitionException {
 		AssignContext _localctx = new AssignContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_assign);
+		enterRule(_localctx, 34, RULE_assign);
 		try {
 			_localctx = new ExecAssignContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(188);
+			setState(195);
 			((ExecAssignContext)_localctx).var = variable();
-			setState(189);
+			setState(196);
 			match(EQUAL);
-			setState(190);
+			setState(197);
 			((ExecAssignContext)_localctx).res = op(0);
 			}
 		}
@@ -1644,14 +1783,14 @@ public class ValidateFormParser extends Parser {
 
 	public final VariableContext variable() throws RecognitionException {
 		VariableContext _localctx = new VariableContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_variable);
+		enterRule(_localctx, 36, RULE_variable);
 		try {
 			_localctx = new ExecVarContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(192);
+			setState(199);
 			match(DOLLAR);
-			setState(193);
+			setState(200);
 			((ExecVarContext)_localctx).label = var_label();
 			}
 		}
@@ -1785,13 +1924,13 @@ public class ValidateFormParser extends Parser {
 		int _parentState = getState();
 		OpContext _localctx = new OpContext(_ctx, _parentState);
 		OpContext _prevctx = _localctx;
-		int _startState = 36;
-		enterRecursionRule(_localctx, 36, RULE_op, _p);
+		int _startState = 38;
+		enterRecursionRule(_localctx, 38, RULE_op, _p);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(201);
+			setState(208);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case STMT_START:
@@ -1800,11 +1939,11 @@ public class ValidateFormParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(196);
+				setState(203);
 				match(STMT_START);
-				setState(197);
+				setState(204);
 				((ExecOpParenthesisContext)_localctx).result = op(0);
-				setState(198);
+				setState(205);
 				match(STMT_END);
 				}
 				break;
@@ -1815,7 +1954,7 @@ public class ValidateFormParser extends Parser {
 				_localctx = new ExecOpAtomContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(200);
+				setState(207);
 				((ExecOpAtomContext)_localctx).atom = object();
 				}
 				break;
@@ -1823,27 +1962,27 @@ public class ValidateFormParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(213);
+			setState(220);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,11,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(211);
+					setState(218);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
 					case 1:
 						{
 						_localctx = new ExecOpTimesDivisionContext(new OpContext(_parentctx, _parentState));
 						((ExecOpTimesDivisionContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_op);
-						setState(203);
+						setState(210);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(204);
+						setState(211);
 						((ExecOpTimesDivisionContext)_localctx).sign = sign_td();
-						setState(205);
+						setState(212);
 						((ExecOpTimesDivisionContext)_localctx).right = op(5);
 						}
 						break;
@@ -1852,20 +1991,20 @@ public class ValidateFormParser extends Parser {
 						_localctx = new ExecOpPlusMinusContext(new OpContext(_parentctx, _parentState));
 						((ExecOpPlusMinusContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_op);
-						setState(207);
+						setState(214);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(208);
+						setState(215);
 						((ExecOpPlusMinusContext)_localctx).sign = sign_pm();
-						setState(209);
+						setState(216);
 						((ExecOpPlusMinusContext)_localctx).right = op(4);
 						}
 						break;
 					}
 					} 
 				}
-				setState(215);
+				setState(222);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,11,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			}
 			}
 		}
@@ -1913,7 +2052,6 @@ public class ValidateFormParser extends Parser {
 	}
 	public static class ObjectAttributeContext extends ObjectContext {
 		public Get_attributeContext att;
-		public TerminalNode HASHTAG() { return getToken(ValidateFormParser.HASHTAG, 0); }
 		public Get_attributeContext get_attribute() {
 			return getRuleContext(Get_attributeContext.class,0);
 		}
@@ -1955,16 +2093,16 @@ public class ValidateFormParser extends Parser {
 
 	public final ObjectContext object() throws RecognitionException {
 		ObjectContext _localctx = new ObjectContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_object);
+		enterRule(_localctx, 40, RULE_object);
 		try {
-			setState(220);
+			setState(226);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case DOLLAR:
 				_localctx = new ObjectVariableContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(216);
+				setState(223);
 				((ObjectVariableContext)_localctx).var = variable();
 				}
 				break;
@@ -1972,7 +2110,7 @@ public class ValidateFormParser extends Parser {
 				_localctx = new ObjectNumberContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(217);
+				setState(224);
 				((ObjectNumberContext)_localctx).objNumber = num();
 				}
 				break;
@@ -1980,9 +2118,7 @@ public class ValidateFormParser extends Parser {
 				_localctx = new ObjectAttributeContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(218);
-				match(HASHTAG);
-				setState(219);
+				setState(225);
 				((ObjectAttributeContext)_localctx).att = get_attribute();
 				}
 				break;
@@ -2025,12 +2161,12 @@ public class ValidateFormParser extends Parser {
 
 	public final Sign_tdContext sign_td() throws RecognitionException {
 		Sign_tdContext _localctx = new Sign_tdContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_sign_td);
+		enterRule(_localctx, 42, RULE_sign_td);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(222);
+			setState(228);
 			_la = _input.LA(1);
 			if ( !(_la==TIMES || _la==FOWARD_SLASH) ) {
 			_errHandler.recoverInline(this);
@@ -2077,12 +2213,12 @@ public class ValidateFormParser extends Parser {
 
 	public final Sign_pmContext sign_pm() throws RecognitionException {
 		Sign_pmContext _localctx = new Sign_pmContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_sign_pm);
+		enterRule(_localctx, 44, RULE_sign_pm);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(224);
+			setState(230);
 			_la = _input.LA(1);
 			if ( !(_la==PLUS || _la==HYPHEN) ) {
 			_errHandler.recoverInline(this);
@@ -2131,12 +2267,12 @@ public class ValidateFormParser extends Parser {
 
 	public final NumContext num() throws RecognitionException {
 		NumContext _localctx = new NumContext(_ctx, getState());
-		enterRule(_localctx, 44, RULE_num);
+		enterRule(_localctx, 46, RULE_num);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(227); 
+			setState(233); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -2144,7 +2280,7 @@ public class ValidateFormParser extends Parser {
 				case 1:
 					{
 					{
-					setState(226);
+					setState(232);
 					match(NUM);
 					}
 					}
@@ -2152,9 +2288,9 @@ public class ValidateFormParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(229); 
+				setState(235); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
 			} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 			}
 		}
@@ -2198,28 +2334,28 @@ public class ValidateFormParser extends Parser {
 
 	public final Var_labelContext var_label() throws RecognitionException {
 		Var_labelContext _localctx = new Var_labelContext(_ctx, getState());
-		enterRule(_localctx, 46, RULE_var_label);
+		enterRule(_localctx, 48, RULE_var_label);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(231);
+			setState(237);
 			match(LOWERCASE);
-			setState(235);
+			setState(241);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(232);
+					setState(238);
 					alphanumeric();
 					}
 					} 
 				}
-				setState(237);
+				setState(243);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,15,_ctx);
 			}
 			}
 		}
@@ -2259,12 +2395,12 @@ public class ValidateFormParser extends Parser {
 
 	public final AlphanumericContext alphanumeric() throws RecognitionException {
 		AlphanumericContext _localctx = new AlphanumericContext(_ctx, getState());
-		enterRule(_localctx, 48, RULE_alphanumeric);
+		enterRule(_localctx, 50, RULE_alphanumeric);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(238);
+			setState(244);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUM) | (1L << LOWERCASE) | (1L << UPPERCASE))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2311,12 +2447,12 @@ public class ValidateFormParser extends Parser {
 
 	public final AlphaContext alpha() throws RecognitionException {
 		AlphaContext _localctx = new AlphaContext(_ctx, getState());
-		enterRule(_localctx, 50, RULE_alpha);
+		enterRule(_localctx, 52, RULE_alpha);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(240);
+			setState(246);
 			_la = _input.LA(1);
 			if ( !(_la==LOWERCASE || _la==UPPERCASE) ) {
 			_errHandler.recoverInline(this);
@@ -2380,29 +2516,29 @@ public class ValidateFormParser extends Parser {
 
 	public final StringContext string() throws RecognitionException {
 		StringContext _localctx = new StringContext(_ctx, getState());
-		enterRule(_localctx, 52, RULE_string);
+		enterRule(_localctx, 54, RULE_string);
 		int _la;
 		try {
 			_localctx = new ExecStringContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(242);
+			setState(248);
 			match(QUOTATION_MARKS);
-			setState(244); 
+			setState(250); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(243);
+				setState(249);
 				((ExecStringContext)_localctx).str = character();
 				}
 				}
-				setState(246); 
+				setState(252); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUM) | (1L << LOWERCASE) | (1L << UPPERCASE) | (1L << PLUS) | (1L << HYPHEN) | (1L << TIMES) | (1L << PARENTHESIS_OPEN) | (1L << PARENTHESIS_CLOSE))) != 0) );
-			setState(248);
+			setState(254);
 			match(QUOTATION_MARKS);
 			}
 		}
@@ -2447,12 +2583,12 @@ public class ValidateFormParser extends Parser {
 
 	public final CharacterContext character() throws RecognitionException {
 		CharacterContext _localctx = new CharacterContext(_ctx, getState());
-		enterRule(_localctx, 54, RULE_character);
+		enterRule(_localctx, 56, RULE_character);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(250);
+			setState(256);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUM) | (1L << LOWERCASE) | (1L << UPPERCASE) | (1L << PLUS) | (1L << HYPHEN) | (1L << TIMES) | (1L << PARENTHESIS_OPEN) | (1L << PARENTHESIS_CLOSE))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2477,7 +2613,7 @@ public class ValidateFormParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 18:
+		case 19:
 			return op_sempred((OpContext)_localctx, predIndex);
 		}
 		return true;
@@ -2493,85 +2629,88 @@ public class ValidateFormParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3,\u00ff\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3,\u0105\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
-		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\3\2\3\2\3\2\3\2\3\2\3\2\3\3\6"+
-		"\3B\n\3\r\3\16\3C\3\4\3\4\3\4\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6"+
-		"\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5"+
-		"\6d\n\6\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\6\bn\n\b\r\b\16\bo\3\b\3\b\3\b"+
-		"\3\b\3\t\3\t\3\t\3\t\3\t\3\n\3\n\3\n\6\n~\n\n\r\n\16\n\177\3\n\3\n\3\13"+
-		"\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\f\6\f\u008e\n\f\r\f\16\f\u008f"+
-		"\3\f\3\f\3\f\6\f\u0095\n\f\r\f\16\f\u0096\5\f\u0099\n\f\3\r\3\r\3\r\3"+
-		"\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\5\r\u00ae"+
-		"\n\r\3\16\3\16\3\16\3\16\3\16\5\16\u00b5\n\16\3\17\3\17\3\17\3\17\3\20"+
-		"\3\20\3\21\3\21\3\22\3\22\3\22\3\22\3\23\3\23\3\23\3\24\3\24\3\24\3\24"+
-		"\3\24\3\24\5\24\u00cc\n\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\7\24"+
-		"\u00d6\n\24\f\24\16\24\u00d9\13\24\3\25\3\25\3\25\3\25\5\25\u00df\n\25"+
-		"\3\26\3\26\3\27\3\27\3\30\6\30\u00e6\n\30\r\30\16\30\u00e7\3\31\3\31\7"+
-		"\31\u00ec\n\31\f\31\16\31\u00ef\13\31\3\32\3\32\3\33\3\33\3\34\3\34\6"+
-		"\34\u00f7\n\34\r\34\16\34\u00f8\3\34\3\34\3\35\3\35\3\35\2\3&\36\2\4\6"+
-		"\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668\2\t\3\2\34!\3"+
-		"\2\"#\4\2\21\21\33\33\3\2\17\20\3\2\f\16\3\2\r\16\4\2\f\21()\2\u00f8\2"+
-		":\3\2\2\2\4A\3\2\2\2\6E\3\2\2\2\bH\3\2\2\2\nc\3\2\2\2\fe\3\2\2\2\16j\3"+
-		"\2\2\2\20u\3\2\2\2\22z\3\2\2\2\24\u0083\3\2\2\2\26\u0098\3\2\2\2\30\u00ad"+
-		"\3\2\2\2\32\u00b4\3\2\2\2\34\u00b6\3\2\2\2\36\u00ba\3\2\2\2 \u00bc\3\2"+
-		"\2\2\"\u00be\3\2\2\2$\u00c2\3\2\2\2&\u00cb\3\2\2\2(\u00de\3\2\2\2*\u00e0"+
-		"\3\2\2\2,\u00e2\3\2\2\2.\u00e5\3\2\2\2\60\u00e9\3\2\2\2\62\u00f0\3\2\2"+
-		"\2\64\u00f2\3\2\2\2\66\u00f4\3\2\2\28\u00fc\3\2\2\2:;\5\6\4\2;<\5\b\5"+
-		"\2<=\7\22\2\2=>\5\4\3\2>?\7\23\2\2?\3\3\2\2\2@B\5\n\6\2A@\3\2\2\2BC\3"+
-		"\2\2\2CA\3\2\2\2CD\3\2\2\2D\5\3\2\2\2EF\7&\2\2FG\7\t\2\2G\7\3\2\2\2HI"+
-		"\7\3\2\2I\t\3\2\2\2JK\7&\2\2KL\5\f\7\2LM\7+\2\2Md\3\2\2\2NO\7&\2\2OP\5"+
-		"\16\b\2PQ\7+\2\2Qd\3\2\2\2RS\7&\2\2ST\5\20\t\2TU\7+\2\2Ud\3\2\2\2VW\7"+
-		"&\2\2WX\5\22\n\2XY\7+\2\2Yd\3\2\2\2Z[\7&\2\2[\\\5\24\13\2\\]\7+\2\2]d"+
-		"\3\2\2\2^_\7&\2\2_d\5\30\r\2`a\5\"\22\2ab\7+\2\2bd\3\2\2\2cJ\3\2\2\2c"+
-		"N\3\2\2\2cR\3\2\2\2cV\3\2\2\2cZ\3\2\2\2c^\3\2\2\2c`\3\2\2\2d\13\3\2\2"+
-		"\2ef\7\4\2\2fg\7\24\2\2gh\5\26\f\2hi\7\25\2\2i\r\3\2\2\2jk\7\5\2\2km\7"+
-		"\24\2\2ln\7\f\2\2ml\3\2\2\2no\3\2\2\2om\3\2\2\2op\3\2\2\2pq\3\2\2\2qr"+
-		"\7%\2\2rs\5\66\34\2st\7\25\2\2t\17\3\2\2\2uv\7\6\2\2vw\7\24\2\2wx\5\32"+
-		"\16\2xy\7\25\2\2y\21\3\2\2\2z{\7\7\2\2{}\7\24\2\2|~\7\f\2\2}|\3\2\2\2"+
-		"~\177\3\2\2\2\177}\3\2\2\2\177\u0080\3\2\2\2\u0080\u0081\3\2\2\2\u0081"+
-		"\u0082\7\25\2\2\u0082\23\3\2\2\2\u0083\u0084\7\b\2\2\u0084\u0085\7\24"+
-		"\2\2\u0085\u0086\7&\2\2\u0086\u0087\5\22\n\2\u0087\u0088\5\36\20\2\u0088"+
-		"\u0089\7&\2\2\u0089\u008a\5\22\n\2\u008a\u008b\7\25\2\2\u008b\25\3\2\2"+
-		"\2\u008c\u008e\7\f\2\2\u008d\u008c\3\2\2\2\u008e\u008f\3\2\2\2\u008f\u008d"+
-		"\3\2\2\2\u008f\u0090\3\2\2\2\u0090\u0091\3\2\2\2\u0091\u0092\7%\2\2\u0092"+
-		"\u0099\5\26\f\2\u0093\u0095\7\f\2\2\u0094\u0093\3\2\2\2\u0095\u0096\3"+
-		"\2\2\2\u0096\u0094\3\2\2\2\u0096\u0097\3\2\2\2\u0097\u0099\3\2\2\2\u0098"+
-		"\u008d\3\2\2\2\u0098\u0094\3\2\2\2\u0099\27\3\2\2\2\u009a\u009b\7\n\2"+
-		"\2\u009b\u009c\7\24\2\2\u009c\u009d\5\32\16\2\u009d\u009e\7\25\2\2\u009e"+
-		"\u009f\7\22\2\2\u009f\u00a0\5\4\3\2\u00a0\u00ae\3\2\2\2\u00a1\u00a2\7"+
-		"\n\2\2\u00a2\u00a3\7\24\2\2\u00a3\u00a4\5\32\16\2\u00a4\u00a5\7\25\2\2"+
-		"\u00a5\u00a6\7\22\2\2\u00a6\u00a7\5\4\3\2\u00a7\u00a8\7\23\2\2\u00a8\u00a9"+
-		"\7\13\2\2\u00a9\u00aa\7\22\2\2\u00aa\u00ab\5\4\3\2\u00ab\u00ac\7\23\2"+
-		"\2\u00ac\u00ae\3\2\2\2\u00ad\u009a\3\2\2\2\u00ad\u00a1\3\2\2\2\u00ae\31"+
-		"\3\2\2\2\u00af\u00b0\5\34\17\2\u00b0\u00b1\5 \21\2\u00b1\u00b2\5\32\16"+
-		"\2\u00b2\u00b5\3\2\2\2\u00b3\u00b5\5\34\17\2\u00b4\u00af\3\2\2\2\u00b4"+
-		"\u00b3\3\2\2\2\u00b5\33\3\2\2\2\u00b6\u00b7\5(\25\2\u00b7\u00b8\5\36\20"+
-		"\2\u00b8\u00b9\5(\25\2\u00b9\35\3\2\2\2\u00ba\u00bb\t\2\2\2\u00bb\37\3"+
-		"\2\2\2\u00bc\u00bd\t\3\2\2\u00bd!\3\2\2\2\u00be\u00bf\5$\23\2\u00bf\u00c0"+
-		"\7\30\2\2\u00c0\u00c1\5&\24\2\u00c1#\3\2\2\2\u00c2\u00c3\7\32\2\2\u00c3"+
-		"\u00c4\5\60\31\2\u00c4%\3\2\2\2\u00c5\u00c6\b\24\1\2\u00c6\u00c7\7\24"+
-		"\2\2\u00c7\u00c8\5&\24\2\u00c8\u00c9\7\25\2\2\u00c9\u00cc\3\2\2\2\u00ca"+
-		"\u00cc\5(\25\2\u00cb\u00c5\3\2\2\2\u00cb\u00ca\3\2\2\2\u00cc\u00d7\3\2"+
-		"\2\2\u00cd\u00ce\f\6\2\2\u00ce\u00cf\5*\26\2\u00cf\u00d0\5&\24\7\u00d0"+
-		"\u00d6\3\2\2\2\u00d1\u00d2\f\5\2\2\u00d2\u00d3\5,\27\2\u00d3\u00d4\5&"+
-		"\24\6\u00d4\u00d6\3\2\2\2\u00d5\u00cd\3\2\2\2\u00d5\u00d1\3\2\2\2\u00d6"+
-		"\u00d9\3\2\2\2\u00d7\u00d5\3\2\2\2\u00d7\u00d8\3\2\2\2\u00d8\'\3\2\2\2"+
-		"\u00d9\u00d7\3\2\2\2\u00da\u00df\5$\23\2\u00db\u00df\5.\30\2\u00dc\u00dd"+
-		"\7&\2\2\u00dd\u00df\5\22\n\2\u00de\u00da\3\2\2\2\u00de\u00db\3\2\2\2\u00de"+
-		"\u00dc\3\2\2\2\u00df)\3\2\2\2\u00e0\u00e1\t\4\2\2\u00e1+\3\2\2\2\u00e2"+
-		"\u00e3\t\5\2\2\u00e3-\3\2\2\2\u00e4\u00e6\7\f\2\2\u00e5\u00e4\3\2\2\2"+
-		"\u00e6\u00e7\3\2\2\2\u00e7\u00e5\3\2\2\2\u00e7\u00e8\3\2\2\2\u00e8/\3"+
-		"\2\2\2\u00e9\u00ed\7\r\2\2\u00ea\u00ec\5\62\32\2\u00eb\u00ea\3\2\2\2\u00ec"+
-		"\u00ef\3\2\2\2\u00ed\u00eb\3\2\2\2\u00ed\u00ee\3\2\2\2\u00ee\61\3\2\2"+
-		"\2\u00ef\u00ed\3\2\2\2\u00f0\u00f1\t\6\2\2\u00f1\63\3\2\2\2\u00f2\u00f3"+
-		"\t\7\2\2\u00f3\65\3\2\2\2\u00f4\u00f6\7*\2\2\u00f5\u00f7\58\35\2\u00f6"+
-		"\u00f5\3\2\2\2\u00f7\u00f8\3\2\2\2\u00f8\u00f6\3\2\2\2\u00f8\u00f9\3\2"+
-		"\2\2\u00f9\u00fa\3\2\2\2\u00fa\u00fb\7*\2\2\u00fb\67\3\2\2\2\u00fc\u00fd"+
-		"\t\b\2\2\u00fd9\3\2\2\2\22Cco\177\u008f\u0096\u0098\u00ad\u00b4\u00cb"+
-		"\u00d5\u00d7\u00de\u00e7\u00ed\u00f8";
+		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\3\2\3\2\3\2\3\2\3\2"+
+		"\3\2\3\3\6\3D\n\3\r\3\16\3E\3\4\3\4\3\4\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3"+
+		"\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6`\n\6\3\7\3"+
+		"\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\6\bl\n\b\r\b\16\bm\3\b\3\b\3\b\3\b"+
+		"\3\t\3\t\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\6\n~\n\n\r\n\16\n\177\3\n\3\n"+
+		"\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\f\6\f\u008d\n\f\r\f\16\f\u008e"+
+		"\3\f\3\f\3\f\6\f\u0094\n\f\r\f\16\f\u0095\5\f\u0098\n\f\3\r\3\r\3\r\3"+
+		"\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r\3\r"+
+		"\5\r\u00af\n\r\3\16\3\16\3\16\3\16\5\16\u00b5\n\16\3\17\3\17\3\17\3\17"+
+		"\3\17\5\17\u00bc\n\17\3\20\3\20\3\20\3\20\3\21\3\21\3\22\3\22\3\23\3\23"+
+		"\3\23\3\23\3\24\3\24\3\24\3\25\3\25\3\25\3\25\3\25\3\25\5\25\u00d3\n\25"+
+		"\3\25\3\25\3\25\3\25\3\25\3\25\3\25\3\25\7\25\u00dd\n\25\f\25\16\25\u00e0"+
+		"\13\25\3\26\3\26\3\26\5\26\u00e5\n\26\3\27\3\27\3\30\3\30\3\31\6\31\u00ec"+
+		"\n\31\r\31\16\31\u00ed\3\32\3\32\7\32\u00f2\n\32\f\32\16\32\u00f5\13\32"+
+		"\3\33\3\33\3\34\3\34\3\35\3\35\6\35\u00fd\n\35\r\35\16\35\u00fe\3\35\3"+
+		"\35\3\36\3\36\3\36\2\3(\37\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$"+
+		"&(*,.\60\62\64\668:\2\t\3\2\34!\3\2\"#\4\2\21\21\33\33\3\2\17\20\3\2\f"+
+		"\16\3\2\r\16\4\2\f\21()\2\u0100\2<\3\2\2\2\4C\3\2\2\2\6G\3\2\2\2\bJ\3"+
+		"\2\2\2\n_\3\2\2\2\fa\3\2\2\2\16g\3\2\2\2\20s\3\2\2\2\22y\3\2\2\2\24\u0083"+
+		"\3\2\2\2\26\u0097\3\2\2\2\30\u00ae\3\2\2\2\32\u00b4\3\2\2\2\34\u00bb\3"+
+		"\2\2\2\36\u00bd\3\2\2\2 \u00c1\3\2\2\2\"\u00c3\3\2\2\2$\u00c5\3\2\2\2"+
+		"&\u00c9\3\2\2\2(\u00d2\3\2\2\2*\u00e4\3\2\2\2,\u00e6\3\2\2\2.\u00e8\3"+
+		"\2\2\2\60\u00eb\3\2\2\2\62\u00ef\3\2\2\2\64\u00f6\3\2\2\2\66\u00f8\3\2"+
+		"\2\28\u00fa\3\2\2\2:\u0102\3\2\2\2<=\5\6\4\2=>\5\b\5\2>?\7\22\2\2?@\5"+
+		"\4\3\2@A\7\23\2\2A\3\3\2\2\2BD\5\n\6\2CB\3\2\2\2DE\3\2\2\2EC\3\2\2\2E"+
+		"F\3\2\2\2F\5\3\2\2\2GH\7&\2\2HI\7\t\2\2I\7\3\2\2\2JK\7\3\2\2K\t\3\2\2"+
+		"\2LM\5\f\7\2MN\7+\2\2N`\3\2\2\2OP\5\16\b\2PQ\7+\2\2Q`\3\2\2\2RS\5\20\t"+
+		"\2ST\7+\2\2T`\3\2\2\2UV\5\22\n\2VW\7+\2\2W`\3\2\2\2XY\5\24\13\2YZ\7+\2"+
+		"\2Z`\3\2\2\2[`\5\30\r\2\\]\5$\23\2]^\7+\2\2^`\3\2\2\2_L\3\2\2\2_O\3\2"+
+		"\2\2_R\3\2\2\2_U\3\2\2\2_X\3\2\2\2_[\3\2\2\2_\\\3\2\2\2`\13\3\2\2\2ab"+
+		"\7&\2\2bc\7\4\2\2cd\7\24\2\2de\5\26\f\2ef\7\25\2\2f\r\3\2\2\2gh\7&\2\2"+
+		"hi\7\5\2\2ik\7\24\2\2jl\7\f\2\2kj\3\2\2\2lm\3\2\2\2mk\3\2\2\2mn\3\2\2"+
+		"\2no\3\2\2\2op\7%\2\2pq\58\35\2qr\7\25\2\2r\17\3\2\2\2st\7&\2\2tu\7\6"+
+		"\2\2uv\7\24\2\2vw\5\34\17\2wx\7\25\2\2x\21\3\2\2\2yz\7&\2\2z{\7\7\2\2"+
+		"{}\7\24\2\2|~\7\f\2\2}|\3\2\2\2~\177\3\2\2\2\177}\3\2\2\2\177\u0080\3"+
+		"\2\2\2\u0080\u0081\3\2\2\2\u0081\u0082\7\25\2\2\u0082\23\3\2\2\2\u0083"+
+		"\u0084\7&\2\2\u0084\u0085\7\b\2\2\u0085\u0086\7\24\2\2\u0086\u0087\5\22"+
+		"\n\2\u0087\u0088\5 \21\2\u0088\u0089\5\22\n\2\u0089\u008a\7\25\2\2\u008a"+
+		"\25\3\2\2\2\u008b\u008d\7\f\2\2\u008c\u008b\3\2\2\2\u008d\u008e\3\2\2"+
+		"\2\u008e\u008c\3\2\2\2\u008e\u008f\3\2\2\2\u008f\u0090\3\2\2\2\u0090\u0091"+
+		"\7%\2\2\u0091\u0098\5\26\f\2\u0092\u0094\7\f\2\2\u0093\u0092\3\2\2\2\u0094"+
+		"\u0095\3\2\2\2\u0095\u0093\3\2\2\2\u0095\u0096\3\2\2\2\u0096\u0098\3\2"+
+		"\2\2\u0097\u008c\3\2\2\2\u0097\u0093\3\2\2\2\u0098\27\3\2\2\2\u0099\u009a"+
+		"\7&\2\2\u009a\u009b\7\n\2\2\u009b\u009c\7\24\2\2\u009c\u009d\5\32\16\2"+
+		"\u009d\u009e\7\25\2\2\u009e\u009f\7\22\2\2\u009f\u00a0\5\4\3\2\u00a0\u00af"+
+		"\3\2\2\2\u00a1\u00a2\7&\2\2\u00a2\u00a3\7\n\2\2\u00a3\u00a4\7\24\2\2\u00a4"+
+		"\u00a5\5\32\16\2\u00a5\u00a6\7\25\2\2\u00a6\u00a7\7\22\2\2\u00a7\u00a8"+
+		"\5\4\3\2\u00a8\u00a9\7\23\2\2\u00a9\u00aa\7\13\2\2\u00aa\u00ab\7\22\2"+
+		"\2\u00ab\u00ac\5\4\3\2\u00ac\u00ad\7\23\2\2\u00ad\u00af\3\2\2\2\u00ae"+
+		"\u0099\3\2\2\2\u00ae\u00a1\3\2\2\2\u00af\31\3\2\2\2\u00b0\u00b5\5\f\7"+
+		"\2\u00b1\u00b5\5\16\b\2\u00b2\u00b5\5\24\13\2\u00b3\u00b5\5\34\17\2\u00b4"+
+		"\u00b0\3\2\2\2\u00b4\u00b1\3\2\2\2\u00b4\u00b2\3\2\2\2\u00b4\u00b3\3\2"+
+		"\2\2\u00b5\33\3\2\2\2\u00b6\u00b7\5\36\20\2\u00b7\u00b8\5\"\22\2\u00b8"+
+		"\u00b9\5\34\17\2\u00b9\u00bc\3\2\2\2\u00ba\u00bc\5\36\20\2\u00bb\u00b6"+
+		"\3\2\2\2\u00bb\u00ba\3\2\2\2\u00bc\35\3\2\2\2\u00bd\u00be\5*\26\2\u00be"+
+		"\u00bf\5 \21\2\u00bf\u00c0\5*\26\2\u00c0\37\3\2\2\2\u00c1\u00c2\t\2\2"+
+		"\2\u00c2!\3\2\2\2\u00c3\u00c4\t\3\2\2\u00c4#\3\2\2\2\u00c5\u00c6\5&\24"+
+		"\2\u00c6\u00c7\7\30\2\2\u00c7\u00c8\5(\25\2\u00c8%\3\2\2\2\u00c9\u00ca"+
+		"\7\32\2\2\u00ca\u00cb\5\62\32\2\u00cb\'\3\2\2\2\u00cc\u00cd\b\25\1\2\u00cd"+
+		"\u00ce\7\24\2\2\u00ce\u00cf\5(\25\2\u00cf\u00d0\7\25\2\2\u00d0\u00d3\3"+
+		"\2\2\2\u00d1\u00d3\5*\26\2\u00d2\u00cc\3\2\2\2\u00d2\u00d1\3\2\2\2\u00d3"+
+		"\u00de\3\2\2\2\u00d4\u00d5\f\6\2\2\u00d5\u00d6\5,\27\2\u00d6\u00d7\5("+
+		"\25\7\u00d7\u00dd\3\2\2\2\u00d8\u00d9\f\5\2\2\u00d9\u00da\5.\30\2\u00da"+
+		"\u00db\5(\25\6\u00db\u00dd\3\2\2\2\u00dc\u00d4\3\2\2\2\u00dc\u00d8\3\2"+
+		"\2\2\u00dd\u00e0\3\2\2\2\u00de\u00dc\3\2\2\2\u00de\u00df\3\2\2\2\u00df"+
+		")\3\2\2\2\u00e0\u00de\3\2\2\2\u00e1\u00e5\5&\24\2\u00e2\u00e5\5\60\31"+
+		"\2\u00e3\u00e5\5\22\n\2\u00e4\u00e1\3\2\2\2\u00e4\u00e2\3\2\2\2\u00e4"+
+		"\u00e3\3\2\2\2\u00e5+\3\2\2\2\u00e6\u00e7\t\4\2\2\u00e7-\3\2\2\2\u00e8"+
+		"\u00e9\t\5\2\2\u00e9/\3\2\2\2\u00ea\u00ec\7\f\2\2\u00eb\u00ea\3\2\2\2"+
+		"\u00ec\u00ed\3\2\2\2\u00ed\u00eb\3\2\2\2\u00ed\u00ee\3\2\2\2\u00ee\61"+
+		"\3\2\2\2\u00ef\u00f3\7\r\2\2\u00f0\u00f2\5\64\33\2\u00f1\u00f0\3\2\2\2"+
+		"\u00f2\u00f5\3\2\2\2\u00f3\u00f1\3\2\2\2\u00f3\u00f4\3\2\2\2\u00f4\63"+
+		"\3\2\2\2\u00f5\u00f3\3\2\2\2\u00f6\u00f7\t\6\2\2\u00f7\65\3\2\2\2\u00f8"+
+		"\u00f9\t\7\2\2\u00f9\67\3\2\2\2\u00fa\u00fc\7*\2\2\u00fb\u00fd\5:\36\2"+
+		"\u00fc\u00fb\3\2\2\2\u00fd\u00fe\3\2\2\2\u00fe\u00fc\3\2\2\2\u00fe\u00ff"+
+		"\3\2\2\2\u00ff\u0100\3\2\2\2\u0100\u0101\7*\2\2\u01019\3\2\2\2\u0102\u0103"+
+		"\t\b\2\2\u0103;\3\2\2\2\23E_m\177\u008e\u0095\u0097\u00ae\u00b4\u00bb"+
+		"\u00d2\u00dc\u00de\u00e4\u00ed\u00f3\u00fe";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
