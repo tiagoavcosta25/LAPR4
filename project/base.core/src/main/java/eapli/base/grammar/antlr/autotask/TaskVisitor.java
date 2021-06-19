@@ -6,8 +6,14 @@ import eapli.base.util.XmlFileReader;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,7 +93,21 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
 
     @Override
     public String visitExecFileSearch(AutoTaskParser.ExecFileSearchContext ctx) {
-        String path = ctx.fp.getText();
+        try {
+            File myObj = new File("file.xml");
+            Files.deleteIfExists(myObj.toPath());
+        } catch (IOException e) {
+            //Do nothing
+        }
+        try {
+            String s = m_oTicket.files().get(Integer.parseInt(ctx.fp.getText()) - 1).toString();
+            FileWriter myWriter = new FileWriter("file.xml");
+            myWriter.write(s);
+            myWriter.close();
+        } catch (IOException e) {
+            //Do nothing
+        }
+        String path = "file.xml";
         String expression = visit(ctx.search);
         String result;
         try {
@@ -107,7 +127,7 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
     public String visitExecSearchInFile(AutoTaskParser.ExecSearchInFileContext ctx) {
         StringBuilder sb = new StringBuilder();
         String searchBy = ctx.search_by.getText();
-        String searchValue = ctx.search_value.getText();
+        String searchValue = visit(ctx.search_value);
         String searchFor = ctx.search_for.getText();
         sb.append("[").append(searchBy).append("='").append(searchValue).append("']")
                 .append("/").append(searchFor).append("/text()");
@@ -157,6 +177,7 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
         if(areNotNumbers(strLeft, strRight)) {
             if(sign.equals("=="))
                 return String.valueOf(strLeft.equals(strRight));
+            return Boolean.FALSE.toString();
         }
         double intLeft = Double.parseDouble(strLeft);
         double intRight = Double.parseDouble(strRight);
@@ -294,5 +315,15 @@ public class TaskVisitor extends AutoTaskBaseVisitor<String> {
     @Override
     public String visitBodyObject(AutoTaskParser.BodyObjectContext ctx) {
         return visit(ctx.obj);
+    }
+
+    @Override
+    public String visitSearchKeyValue(AutoTaskParser.SearchKeyValueContext ctx) {
+        return ctx.key.getText();
+    }
+
+    @Override
+    public String visitSearchKeyVar(AutoTaskParser.SearchKeyVarContext ctx) {
+        return this.m_oMapVariables.get(ctx.var.getText().substring(1));
     }
 }
