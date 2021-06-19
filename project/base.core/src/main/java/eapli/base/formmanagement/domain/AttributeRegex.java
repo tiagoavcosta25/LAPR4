@@ -27,9 +27,9 @@ public class AttributeRegex implements ValueObject, Comparable<AttributeRegex> {
     private String m_strRegex;
 
     public AttributeRegex(final String strRegex) {
-        if (StringPredicates.isNullOrEmpty(strRegex)) {
+        if (strRegex == null) {
             throw new IllegalArgumentException(
-                    "Attribute Regex should neither be null nor empty and be a valid file path");
+                    "Attribute Regex should can not be null");
         }
         // expression
         this.m_strRegex = strRegex;
