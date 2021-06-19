@@ -1,6 +1,7 @@
 package eapli.base.persistence.impl.jpa;
 
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.taskmanagement.execution.domain.TaskExecutionStatus;
 import eapli.base.taskmanagement.specification.domain.TaskOrderFields;
 import eapli.base.ticketmanagement.domain.Ticket;
@@ -129,12 +130,24 @@ class JpaTicketRepository
         return Optional.ofNullable(q.getSingleResult());
     }
 
+    /*@Override
+    public Optional<Ticket> getTicketByTaskExec(Long lngId) {
+        final TypedQuery<Ticket> q = entityManager().createQuery(
+                "SELECT t FROM ActivityFluxExecution af JOIN af.m_lstFlux lst " +
+                        "INNER JOIN Ticket t ON t.m_oFluxExecution.id = af.id " +
+                        "INNER JOIN AutomaticTaskExecution ate ON ate.id = lst.id " +
+                        "INNER JOIN TaskExecution te ON te.id = ate.id " +
+                        "WHERE te.id =: lngId",
+                Ticket.class);
+        q.setParameter("lngId", lngId);
+        return Optional.ofNullable(q.getSingleResult());
+    }*/
+
     @Override
     public Optional<Ticket> getTicketByTaskExec(Long lngId) {
         final TypedQuery<Ticket> q = entityManager().createQuery(
-                "SELECT t FROM Ticket t INNER JOIN ActivityFluxExecution af ON t.m_oFluxExecution.id = af.id " +
-                        "JOIN af.m_lstFlux lst INNER JOIN AutomaticTaskExecution ate ON ate.id = lst.id " +
-                        "INNER JOIN TaskExecution te ON te.id =: lngId",
+                "SELECT t FROM Ticket t " +
+                        "WHERE t.id = '46'",
                 Ticket.class);
         q.setParameter("lngId", lngId);
         return Optional.ofNullable(q.getSingleResult());
