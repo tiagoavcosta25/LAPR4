@@ -142,20 +142,4 @@ class JpaTicketRepository
         q.setParameter("lngId", lngId);
         return Optional.ofNullable(q.getSingleResult());
     }
-
-    /*@Override
-    public Optional<Ticket> getTicketByTaskExec(Long lngId) {
-        final TypedQuery<Ticket> q = entityManager().createQuery(
-                "SELECT t FROM Ticket t " +
-                        "WHERE t.id =: lngId",
-                Ticket.class);
-        q.setParameter("lngId", lngId);
-        return Optional.ofNullable(q.getSingleResult());
-    }*/
-
-    public static void main(String[] args) {
-        TicketRepository m_oTicketRepo = PersistenceContext.repositories().tickets();
-        Optional<Ticket> t = m_oTicketRepo.getTicketByTaskExec(41L);
-        t.ifPresent(ticket -> System.out.println(ticket.id()));
-    }
 }

@@ -9,12 +9,15 @@ import eapli.base.formmanagement.domain.Form;
 import eapli.base.grammar.ScriptAlgorithms;
 import eapli.base.grammar.ScriptMode;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.net.SDP2021Code;
+import eapli.base.net.motorflux.ActivityFlowClient;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.servicemanagement.repositories.ServiceRepository;
 import eapli.base.ticketmanagement.domain.*;
 import eapli.base.ticketmanagement.repository.ResponseRepository;
 import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.base.util.Application;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
@@ -85,7 +88,12 @@ public class ServiceSolicitationController {
     }
 
     public Ticket saveTicket(Ticket oTicket){
-        return m_oTicketRepo.save(oTicket);
+        oTicket = m_oTicketRepo.save(oTicket);
+
+        ActivityFlowClient oClient = new ActivityFlowClient(Application.settings().getFluxServerIp());
+        oClient.retrieveInformation(oTicket.executionFlux().id().toString(), SDP2021Code.FLUX_CREATION_REQUEST.getCode());
+
+        return oTicket;
     }
 
 }

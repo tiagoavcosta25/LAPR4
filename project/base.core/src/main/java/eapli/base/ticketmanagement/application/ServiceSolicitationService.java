@@ -98,9 +98,6 @@ public class ServiceSolicitationService {
 
         oFlux = this.m_oFluxExecRepo.save(oFlux);
 
-        ActivityFlowClient oClient = new ActivityFlowClient(Application.settings().getFluxServerIp());
-        oClient.retrieveInformation(oFlux.id().toString(), SDP2021Code.FLUX_CREATION_REQUEST.getCode());
-
         return oFlux;
     }
 
@@ -117,7 +114,7 @@ public class ServiceSolicitationService {
     public Response createAndValidateResponse(Form oForm, List<String> lstAnswer) throws IOException {
         List<String> lstResp = new ArrayList<>(lstAnswer);
         Response oResponse = new Response(oForm, lstResp);
-        if(!ScriptAlgorithms.executeValidateForm(oResponse, ScriptMode.VISITOR)){
+        if(!ScriptAlgorithms.executeValidateForm(oResponse, ScriptMode.get(Application.settings().getScriptMode()))){
             throw new IOException();
         }
         return this.m_oRespRepo.save(oResponse);

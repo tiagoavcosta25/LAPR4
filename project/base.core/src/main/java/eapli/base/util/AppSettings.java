@@ -27,6 +27,7 @@ public class AppSettings {
     private static final String FLUX_SERVER_IP = "flux.server.ip";
     private static final String EXECUTE_SERVER_IP = "execute.server.ip";
     private static final String TCP_SERVER_PORT = "tcp.server.port";
+    private static final String SCRIPT_MODE = "script.mode";
 
     private final Properties applicationProperties = new Properties();
 
@@ -89,6 +90,10 @@ public class AppSettings {
 
     public int getTcpServerPort() {
         return Integer.parseInt(this.applicationProperties.getProperty(TCP_SERVER_PORT));
+    }
+
+    public int getScriptMode() {
+        return Integer.valueOf(this.applicationProperties.getProperty(SCRIPT_MODE));
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
