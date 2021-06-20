@@ -17,12 +17,12 @@ public class ImportCollaboratorCSV {
         CollaboratorSpecificationController controller = new CollaboratorSpecificationController();
         Set<Role> lstRoles = new HashSet<>();
 
-        File file = new File(".\\import_files\\" + strFileName);
+        File file = new File(System.getProperty("user.dir") + "\\import_files\\" + strFileName + ".txt");
         Scanner scFile = new Scanner(file);
 
         String line;
 
-            while (scFile.hasNextLine()) {
+        while (scFile.hasNextLine()) {
 
             line = scFile.nextLine();
 
@@ -54,7 +54,7 @@ public class ImportCollaboratorCSV {
             }
         }
 
-            scFile.close();
-            return true;
-}
+        scFile.close();
+        return true;
+    }
 }

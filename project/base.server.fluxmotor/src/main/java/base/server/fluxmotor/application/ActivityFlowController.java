@@ -1,6 +1,5 @@
 package base.server.fluxmotor.application;
 
-import base.server.fluxmotor.FCFSQueue;
 import base.server.fluxmotor.GenericQueue;
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.activityfluxmanagement.execution.repositories.ActivityFluxExecutionRepository;
@@ -14,6 +13,9 @@ import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
 import eapli.base.taskmanagement.execution.domain.TaskExecution;
 import eapli.base.taskmanagement.execution.repositories.ManualTaskExecutionRepository;
 import eapli.base.taskmanagement.execution.repositories.TaskExecutionRepository;
+import eapli.base.ticketmanagement.domain.Ticket;
+import eapli.base.ticketmanagement.domain.TicketStatus;
+import eapli.base.ticketmanagement.repository.TicketRepository;
 import eapli.base.util.Application;
 import eapli.framework.application.UseCaseController;
 
@@ -31,6 +33,7 @@ public class ActivityFlowController {
     private final ManualTaskExecutionRepository m_oMTERepo = PersistenceContext.repositories().manualTaskExec();
     private final FluxDataService m_oFluxDataService = new FluxDataService();
     private final CollaboratorRepository collabRepo = PersistenceContext.repositories().collaborators();
+    private final TicketRepository tRepo = PersistenceContext.repositories().tickets();
 
     public String prepareFluxData(String oUserName) {
         return m_oFluxDataService.prepareFluxData(oUserName);
@@ -51,7 +54,15 @@ public class ActivityFlowController {
             ActivityFluxExecution afe = oAfe.get();
             afe.advanceProgress();
             this.m_oAFERepo.save(afe);
-            if (afe.currentProgress().currentProgress() == -1) return "Finished activity flux";
+            if (afe.currentProgress().currentProgress() == -1) {
+                Optional<Ticket> oT = tRepo.getTicketFromFlux(fluxID);
+                if(oT.isPresent()) {
+                    Ticket t = oT.get();
+                    t.setStatus(TicketStatus.CLOSED);
+                    this.tRepo.save(t);
+                }
+                return "Finished activity flux";
+            }
             return String.valueOf(setExecuting(afe, FCFSQUEUE));
         }
         return "Invalid activity flux execution id";
@@ -64,8 +75,6 @@ public class ActivityFlowController {
             TaskExecution te;
             if (!oTe.isPresent()) return false;
             te = oTe.get();
-            m_oAFERepo.save(afe);
-            m_oTERepo.save(te);
             if (te.getClass().equals(AutomaticTaskExecution.class)) {
                 AutomaticTaskExecution ate = (AutomaticTaskExecution) te;
                 ActivityFlowClient afc = new ActivityFlowClient(EXECUTE_SERVER_IP);
@@ -75,8 +84,9 @@ public class ActivityFlowController {
                 advanceFluxData(afe.id(), FCFSQUEUE);
             } else {
                 if (te.getClass().equals(ManualTaskExecution.class)) {
-                    addManualTask(te.id(), FCFSQUEUE);
-                    advanceFluxData(afe.id(), FCFSQUEUE);
+                    ManualTaskExecution mte = (ManualTaskExecution) te;
+                    if(mte.getM_oCollaborator() == null)
+                        addManualTask(te.id(), FCFSQUEUE);
                 }
             }
             return true;
