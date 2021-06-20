@@ -63,8 +63,7 @@ class JpaTicketRepository
                         "INNER JOIN Ticket t ON t.m_oFluxExecution = afe.id " +
                         "INNER JOIN ManualTaskExecution mte ON mte.id = lst.id " +
                         "INNER JOIN TaskExecution te ON te.id = mte.id " +
-                        "WHERE mte.m_oCollaborator.m_oSystemUser.username =: uname AND te.m_oTaskStatus =: pending " +
-                        "AND afe.m_oProgress = mte.id",
+                        "WHERE mte.m_oCollaborator.m_oSystemUser.username =: uname AND te.m_oTaskStatus =: pending ",
                 Ticket.class);
         q.setParameter("pending", TaskExecutionStatus.PENDING);
         q.setParameter("uname", oUsername);
