@@ -20,7 +20,7 @@ import java.net.Socket;
  */
 public class ActivityFlowEngine{
     private static final Logger LOGGER = LogManager.getLogger(ActivityFlowEngine.class);
-    static final String TRUSTED_STORE = System.getProperty("user.dir") + "\\certificates\\flux_J.jks"; //application.properties
+    static final String TRUSTED_STORE = System.getProperty("user.dir") + "/certificates/flux_J.jks"; //application.properties
     static final String KEYSTORE_PASS = "forgotten"; //application.properties
 
     public void start(final int port, final boolean blocking) {
