@@ -1,0 +1,8 @@
+From: info@helpdesk.pt
+To: james@isep.ipp.pt
+
+Subject: Collaborator creation.
+
+Your collaborator was created with success.
+Username: james
+Password: q.vtVQ3GHWm€
