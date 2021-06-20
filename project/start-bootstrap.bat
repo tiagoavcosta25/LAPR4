@@ -1,0 +1,1 @@
+java -jar out\artifacts\base_app_bootstrap_jar\base.app.bootstrap.jar

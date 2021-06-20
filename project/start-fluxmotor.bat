@@ -1,0 +1,1 @@
+java -jar out\artifacts\base_server_fluxmotor_jar\base.server.fluxmotor.jar
