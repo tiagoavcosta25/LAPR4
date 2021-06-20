@@ -83,13 +83,19 @@ public class ActivityFluxExecution implements AggregateRoot<Long> {
     }
 
     public void advanceProgress() {
-        long nPr = this.m_oProgress.currentProgress() + 1;
+        int i = 0;
+        for(TaskExecution te : this.m_lstFlux) {
+            if(te.id().equals(this.progess().currentProgress())) {
+                break;
+            }
+            i++;
+        }
 
         // Finish
-        if(nPr > this.m_lstFlux.size()) this.m_oProgress = new ActivityFluxExecutionProgress(-1L);
+        if(i + 1 >= this.m_lstFlux.size()) this.m_oProgress = new ActivityFluxExecutionProgress(-1L);
 
             // Advance
-        else this.m_oProgress = new ActivityFluxExecutionProgress(nPr);
+        else this.m_oProgress = new ActivityFluxExecutionProgress(this.m_lstFlux.get(i + 1).id());
     }
 
     public boolean isFinished() {
