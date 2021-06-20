@@ -106,12 +106,6 @@ activate AFER
 AFER --> SRV : activityFluxExec
 deactivate AFER
 
-SRV -> AFC** : create(ip)
-
-SRV -> AFC : retrieveInformation(fluxId, code)
-activate AFC
-deactivate AFC
-
 <- SRV : activityFluxExec
 deactivate SRV
 
