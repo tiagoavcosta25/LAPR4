@@ -93,7 +93,7 @@ public class InMemoryTicketRepository
     }
 
     @Override
-    public Optional<Ticket> getTicketFromFlux(ActivityFluxExecution afe) {
+    public Optional<Ticket> getTicketFromFlux(Long afe) {
         return matchOne(ticket -> ticket.executionFlux().equals(afe));
     }
 

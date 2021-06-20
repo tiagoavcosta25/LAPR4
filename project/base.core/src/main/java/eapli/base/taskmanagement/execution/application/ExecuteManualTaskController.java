@@ -47,7 +47,7 @@ public class ExecuteManualTaskController {
         return mTaskExecRep.save(mTaskExecution);
     }
 
-    public Optional<Ticket> getTicketFromFlux(ActivityFluxExecution afe) {
+    public Optional<Ticket> getTicketFromFlux(Long afe) {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
         return mTicketRep.getTicketFromFlux(afe);
     }

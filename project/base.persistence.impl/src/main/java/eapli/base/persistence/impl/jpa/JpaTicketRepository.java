@@ -119,14 +119,15 @@ class JpaTicketRepository
     }
 
     @Override
-    public Optional<Ticket> getTicketFromFlux(ActivityFluxExecution afe) {
+    public Optional<Ticket> getTicketFromFlux(Long afeID) {
         final TypedQuery<Ticket> q = entityManager().createQuery(
                 "SELECT t FROM Ticket t " +
-                        "WHERE t.m_oFluxExecution =: afe",
+                        "WHERE t.m_oFluxExecution.id =: afe",
                 Ticket.class);
-        q.setParameter("afe", afe);
+        q.setParameter("afe", afeID);
         return Optional.ofNullable(q.getSingleResult());
     }
+
 
     @Override
     public Optional<Ticket> getTicketByTaskExec(Long lngId) {

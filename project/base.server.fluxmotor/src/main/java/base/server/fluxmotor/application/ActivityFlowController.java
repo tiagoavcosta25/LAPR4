@@ -17,6 +17,8 @@ import eapli.base.taskmanagement.execution.repositories.TaskExecutionRepository;
 import eapli.base.util.Application;
 import eapli.framework.application.UseCaseController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -64,8 +66,6 @@ public class ActivityFlowController {
             TaskExecution te;
             if (!oTe.isPresent()) return false;
             te = oTe.get();
-            m_oAFERepo.save(afe);
-            m_oTERepo.save(te);
             if (te.getClass().equals(AutomaticTaskExecution.class)) {
                 AutomaticTaskExecution ate = (AutomaticTaskExecution) te;
                 ActivityFlowClient afc = new ActivityFlowClient(EXECUTE_SERVER_IP);
@@ -75,8 +75,9 @@ public class ActivityFlowController {
                 advanceFluxData(afe.id(), FCFSQUEUE);
             } else {
                 if (te.getClass().equals(ManualTaskExecution.class)) {
-                    addManualTask(te.id(), FCFSQUEUE);
-                    advanceFluxData(afe.id(), FCFSQUEUE);
+                    ManualTaskExecution mte = (ManualTaskExecution) te;
+                    if(mte.getM_oCollaborator() == null)
+                        addManualTask(te.id(), FCFSQUEUE);
                 }
             }
             return true;

@@ -32,13 +32,19 @@ public class ExecuteManualTaskUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
+        ActivityFluxExecution af;
         try {
-            final ActivityFluxExecution af = selectActivityFlux();
+            af = selectActivityFlux();
+        } catch (Exception e) {
+            LOGGER.error("No pending tasks to execute!");
+            return false;
+        }
+        try {
             final ManualTaskExecution manualTask = selectManualTask(af);
             int id = Math.toIntExact(manualTask.identity());
             List<String> responses = new ArrayList<>();
             System.out.println("");
-            Optional<Ticket> oT = theController.getTicketFromFlux(af);
+            Optional<Ticket> oT = theController.getTicketFromFlux(af.id());
             oT.ifPresent(ticket -> System.out.println(ticket.detailedView()));
             System.out.println("Complete the form");
             System.out.println();
@@ -52,6 +58,7 @@ public class ExecuteManualTaskUI extends AbstractUI {
                 throw new Exception("Responses not valid");
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.executeTask(manualTask, rp, af);
+
                 LOGGER.info("Operation Successful. The Following Manual Task was executed successfully > id:" +
                         " {}\n\n", id);
             } else{
