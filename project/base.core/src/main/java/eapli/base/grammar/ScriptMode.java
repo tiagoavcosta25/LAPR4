@@ -35,4 +35,11 @@ public enum ScriptMode {
     public boolean equals(ScriptMode oMode){
         return this.getMode() == oMode.getMode();
     }
+
+    public static ScriptMode get(int intCode){
+        if(intCode == 0){
+            return ScriptMode.LISTENER;
+        }
+        return ScriptMode.VISITOR;
+    }
 }
