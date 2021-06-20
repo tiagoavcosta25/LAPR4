@@ -92,7 +92,7 @@ public class CollaboratorSpecificationUI extends AbstractUI {
 
                 if (strOp.compareToIgnoreCase("Y") == 0) {
                     Collaborator oCollaborator = this.theController.saveCollaborator();
-                    LOGGER.info("Operation Successful. The Following Collaborator was created successfully > %s\n\n", oCollaborator.shortName());
+                    LOGGER.info("Operation Successful. The Following Collaborator was created successfully > {}\n\n", oCollaborator.shortName());
                 } else {
                     LOGGER.info("Operation Cancelled.");
                 }
