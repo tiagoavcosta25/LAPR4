@@ -91,8 +91,7 @@ class JpaTicketRepository
                 .append("INNER JOIN Ticket t ON t.m_oFluxExecution = afe.id ")
                 .append("INNER JOIN ManualTaskExecution mte ON mte.id = lst.id ")
                 .append("INNER JOIN TaskExecution te ON te.id = mte.id ")
-                .append("WHERE mte.m_oCollaborator.m_oSystemUser.username =: uname AND te.m_oTaskStatus =: pending ")
-                .append("AND afe.m_oProgress = mte.id ");
+                .append("WHERE mte.m_oCollaborator.m_oSystemUser.username =: uname AND te.m_oTaskStatus =: pending ");
         switch(orderField) {
             case FINISHDATE:
                 query.append("ORDER BY t.m_oLimitDate");
