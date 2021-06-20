@@ -1,17 +1,18 @@
 package base.server.fluxmotor.domain;
 
+import base.server.fluxmotor.application.ActivityFlowController;
 import eapli.base.net.SDP2021;
 import eapli.base.net.SDP2021Code;
 import javafx.util.Pair;
-import base.server.fluxmotor.application.ActivityFlowController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
@@ -19,8 +20,14 @@ import java.net.Socket;
  */
 public class ActivityFlowEngine{
     private static final Logger LOGGER = LogManager.getLogger(ActivityFlowEngine.class);
+    static final String TRUSTED_STORE = System.getProperty("user.dir") + "\\certificates\\flux_J.jks"; //application.properties
+    static final String KEYSTORE_PASS = "forgotten"; //application.properties
 
     public void start(final int port, final boolean blocking) {
+        System.setProperty("javax.net.ssl.trustStore", TRUSTED_STORE);
+        System.setProperty("javax.net.ssl.trustStorePassword", KEYSTORE_PASS);
+        System.setProperty("javax.net.ssl.keyStore", TRUSTED_STORE);
+        System.setProperty("javax.net.ssl.keyStorePassword", KEYSTORE_PASS);
         if (blocking) {
             listen(port);
         } else {
@@ -29,7 +36,9 @@ public class ActivityFlowEngine{
     }
 
     private void listen(final int port) {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
+        SSLServerSocketFactory sslF = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+        try (SSLServerSocket serverSocket = (SSLServerSocket) sslF.createServerSocket(port)) {
+            serverSocket.setNeedClientAuth(true);
             while (true) {
                 final Socket clientSocket = serverSocket.accept();
                 final InetAddress clientIP = clientSocket.getInetAddress();
@@ -67,7 +76,7 @@ public class ActivityFlowEngine{
                 sdp2021Packet2Sent.send(out, "Goodbye");
                 clientSocket.close();
             } catch (IOException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
             } finally {
                 try {
                     clientSocket.close();
