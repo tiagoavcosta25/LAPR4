@@ -9,7 +9,9 @@ participant ":System" as SYST
 activate USER
 USER-> SYST : Initiates the request to check the pending task assigned to him
 activate SYST
-SYST --> USER: Asks if the user pretends to filter the search by the available fields
+
+SYST --> USER: Shows the list of tasks and asks if the user pretends\n to filter or order the list by the available fields
+
 deactivate SYST
 
 USER-> SYST : Responds
@@ -21,21 +23,13 @@ alt if the user pretends to filter the search by the available fields
 
     USER --> SYST: Selects the desired option
     activate SYST
-
-end alt
-
-SYST --> USER: Asks if the user pretends to organize the tasks by the avaiable fields
-deactivate SYST
-
-USER --> SYST: Responds
-activate SYST
-
-alt if the user pretends to order the search by the available fields
+else if the user pretends to order the search by the available fields
     SYST --> USER: Shows the options to order the search by
     deactivate SYST
 
     USER --> SYST: Selects the desired option
     activate SYST
+
 end alt
 
 SYST --> USER: Shows the pending tasks assigned to the user
