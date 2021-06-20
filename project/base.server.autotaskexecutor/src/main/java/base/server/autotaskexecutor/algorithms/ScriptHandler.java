@@ -9,6 +9,7 @@ import eapli.base.taskmanagement.execution.repositories.TaskExecutionRepository;
 import eapli.base.taskmanagement.specification.domain.AutomaticTaskScript;
 import eapli.base.ticketmanagement.domain.Ticket;
 import eapli.base.ticketmanagement.repository.TicketRepository;
+import eapli.base.util.Application;
 import javafx.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,7 +55,7 @@ public abstract class ScriptHandler extends Thread {
 
             Ticket oTicket = oOptionalTicket.get();
 
-            Boolean blnFLag = ScriptAlgorithms.executeAutoTask(oTicket, oPair.getValue().toString(), ScriptMode.VISITOR);
+            Boolean blnFLag = ScriptAlgorithms.executeAutoTask(oTicket, oPair.getValue().toString(), ScriptMode.get(Application.settings().getScriptMode()));
 
             oTask.setExecuted();
 
