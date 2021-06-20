@@ -36,6 +36,20 @@ package "Domain" #DDDDDD {
         +create(taskDescription, taskPriority, limitDate, form)
     }
 
+    class Ticket<<Entity>>{
+        - id
+        - urgency
+        - limitDate
+        - creationDate
+        - status
+        - collaborator
+        - service
+        - fluxExecution
+        - files
+        - response
+        +create(oUrgency, oLimitDate, oCreationDate, LilstResponse, oFluxExecution, lstFiles, oService, oCollaborator)
+    }
+
     class Collaborator<<Entity>><<Root>>{
         - mecanographicNumber
         - systemUser
@@ -86,17 +100,19 @@ package Persistence #DDDDDD {
 }
 
 package "Repository" #DDDDDD {
-    class TaskRepository<<repository>>{
+    class TicketRepository<<repository>>{
         +create()
         +findAll()
-        +getTasksOfCollaborator(collaborator)
-        +getTasksOfCollaborator(collaborator, filterBy)
-        +getTasksOfCollaborator(collaborator, orderBy)
-        +getTasksOfCollaborator(collaborator, filterBy, orderBy)
+        +getTicketHistory(final SystemUser oUser);
+        +getOnGoingTickets(oUser);
+        +getPendingManualTasksByTicket(oUsername);
+        +getPendingManualTasksByTicketOrdered(oUsername,orderField);
+        +getTicketFromFlux(afe);
+        +getTicketByTaskExec(lngId);
         +save(Task)
     }
 
-    interface TaskRepositoryInterface{
+    interface TicketRepositoryInterface{
 
     }
 }
@@ -105,7 +121,9 @@ package "Repository" #DDDDDD {
 ConsultAssignedPendingTasksUI ..> ConsultAssignedPendingTasksController
 ConsultAssignedPendingTasksController ..> PersistenceContext
 
-TaskRepository ..> TaskRepositoryInterface
+TicketRepository ..> TicketRepositoryInterface
+
+TicketRepository "1" -> "*" Ticket : saves
 
 AppSettings -> RepositoryFactory : creates
 PersistenceContext -> AppSettings : implements
