@@ -21,7 +21,7 @@ SRV -> SA : executeValidateForm(response, mode)
 activate SA
 
 ref over SA
-  US-2-3003_SD_ExecuteValidateForm
+  US-0-1007_SD_ExecuteValidateForm
 end ref
 
 SA --> SRV : flag

@@ -54,6 +54,9 @@ public class ManualTaskExecution extends TaskExecution{
     private ManualTask m_oManualTask;
 
     public ManualTaskExecution(final ManualTask oManualTask) {
+        if(oManualTask == null){
+            throw new IllegalArgumentException();
+        }
         this.m_oManualTask = oManualTask;
         super.setPending();
         super.setResult(TaskExecutionResult.NO_RESULT);

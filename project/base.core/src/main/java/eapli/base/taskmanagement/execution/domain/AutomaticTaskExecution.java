@@ -41,6 +41,9 @@ public class AutomaticTaskExecution extends TaskExecution{
     private AutomaticTask m_oAutomaticTask;
 
     public AutomaticTaskExecution(final AutomaticTask oAutomaticTask) {
+        if(oAutomaticTask == null){
+            throw new IllegalArgumentException();
+        }
         this.m_oAutomaticTask = oAutomaticTask;
         super.setPending();
         super.setResult(TaskExecutionResult.NO_RESULT);
