@@ -81,7 +81,7 @@ public class ServiceDraftTaskSpecificationUI extends AbstractUI {
             List<String> lstTaskTypes = new ArrayList<>(Arrays.asList("Manual Task", "Automatic Task"));
             strOp = PrintList.chooseOne(lstTaskTypes, "Choose the Type of Task for the Resolution Task", "Task Type");
 
-            String strDescription = Console.readLine("Task Description? >");
+            String strDescription = Console.readLine("Task Description >");
 
             TaskPriority oTaskPriority = PrintList.chooseOne(this.theController.showTaskPriorities(), "Choose a Priority for this Task", "Task Priority");
 
