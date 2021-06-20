@@ -14,6 +14,7 @@ database "<<repository>>\nResponseRepository" as RR
 participant "<<domain>>\nTicket" as T
 database "<<repository>>\nCollaboratorRepository" as COLLABR
 database "<<repository>>\nTicketRepository" as TR
+participant "<<domain>>\nActivityFlowClient" as AFC
 participant "<<persistence>>\nPersistenceContext" as PC
 participant "<<persistence>>\nAppSettings" as AS
 participant "<<factory>>\nRepositoryFactory" as RF
@@ -162,6 +163,12 @@ CTRL -> TR : save(ticket)
 activate TR
 TR --> CTRL : ticket
 deactivate TR
+
+CTRL -> AFC** : create(ip)
+
+CTRL -> AFC : retrieveInformation(fluxId, code)
+activate AFC
+deactivate AFC
 
 CTRL --> UI : ticket
 deactivate CTRL
