@@ -6,6 +6,8 @@ import eapli.base.util.Application;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.net.Socket;
 
@@ -17,14 +19,31 @@ public class ActivityFlowClient {
     private static final int TCP_PORT = Application.settings().getTcpServerPort();
     private static final String FLUX_SERVER_IP = Application.settings().getFluxServerIp();
     private static final String EXECUTE_SERVER_IP = Application.settings().getExecuteServerIp();
+    static final String TRUSTED_STORE = System.getProperty("user.dir") + "\\certificates\\client_J.jks"; //application.properties
+    static final String KEYSTORE_PASS = "forgotten"; //application.properties
 
-    private Socket clientSocket;
+
+    private SSLSocket clientSocket;
     private DataOutputStream out;
     private DataInputStream in;
     private final String ip;
 
+    public static void main(String[] args) {
+        ActivityFlowClient oActivityFlow = new ActivityFlowClient("127.0.0.1");
+
+        SDP2021 oProtocol = oActivityFlow.retrieveInformation("teste", SDP2021Code.TEST.getCode());
+
+        String strMessage = oProtocol.getData();
+
+        System.out.println(strMessage);
+    }
+
     public ActivityFlowClient(String serverIP) {
         this.ip = serverIP;
+        System.setProperty("javax.net.ssl.trustStore", TRUSTED_STORE);
+        System.setProperty("javax.net.ssl.trustStorePassword",KEYSTORE_PASS);
+        System.setProperty("javax.net.ssl.keyStore", TRUSTED_STORE);
+        System.setProperty("javax.net.ssl.keyStorePassword",KEYSTORE_PASS);
         startConnection();
     }
 
@@ -35,7 +54,9 @@ public class ActivityFlowClient {
 
     private void startConnection() {
         try {
-            clientSocket = new Socket(ip, TCP_PORT);
+            SSLSocketFactory sf = (SSLSocketFactory) SSLSocketFactory.getDefault();
+            clientSocket = (SSLSocket) sf.createSocket(ip, TCP_PORT);
+            clientSocket.startHandshake();
             out = new DataOutputStream(clientSocket.getOutputStream());
             in = new DataInputStream(clientSocket.getInputStream());
         } catch (Exception e) {
