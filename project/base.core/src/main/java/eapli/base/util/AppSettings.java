@@ -28,6 +28,7 @@ public class AppSettings {
     private static final String EXECUTE_SERVER_IP = "execute.server.ip";
     private static final String TCP_SERVER_PORT = "tcp.server.port";
     private static final String SCRIPT_MODE = "script.mode";
+    private static final String ALGORITHM = "algorithm";
 
     private final Properties applicationProperties = new Properties();
 
@@ -94,6 +95,9 @@ public class AppSettings {
 
     public int getScriptMode() {
         return Integer.valueOf(this.applicationProperties.getProperty(SCRIPT_MODE));
+    }
+    public int getAlgorithm() {
+        return Integer.parseInt(this.applicationProperties.getProperty(ALGORITHM));
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })

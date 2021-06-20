@@ -34,7 +34,7 @@ public class SDP2021 {
 
     //// NON-STATIC (INSTANCE) ELEMENTS
 
-    private final Integer version;
+    private Integer version;
     private Integer code;
     private Integer num_bytes;
     private String data;
@@ -51,8 +51,7 @@ public class SDP2021 {
         do {
             int tmpVersion = in.read();
             if(tmpVersion != VERSION) {
-                System.out.println("tmpVersion = " + tmpVersion + " VERSION = " + VERSION);
-                throw new IllegalArgumentException("Version different from protocol!");
+                return;
             }
             code = in.read();
             bytesToRead = in.read();

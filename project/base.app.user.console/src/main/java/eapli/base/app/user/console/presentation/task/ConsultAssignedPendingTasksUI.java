@@ -11,6 +11,9 @@ import eapli.framework.visitor.Visitor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
  */
@@ -57,6 +60,10 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
     @Override
     protected boolean doShow() {
         this.elements = theController.getTasksOfCollaborator();
+        List<Ticket> list = new ArrayList<>();
+        for(Ticket t : elements) {
+            list.add(t);
+        }
         super.doShow();
         if(!elements.iterator().hasNext()) return true;
         String strOp = Console.readLine("\n\nDo you wish to filter/Order this results? (Filter/Order/N) ");
@@ -125,7 +132,7 @@ public class ConsultAssignedPendingTasksUI extends AbstractListUI<Ticket> {
                 }
                 filters.deleteCharAt(filters.length() - 1);
                 break;
-            case "Priority":
+            case "PRIORITY":
                 Iterable<TicketUrgency> priorityFilters = this.theController.getPriorityFilters();
                 for(TicketUrgency tf : priorityFilters) {
                     filters.append(tf.toString()).append("/");

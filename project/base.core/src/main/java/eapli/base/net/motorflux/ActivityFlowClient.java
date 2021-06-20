@@ -28,16 +28,6 @@ public class ActivityFlowClient {
     private DataInputStream in;
     private final String ip;
 
-    public static void main(String[] args) {
-        ActivityFlowClient oActivityFlow = new ActivityFlowClient("127.0.0.1");
-
-        SDP2021 oProtocol = oActivityFlow.retrieveInformation("teste", SDP2021Code.TEST.getCode());
-
-        String strMessage = oProtocol.getData();
-
-        System.out.println(strMessage);
-    }
-
     public ActivityFlowClient(String serverIP) {
         this.ip = serverIP;
         System.setProperty("javax.net.ssl.trustStore", TRUSTED_STORE);

@@ -7,6 +7,7 @@ import eapli.base.taskmanagement.execution.repositories.ManualTaskExecutionRepos
 import eapli.framework.infrastructure.authz.domain.model.Username;
 
 import javax.persistence.TypedQuery;
+import java.util.Optional;
 
 /**
  * @author Tiago Costa 1191460@isep.ipp.pt
@@ -17,7 +18,7 @@ public class JpaManualTaskExecutionRepository extends HelpDeskJpaRepositoryBase<
         implements ManualTaskExecutionRepository {
 
     public JpaManualTaskExecutionRepository() {
-        super("m_lngID");
+        super("m_oID");
     }
 
     @Override
@@ -61,5 +62,30 @@ public class JpaManualTaskExecutionRepository extends HelpDeskJpaRepositoryBase<
         q.setParameter("pending", TaskExecutionStatus.PENDING);
         q.setParameter("uname", oUsername);
         return q.getResultList();
+    }
+
+    @Override
+    public Iterable<ManualTaskExecution> getUnassignedPendingTasks() {
+        final TypedQuery<ManualTaskExecution> q = entityManager().createQuery(
+                "SELECT distinct mte FROM ActivityFluxExecution afe JOIN afe.m_lstFlux lst " +
+                        "INNER JOIN TaskExecution te ON te.id = lst.id " +
+                        "INNER JOIN ManualTaskExecution mte ON mte.id = te.id " +
+                        "WHERE te.m_oTaskStatus =: pending AND afe.m_oProgress.m_LongProgress = mte.id " +
+                        "AND mte.m_oCollaborator.id = null",
+                ManualTaskExecution.class);
+        q.setParameter("pending", TaskExecutionStatus.PENDING);
+        return q.getResultList();
+    }
+
+    @Override
+    public Optional<ActivityFluxExecution> getFluxByManualTaskExec(Long lngTaskID) {
+        final TypedQuery<ActivityFluxExecution> q = entityManager().createQuery(
+                "SELECT distinct afe FROM ActivityFluxExecution afe JOIN afe.m_lstFlux lst " +
+                        "INNER JOIN TaskExecution te ON te.id = lst.id " +
+                        "INNER JOIN ManualTaskExecution mte ON mte.id = te.id " +
+                        "WHERE te.id =: tID",
+                ActivityFluxExecution.class);
+        q.setParameter("tID", lngTaskID);
+        return Optional.ofNullable(q.getSingleResult());
     }
 }

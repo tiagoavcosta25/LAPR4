@@ -1,6 +1,8 @@
 package eapli.base.taskmanagement.execution.application;
 
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
+import eapli.base.grammar.ScriptAlgorithms;
+import eapli.base.grammar.ScriptMode;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
 import eapli.base.taskmanagement.execution.repositories.ManualTaskExecutionRepository;
@@ -49,5 +51,11 @@ public class ExecuteManualTaskController {
         this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
         return mTicketRep.getTicketFromFlux(afe);
     }
+
+    public boolean verifyResponses(Response oResponse, ScriptMode oScriptMode) {
+        this.m_oAuthz.ensureAuthenticatedUserHasAnyOf(BaseRoles.COLLABORATOR);
+        return ScriptAlgorithms.executeValidateForm(oResponse, oScriptMode);
+    }
+
 
 }
