@@ -20,7 +20,7 @@ import javax.net.ssl.SSLServerSocketFactory;
 public class TCPServerAutoTaskExecutor {
     private static final Logger LOGGER = LogManager.getLogger(TCPServerAutoTaskExecutor.class);
     static SSLServerSocket sock;
-    static final String TRUSTED_STORE="server_J.jks";
+    static final String TRUSTED_STORE = System.getProperty("user.dir") + "/certificates/executor.jks";;
     static final String KEYSTORE_PASS="forgotten";
 
     public static void main(int intPort, int intThreads, AlgorithmMode oMode) throws Exception {
