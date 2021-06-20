@@ -115,7 +115,8 @@ public class CollaboratorSpecificationController {
                     strAddress, strPhoneCode, dblPhoneNumber, dtBirthDate);
 
             addRoles(lstRoles);
-            addManager(m_oCollaboratorRepo.findByMecanographicNumber(CollaboratorMechanographicNumber.valueOf(lngManager)).get());
+            Optional<Collaborator> oM = m_oCollaboratorRepo.findByMecanographicNumber(CollaboratorMechanographicNumber.valueOf(lngManager));
+            oM.ifPresent(this::addManager);
 
             saveCollaborator();
 
