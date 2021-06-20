@@ -123,13 +123,13 @@ public class ActivityFlowEngine{
                 sdp2021Packet2Sent.send(out, "Goodbye");
                 clientSocket.close();
             } catch (Exception e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             } finally {
                 try {
                     clientSocket.close();
                 } catch (final Exception e) {
                     LOGGER.error("While closing the client socket", e);
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }
         }
@@ -148,14 +148,12 @@ public class ActivityFlowEngine{
                     sendResponse(dataPacket, out);
                     break;
                 case 9:
-                    //TODO: TESTAR ROBUSTO
                     new Thread(() -> advanceFluxRequestHandler(sdp2021Packet)).start();
                     payload = "Advance flux request received for flux " + Long.valueOf(sdp2021Packet.getData());
                     dataPacket = new Pair<>(SDP2021Code.FLUX_ADVANCE_RESPONSE.getCode(), payload);
                     sendResponse(dataPacket, out);
                     break;
                 case 11:
-                    //TODO: TESTAR ROBUSTO
                     new Thread(() -> creationFluxRequestHandler(sdp2021Packet)).start();
                     payload = "Create flux request received for flux " + Long.valueOf(sdp2021Packet.getData());
                     dataPacket = new Pair<>(SDP2021Code.FLUX_CREATION_RESPONSE.getCode(), payload);
