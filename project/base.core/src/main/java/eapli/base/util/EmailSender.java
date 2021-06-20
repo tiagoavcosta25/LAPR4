@@ -17,7 +17,7 @@ public class EmailSender {
             oPrintWriter.println(strEmail);
             oPrintWriter.flush();
             oPrintWriter.close();
-            System.out.println("Email Sent to " + strReceiver + "!");
+            System.out.println("\n\nEmail Sent to " + strReceiver + "!\n\n Email Content: " + strContent +"\n");
         } catch (FileNotFoundException e){
             System.out.println("Email Error!");
         }

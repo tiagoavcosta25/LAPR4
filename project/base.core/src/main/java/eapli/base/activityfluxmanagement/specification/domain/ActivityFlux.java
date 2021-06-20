@@ -72,7 +72,7 @@ public class ActivityFlux implements AggregateRoot<Long> {
     public boolean taskIsApproval(Task task) {
         if(this.m_lstFlux.size() < 2) return false;
         if(!this.m_lstFlux.contains(task)) return false;
-        return this.m_lstFlux.indexOf(task) == 1;
+        return this.m_lstFlux.indexOf(task) == 0;
     }
 
     @Override
