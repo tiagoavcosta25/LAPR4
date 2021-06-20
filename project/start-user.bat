@@ -1,0 +1,1 @@
+java -jar out\artifacts\base_app_user_console_jar\base.app.user.console.jar

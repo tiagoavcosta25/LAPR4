@@ -1,0 +1,1 @@
+java -jar out\artifacts\base_app_backoffice_console_jar\base.app.backoffice.console.jar
