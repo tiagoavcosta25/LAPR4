@@ -4,6 +4,8 @@ package eapli.base.app.user.console.presentation.task;
 import eapli.base.activityfluxmanagement.execution.domain.ActivityFluxExecution;
 import eapli.base.activityfluxmanagement.specification.domain.ActivityFlux;
 import eapli.base.formmanagement.domain.Attribute;
+import eapli.base.grammar.ScriptAlgorithms;
+import eapli.base.grammar.ScriptMode;
 import eapli.base.servicemanagement.domain.Service;
 import eapli.base.taskmanagement.execution.application.ExecuteManualTaskController;
 import eapli.base.taskmanagement.execution.domain.ManualTaskExecution;
@@ -46,7 +48,8 @@ public class ExecuteManualTaskUI extends AbstractUI {
             }
             Response rp = new Response(manualTask.getM_oManualTask().form(), responses);
             String strOp = Console.readLine("Confirm the execution of task with code " + id + "? (Y/N) ");
-
+            if(!theController.verifyResponses(rp, ScriptMode.VISITOR))
+                throw new Exception("Responses not valid");
             if(strOp.compareToIgnoreCase("Y") == 0){
                 this.theController.executeTask(manualTask, rp, af);
                 LOGGER.info("Operation Successful. The Following Manual Task was executed successfully > id:" +

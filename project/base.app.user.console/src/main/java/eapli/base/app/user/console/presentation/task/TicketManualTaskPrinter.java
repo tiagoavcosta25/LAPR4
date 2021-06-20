@@ -20,8 +20,7 @@ public class TicketManualTaskPrinter implements Visitor<Ticket> {
     public ManualTaskExecution manualTaskToPrint(Ticket t) {
         for(TaskExecution te : t.executionFlux().flux()) {
             if (te.getClass().equals(ManualTaskExecution.class)) {
-                ManualTaskExecution mte = (ManualTaskExecution) te;
-                if (t.executionFlux().currentProgress().currentProgress().equals(mte.id())) return mte;
+                return (ManualTaskExecution) te;
             }
         }
         return null;
