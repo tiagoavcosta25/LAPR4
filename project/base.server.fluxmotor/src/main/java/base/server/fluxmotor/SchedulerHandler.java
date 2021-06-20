@@ -26,5 +26,25 @@ public class SchedulerHandler extends Thread{
         this.nThread = num;
     }
 
-
+    public void run() {
+        while (true) {
+            long number;
+            try {
+                number = schedulerQueue.removeFromQueue(nThread);
+                assignTask(number);
+            } catch (InterruptedException e) {
+                //do nothing
+            }
+        }
     }
+
+    private void assignTask(long number) {
+        LOGGER.info("Process with collab " + collab.id() + " assigned with task number " + number);
+        Optional<ManualTaskExecution> oMte = this.m_oMTERepo.findByID(number);
+        if(oMte.isPresent()) {
+            ManualTaskExecution mte = oMte.get();
+            mte.assignCollaborator(this.collab);
+            this.m_oMTERepo.save(mte);
+        }
+    }
+}
