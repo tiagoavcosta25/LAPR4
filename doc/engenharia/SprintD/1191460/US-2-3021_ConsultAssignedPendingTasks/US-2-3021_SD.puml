@@ -10,7 +10,7 @@ participant "<<aplication>>\nAuthzRegistry" as AUTHR
 participant "<<aplication>>\nAuthorizationService" as AUTH
 participant "<<domain>>\nTaskFilterFields" as TFF
 participant "<<domain>>\nTaskOrderFields" as TOF
-database "<<repository>>\nTaskRepository" as TR
+database "<<repository>>\nTicketRepository" as TR
 participant "<<persistence>>\nPersistenceContext"
 participant "<<persistence>>\nAppSettings"
 participant "<<factory>>\nRepositoryFactory"
@@ -22,6 +22,15 @@ participant "<<domain>>\nTaskPriority"
 participant "<<domain>>\nTaskResult"
 participant "<<domain>>\nCollaborator"
 participant "<<domain>>\nForm"
+participant "<<domain>>\nTicketUrgency"
+participant "<<domain>>\nTicketLimitDate"
+participant "<<domain>>\nTicketCreationDate"
+participant "<<domain>>\nTicketStatus"
+participant "<<domain>>\nService"
+participant "<<domain>>\nActivityFluxExecution"
+participant "<<domain>>\nTicketFile"
+participant "<<domain>>\nResponse"
+
 
 activate USER
 USER -> UI : Initiates the request to check the pending task assigned to him
@@ -39,6 +48,17 @@ activate AUTHR
 deactivate CTRL
 deactivate AUTHR
 
+
+    UI -> CTRL : getTasksOfCollaborator(collaborator)
+    activate CTRL
+    CTRL -> TR : getTasksOfCollaborator(collaborator)
+        activate TR
+        TR --> CTRL : pendingTaskList
+
+        deactivate TR
+        CTRL --> UI : pendingTaskList
+        deactivate CTRL
+        deactivate TR
 alt if the user pretends to filter the search by the available fields
     UI -> CTRL : getTaskFilterFields()
 
@@ -58,9 +78,7 @@ alt if the user pretends to filter the search by the available fields
     UI --> USER : Displays the available task filter fields
 
     USER -> UI : Selects the type of filter
-end alt
-
-alt if the user pretends to filter the search by the available fields
+else the user pretends to filter the search by the available fields
     UI -> CTRL : getTaskOrderFields()
 
     activate CTRL
