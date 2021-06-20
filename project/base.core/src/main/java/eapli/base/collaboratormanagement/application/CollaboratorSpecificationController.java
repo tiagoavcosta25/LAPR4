@@ -89,19 +89,17 @@ public class CollaboratorSpecificationController {
     }
 
     public Collaborator saveCollaborator() {
-        String m_strRawPassword = m_oRandomRawPassword.toString();
-        System.out.println("PASSWORD: " + m_strRawPassword);
         UserManagementService oUserService = AuthzRegistry.userService();
         String m_strUsername = this.m_strEmail.substring(0, this.m_strEmail.indexOf("@"));
         this.m_setRoles.add(BaseRoles.COLLABORATOR);
-        SystemUser oSystemUser = oUserService.registerNewUser(m_strUsername, m_strRawPassword, m_strFirstName,
+        SystemUser oSystemUser = oUserService.registerNewUser(m_strUsername, m_oRandomRawPassword.toString(), m_strFirstName,
                 m_strLastName, m_strEmail, this.m_setRoles);
         this.m_oCollaboratorBuilder = this.m_oCollaboratorBuilder.withSystemUser(oSystemUser);
         Collaborator oCollaborator = this.m_oCollaboratorBuilder.build();
         this.m_oCollaboratorRepo.save(oCollaborator);
         EmailSender.send("info@helpdesk.pt", m_strEmail, "Collaborator creation.", "Your collaborator was created with success.\n" +
                 "Username: " + m_strUsername + "\nPassword: "
-                + m_strRawPassword, m_strEmail);
+                + m_oRandomRawPassword, m_strEmail);
         return oCollaborator;
     }
 
