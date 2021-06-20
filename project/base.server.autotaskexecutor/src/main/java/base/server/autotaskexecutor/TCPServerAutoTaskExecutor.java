@@ -9,9 +9,7 @@ import base.server.autotaskexecutor.algorithms.scheduler.ScriptQueueScheduler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
-import javax.net.ServerSocketFactory;
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 
@@ -21,20 +19,20 @@ import javax.net.ssl.SSLServerSocketFactory;
  */
 public class TCPServerAutoTaskExecutor {
     private static final Logger LOGGER = LogManager.getLogger(TCPServerAutoTaskExecutor.class);
-    static ServerSocket sock;
+    static SSLServerSocket sock;
     static final String TRUSTED_STORE="server_J.jks";
     static final String KEYSTORE_PASS="forgotten";
 
     public static void main(int intPort, int intThreads, AlgorithmMode oMode) throws Exception {
         Socket cliSock;
 
-        /*System.setProperty("javax.net.ssl.trustStore", TRUSTED_STORE);
+        System.setProperty("javax.net.ssl.trustStore", TRUSTED_STORE);
         System.setProperty("javax.net.ssl.trustStorePassword",KEYSTORE_PASS);
 
         System.setProperty("javax.net.ssl.keyStore",TRUSTED_STORE);
         System.setProperty("javax.net.ssl.keyStorePassword",KEYSTORE_PASS);
 
-        ServerSocketFactory sslF = ServerSocketFactory.getDefault();*/
+        SSLServerSocketFactory sslF = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 
 
         ScriptQueue oQueue;
@@ -64,7 +62,8 @@ public class TCPServerAutoTaskExecutor {
         }
 
         try {
-            sock = new ServerSocket(intPort);
+            sock = (SSLServerSocket) sslF.createServerSocket(intPort);
+            sock.setNeedClientAuth(true);
         }
         catch(IOException ex) {
             LOGGER.error("Server failed to open local port " + intPort);
