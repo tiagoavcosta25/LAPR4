@@ -1,0 +1,27 @@
+#!/bin/bash
+STOREPASS="forgotten"
+for ENT in dashboard_J client_J flux_J executor_J; do
+ rm -f ${ENT}.jks ${ENT}.pem
+ echo -e "${ENT}\nDEI\nISEP\nPORTO\nPORTO\nPT\nyes" | keytool -genkey -v -alias ${ENT} -keyalg RSA -keysize 2048 \
+	-validity 365 -keystore ${ENT}.jks -storepass ${STOREPASS}
+ keytool -exportcert -alias ${ENT} -keystore ${ENT}.jks -storepass ${STOREPASS} -rfc -file ${ENT}.pem
+done
+####
+echo "Creating trust relations"
+### IMPORTING TRUSTED CERTIFICATES
+### (Client and flux trust eachother)
+echo "yes"|keytool -import -alias client_J -keystore flux_J.jks -file client_J.pem -storepass ${STOREPASS}
+echo "yes"|keytool -import -alias flux_J -keystore client_J.jks -file flux_J.pem -storepass ${STOREPASS}
+####
+####
+### (Flux and executor trust eachother)
+echo "yes"|keytool -import -alias flux_J -keystore executor_J.jks -file flux_J.pem -storepass ${STOREPASS}
+echo "yes"|keytool -import -alias executor_J -keystore flux_J.jks -file executor_J.pem -storepass ${STOREPASS}
+####
+####
+### (Dashboard and flux trust eachother)
+echo "yes"|keytool -import -alias dashboard_J -keystore flux_J.jks -file dashboard_J.pem -storepass ${STOREPASS}
+echo "yes"|keytool -import -alias flux_J -keystore dashboard_J.jks -file flux_J.pem -storepass ${STOREPASS}
+echo "############################################################################"
+echo "############################################################################"
+#######
