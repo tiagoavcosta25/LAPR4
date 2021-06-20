@@ -68,4 +68,33 @@ public class InMemoryManualTaskExecutionRepository extends InMemoryDomainReposit
         }
         return lst;
     }
+
+    @Override
+    public Iterable<ManualTaskExecution> getUnassignedPendingTasks() {
+        ActivityFluxExecutionRepository imAFErepo = PersistenceContext.repositories().fluxExecs();
+        List<ManualTaskExecution> lst = new ArrayList<>();
+        for (ActivityFluxExecution tmp : imAFErepo.findAll()) {
+            for (TaskExecution te : tmp.flux()) {
+                if (te.getClass().equals(ManualTaskExecution.class) && te.id().equals(tmp.currentProgress().currentProgress())) {
+                    lst.add((ManualTaskExecution) te);
+                }
+            }
+        }
+        return lst;
+    }
+
+    @Override
+    public Optional<ActivityFluxExecution> getFluxByManualTaskExec(Long lngTaskID) {
+        ActivityFluxExecutionRepository imAFErepo = PersistenceContext.repositories().fluxExecs();
+        List<ManualTaskExecution> lst = new ArrayList<>();
+        Optional<ActivityFluxExecution> pAfe = null;
+        for (ActivityFluxExecution tmp : imAFErepo.findAll()) {
+            for (TaskExecution te : tmp.flux()) {
+                if (te.id().equals(lngTaskID)) {
+                    return Optional.of(tmp);
+                }
+            }
+        }
+        return pAfe;
+    }
 }
