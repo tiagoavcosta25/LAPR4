@@ -42,6 +42,23 @@ public class SchedulerQueue implements GenericQueue {
         }
     }
 
+    public synchronized LinkedList<Long> getQueue(Integer intThreadNum) {
+        return this.m_lstQueues.get(intThreadNum);
+    }
 
+    public synchronized Integer getSize(Integer intThreadNum) { return this.m_lstQueues.get(intThreadNum).size(); }
 
+    public synchronized Boolean isEmpty(Integer intThreadNum) { return this.m_lstQueues.get(intThreadNum).isEmpty(); }
+
+    public Long removeFromQueue(Integer intThreadNum) throws InterruptedException {
+        if(isEmpty(intThreadNum)){
+            synchronized (this.m_lstLocks.get(intThreadNum)){
+                this.m_lstLocks.get(intThreadNum).wait();
+            }
+        }
+        Long number = getQueue(intThreadNum).getFirst();
+        this.m_lstQueues.get(intThreadNum).remove(number);
+        return number;
+    }
+    
 }
